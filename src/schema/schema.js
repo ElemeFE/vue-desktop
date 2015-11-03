@@ -4,7 +4,7 @@ var doValidate = function(object, property, rule) {
   var validateFn = validatorFnMap[rule.type];
   if (typeof validateFn === 'function') {
     if (!validateFn(object[property], rule)) {
-      object.$hints[property] = rule.errorMessage;
+      object.$hints[property] = rule.message;
       object.$hintTypes[property] = 'error';
 
       return false;
@@ -87,7 +87,7 @@ class Schema {
     var required = propDefinition.required;
 
     if (required) {
-      if (!doValidate(object, property, { type: 'required' })) {
+      if (!doValidate(object, property, { type: 'required', message: propDefinition.message })) {
         return false;
       }
     }

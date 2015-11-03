@@ -8,7 +8,6 @@
         <i class='iconfont' :class="{ 'icon-formfield-error': isError, 'icon-formfield-warning': !isError }"></i>{{ hintMessage }}
       </div>
     </div>
-    <!--<button @click="toggleError()">Toggle Error</button>-->
   </div>
 </template>
 
@@ -98,7 +97,7 @@
 </style>
 
 <script type="text/ecmascript-6">
-  var FormModel = require('./form-model');
+  var SchemaStore = require('../schema/store');
 
   export default {
     props: {
@@ -139,11 +138,14 @@
     methods: {
       validate() {
         var model = this.model;
-        if (model && !model.$validate) {
-          FormModel(model);
-          model.$validators = this.schema || {};
+        var schema = this.schema;
+        if (typeof schema === 'string') {
+          schema = this.schema = SchemaStore.getSchema(schema);
         }
-        model.$validateProperty(this.property);
+
+        if (schema) {
+          schema.$validateProperty(model, this.property);
+        }
 
         this.isError = model.$hintTypes[this.property] === 'error';
         this.hintMessage = model.$hints[this.property];

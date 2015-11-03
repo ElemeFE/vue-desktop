@@ -4,6 +4,10 @@ var Schema = require('./schema');
 var validators = require('./validators');
 
 export default {
+  getSchema(name) {
+    return store[name];
+  },
+
   defineSchema(name, config) {
     if (typeof name !== 'string') {
       throw new Error('name is required when define a schema.');
