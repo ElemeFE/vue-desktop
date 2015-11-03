@@ -1,16 +1,25 @@
 require('./css/iconfont.css');
+require('./css/font-awesome.css');
 
 var Vue = require('vue');
 
 Vue.config.debug = true;
 
 import Dialog from './basic/dialog.vue'
+import DButton from './basic/button.vue'
+import DButtonGroup from './basic/button-group.vue'
 
 Vue.component('Dialog', Dialog);
+Vue.component('DButton', DButton);
+Vue.component('DButtonGroup', DButtonGroup);
 
+import Accordion from './nav/accordion.vue'
+import AccordionPanel from './nav/accordion-panel.vue'
 import Tab from './nav/tab.vue'
 import Tabs from './nav/tabs.vue'
 
+Vue.component('Accordion', Accordion);
+Vue.component('AccordionPanel', AccordionPanel);
 Vue.component('Tab', Tab);
 Vue.component('Tabs', Tabs);
 
