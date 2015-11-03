@@ -27,6 +27,7 @@
     height: 100%;
     padding: 12px;
     box-sizing: border-box;
+    overflow: auto;
   }
 
   .demolist {
@@ -63,10 +64,13 @@
     <div class="demoheader">Basic</div>
     <ul class="demolist">
       <li><a v-link="{ path: '/dialog' }">Dialog</a></li>
+      <li><a v-link="{ path: '/icon' }">Icon</a></li>
+      <li><a v-link="{ path: '/button' }">Button</a></li>
     </ul>
     <div class="demoheader">Nav</div>
     <ul class="demolist">
       <li><a v-link="{ path: '/tabs' }">Tabs</a></li>
+      <li><a v-link="{ path: '/accordion' }">Accordion</a></li>
     </ul>
     <div class="demoheader">Form</div>
     <ul class="demolist">

@@ -10,6 +10,12 @@ var router = new VueRouter();
 router.map({
   '/dialog': {
     component: require('./basic/dialog.vue')
+  },
+  '/icon': {
+    component: require('./basic/icon.vue')
+  },
+  '/button': {
+    component: require('./basic/button.vue')
   }
 });
 
@@ -39,6 +45,9 @@ router.map({
 router.map({
   '/tabs': {
     component: require('./nav/tabs.vue')
+  },
+  '/accordion': {
+    component: require('./nav/accordion.vue')
   }
 });
 
