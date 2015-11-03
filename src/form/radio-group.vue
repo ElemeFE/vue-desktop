@@ -5,13 +5,11 @@
 </style>
 
 <template>
-  <div class="radio-group">
-    <slot></slot>
-  </div>
+  <div class="radio-group"><slot></slot></div>
 </template>
 
 <script type="text/ecmascript-6">
-  let idSeed = 1;
+  var idSeed = 1;
   const prefix = 'radio-group-';
 
   var syncValue = (group, value) => {
@@ -26,14 +24,17 @@
 
   export default {
     props: [ 'value' ],
+
     watch: {
       value(val) {
         syncValue(this, val);
       }
     },
+
     compiled() {
       this.$radioName = prefix + idSeed++;
     },
+
     ready() {
       var value = this.value;
       if (typeof value !== 'undefined') {

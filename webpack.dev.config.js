@@ -5,7 +5,8 @@ var vue = require('vue-loader');
 
 module.exports = {
   entry: {
-    example: './examples/index.js'
+    example: './examples/index.js',
+    test: './test/index.js'
   },
   output: {
     publicPath: '/dist/',

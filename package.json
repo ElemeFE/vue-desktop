@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
-    "build": "webpack --config webpack.build.config.js"
+    "build": "webpack --config webpack.build.config.js",
+    "test": "mocha -r chai -r sinon test/index.js",
+    "coverage": "istanbul cover _mocha -- -r chai -r sinon -R spec test/index.js & open ./coverage/lcov-report/index.html"
   },
   "dependencies": {
     "vue": "1.0.1",
@@ -27,7 +29,12 @@
     "vue-loader": "^4.0.2",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.0",
-    "wind-dom": "0.0.3"
+    "wind-dom": "0.0.3",
+    "chai": "^3.3.0",
+    "chai-as-promised": "^5.1.0",
+    "mocha": "^2.3.3",
+    "sinon": "^1.17.1",
+    "sinon-chai": "^2.8.0"
   },
   "author": "long.zhang@ele.me",
   "license": "MIT"
