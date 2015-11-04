@@ -67,6 +67,7 @@
       <li><a v-link="{ path: '/dialog' }">Dialog</a></li>
       <li><a v-link="{ path: '/icon' }">Icon</a></li>
       <li><a v-link="{ path: '/button' }">Button</a></li>
+      <li><a v-link="{ path: '/progress-bar' }">ProgressBar</a></li>
     </ul>
     <div class="demoheader">Nav</div>
     <ul class="demolist">
