@@ -1,5 +1,7 @@
 var validatorFnMap = require('./validators');
 
+var Vue = require('../config');
+
 var getMessage = function(key, options) {
   var result = Vue.prototype.$t.call(null, key, options);
   if (result === key) {
@@ -8,8 +10,6 @@ var getMessage = function(key, options) {
 
   return result;
 };
-
-var Vue = require('../config');
 
 var doValidate = function(object, property, propDefinition, rule) {
   var type = rule.type;
@@ -59,6 +59,25 @@ class Schema {
         }
         result[prop] = defaultValue;
       }
+    }
+
+    return result;
+  }
+
+  $getPropertyMapping(property) {
+    var propDefinition = this.props[property];
+    var mapping = propDefinition.mapping;
+    var result = mapping;
+
+    if (mapping instanceof Array) {
+      result = {};
+
+      for (var i = 0, j = mapping.length; i < j; i++) {
+        var config = mapping[i];
+        result[config.name || config.label] = config.value;
+      }
+    } else if (typeof mapping === 'function') {
+      result = mapping();
     }
 
     return result;

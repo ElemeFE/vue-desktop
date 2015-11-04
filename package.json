@@ -10,7 +10,7 @@
     "coverage": "istanbul cover _mocha -- -r chai -r sinon -R spec test/index.js & open ./coverage/lcov-report/index.html"
   },
   "dependencies": {
-    "vue": "1.0.1",
+    "vue": "^1.0.4",
     "vue-i18n": "^2.2.0",
     "vue-router": "0.7.4"
   },

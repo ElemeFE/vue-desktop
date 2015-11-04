@@ -20,8 +20,10 @@
     var children = group.$children;
 
     children.forEach(function(child) {
-      if (child.value == value) {
-        child.$els.editor.checked = true;
+      if (child.value !== undefined && child.value == value) {
+        if (child.$els.editor) {
+          child.$els.editor.checked = true;
+        }
       }
     });
   };

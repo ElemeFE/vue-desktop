@@ -3,7 +3,7 @@
     <label>{{ label || '' }}</label>
     <div>
       <slot></slot>
-      <div class="d-textfield-hint">
+      <div class="d-field-hint">
         <i class='iconfont' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
@@ -13,18 +13,26 @@
 <style>
   .d-field {
     position: relative;
+    overflow: hidden;
+    display: table;
   }
 
   .d-field > label {
+    display: table-cell;
     float: left;
-    display: inline-block;
     width: 120px;
     height: 30px;
     font-size: 14px;
-    margin-right: 20px;
+    margin-right: 10px;
     line-height: 30px;
     text-align: right;
     color: #666;
+  }
+
+  .d-field > div {
+    display: table-cell;
+    width: 100%;
+    vertical-align: top;
   }
 
   .d-field.validate-error input {
@@ -37,8 +45,8 @@
 
   .d-field-hint {
     font-size: 12px;
-    line-height: 20px;
-    bottom: 5px;
+    line-height: 16px;
+    height: 16px;
   }
 
   .d-field-hint .icon-formfield-error {
