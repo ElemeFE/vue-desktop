@@ -17,11 +17,14 @@ router.map({
   '/button': {
     component: require('./basic/button.vue')
   },
-  '/progressbar': {
+  '/progress-bar': {
     component: require('./basic/progress-bar.vue')
   },
   '/alert': {
     component: require('./basic/alert.vue')
+  },
+  '/slider': {
+    component: require('./basic/slider.vue')
   }
 });
 
