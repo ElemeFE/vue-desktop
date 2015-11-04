@@ -115,7 +115,13 @@
       <table :class="{ hidden: currentView !== 'date' }" @click="handleDateTableClick">
         <tbody>
           <tr>
-            <th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th>
+            <th>{{ $t('datepicker.weeks.mon') }}</th>
+            <th>{{ $t('datepicker.weeks.tue') }}</th>
+            <th>{{ $t('datepicker.weeks.wed') }}</th>
+            <th>{{ $t('datepicker.weeks.thu') }}</th>
+            <th>{{ $t('datepicker.weeks.fri') }}</th>
+            <th>{{ $t('datepicker.weeks.sat') }}</th>
+            <th>{{ $t('datepicker.weeks.sun') }}</th>
           </tr>
           <tr v-for="row in 6">
             <td v-for="column in 7" class="{{ cells[row * 7 + column].type }}" :class="{ current: cells[row * 7 + column].type === 'normal' && monthDate == cells[row * 7 + column].text }">{{ cells[row * 7 + column].text }}</td>
@@ -151,31 +157,31 @@
       <table @click="handleMonthTableClick" class="datepicker-monthtable" :class="{ hidden: currentView !== 'month' }">
         <tbody>
           <tr>
-            <td :class="{ current: month === 1 }">1月</td>
-            <td :class="{ current: month === 2 }">2月</td>
-            <td :class="{ current: month === 3 }">3月</td>
+            <td :class="{ current: month === 1 }">{{ $t('datepicker.months.jan') }}</td>
+            <td :class="{ current: month === 2 }">{{ $t('datepicker.months.feb') }}</td>
+            <td :class="{ current: month === 3 }">{{ $t('datepicker.months.mar') }}</td>
           </tr>
           <tr>
-            <td :class="{ current: month === 4 }">4月</td>
-            <td :class="{ current: month === 5 }">5月</td>
-            <td :class="{ current: month === 6 }">6月</td>
+            <td :class="{ current: month === 4 }">{{ $t('datepicker.months.apr') }}</td>
+            <td :class="{ current: month === 5 }">{{ $t('datepicker.months.may') }}</td>
+            <td :class="{ current: month === 6 }">{{ $t('datepicker.months.jun') }}</td>
           </tr>
           <tr>
-            <td :class="{ current: month === 7 }">7月</td>
-            <td :class="{ current: month === 8 }">8月</td>
-            <td :class="{ current: month === 9 }">9月</td>
+            <td :class="{ current: month === 7 }">{{ $t('datepicker.months.jul') }}</td>
+            <td :class="{ current: month === 8 }">{{ $t('datepicker.months.aug') }}</td>
+            <td :class="{ current: month === 9 }">{{ $t('datepicker.months.sep') }}</td>
           </tr>
           <tr>
-            <td :class="{ current: month === 10 }">10月</td>
-            <td :class="{ current: month === 11 }">11月</td>
-            <td :class="{ current: month === 12 }">12月</td>
+            <td :class="{ current: month === 10 }">{{ $t('datepicker.months.oct') }}</td>
+            <td :class="{ current: month === 11 }">{{ $t('datepicker.months.nov') }}</td>
+            <td :class="{ current: month === 12 }">{{ $t('datepicker.months.dec') }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <div class="datepicker-footer" :class="{ hidden: currentView !== 'date' }">
-      <button class="datepicker-todaybtn" @click="changeToToday">Today</button>
+      <button class="datepicker-todaybtn" @click="changeToToday">{{ $t('datepicker.today') }}</button>
     </div>
   </div>
 </template>

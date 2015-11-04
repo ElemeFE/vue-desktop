@@ -1,5 +1,5 @@
 <template>
-  <date-picker></date-picker>
+  <d-date-picker></d-date-picker>
 </template>
 
 <script type="text/ecmascript-6">

@@ -21,7 +21,7 @@
 
     children.forEach(function(child) {
       if (child.value == value) {
-        child.$el.querySelector('input').checked = true;
+        child.$els.editor.checked = true;
       }
     });
   };
