@@ -1,10 +1,26 @@
 var validatorFnMap = require('./validators');
 
-var doValidate = function(object, property, rule) {
-  var validateFn = validatorFnMap[rule.type];
+var getMessage = function(key, options) {
+  var result = Vue.prototype.$t.call(null, key, options);
+  if (result === key) {
+    result = '';
+  }
+
+  return result;
+};
+
+var Vue = require('../config');
+
+var doValidate = function(object, property, propDefinition, rule) {
+  var type = rule.type;
+  var validateFn = validatorFnMap[type];
   if (typeof validateFn === 'function') {
     if (!validateFn(object[property], rule)) {
-      object.$hints[property] = rule.message;
+      var message = rule.message;
+      if (!message) {
+        message = getMessage('validator.' + type, { label: propDefinition.label || property });
+      }
+      object.$hints[property] = message;
       object.$hintTypes[property] = 'error';
 
       return false;
@@ -87,7 +103,7 @@ class Schema {
     var required = propDefinition.required;
 
     if (required) {
-      if (!doValidate(object, property, { type: 'required', message: propDefinition.message })) {
+      if (!doValidate(object, property, propDefinition, { type: 'required', message: propDefinition.message })) {
         return false;
       }
     }
@@ -96,12 +112,12 @@ class Schema {
     if (rules instanceof Array) {
       for (var i = 0, j = rules.length; i < j; i++) {
         var rule = rules[i];
-        if (!doValidate(object, property, rule)) {
+        if (!doValidate(object, property, propDefinition, rule)) {
           return false;
         }
       }
     } else if (rules) {
-      if (!doValidate(object, property, rules)) return false;
+      if (!doValidate(object, property, propDefinition, rules)) return false;
     }
 
     object.$hints[property] = '';

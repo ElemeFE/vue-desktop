@@ -1,4 +1,9 @@
 export default {
+  validator: {
+    required: 'Field {label} is required.',
+    pattern: 'Field {label}\'s format is not correct.',
+    length: 'Field {label}\'s length is not correct.'
+  },
   datepicker: {
     today: 'Today',
     weeks: {

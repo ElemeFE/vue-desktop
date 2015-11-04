@@ -31,12 +31,10 @@
 
   SchemaStore.defineSchema('Team', {
     teamName: {
-      required: true,
-      message: '请填写团队名称'
+      required: true
     },
     nickname: {
-      required: true,
-      message: '请填写昵称'
+      required: true
     },
     sex: {},
     category: {}

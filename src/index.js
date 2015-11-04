@@ -1,17 +1,7 @@
 require('./css/iconfont.css');
 require('./css/font-awesome.css');
 
-var Vue = require('vue');
-var i18n = require('vue-i18n');
-
-Vue.use(i18n, {
-  lang: 'zh',
-  locales: require('./locales')
-});
-
-console.log(require('./locales'));
-
-Vue.config.debug = true;
+import Vue from './config';
 
 import Alert from './basic/alert.vue'
 import Dialog from './basic/dialog.vue'
