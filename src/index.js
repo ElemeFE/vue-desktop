@@ -9,11 +9,13 @@ import Alert from './basic/alert.vue'
 import Dialog from './basic/dialog.vue'
 import DButton from './basic/button.vue'
 import DButtonGroup from './basic/button-group.vue'
+import ProgressBar from './basic/progress-bar.vue'
 
 Vue.component('Alert', Alert);
 Vue.component('Dialog', Dialog);
 Vue.component('DButton', DButton);
 Vue.component('DButtonGroup', DButtonGroup);
+Vue.component('ProgressBar', ProgressBar);
 
 import Accordion from './nav/accordion.vue'
 import AccordionPanel from './nav/accordion-panel.vue'

@@ -17,6 +17,9 @@ router.map({
   '/button': {
     component: require('./basic/button.vue')
   },
+  '/progressbar': {
+    component: require('./basic/progress-bar.vue')
+  },
   '/alert': {
     component: require('./basic/alert.vue')
   }
