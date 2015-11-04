@@ -1,11 +1,15 @@
 <style>
-  .radio-group input[type="radio"] {
+  .d-radio-group input[type="radio"] {
     display: inline-block;
+  }
+
+  .d-radio-group label {
+    vertical-align: text-bottom;
   }
 </style>
 
 <template>
-  <div class="radio-group"><slot></slot></div>
+  <div class="d-radio-group"><slot></slot></div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -28,6 +32,12 @@
     watch: {
       value(val) {
         syncValue(this, val);
+      }
+    },
+
+    methods: {
+      $setValue(value) {
+        this.value = value;
       }
     },
 

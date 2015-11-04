@@ -1,7 +1,7 @@
 <template>
   <span class="d-text-editor {{size}}">
-    <input type="text" v-el:editor placeholder="{{placeholder}}" readonly="{{readonly}}"/>
-    <!--<span @click="showSelect()">X</span>-->
+    <editor v-ref:editor></editor>
+    <!--<span @click="showDatePicker()">X</span>-->
   </span>
 </template>
 
@@ -10,20 +10,52 @@
     position: relative;
     display: inline-block;
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 2px;
   }
 
   .d-text-editor input {
+    border: 1px solid #dedede;
+    border-radius: 2px;
     line-height: 18px;
-    padding: 2px 2px;
+    padding: 4px 2px;
     width: 100%;
-    border: 0;
     box-sizing: border-box;
+    transition: border 0.3s;
   }
 
-  .d-text-editor input:focus {
+  .d-text-editor input::-webkit-input-placeholder {
+    color: #bbb;
+    font-size: 12px;
+  }
+
+  .d-text-editor input::-moz-placeholder {
+    color: #bbb;
+    font-size: 12px;
+  }
+
+  .d-text-editor input:-ms-input-placeholder {
+    color: #bbb;
+    font-size: 12px;
+  }
+
+  .d-text-editor input::placeholder {
+    color: #bbb;
+    font-size: 12px;
+  }
+
+  .d-text-editor textarea {
+    border: 1px solid #dedede;
+    border-radius: 2px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    transition: border 0.3s;
+  }
+
+  .d-text-editor input:focus,
+  .d-text-editor textarea:focus {
     outline: none;
+    border-color: #5cb6e6;
   }
 
   .d-text-editor.lg input {
@@ -47,8 +79,14 @@
 
   export default {
     props: {
+      type: {
+        type: String,
+        default: 'text'
+      },
+
       size: {
-        type: String
+        type: String,
+        default: ''
       },
 
       readonly: {
@@ -58,6 +96,24 @@
 
       placeholder: {
         type: String
+      },
+
+      value: {}
+    },
+
+    components: {
+      editor: {
+        inherit: true,
+        template: '',
+        created() {
+          var parent = this.$parent;
+          var type = parent.type;
+          if (type !== 'textarea') {
+            this.$options.template = `<input type="${parent.type}" v-model="$parent.value" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" />`;
+          } else {
+            this.$options.template = `<textarea placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.value"></textarea>`;
+          }
+        }
       }
     },
 
@@ -82,7 +138,7 @@
           var self = this;
           this.picker.$on('pick', function(arg) {
             self.picker.$el.style.display = 'none';
-            self.$els.editor.value = arg.date;
+            self.$refs.editor.value = arg.date;
           });
         } else {
           this.picker.$el.style.display = '';
@@ -101,7 +157,7 @@
           var self = this;
           this.picker.$on('pick', function(arg) {
             self.picker.$el.style.display = 'none';
-            self.$els.editor.value = arg.date;
+            self.$refs.editor.value = arg.date;
           });
         } else {
           this.picker.$el.style.display = '';

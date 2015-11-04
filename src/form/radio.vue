@@ -1,7 +1,5 @@
 <template>
-  <span>
-    <input type="radio" :id.once="id" :name.once="$parent.$radioName" @change="onChange($event, this)"/><label :for.once="id"><slot></slot></label>
-  </span>
+  <input type="radio" :value.once="value" :id.once="id" :name.once="$parent.$radioName" @change="onChange($event, this)"/><label :for.once="id"><slot></slot></label>
 </template>
 
 <script type="text/ecmascript-6">
@@ -17,8 +15,8 @@
     methods: {
       onChange: function(event, self) {
         var target = event.target;
-        if (target.checked) {
-          self.$parent.value = self.value;
+        if (target.checked && self.$parent.$setValue) {
+          self.$parent.$setValue(self.value);
         }
       }
     }

@@ -31,7 +31,6 @@ import Pagination from './data/pagination.vue'
 Vue.component('DGrid', Grid);
 Vue.component('Pagination', Pagination);
 
-import FormField from './form/formfield.vue'
 import Radio from './form/radio.vue'
 import TextEditor from './form/text-editor.vue'
 import RadioGroup from './form/radio-group.vue'
@@ -39,13 +38,23 @@ import DatePicker from './form/date-picker.vue'
 import Checkbox from './form/checkbox.vue'
 import Select from './form/select.vue'
 import SelectOption from './form/select-option.vue'
+import Field from './form/fields/field.vue'
+import TextField from './form/fields/text.vue'
+import CheckboxField from './form/fields/check.vue'
+import SelectField from './form/fields/select.vue'
+import RadiogroupField from './form/fields/radio.vue'
 
-Vue.component('FormField', FormField);
-Vue.component('Radio', Radio);
-Vue.component('RadioGroup', RadioGroup);
-Vue.component('TextEditor', TextEditor);
-Vue.component('Checkbox', Checkbox);
-Vue.component('DatePicker', DatePicker);
+Vue.component('DField', Field);
+Vue.component('DTextField', TextField);
+Vue.component('DCheckboxField', CheckboxField);
+Vue.component('DSelectField', CheckboxField);
+Vue.component('DRadiogroupField', RadiogroupField);
+
+Vue.component('DRadio', Radio);
+Vue.component('DRadioGroup', RadioGroup);
+Vue.component('DTextEditor', TextEditor);
+Vue.component('DCheckbox', Checkbox);
+Vue.component('DDatePicker', DatePicker);
 Vue.component('DSelect', Select);
 Vue.component('DOption', SelectOption);
 
