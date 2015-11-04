@@ -63,6 +63,7 @@
   <div id="aside">
     <div class="demoheader">Basic</div>
     <ul class="demolist">
+      <li><a v-link="{ path: '/alert' }">Alert</a></li>
       <li><a v-link="{ path: '/dialog' }">Dialog</a></li>
       <li><a v-link="{ path: '/icon' }">Icon</a></li>
       <li><a v-link="{ path: '/button' }">Button</a></li>

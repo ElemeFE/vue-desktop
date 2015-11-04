@@ -16,6 +16,9 @@ router.map({
   },
   '/button': {
     component: require('./basic/button.vue')
+  },
+  '/alert': {
+    component: require('./basic/alert.vue')
   }
 });
 
