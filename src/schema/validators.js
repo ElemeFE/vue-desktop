@@ -28,6 +28,25 @@ export default {
     return true;
   },
 
+  pattern: function(value, options) {
+    options = options || {};
+    var pattern = options.pattern;
+    if (!pattern) throw new Error('pattern is required!');
+
+    return pattern.test(value);
+  },
+
+  custom: function(value, options) {
+    options = options || {};
+    var validate = options.validate;
+
+    if (typeof validate === 'function') {
+      return !!validate(value);
+    } else {
+      throw new Error('validate must be a function.');
+    }
+  },
+
   mobile: function(value) {
     return /^1[3|4|5|7|8]\d{9}$/.test(value);
   },
@@ -42,24 +61,5 @@ export default {
 
   date: function(value) {
     return /^\d{4}-\d{2}-\d{2}$/.test(value);
-  },
-
-  pattern: function(value, options) {
-    options = options || {};
-    var pattern = options.pattern;
-    if (!pattern) throw new Error('pattern is required!');
-
-    return pattern.test(value);
-  },
-
-  custom: function(value, options) {
-    options = options || {};
-    var validate = options.validate;
-
-    if (typeof validate === 'function') {
-      return validate(value);
-    } else {
-      throw new Error('validate must be a function.');
-    }
   }
 };
