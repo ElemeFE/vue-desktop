@@ -5,10 +5,12 @@ var Vue = require('vue');
 
 Vue.config.debug = true;
 
+import Alert from './basic/alert.vue'
 import Dialog from './basic/dialog.vue'
 import DButton from './basic/button.vue'
 import DButtonGroup from './basic/button-group.vue'
 
+Vue.component('Alert', Alert);
 Vue.component('Dialog', Dialog);
 Vue.component('DButton', DButton);
 Vue.component('DButtonGroup', DButtonGroup);

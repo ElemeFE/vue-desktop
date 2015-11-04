@@ -152,7 +152,7 @@
         afterLeave: function (el) {
           this.$els.content.style.display = 'block';
           el.style.height = '';
-        },
+        }
       }
     }
   }
