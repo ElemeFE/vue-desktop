@@ -29,5 +29,8 @@ export default {
       nov: 'November',
       dec: 'December'
     }
+  },
+  alert: {
+    title: 'Tip'
   }
 };

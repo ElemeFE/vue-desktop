@@ -9,6 +9,7 @@ import DButton from './basic/button.vue'
 import DButtonGroup from './basic/button-group.vue'
 import ProgressBar from './basic/progress-bar.vue'
 import Slider from './basic/slider.vue'
+import Sticky from './basic/sticky.vue'
 
 Vue.component('Alert', Alert);
 Vue.component('Dialog', Dialog);
@@ -16,6 +17,7 @@ Vue.component('DButton', DButton);
 Vue.component('DButtonGroup', DButtonGroup);
 Vue.component('ProgressBar', ProgressBar);
 Vue.component('Slider', Slider);
+Vue.component('Sticky', Sticky);
 
 import Accordion from './nav/accordion.vue'
 import AccordionPanel from './nav/accordion-panel.vue'
