@@ -1,6 +1,6 @@
 {
   "name": "vue-desktop",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A UI Library for building pc website.",
   "main": "src/index.js",
   "scripts": {
@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "vue": "^1.0.4",
-    "vue-i18n": "^2.2.0"
+    "vue-i18n": "^2.2.0",
+    "wind-dom": "0.0.3"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",
@@ -32,7 +33,6 @@
     "vue-loader": "^4.0.2",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.0",
-    "wind-dom": "0.0.3",
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
     "mocha": "^2.3.3",
