@@ -1,6 +1,6 @@
 {
   "name": "vue-desktop",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A UI Library for building pc website.",
   "main": "src/index.js",
   "scripts": {
@@ -11,8 +11,7 @@
   },
   "dependencies": {
     "vue": "^1.0.4",
-    "vue-i18n": "^2.2.0",
-    "vue-router": "0.7.4"
+    "vue-i18n": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",
@@ -35,7 +34,8 @@
     "chai-as-promised": "^5.1.0",
     "mocha": "^2.3.3",
     "sinon": "^1.17.1",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "vue-router": "0.7.4"
   },
   "author": "long.zhang@ele.me",
   "license": "MIT"
