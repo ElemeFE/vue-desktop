@@ -64,6 +64,12 @@ class Schema {
     return result;
   }
 
+  $getPropertyLabel(property) {
+    var propDefinition = this.props[property] || {};
+
+    return propDefinition.label;
+  }
+
   $getPropertyMapping(property) {
     var propDefinition = this.props[property];
     var mapping = propDefinition.mapping;

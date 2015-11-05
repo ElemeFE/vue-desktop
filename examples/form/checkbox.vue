@@ -1,13 +1,13 @@
 <template>
   <div>
-    <checkbox label="test"></checkbox>
+    <d-checkbox label="test"></d-checkbox>
   </div>
   <div>
-    <checkbox></checkbox>
+    <d-checkbox></d-checkbox>
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   export default {
   };
 </script>

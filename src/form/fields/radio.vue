@@ -21,7 +21,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   var SchemaStore = require('../../schema/store');
 
   export default {
@@ -66,6 +66,11 @@
       }
     },
 
+    components: {
+      DRadioGroup: require('../radio-group.vue'),
+      DRadio: require('../radio.vue')
+    },
+
     data() {
       return {
         mapping: null
@@ -87,6 +92,10 @@
           schema = this.schema = SchemaStore.getSchema(schema);
         }
         if (!schema) return;
+
+        if (!this.label) {
+          this.label = schema.$getPropertyLabel(property);
+        }
 
         var mapping = schema.$getPropertyMapping(property);
         if (!mapping) return;

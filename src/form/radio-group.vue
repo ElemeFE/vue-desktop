@@ -12,7 +12,7 @@
   <div class="d-radio-group"><slot></slot></div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   var idSeed = 1;
   const prefix = 'radio-group-';
 

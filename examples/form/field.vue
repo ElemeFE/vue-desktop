@@ -32,7 +32,7 @@
 
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   import { SchemaStore } from '../../src/index.js'
 
   SchemaStore.defineSchema('Team', {

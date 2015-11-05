@@ -1,13 +1,16 @@
 {
   "name": "vue-desktop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A UI Library for building pc website.",
   "main": "src/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --hot --config webpack.dev.config.js",
-    "build": "webpack --config webpack.build.config.js",
+    "dev": "webpack-dev-server --inline --hot",
+    "build": "NODE_ENV=production webpack --progress --hide-modules",
     "test": "mocha -r chai -r sinon test/index.js",
     "coverage": "istanbul cover _mocha -- -r chai -r sinon -R spec test/index.js & open ./coverage/lcov-report/index.html"
+  },
+  "directories": {
+    "src": "src/"
   },
   "dependencies": {
     "vue": "^1.0.4",

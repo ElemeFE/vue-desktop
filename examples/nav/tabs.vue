@@ -1,15 +1,15 @@
 <template>
-  <tabs effect="fade">
-    <tab header="one">
+  <d-tabs effect="fade">
+    <d-tab header="one">
       Tab1
-    </tab>
-    <tab header="two">
+    </d-tab>
+    <d-tab header="two">
       Tab2
       <div>
         Test2
       </div>
-    </tab>
-    <tab header="three" disabled>
+    </d-tab>
+    <d-tab header="three" disabled>
       Tab3
       <div>
         Test3
@@ -17,10 +17,10 @@
       <div>
         Test4
       </div>
-    </tab>
-  </tabs>
+    </d-tab>
+  </d-tabs>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   export default {}
 </script>

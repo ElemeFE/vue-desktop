@@ -185,7 +185,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   var Vue = require('vue');
 
   var gridIdSeed = 1;

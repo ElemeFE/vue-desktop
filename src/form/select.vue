@@ -1,7 +1,7 @@
 <template>
   <div class="d-select">
     <slot></slot>
-    <d-select v-for="item in mapping" :value="item.value || item.label">{{item.label}}</d-select>
+    <d-option v-for="item in mapping" :value="item.value || item.label">{{item.label}}</d-option>
   </div>
 </template>
 
@@ -12,8 +12,11 @@
   }
 </style>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   export default {
+    components: {
+      DOption: require('./select-option.vue')
+    },
     props: {
       value: {
       },

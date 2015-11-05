@@ -1,7 +1,7 @@
 // This config file is for development setup using
 // webpack-dev-server.
 
-var vue = require('vue-loader');
+var webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -16,15 +16,11 @@ module.exports = {
     loaders: [
       {
         test: /\.vue$/,
-        loader: vue.withLoaders({
-          // apply babel transform to all javascript
-          // inside *.vue files.
-          js: 'babel?optional[]=runtime&loose=all'
-        })
+        loader: 'vue'
       },
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /node_modules/,
         loader: 'babel'
       },
       {
@@ -40,6 +36,23 @@ module.exports = {
         loader: 'url?limit=100&name=[path][name].[hash:6].[ext]'
       }
     ]
-  },
-  devtool: '#source-map'
+  }
 };
+
+if (process.env.NODE_ENV === 'production') {
+  module.exports.plugins = [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.optimize.OccurenceOrderPlugin()
+  ]
+} else {
+  module.exports.devtool = '#source-map'
+}

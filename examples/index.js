@@ -2,7 +2,8 @@ var Vue = require('vue');
 var VueRouter = require('vue-router');
 Vue.use(VueRouter);
 
-require('../src/index');
+var initComponents = require('../src/index').initComponents;
+initComponents(Vue);
 
 var router = new VueRouter();
 

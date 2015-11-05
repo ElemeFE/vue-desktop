@@ -65,7 +65,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   var icons = require('./icons');
   export default {
     ready() {

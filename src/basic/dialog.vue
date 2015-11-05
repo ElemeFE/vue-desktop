@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   var domUtil = require('wind-dom');
   var Popup = require('./popup');
 

@@ -1,9 +1,9 @@
 <template>
-  <button @click="alert">Alert</button>
-  <button @click="confirm">Confirm</button>
+  <d-button @click="alert">Alert</d-button>
+  <d-button @click="confirm">Confirm</d-button>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   import { MessageBox } from '../../src/index.js'
   export default {
     methods: {

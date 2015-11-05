@@ -2,7 +2,7 @@
   <input :id.once="id" type="checkbox" v-model="value" /><label :for.once="id" v-if="label">{{ label }}</label>
 </template>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   var seed = 1;
 
   export default {
