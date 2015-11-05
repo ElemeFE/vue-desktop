@@ -26,6 +26,9 @@ router.map({
   },
   '/slider': {
     component: require('./basic/slider.vue')
+  },
+  '/sticky': {
+    component: require('./basic/sticky.vue')
   }
 });
 

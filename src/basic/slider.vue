@@ -124,8 +124,8 @@
         return null;
       },
 
-      setNewPosition(newPos) {
-        if ((newPos >= 0) && (newPos <= 100)) {
+      setPosition(newPos) {
+        if (newPos >= 0 && (newPos <= 100)) {
           var lengthPerStep = 100 / ((this.max - this.min) / this.step);
           var steps = Math.round(newPos / lengthPerStep);
           this.currentValue = steps * lengthPerStep * (this.max - this.min) * 0.01 + this.min;
@@ -136,7 +136,7 @@
       onSliderClick(event) {
         var currentX = event.clientX;
         var newPos = (currentX - this.$els.slider.offsetLeft) / this.$sliderWidth * 100;
-        this.setNewPosition(newPos);
+        this.setPosition(newPos);
       },
 
       onInputChange() {
@@ -144,7 +144,7 @@
           return;
         }
         if (!isNaN(this.$els.input.value)) {
-          this.setNewPosition((this.$els.input.value - this.min) * 100 / (this.max - this.min));
+          this.setPosition((this.$els.input.value - this.min) * 100 / (this.max - this.min));
         }
       }
     },
@@ -155,7 +155,7 @@
       }
     },
 
-    ready() {
+    compiled() {
       var dragging = false;
       var startX = 0;
       var currentX = 0;
@@ -174,7 +174,7 @@
           currentX = event.clientX;
           var diff = (currentX - startX) / self.$sliderWidth * 100;
           var newPos = startPos + diff;
-          self.setNewPosition(newPos);
+          self.setPosition(newPos);
         }
       };
 

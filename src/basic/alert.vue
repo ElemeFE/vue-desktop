@@ -113,7 +113,9 @@
     props: {
       title: {
         type: String,
-        default: '提示'
+        default: function() {
+          return this.$t('alert.title');
+        }
       },
       type: {
         type: String,
