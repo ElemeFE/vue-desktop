@@ -29,5 +29,8 @@ export default {
       nov: '十一月',
       dec: '十二月'
     }
+  },
+  alert: {
+    title: '提示'
   }
 };
