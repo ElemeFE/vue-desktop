@@ -1,7 +1,7 @@
 <style>
   html, body {
     font: 100% Helvetica, sans-serif;
-    color: #333;
+    color: #293f54;
     height: 100%;
     margin: 0;
     padding: 0;

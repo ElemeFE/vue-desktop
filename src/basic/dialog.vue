@@ -1,13 +1,13 @@
 <template>
-  <div class="dialog" :style="{ width: width + 'px' }" :class="{ hidden: !show }">
-    <div class="dialog-header">
-      <span class="dialog-title">{{title}}</span>
-      <div class="dialog-header-buttons">
-        <button type="button" class="close" @click='hide'><span>&times;</span></button>
+  <div class="d-dialog" :style="{ width: width + 'px' }" :class="{ hidden: !show }">
+    <div class="d-dialog-header">
+      <span class="d-dialog-title">{{title}}</span>
+      <div class="d-dialog-header-buttons">
+        <i class="d-dialog-close fa fa-close" @click='hide'></i>
       </div>
     </div>
-    <div class="dialog-body"><slot></slot></div>
-    <div class="dialog-footer"><slot name="dialog-footer"></slot></div>
+    <div class="d-dialog-body"><slot></slot></div>
+    <div class="d-dialog-footer"><slot name="dialog-footer"></slot></div>
   </div>
 </template>
 
@@ -86,35 +86,44 @@
     }
   }
 </script>
-<style scoped>
+<style>
   .hidden {
     display: none;
   }
 
-  .dialog {
-    border: 1px solid #ccc;
+  .d-dialog {
     background: #fff;
+    border-radius: 3px;
   }
 
-  .dialog-header {
-    border-bottom: 1px solid #ccc;
-    padding: 5px;
+  .d-dialog-header {
+    border-bottom: 1px solid #e9e9e9;
+    padding: 10px 8px;
   }
 
-  .dialog-title {
+  .d-dialog-close {
+    cursor: pointer;
+  }
+
+  .d-dialog-title {
     font-weight: bold;
   }
 
-  .dialog-body {
+  .d-dialog-body {
     padding: 10px;
   }
 
-  .dialog-header-buttons {
+  .d-dialog-header-buttons {
     float: right;
   }
 
-  .dialog-footer {
-    border-top: 1px solid #ccc;
+  .d-dialog-footer {
+    border-top: 1px solid #e9e9e9;
     padding: 10px;
+    text-align: right;
+  }
+
+  .d-dialog-footer .btn {
+    min-width: 40px;
   }
 </style>

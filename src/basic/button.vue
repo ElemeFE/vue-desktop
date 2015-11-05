@@ -7,6 +7,7 @@
 <style>
   .btn {
     display: inline-block;
+    text-align: center;
     padding: 4px 12px;
     border-radius: 3px;
     border: solid 1px #ccc;
