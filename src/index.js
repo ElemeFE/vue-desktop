@@ -49,6 +49,7 @@ export var Components = {
   Field,
   TextField,
   CheckboxField,
+  SelectField,
   RadiogroupField,
   Radio,
   RadioGroup,

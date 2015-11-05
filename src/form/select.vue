@@ -9,6 +9,7 @@
   .d-select {
     border: 1px solid #ccc;
     min-width: 140px;
+    overflow: auto;
   }
 </style>
 

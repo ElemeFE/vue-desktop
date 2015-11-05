@@ -13,13 +13,21 @@
 <style>
   .d-field {
     position: relative;
-    overflow: hidden;
     display: table;
+  }
+
+  .d-field::after {
+    content: "";
+    display: table;
+    clear: both;
   }
 
   .d-field > label {
     display: table-cell;
     float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 120px;
     height: 30px;
     font-size: 14px;

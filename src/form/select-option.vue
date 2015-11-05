@@ -23,6 +23,7 @@
     methods: {
       handleClick() {
         this.$parent.value = this.value;
+        this.$parent.$emit('select', this.value);
       }
     }
   }

@@ -24,7 +24,11 @@
   </div>
 
   <div>
-    <d-radiogroup-field label="RadioGroup" schema="Team" :model="team" property="hasMapping"></d-radiogroup-field>
+    <d-radiogroup-field label="RadioGroup Use mapping" schema="Team" :model="team" property="hasMapping"></d-radiogroup-field>
+  </div>
+
+  <div>
+    <d-select-field label="Select Field" schema="Team" :model="team" property="hasMapping"></d-select-field>
   </div>
 
   <div>hasMapping: {{ team.hasMapping }}</div>
