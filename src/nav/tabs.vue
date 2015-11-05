@@ -1,13 +1,13 @@
 <template>
-  <div class="tabs">
-    <ul class="nav nav-tabs" role="tablist">
-      <li v-for="tab in renderData" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: disabled === true }">
-        <i>I</i>
-        <span>{{ tab.header }}</span>
-        <span @click="close($event, tab)">x</span>
+  <div class="d-tabs">
+    <ul class="d-tabs-nav">
+      <li class="d-tab" v-for="tab in tabs" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: disabled === true }">
+        <span v-if="tab.icon" class="d-tab-icon {{ tab.icon }}"></span>
+        <span class="d-tab-label">{{ tab.header }}</span>
+        <span class="d-tab-close fa fa-close" @click="close($event, tab)"></span>
       </li>
     </ul>
-    <div class="tab-content" v-el="tabContent">
+    <div class="d-tabs-content" v-el:tab-content>
       <slot></slot>
     </div>
   </div>
@@ -15,17 +15,12 @@
 
 <script type="text/ecmascript-6" lang="babel">
   export default {
-    props: {
-      effect: {
-        type: String,
-        default: 'fadein'
-      }
-    },
+    props: {},
 
     ready() {
       if (!this.activeTab) {
-        for (var i = 0, j = this.renderData.length; i < j; i++) {
-          var tab = this.renderData[i];
+        for (var i = 0, j = this.tabs.length; i < j; i++) {
+          var tab = this.tabs[i];
           if (!tab.disabled) {
             this.activeTab = tab;
             break;
@@ -42,17 +37,16 @@
 
       close(event, tab) {
         event.stopPropagation();
-        console.log(tab);
 
-        var index = this.renderData.indexOf(tab);
-        this.renderData.splice(index, 1);
+        var index = this.tabs.indexOf(tab);
+        this.tabs.splice(index, 1);
         this.$children[index].$destroy(true);
       }
     },
 
     data() {
       return {
-        renderData: [],
+        tabs: [],
         activeTab: null
       }
     }
@@ -60,53 +54,65 @@
 </script>
 
 <style scoped>
-  .tabs > ul {
+  .d-tabs-nav {
     list-style: none;
     padding: 0;
     margin: 0 0 -1px 0;
   }
 
-  .tabs > ul > li {
-    border: 1px solid #ccc;
+  .d-tabs-content {
+    padding: 5px;
+    border: 1px solid #f0f0f0;
+    border-top: 1px solid #379be9;
+  }
+
+  .d-tab {
+    display: inline-block;
     color: #666;
-    padding: 3px 10px;
+    padding: 8px 10px;
     border-bottom: 0;
-    border-radius: 3px 3px 0 0;
     cursor: pointer;
+    font-size: 14px;
+    min-width: 100px;
   }
 
-  .tabs > ul > li:hover {
-    background: #0089dc;
-    border-color: #0089dc;
+  .d-tab:hover {
+    background: #379be9;
     color: #fff;
   }
 
-  .tabs > ul > li.active {
+  .d-tab.active {
+    background: #379be9;
     color: #fff;
-    background-color: #0089dc;
-    border-color: #0089dc;
+    text-decoration: none;
     margin-bottom: -1px;
   }
 
-  .tabs > ul > li > a {
+  .d-tab > a {
     text-decoration: none;
     color: #333;
   }
 
-  .tabs > ul > li {
+  .d-tab-icon {
     display: inline-block;
+    width: 16px;
   }
 
-  .tabs > ul > li + li {
+  .d-tab-close {
+    float: right;
+    width: 16px;
+    color: #666;
+    text-align: right;
+  }
+
+  .d-tab:hover .d-tab-icon,
+  .d-tab:hover .d-tab-close,
+  .d-tab.active .d-tab-icon,
+  .d-tab.active .d-tab-close {
+    color: #fff;
+  }
+
+  .d-tab + .d-tab {
     margin: 0 0 0 3px;
-  }
-
-  .tabs .tab-content {
-    padding: 5px;
-    border: 1px solid #ddd;
-  }
-
-  .nav-tabs {
-    margin-bottom: 15px
   }
 </style>

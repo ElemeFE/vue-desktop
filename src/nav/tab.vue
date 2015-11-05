@@ -1,5 +1,5 @@
 <template>
-  <div role="tabpanel" class="tab-pane" :class="{ hide: !visible }" v-show="visible" transition="expand">
+  <div class="d-tabpane" :class="{ hidden: !visible }" v-show="visible" transition="tabpane-fade">
     <slot></slot>
   </div>
 </template>
@@ -8,6 +8,10 @@
   export default {
     props: {
       header: {
+        type: String
+      },
+
+      icon: {
         type: String
       },
 
@@ -25,7 +29,6 @@
 
     computed: {
       visible() {
-        console.log('visible:', this.$parent.activeTab === this);
         return this.$parent.activeTab === this;
       },
 
@@ -35,37 +38,27 @@
     },
 
     created() {
-      this.$parent.renderData.push(this);
+      this.$parent.tabs.push(this);
     }
   }
 </script>
 
 <style scoped>
-  .expand-transition {
+  .tabpane-fade-transition {
     transition: all 0.3s ease;
-    /*background-color: #eee;*/
-    /*overflow: hidden;*/
   }
 
-  .expand-enter, .expand-leave {
+  .tabpane-fade-enter, .tabpane-fade-leave {
     height: 0;
     padding: 0 10px;
     opacity: 0;
   }
 
-  .tab-content > .tab-pane {
+  .d-tabpane {
     display: block;
   }
 
-  .tab-content > .tab-pane.hide {
+  .d-tabpane.hidden {
     position: absolute;
-  }
-
-  .fadein-enter {
-    animation: fadein-in 0.3s ease-in;
-  }
-
-  .fadein-leave {
-    animation: fadein-out 0.3s ease-out;
   }
 </style>

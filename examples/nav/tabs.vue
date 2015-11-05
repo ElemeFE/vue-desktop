@@ -3,7 +3,7 @@
     <d-tab header="one">
       Tab1
     </d-tab>
-    <d-tab header="two">
+    <d-tab header="two" icon="fa fa-firefox">
       Tab2
       <div>
         Test2
