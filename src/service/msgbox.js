@@ -1,71 +1,5 @@
-require('./msgbox.css');
-
-var Popup = require('../../basic/popup');
-var util = require('../../util');
-
-var template = require('./msgbox.html');
-
 var CONFIRM_TEXT = '确定';
 var CANCEL_TEXT = '取消';
-
-var STATUS_CLASS_MAP = {
-  '': '',
-  success: 'icon-msgbox-success',
-  warning: 'icon-msgbox-warning',
-  error: 'icon-msgbox-error'
-};
-
-var CONFIRM_BUTTON_CLASS = 'btn btn-primary btn-lg msgbox-confirm';
-
-var Vue = require('vue');
-
-var MessageBoxConstructor = Vue.extend({
-  template: template,
-  methods: {
-    getDOM: function() {
-      if (!this.dom) {
-        this.$mount();
-
-        this.dom = this.$el;
-      }
-
-      return this.dom;
-    },
-    getPopupOptions: function() {
-      return {
-        target: 'center',
-        modal: true,
-        updatePositionOnResize: true,
-        openAnimation: 'pop',
-        closeDelay: 1,
-        closeOnPressEscape: true,
-        closeOnClickModal: true
-      };
-    },
-    handleAction(action) {
-      var callback = this.callback;
-      this.close();
-      callback(action);
-    }
-  },
-
-  data() {
-    return {
-      title: '',
-      message: '',
-      type: '',
-      showConfirmButton: true,
-      showCancelButton: false,
-      confirmButtonText: CONFIRM_TEXT,
-      cancelButtonText: CANCEL_TEXT,
-      confirmButtonClass: '',
-      confirmButtonDisabled: false,
-      cancelButtonClass: '',
-
-      callback: null
-    };
-  }
-});
 
 var defaults = {
   title: '',
@@ -79,6 +13,12 @@ var defaults = {
   cancelButtonClass: '',
   buttons: null
 };
+
+var Vue = require('../config');
+var util = require('../util');
+
+var MessageBoxConstructor = Vue.extend(require('./msgbox.vue'));
+var Popup = require('../basic/popup');
 
 var instance = new MessageBoxConstructor({});
 Popup(instance);
@@ -111,7 +51,9 @@ var showNextMsg = function() {
 
       var options = currentMsg.options;
       for (var prop in options) {
-        instance[prop] = options[prop];
+        if (options.hasOwnProperty(prop)) {
+          instance[prop] = options[prop];
+        }
       }
 
       instance.visible = oldVisible;

@@ -80,6 +80,6 @@ export var initComponents = (Vue, prefix, components) => {
   }
 };
 
-export { default as MessageBox } from './service/msgbox/msgbox'
+export { default as MessageBox } from './service/msgbox'
 
 export { default as SchemaStore } from './schema/store'
