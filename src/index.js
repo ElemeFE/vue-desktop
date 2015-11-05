@@ -9,6 +9,7 @@ import Button from './basic/button.vue'
 import ButtonGroup from './basic/button-group.vue'
 import ProgressBar from './basic/progress-bar.vue'
 import Slider from './basic/slider.vue'
+import Sticky from './basic/sticky.vue'
 
 import Accordion from './nav/accordion.vue'
 import AccordionPanel from './nav/accordion-panel.vue'
@@ -38,6 +39,7 @@ export var Components = {
   ButtonGroup,
   ProgressBar,
   Slider,
+  Sticky,
   Accordion,
   AccordionPanel,
   Tab,

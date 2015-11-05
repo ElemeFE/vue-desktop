@@ -1,11 +1,11 @@
 <template>
   <div class="sticky-example-container">
     <div class="sticky-example">
-      <sticky>固定在顶部</sticky>
+      <d-sticky>固定在顶部</d-sticky>
     </div>
 
     <div class="sticky-example">
-      <sticky :top=70>固定在距顶部70px的位置</sticky>
+      <d-sticky :top=70>固定在距顶部70px的位置</d-sticky>
     </div>
   </div>
 </template>
@@ -24,6 +24,6 @@
   }
 </style>
 
-<script type="text/ecmascript-6">
+<script type="text/ecmascript-6" lang="babel">
   export default {};
 </script>
