@@ -13,11 +13,11 @@
 
   #aside {
     box-sizing: border-box;
+    box-shadow: inset -2px 0 6px rgba(41,63,84,0.24);
     width: 200px;
     height: 100%;
-    border-right: 1px solid #e2e4e7;
     float: left;
-    background: #f5f7f8;
+    background: #f6f7f7;
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -45,17 +45,25 @@
     background-color: #e2e4e7;
   }
 
+  .demolist li:hover a {
+    color: #2a94d6;
+  }
+
+  .demolist .v-link-active {
+    color: #2a94de;
+    font-weight: 400;
+  }
+
   .demolist a {
-    padding: 8px 20px;
+    padding: 8px 30px;
     display: block;
     color: #333;
     text-decoration: none;
   }
 
   .demoheader {
-    background-color: #e2e4e8;
-    border-bottom: 1px solid #bbb;
     padding: 8px;
+    color: #777;
   }
 </style>
 

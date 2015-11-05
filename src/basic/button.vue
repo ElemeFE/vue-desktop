@@ -22,8 +22,8 @@
   }
 
   .btn-primary {
-    background-color: #0089dc;
-    border-color: #0089dc;
+    background-color: #2a94d6;
+    border-color: #2a94d6;
     color: #fff;
   }
 
@@ -39,9 +39,9 @@
   }
 
   .btn.btn-primary:hover {
-    background-color: #4bf;
+    background-color: #2585c0;
     color: #fff;
-    border-color: #4bf;
+    border-color: #2585c0;
   }
 
   .btn-lg {
