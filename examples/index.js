@@ -29,6 +29,9 @@ router.map({
   },
   '/sticky': {
     component: require('./basic/sticky.vue')
+  },
+  '/dropdown': {
+    component: require('./basic/dropdown.vue')
   }
 });
 
@@ -78,6 +81,9 @@ router.map({
 router.map({
   '/msgbox': {
     component: require('./service/msgbox.vue')
+  },
+  '/notification': {
+    component: require('./service/notification.vue')
   }
 });
 

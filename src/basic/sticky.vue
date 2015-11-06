@@ -22,6 +22,8 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
+  var getStyle = require('wind-dom').getStyle;
+  
   export default {
     props: {
       top: {
@@ -36,28 +38,16 @@
       }
     },
 
-    methods: {
-      getCurrentStyle(obj, prop) {
-        if (obj.currentStyle) {
-          return obj.currentStyle[prop];
-        } else if (window.getComputedStyle) {
-          prop = prop.toLowerCase();
-          return document.defaultView.getComputedStyle(obj, null)[prop];
-        }
-        return null;
-      }
-    },
-
     ready() {
       var phantom = this.$els.phantom;
       var sticky = this.$els.sticky;
-      phantom.style.width = this.getCurrentStyle(sticky, 'width');
-      phantom.style.height = this.getCurrentStyle(sticky, 'height');
-      phantom.style.padding = this.getCurrentStyle(sticky, 'padding');
-      phantom.style.margin = this.getCurrentStyle(sticky, 'margin');
+      phantom.style.width = getStyle(sticky, 'width');
+      phantom.style.height = getStyle(sticky, 'height');
+      phantom.style.padding = getStyle(sticky, 'padding');
+      phantom.style.margin = getStyle(sticky, 'margin');
 
       var el = sticky.parentNode;
-      while(el && (this.getCurrentStyle(el, 'overflow') === 'visible' || (this.getCurrentStyle(el, 'overflow') === 'hidden'))) {
+      while(el && (getStyle(el, 'overflow') === 'visible' || (getStyle(el, 'overflow') === 'hidden'))) {
         el = el.parentNode;
       }
       if (!el) {

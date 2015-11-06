@@ -78,6 +78,7 @@
       <li><a v-link="{ path: '/progress-bar' }">ProgressBar</a></li>
       <li><a v-link="{ path: '/slider' }">Slider</a></li>
       <li><a v-link="{ path: '/sticky' }">Sticky</a></li>
+      <li><a v-link="{ path: '/dropdown' }">Dropdown</a></li>
     </ul>
     <div class="demoheader">Nav</div>
     <ul class="demolist">
@@ -101,6 +102,7 @@
     <div class="demoheader">Service</div>
     <ul class="demolist">
       <li><a v-link="{ path: '/msgbox' }">MessageBox</a></li>
+      <li><a v-link="{ path: '/notification' }">Notification</a></li>
     </ul>
   </div>
   <div id="main">

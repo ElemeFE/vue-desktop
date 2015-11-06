@@ -8,12 +8,12 @@
   export default {
     methods: {
       alert() {
-        MessageBox('Title', 'This is a alert message');
+        MessageBox('Title', 'This is an alert message');
       },
       confirm() {
         MessageBox({
           title: 'Title',
-          message: 'This is a alert message',
+          message: 'This is an alert message',
           showCancelButton: true
         }, function(action) {
           MessageBox('Confirm Result', action);
