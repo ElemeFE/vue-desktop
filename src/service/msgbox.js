@@ -4,7 +4,7 @@ var CANCEL_TEXT = '取消';
 var defaults = {
   title: '',
   message: '',
-  type: 'success',
+  type: '',
   showConfirmButton: true,
   showCancelButton: false,
   confirmButtonText: CONFIRM_TEXT,
