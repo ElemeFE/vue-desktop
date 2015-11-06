@@ -10,6 +10,8 @@ import ButtonGroup from './basic/button-group.vue'
 import ProgressBar from './basic/progress-bar.vue'
 import Slider from './basic/slider.vue'
 import Sticky from './basic/sticky.vue'
+import Dropdown from './basic/dropdown.vue'
+import DropdownItem from './basic/dropdown-item.vue'
 
 import Accordion from './nav/accordion.vue'
 import AccordionPanel from './nav/accordion-panel.vue'
@@ -40,6 +42,8 @@ export var Components = {
   ProgressBar,
   Slider,
   Sticky,
+  Dropdown,
+  DropdownItem,
   Accordion,
   AccordionPanel,
   Tab,
@@ -81,5 +85,7 @@ export var initComponents = (Vue, prefix, components) => {
 };
 
 export { default as MessageBox } from './service/msgbox'
+
+export { default as Notification } from './service/notification.vue'
 
 export { default as SchemaStore } from './schema/store'

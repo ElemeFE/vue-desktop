@@ -131,10 +131,6 @@
       }
     },
 
-    created() {
-      this.$parent.renderData.push(this);
-    },
-
     transitions: {
       section: {
         beforeEnter: function (el) {

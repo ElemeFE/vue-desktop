@@ -141,9 +141,7 @@
         pagers: [],
         showPrevMore: false,
         showNextMore: false,
-        showButton: false,
-        pageCount: 0,
-        currentPage: -1
+        showButton: false
       }
     }
   }

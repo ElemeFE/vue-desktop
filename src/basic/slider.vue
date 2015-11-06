@@ -81,6 +81,8 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
+  var getStyle = require('wind-dom').getStyle;
+  
   export default {
     props: {
       min: {
@@ -114,16 +116,6 @@
     },
 
     methods: {
-      getCurrentStyle(obj, prop) {
-        if (obj.currentStyle) {
-          return obj.currentStyle[prop];
-        } else if (window.getComputedStyle) {
-          prop = prop.toLowerCase();
-          return document.defaultView.getComputedStyle(obj, null)[prop];
-        }
-        return null;
-      },
-
       setPosition(newPos) {
         if (newPos >= 0 && (newPos <= 100)) {
           var lengthPerStep = 100 / ((this.max - this.min) / this.step);
@@ -151,7 +143,7 @@
 
     computed: {
       $sliderWidth() {
-        return (parseInt(this.getCurrentStyle(this.$els.slider, 'width')));
+        return (parseInt(getStyle(this.$els.slider, 'width')));
       }
     },
 
