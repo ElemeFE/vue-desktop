@@ -1,6 +1,7 @@
 <template>
   <d-text-field label="团队名称" :model='team' property='teamName' schema='Team'></d-text-field>
   <d-text-field label="昵称" :model='team' property='nickname' schema='Team'></d-text-field>
+  <d-text-field label="密码" :model='team' type='password' property='password' schema='Team'></d-text-field>
 
   <div>
     <d-field label="Custom">
@@ -45,6 +46,9 @@
     },
     nickname: {
       required: true
+    },
+    password: {
+
     },
     sex: {},
     category: {},

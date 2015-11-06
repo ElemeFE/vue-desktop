@@ -38,6 +38,10 @@
       },
       hintMessage: {
         type: String
+      },
+      type: {
+        type: String,
+        default: 'text'
       }
     },
 
@@ -51,7 +55,8 @@
         created() {
           var parent = this.$parent;
           var bindProperty = '$parent.model.' + parent.property;
-          this.$options.template = `<d-text-editor type="text" :value.sync="${ bindProperty }" />`;
+          var type = parent.type;
+          this.$options.template = `<d-text-editor type="${type}" :value.sync="${ bindProperty }" />`;
         }
       }
     },
