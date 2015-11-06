@@ -1,15 +1,15 @@
 <template>
-  <d-tabs effect="fade">
-    <d-tab header="one">
+  <d-tabs>
+    <d-tab title="one" closable>
       Tab1
     </d-tab>
-    <d-tab header="two" icon="fa fa-firefox">
+    <d-tab title="two" icon="fa fa-firefox" closable>
       Tab2
       <div>
         Test2
       </div>
     </d-tab>
-    <d-tab header="three" disabled>
+    <d-tab title="three" disabled>
       Tab3
       <div>
         Test3

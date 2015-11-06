@@ -48,7 +48,7 @@
   }
 
   .section.disabled .header {
-    cursor: default;
+    cursor: not-allowed;
   }
 
   .section:first-child .header {

@@ -9,6 +9,7 @@ module.exports = {
     test: './test/index.js'
   },
   output: {
+    path: './dist',
     publicPath: '/dist/',
     filename: '[name].js'
   },

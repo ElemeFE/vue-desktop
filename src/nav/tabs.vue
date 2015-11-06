@@ -1,13 +1,13 @@
 <template>
   <div class="d-tabs">
     <ul class="d-tabs-nav">
-      <li class="d-tab" v-for="tab in tabs" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: disabled === true }">
+      <li class="d-tab" v-for="tab in tabs" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: tab.disabled }">
         <span v-if="tab.icon" class="d-tab-icon {{ tab.icon }}"></span>
-        <span class="d-tab-label">{{ tab.header }}</span>
-        <span class="d-tab-close fa fa-close" @click="close($event, tab)"></span>
+        <span class="d-tab-label">{{ tab.title }}</span>
+        <span v-if="tab.closable" class="d-tab-close fa fa-close" @click="close($event, tab)"></span>
       </li>
     </ul>
-    <div class="d-tabs-content" v-el:tab-content>
+    <div class="d-tabs-content">
       <slot></slot>
     </div>
   </div>
@@ -31,15 +31,41 @@
 
     methods: {
       handleTabClick(event, tab) {
-        event.preventDefault();        
+        event.preventDefault();
+        if (tab.disabled) return;
         this.activeTab = tab;
       },
 
       close(event, tab) {
         event.stopPropagation();
 
-        var index = this.tabs.indexOf(tab);
-        this.tabs.splice(index, 1);
+        var tabs = this.tabs;
+        var index = tabs.indexOf(tab);
+        var i, newActiveTab, item;
+
+        for (i = index - 1; i >= 0; i--) {
+          item = tabs[i];
+          if (!item.disabled) {
+            newActiveTab = item;
+            break;
+          }
+        }
+
+        if (!newActiveTab) {
+          for (i = index + 1; i < tabs.length; i++) {
+            item = tabs[i];
+            if (!item.disabled) {
+              newActiveTab = item;
+              break;
+            }
+          }
+        }
+
+        if (newActiveTab) {
+          this.activeTab = newActiveTab;
+        }
+
+        tabs.splice(index, 1);
         this.$children[index].$destroy(true);
       }
     },
@@ -86,6 +112,15 @@
     color: #fff;
     text-decoration: none;
     margin-bottom: -1px;
+  }
+
+  .d-tab.disabled {
+    cursor: not-allowed;
+  }
+
+  .d-tab.disabled:hover {
+    color: #666;
+    background-color: transparent;
   }
 
   .d-tab > a {

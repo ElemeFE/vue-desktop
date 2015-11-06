@@ -7,7 +7,7 @@
 <script type="text/ecmascript-6" lang="babel">
   export default {
     props: {
-      header: {
+      title: {
         type: String
       },
 
@@ -16,6 +16,11 @@
       },
 
       disabled: {
+        type: Boolean,
+        default: false
+      },
+
+      closable: {
         type: Boolean,
         default: false
       }
@@ -30,10 +35,6 @@
     computed: {
       visible() {
         return this.$parent.activeTab === this;
-      },
-
-      transition() {
-        return this.$parent.effect;
       }
     },
 
