@@ -60,8 +60,7 @@
 
     data() {
       return {
-        showItem: false,
-        pendingClose: 0
+        showItem: false
       }
     },
 

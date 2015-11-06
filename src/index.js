@@ -86,6 +86,6 @@ export var initComponents = (Vue, prefix, components) => {
 
 export { default as MessageBox } from './service/msgbox'
 
-export { default as Notification } from './service/notification.vue'
+export { default as Notification } from './service/notification'
 
 export { default as SchemaStore } from './schema/store'
