@@ -13,6 +13,7 @@
     "src": "src/"
   },
   "dependencies": {
+    "fecha": "^1.0.0",
     "wind-dom": "0.0.3"
   },
   "peerDependencies": {

@@ -1,15 +1,31 @@
 <template>
-  <span class="d-text-editor {{size}}">
-    <editor v-ref:editor></editor>
-    <!--<span @click="showDatePicker()">X</span>-->
+  <span class="d-text-editor {{size}}" :class="{ 'have-trigger': haveTrigger }">
+    <editor v-ref:editor @click="$event.stopPropagation()"></editor>
+    <span @click="toggleDatePicker()" class="d-text-editor-trigger" v-if="haveTrigger">X</span>
   </span>
 </template>
 
 <style>
   .d-text-editor {
     position: relative;
-    display: inline-block;
+    display: table;
     box-sizing: border-box;
+  }
+
+  .d-text-editor.have-trigger input {
+    padding-right: 20px;
+  }
+
+  .d-text-editor input,
+  .d-text-editor textarea {
+    display: table-cell;
+    width: 100%;
+  }
+
+  .d-text-editor .d-text-editor-trigger {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 
   .d-text-editor input {
@@ -68,7 +84,7 @@
 
   .d-text-editor .datepicker{
     position: absolute;
-    top: 40px;
+    top: 30px;
     left: 0;
     z-index: 1;
   }
@@ -76,12 +92,19 @@
 
 <script type="text/ecmascript-6" lang="babel">
   var Vue = require('vue');
+  var fecha = require('fecha');
+  var merge = require('../util').merge;
+  var domUtil = require('wind-dom');
 
   export default {
     props: {
       type: {
         type: String,
         default: 'text'
+      },
+
+      format: {
+        type: String
       },
 
       size: {
@@ -101,6 +124,54 @@
       value: {}
     },
 
+    watch: {
+      pickerVisible(newVal) {
+        if (newVal === true) {
+          var self = this;
+          Vue.nextTick(function() {
+            domUtil.once(document, 'click', function(event) {
+              var target = event.target;
+              if (target === self.$el || self.$el.contains(target)) {
+                return;
+              }
+              self.hideDatePicker();
+            });
+          });
+        }
+      }
+    },
+
+    computed: {
+      haveTrigger() {
+        return this.type === 'date' || this.type === 'datetime';
+      },
+
+      visualValue: {
+        get() {
+          var value = this.value;
+          if (value instanceof Date) {
+            return fecha.format(value, this.format || 'YYYY-MM-DD');
+          }
+          return value;
+        },
+        set(value) {
+          if (this.type === 'date' && !(value instanceof Date)) return;
+
+          this.value = value;
+        }
+      },
+
+      editorType() {
+        return this.type === 'password' ? 'password' : 'text';
+      }
+    },
+
+    data() {
+      return {
+        pickerVisible: false
+      }
+    },
+
     components: {
       editor: {
         inherit: true,
@@ -108,40 +179,48 @@
         created() {
           var parent = this.$parent;
           var type = parent.type;
-          if (type !== 'textarea') {
-            this.$options.template = `<input type="${parent.type}" v-model="$parent.value" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" />`;
+          if (type === 'date') {
+            this.$options.template = `<input lazy @change="$parent.handleChange($event)" @focus="$parent.handleFocus()" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" />`;
+          } else if (type !== 'textarea') {
+            this.$options.template = `<input type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" />`;
           } else {
-            this.$options.template = `<textarea placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.value"></textarea>`;
+            this.$options.template = `<textarea placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.visualValue"></textarea>`;
           }
         }
       }
     },
 
     methods: {
-      showSelect() {
-        var Select = require('./select.vue');
+      handleChange(event) {
+        var value = event.target.value;
+        if (value) {
+          var parsedValue = fecha.parse(value, this.format || 'YYYY-MM-DD');
 
-        if (!this.picker) {
-          var pickerEl = document.createElement('div');
+          if (parsedValue) {
+            this.value = parsedValue;
+          }
+        }
+        this.hideDatePicker();
+      },
 
-          this.picker = new Vue(Object.assign({ el: pickerEl, replace: true,
-          }, Select));
+      handleFocus() {
+        if (!this.pickerVisible) {
+          this.showDatePicker();
+        }
+      },
 
-          this.picker.mapping = [
-            { label: '11', value: 11 },
-            { label: '11', value: 11 },
-            { label: '11', value: 11 }
-          ];
-
-          this.picker.$appendTo(this.$el);
-
-          var self = this;
-          this.picker.$on('pick', function(arg) {
-            self.picker.$el.style.display = 'none';
-            self.$refs.editor.value = arg.date;
-          });
+      toggleDatePicker() {
+        if (!this.pickerVisible) {
+          this.showDatePicker();
         } else {
-          this.picker.$el.style.display = '';
+          this.hideDatePicker();
+        }
+      },
+
+      hideDatePicker() {
+        if (this.picker) {
+          this.picker.$el.style.display = 'none';
+          this.pickerVisible = false;
         }
       },
 
@@ -150,17 +229,24 @@
 
         if (!this.picker) {
           var pickerEl = document.createElement('div');
-
-          this.picker = new Vue(Object.assign({ el: pickerEl, replace: true }, DatePicker));
-
+          this.picker = new Vue(merge({ el: pickerEl, replace: true }, DatePicker));
           this.picker.$appendTo(this.$el);
+
           var self = this;
+
+          this.pickerVisible = true;
+
           this.picker.$on('pick', function(arg) {
             self.picker.$el.style.display = 'none';
-            self.$refs.editor.value = arg.date;
+            self.visualValue = arg.date;
+            self.pickerVisible = false;
           });
         } else {
           this.picker.$el.style.display = '';
+          this.pickerVisible = true;
+          if (this.value instanceof Date) {
+            this.picker.date = this.value;
+          }
         }
       }
     }

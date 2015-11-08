@@ -3,35 +3,30 @@
   <d-text-field label="昵称" :model='team' property='nickname' schema='Team'></d-text-field>
   <d-text-field label="密码" :model='team' type='password' property='password' schema='Team'></d-text-field>
 
-  <div>
-    <d-field label="Custom">
-      我是Custom的内容<br/>
-      我是Custom的内容<br/>
-      我是Custom的内容
-    </d-field>
-  </div>
+  <d-field label="Custom">
+    我是Custom的内容<br/>
+    我是Custom的内容<br/>
+    我是Custom的内容
+  </d-field>
 
-  <div>
-    <d-checkbox-field label="CheckBox" :model="team" property="sex"></d-checkbox-field>
-  </div>
+  <d-checkbox-field label="CheckBox" :model="team" property="sex"></d-checkbox-field>
 
-  <div>
-    <d-radiogroup-field label="RadioGroup" :model="team" property="category">
-      <d-radio value="1">dfadf</d-radio>
-      <d-radio value="2">dfadf</d-radio>
-      <d-radio value="3">dfadf</d-radio>
-      <d-radio value="4">dfadf</d-radio>
-    </d-radiogroup-field>
-  </div>
+  <d-text-field :model="team" property="birthday" schema="Team" type="date"></d-text-field>
 
-  <div>
-    <d-radiogroup-field label="RadioGroup Use mapping" schema="Team" :model="team" property="hasMapping"></d-radiogroup-field>
-  </div>
+  {{ team.birthday }}
 
-  <div>
-    <d-select-field label="Select Field" schema="Team" :model="team" property="hasMapping"></d-select-field>
-  </div>
+  <d-radiogroup-field label="RadioGroup" :model="team" property="category">
+    <d-radio value="1">dfadf</d-radio>
+    <d-radio value="2">dfadf</d-radio>
+    <d-radio value="3">dfadf</d-radio>
+    <d-radio value="4">dfadf</d-radio>
+  </d-radiogroup-field>
 
+  <d-radiogroup-field label="RadioGroup Use mapping" schema="Team" :model="team" property="hasMapping"></d-radiogroup-field>
+
+  <d-select-field label="Select Field" schema="Team" :model="team" property="hasMapping"></d-select-field>
+
+  <div>teamName: {{ team.teamName }}</div>
   <div>hasMapping: {{ team.hasMapping }}</div>
   <div>Category: {{ team.category }}</div>
 
@@ -48,7 +43,13 @@
       required: true
     },
     password: {
-
+    },
+    birthday: {
+      label: '生日',
+      type: Date,
+      default() {
+        return new Date()
+      }
     },
     sex: {},
     category: {},
