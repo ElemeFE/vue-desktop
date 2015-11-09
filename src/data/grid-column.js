@@ -10,6 +10,12 @@ Vue.elementDirective('d-grid-column', {
     var sortable = el.getAttribute('sortable');
     var type = el.getAttribute('type') || '';
 
+    var schema = this._host.gridSchema;
+
+    if (property && schema && !label) {
+      label = schema.$getPropertyLabel(property);
+    }
+
     if (sortable === 'true') {
       sortable = true;
     } else if (sortable === 'false') {
@@ -29,7 +35,7 @@ Vue.elementDirective('d-grid-column', {
     var headerTemplate;
 
     if (type === 'selection') {
-      headerTemplate = '<input type="checkbox" @click="$parent.toggleAllSelection($event)"/>';
+      headerTemplate = '<input type="checkbox" @click="$parent.toggleAllSelection($event)" />';
       template = '<input type="checkbox" @change="$parent.$parent.toggleSelection($event, row)" v-model="row.$selected"/>';
       if (!width) {
         width = 30;
@@ -39,6 +45,10 @@ Vue.elementDirective('d-grid-column', {
       template = '{{ $index + 1 }}';
       if (!width) {
         width = 30;
+      }
+    } else {
+      if (/^\s*$/.test(template) && property) {
+        template = `{{row.${property}}}`;
       }
     }
 

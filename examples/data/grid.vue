@@ -1,17 +1,39 @@
 <template>
-  <d-grid :data="testData" height="300" :fit="true" :selection.sync="selection" :fixed-column-count2="3">
+  <d-grid :data="testData" schema="Test" height2="300" :fit="true" :selection.sync="selection" :fixed-column-count2="3">
     <d-grid-column type="index"></d-grid-column>
     <d-grid-column type="selection"></d-grid-column>
-    <d-grid-column label="1" property="prop1">{{row.prop1}}</d-grid-column>
-    <d-grid-column label="2" property="prop2">{{row.prop2}}</d-grid-column>
-    <d-grid-column label="3" property="prop3" width="400">{{row.prop3}}</d-grid-column>
-    <d-grid-column label="4" property="prop4">{{row.prop4}}</d-grid-column>
-    <d-grid-column label="5" property="prop5">{{row.prop5}}</d-grid-column>
-    <d-grid-column label="操作" width="200"><button>测试1</button><button>测试2</button><button>测试3</button></d-grid-column>
+    <d-grid-column property="prop1"></d-grid-column>
+    <d-grid-column property="prop2"></d-grid-column>
+    <d-grid-column property="prop3" width="400"></d-grid-column>
+    <d-grid-column property="prop4"></d-grid-column>
+    <d-grid-column label="5" property="prop5"></d-grid-column>
+    <d-grid-column label="操作" width="200"><d-button>测试1</d-button><button>测试2</button><button>测试3</button></d-grid-column>
   </d-grid>
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
+  import { SchemaStore } from '../../src/index.js'
+
+  SchemaStore.defineSchema('Test', {
+    prop1: {
+      label: '测试1',
+      required: true
+    },
+    prop2: {
+      label: '测试2',
+      required: true
+    },
+    prop3: {
+      label: '测试3'
+    },
+    prop4: {
+      label: '测试4'
+    },
+    prop5: {
+      label: '测试5'
+    }
+  });
+
   export default {
     methods: {
       removeThis(row) {

@@ -7,7 +7,7 @@
     max-width: 100%;
     background-color: transparent;
     border-collapse: collapse;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
   }
 
   .d-grid-fit {
@@ -71,8 +71,8 @@
 
   .d-grid td,
   .d-grid th {
-    border-right: 1px solid #ccc;
     position: relative;
+    /*border-right: 1px solid #ccc;*/
   }
 
   /** TODO */
@@ -187,6 +187,8 @@
 
 <script type="text/ecmascript-6" lang="babel">
   var Vue = require('vue');
+  var throttle = require('../util').throttle;
+  var SchemaStore = require('../schema/store');
 
   var gridIdSeed = 1;
   var GUTTER_WIDTH = 15;
@@ -201,6 +203,8 @@
           return []
         }
       },
+
+      schema: {},
 
       width: {
         type: String
@@ -370,7 +374,7 @@
 
         columns.forEach(function (column, index) {
           var columnTemplate = column.headerTemplate || `{{ columns[${index}].label }}`;
-          rowTemplate += `<th @click="$parent.handleHeaderClick(columns[${index}])" class="{{ columns[${index}].id }}" :class="{ ascending: columns[${index}].direction === 'ascending', descending: columns[${index}].direction === 'descending' }"><div>${ columnTemplate }</div><i class="sort-caret"></i></th>`;
+          rowTemplate += `<th @click="$parent.handleHeaderClick(columns[${index}])" class="{{ columns[${index}].id }} {{ columns[${index}].direction }}" ><div>${ columnTemplate }</div><i class="sort-caret"></i></th>`;
         });
 
         if (!fixed) {
@@ -438,6 +442,16 @@
         return columns.filter(function(item, index) {
           return index < fixedColumnCount;
         });
+      },
+
+      gridSchema() {
+        var schema = this.schema;
+
+        if (typeof schema === 'string') {
+          schema = SchemaStore.getSchema(schema);
+        }
+
+        return typeof schema === 'string' ? null : schema;
       }
     },
 
@@ -479,9 +493,9 @@
 
       var self = this;
       if (this.fit) {
-        window.addEventListener('resize', function() {
+        window.addEventListener('resize', throttle(function() {
           self.$calcColumns();
-        });
+        }, 200));
       }
 
       this.$renderHeader();
