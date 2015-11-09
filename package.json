@@ -1,6 +1,6 @@
 {
   "name": "vue-desktop",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A UI Library for building pc website.",
   "main": "src/index.js",
   "scripts": {
