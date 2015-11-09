@@ -124,7 +124,7 @@
             <th>{{ $t('datepicker.weeks.sun') }}</th>
           </tr>
           <tr v-for="row in 6">
-            <td v-for="column in 7" class="{{ cells[row * 7 + column].type }}" :class="{ current: cells[row * 7 + column].type === 'normal' && monthDate == cells[row * 7 + column].text }">{{ cells[row * 7 + column].text }}</td>
+            <td v-for="column in 7" class="{{ cells[row * 7 + column].type }} {{ cells[row * 7 + column].type === 'normal' && monthDate == cells[row * 7 + column].text ? 'current' : '' }}">{{ cells[row * 7 + column].text }}</td>
           </tr>
         </tbody>
       </table>

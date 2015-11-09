@@ -2,7 +2,7 @@
   <div class='d-field d-radiogroupfield' :class="{ 'validate-error': hintType === 'error' }">
     <label>{{ label || '' }}</label>
     <div>
-      <d-radio-group v-ref:group :value.sync="bindProperty"><d-radio v-for="(key, val) in mapping" :value="val">{{key}}</d-radio><slot></slot></d-radio-group>
+      <d-radio-group v-ref:group :value.sync="editorValue"><d-radio v-for="(key, val) in mapping" :value="val">{{key}}</d-radio><slot></slot></d-radio-group>
       <div class="d-field-hint">
         <i class='d-icon' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
@@ -22,37 +22,20 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  var SchemaStore = require('../../schema/store');
+  var merge = require('../../util').merge;
+  var common = require('./field-common');
 
   export default {
-    props: {
-      model: {
-        default() {
-          return {}
-        }
-      },
-      property: {},
-      schema: {},
-      label: {
-        type: String
-      },
-      hintType: {
-        type: String,
-        default: ''
-      },
-      hintMessage: {
-        type: String
-      }
-    },
+    props: merge({}, common.props),
 
-    computed: {
+    computed: merge({
       $radioName() {
         return this.$refs.group.$radioName;
       },
       $setValue() {
         return this.$refs.group.$setValue;
       },
-      bindProperty: {
+      editorValue: {
         get() {
           if (this.model && this.property) {
             return this.model[this.property];
@@ -64,7 +47,7 @@
           }
         }
       }
-    },
+    }, common.computed),
 
     components: {
       DRadioGroup: require('../radio-group.vue'),
@@ -77,47 +60,8 @@
       };
     },
 
-    compiled() {
-      if (this.property) {
-        this.$watch('model.' + this.property, function() {
-          this.validate();
-        });
+    compiled: common.onCompiled,
 
-        var schema = this.schema;
-        var property = this.property;
-
-        if (!property) return;
-
-        if (typeof schema === 'string') {
-          schema = this.schema = SchemaStore.getSchema(schema);
-        }
-        if (!schema) return;
-
-        if (!this.label) {
-          this.label = schema.$getPropertyLabel(property);
-        }
-
-        var mapping = schema.$getPropertyMapping(property);
-        if (!mapping) return;
-
-        this.mapping = mapping;
-      }
-    },
-
-    methods: {
-      validate() {
-        var model = this.model;
-        var schema = this.schema;
-        if (typeof schema === 'string') {
-          schema = this.schema = SchemaStore.getSchema(schema);
-        }
-
-        if (schema) {
-          schema.$validateProperty(model, this.property);
-          this.hintType = model.$hintTypes[this.property];
-          this.hintMessage = model.$hints[this.property];
-        }
-      }
-    }
+    methods: merge({}, common.methods)
   };
 </script>

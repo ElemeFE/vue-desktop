@@ -1,5 +1,5 @@
 <template>
-  <div class='d-field' :class="{ 'validate-error': hintType === 'error' }">
+  <div class='d-field' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
     <label>{{ label || '' }}</label>
     <div>
       <slot></slot>
@@ -14,6 +14,11 @@
   .d-field {
     position: relative;
     display: table;
+  }
+
+  .d-field.required > label::before {
+    content: '*';
+    color: #ff0000;
   }
 
   .d-field::after {
@@ -78,20 +83,29 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  var SchemaStore = require('../../schema/store');
+  var merge = require('../../util').merge;
+  var common = require('./field-common');
 
   export default {
     props: {
       label: {
         type: String
       },
+
       hintType: {
         type: String,
         default: ''
       },
+
+      required: {
+        type: Boolean
+      },
+
       hintMessage: {
         type: String
       }
-    }
+    },
+
+    computed: merge({}, common.computed)
   };
 </script>

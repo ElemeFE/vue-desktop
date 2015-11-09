@@ -3,10 +3,10 @@
     <label>{{ label || '' }}</label>
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
-        {{ visibleLabel }}
+        {{ textValue }}
         <span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>
       </div>
-      <d-select v-if="selectActive" v-show="selectVisible" :value.sync="bindProperty" @select="selectVisible = false">
+      <d-select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false">
         <d-option v-for="(key, val) in mapping" :value="val">{{key}}</d-option>
       </d-select>
       <div class="d-field-hint">
@@ -35,7 +35,6 @@
     transition: border 0.3s;
   }
 
-  .d-selectfield-box:hover,
   .d-selectfield-box.active {
     border-color: #5cb6e6;
   }
@@ -47,29 +46,12 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  var SchemaStore = require('../../schema/store');
   var domUtil = require('wind-dom');
+  var merge = require('../../util').merge;
+  var common = require('./field-common');
 
   export default {
-    props: {
-      model: {
-        default() {
-          return {}
-        }
-      },
-      property: {},
-      schema: {},
-      label: {
-        type: String
-      },
-      hintType: {
-        type: String,
-        default: ''
-      },
-      hintMessage: {
-        type: String
-      }
-    },
+    props: merge({}, common.props),
 
     data() {
       return {
@@ -78,23 +60,23 @@
       }
     },
 
-    computed: {
-      visibleLabel() {
+    computed: merge({
+      textValue() {
         var mapping = this.mapping;
-        var bindProperty = this.bindProperty;
+        var selectValue = this.selectValue;
 
-        if (mapping && bindProperty) {
+        if (mapping && selectValue) {
           for (var label in mapping) {
             if (mapping.hasOwnProperty(label)) {
               var value = mapping[label];
-              if (value === bindProperty) {
+              if (value === selectValue) {
                 return label;
               }
             }
           }
         }
       },
-      bindProperty: {
+      selectValue: {
         get() {
           if (this.model && this.property) {
             return this.model[this.property];
@@ -106,39 +88,14 @@
           }
         }
       }
-    },
+    }, common.computed),
 
     components: {
       DSelect: require('../select.vue'),
       DOption: require('../select-option.vue')
     },
 
-    compiled() {
-      if (this.property) {
-        this.$watch('model.' + this.property, function() {
-          this.validate();
-        });
-
-        var schema = this.schema;
-        var property = this.property;
-
-        if (!property) return;
-
-        if (typeof schema === 'string') {
-          schema = this.schema = SchemaStore.getSchema(schema);
-        }
-        if (!schema) return;
-
-        if (!this.label) {
-          this.label = schema.$getPropertyLabel(property);
-        }
-
-        var mapping = schema.$getPropertyMapping(property);
-        if (!mapping) return;
-
-        this.mapping = mapping;
-      }
-    },
+    compiled: common.onCompiled,
 
     watch: {
       selectVisible(newVal) {
@@ -155,8 +112,8 @@
       }
     },
 
-    methods: {
-      toggleSelect(event) {
+    methods: merge({
+      toggleSelect() {
         this.selectActive = true;
         this.selectVisible = !this.selectVisible;
       },
@@ -168,21 +125,7 @@
 
       hideSelect() {
         this.selectVisible = false;
-      },
-
-      validate() {
-        var model = this.model;
-        var schema = this.schema;
-        if (typeof schema === 'string') {
-          schema = this.schema = SchemaStore.getSchema(schema);
-        }
-
-        if (schema) {
-          schema.$validateProperty(model, this.property);
-          this.hintType = model.$hintTypes[this.property];
-          this.hintMessage = model.$hints[this.property];
-        }
       }
-    }
+    }, common.methods)
   };
 </script>

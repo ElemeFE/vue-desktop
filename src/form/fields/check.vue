@@ -2,7 +2,7 @@
   <div class='d-field d-checkboxfield' :class="{ 'validate-error': hintType === 'error' }">
     <label>{{ label || '' }}</label>
     <div>
-      <dyna-editor></dyna-editor>
+      <editor></editor>
       <div class="d-field-hint">
         <i class='d-icon' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
@@ -18,63 +18,26 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  var SchemaStore = require('../../schema/store');
+  var merge = require('../../util').merge;
+  var common = require('./field-common');
 
   export default {
-    props: {
-      model: {
-        default() {
-          return {}
-        }
-      },
-      property: {},
-      schema: {},
-      label: {
-        type: String
-      },
-      hintType: {
-        type: String,
-        default: ''
-      },
-      hintMessage: {
-        type: String
-      }
-    },
+    props: merge({}, common.props),
 
     components: {
-      dynaEditor: {
+      editor: {
         inherit: true,
         template: '',
         created() {
-          var parent = this.$parent;
-          var bindProperty = '$parent.model.' + parent.property;
-          this.$options.template = `<input type="checkbox" v-model="${ bindProperty }" />`;
+          this.$options.template = `<input type="checkbox" v-model="${ '$parent.model.' + this.$parent.property }" />`;
         }
       }
     },
 
-    compiled() {
-      if (this.property) {
-        this.$watch('model.' + this.property, function() {
-          this.validate();
-        });
-      }
-    },
+    computed: merge({}, common.computed),
 
-    methods: {
-      validate() {
-        var model = this.model;
-        var schema = this.schema;
-        if (typeof schema === 'string') {
-          schema = this.schema = SchemaStore.getSchema(schema);
-        }
+    compiled: common.onCompiled,
 
-        if (schema) {
-          schema.$validateProperty(model, this.property);
-          this.hintType = model.$hintTypes[this.property];
-          this.hintMessage = model.$hints[this.property];
-        }
-      }
-    }
+    methods: merge({}, common.methods)
   };
 </script>

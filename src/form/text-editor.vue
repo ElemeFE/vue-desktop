@@ -8,7 +8,7 @@
 <style>
   .d-text-editor {
     position: relative;
-    display: table;
+    display: inline-block;
     box-sizing: border-box;
   }
 
@@ -18,7 +18,6 @@
 
   .d-text-editor input,
   .d-text-editor textarea {
-    display: table-cell;
     width: 100%;
   }
 
@@ -136,7 +135,6 @@
         if (newVal === true) {
           var self = this;
           domUtil.once(document, 'click', function(event) {
-            console.log('click on document');
             var target = event.target;
             if (target === self.$el || self.$el.contains(target)) {
               return;

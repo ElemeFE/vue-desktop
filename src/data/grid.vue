@@ -410,7 +410,7 @@
           rowTemplate += '<td class="gutter"></td>';
         }
 
-        var repeatTemplate = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection ">' + rowTemplate + '</tr>';
+        var repeatTemplate = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection">' + rowTemplate + '</tr>';
 
         var bodyTable = this.$el.querySelector(fixed ? '.grid-fixed-body-wrapper tbody' : '.grid-body tbody');
 
@@ -421,7 +421,6 @@
           replace: false
         });
       }
-
     },
 
     created() {

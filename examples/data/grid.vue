@@ -7,7 +7,7 @@
     <d-grid-column property="prop3" width="400"></d-grid-column>
     <d-grid-column property="prop4"></d-grid-column>
     <d-grid-column label="5" property="prop5"></d-grid-column>
-    <d-grid-column label="操作" width="200"><d-button>测试1</d-button><button>测试2</button><button>测试3</button></d-grid-column>
+    <d-grid-column label="操作" width="200"><d-button @click="$parent.test()">测试1</d-button><button>测试2</button><button>测试3</button></d-grid-column>
   </d-grid>
 </template>
 
@@ -36,6 +36,10 @@
 
   export default {
     methods: {
+      test() {
+        alert(123);
+      },
+
       removeThis(row) {
         var index = this.selection.indexOf(row);
         if (index !== -1) {

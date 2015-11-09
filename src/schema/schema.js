@@ -32,8 +32,17 @@ var doValidate = function(object, property, propDefinition, rule) {
 var initObject = object => {
   if (object.$hints) return;
 
-  object.$hints = {};
-  object.$hintTypes = {};
+  Object.defineProperty(object, '$hints', {
+    configurable: true,
+    enumerable: false,
+    value: {}
+  });
+
+  Object.defineProperty(object, '$hintTypes', {
+    configurable: true,
+    enumerable: false,
+    value: {}
+  });
 };
 
 class Schema {

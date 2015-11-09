@@ -18,32 +18,16 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  var SchemaStore = require('../../schema/store');
+  var merge = require('../../util').merge;
+  var common = require('./field-common');
 
   export default {
-    props: {
-      model: {
-        default() {
-          return {}
-        }
-      },
-      property: {},
-      schema: {},
-      label: {
-        type: String
-      },
-      hintType: {
-        type: String,
-        default: ''
-      },
-      hintMessage: {
-        type: String
-      },
+    props: merge({
       type: {
         type: String,
         default: 'text'
       }
-    },
+    }, common.props),
 
     components: {
       dynaEditor: {
@@ -53,48 +37,15 @@
           DTextEditor: require('../text-editor.vue')
         },
         created() {
-          var parent = this.$parent;
-          var bindProperty = '$parent.model.' + parent.property;
-          var type = parent.type;
-          this.$options.template = `<d-text-editor type="${type}" :value.sync="${ bindProperty }" />`;
+          this.$options.template = `<d-text-editor type="${ this.$parent.type}" :value.sync="${ '$parent.model.' + this.$parent.property }" />`;
         }
       }
     },
 
-    compiled() {
-      if (this.property) {
-        this.$watch('model.' + this.property, function() {
-          this.validate();
-        });
+    computed: merge({}, common.computed),
 
-        var schema = this.schema;
-        var property = this.property;
+    compiled: common.onCompiled,
 
-        if (typeof schema === 'string') {
-          schema = this.schema = SchemaStore.getSchema(schema);
-        }
-        if (!schema) return;
-
-        if (!this.label) {
-          this.label = schema.$getPropertyLabel(property);
-        }
-      }
-    },
-
-    methods: {
-      validate() {
-        var model = this.model;
-        var schema = this.schema;
-        if (typeof schema === 'string') {
-          schema = this.schema = SchemaStore.getSchema(schema);
-        }
-
-        if (schema) {
-          schema.$validateProperty(model, this.property);
-          this.hintType = model.$hintTypes[this.property];
-          this.hintMessage = model.$hints[this.property];
-        }
-      }
-    }
+    methods: merge({}, common.methods)
   };
 </script>
