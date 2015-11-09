@@ -1,5 +1,5 @@
 <template>
-  <div class='d-field d-radiogroupfield' :class="{ 'validate-error': hintType === 'error' }">
+  <div class='d-field d-radiogroupfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
     <label>{{ label || '' }}</label>
     <div>
       <d-radio-group v-ref:group :value.sync="editorValue"><d-radio v-for="(key, val) in mapping" :value="val">{{key}}</d-radio><slot></slot></d-radio-group>

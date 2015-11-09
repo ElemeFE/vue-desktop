@@ -1,10 +1,9 @@
 <template>
-  <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error' }" @click="$event.stopPropagation()">
+  <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }" @click="$event.stopPropagation()">
     <label>{{ label || '' }}</label>
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
-        {{ textValue }}
-        <span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>
+        {{ textValue }}<span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>
       </div>
       <d-select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false">
         <d-option v-for="(key, val) in mapping" :value="val">{{key}}</d-option>

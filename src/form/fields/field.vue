@@ -19,6 +19,7 @@
   .d-field.required > label::before {
     content: '*';
     color: #ff0000;
+    margin-right: 2px;
   }
 
   .d-field::after {

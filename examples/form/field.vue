@@ -3,7 +3,7 @@
   <d-text-field label="昵称" :model='team' property='nickname' schema='Team'></d-text-field>
   <d-text-field label="密码" :model='team' type='password' property='password' schema='Team'></d-text-field>
 
-  <d-field label="Custom">
+  <d-field label="Custom" required>
     我是Custom的内容<br/>
     我是Custom的内容<br/>
     我是Custom的内容

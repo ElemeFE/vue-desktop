@@ -87,4 +87,8 @@ router.map({
   }
 });
 
-router.start(Vue.extend(require('./main.vue')), '#app');
+router.start(Vue.extend({
+  components: {
+    app: require('./app.vue')
+  }
+}), 'body');

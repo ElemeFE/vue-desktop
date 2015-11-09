@@ -1,5 +1,5 @@
 <template>
-  <div class='d-field d-textfield' :class="{ 'validate-error': hintType === 'error' }">
+  <div class='d-field d-textfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
     <label>{{ label || '' }}</label>
     <div>
       <dyna-editor></dyna-editor>

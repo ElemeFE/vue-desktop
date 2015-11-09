@@ -17,6 +17,13 @@ export default {
 
   computed: {
     isRequired() {
+      var property = this.property;
+      var schema = this.fieldSchema;
+
+      if (schema && property) {
+        return !!schema.$getPropertyDescriptor(property).required;
+      }
+
       return this.required;
     },
 

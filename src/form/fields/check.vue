@@ -1,5 +1,5 @@
 <template>
-  <div class='d-field d-checkboxfield' :class="{ 'validate-error': hintType === 'error' }">
+  <div class='d-field d-checkboxfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
     <label>{{ label || '' }}</label>
     <div>
       <editor></editor>
