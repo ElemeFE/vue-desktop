@@ -107,9 +107,9 @@
 <template>
   <div class="datepicker">
     <div class="datepicker-header">
-      <button @click="prev" class="datepicker-prevbtn iconfont icon-datepicker-left-arrow"></button>
+      <button @click="prev" class="datepicker-prevbtn d-icon icon-datepicker-left-arrow"></button>
       <label @click="handleLabelClick">{{ label }}</label>
-      <button @click="next" class="datepicker-nextbtn iconfont icon-datepicker-right-arrow"></button>
+      <button @click="next" class="datepicker-nextbtn d-icon icon-datepicker-right-arrow"></button>
     </div>
     <div class="datepicker-body">
       <table :class="{ hidden: currentView !== 'date' }" @click="handleDateTableClick">
@@ -132,7 +132,7 @@
       <table @click="handleYearTableClick" class="datepicker-yeartable" :class="{ hidden: currentView !== 'year' }">
         <tbody>
           <tr>
-            <td @click="prevTenYear" class="icon-arrow-left"></td>
+            <td @click="prevTenYear" class="d-icon icon-datepicker-left-arrow"></td>
             <td :class="{ current: year === startYear }">{{startYear}}</td>
             <td :class="{ current: year === startYear }">{{startYear + 1}}</td>
           </tr>
@@ -149,7 +149,7 @@
           <tr>
             <td :class="{ current: year === startYear }">{{startYear + 8}}</td>
             <td :class="{ current: year === startYear }">{{startYear + 9}}</td>
-            <td @click="nextTenYear" class="icon-arrow-right"></td>
+            <td @click="nextTenYear" class="d-icon icon-datepicker-right-arrow"></td>
           </tr>
         </tbody>
       </table>

@@ -4,7 +4,7 @@
       <li class="d-tab" v-for="tab in tabs" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: tab.disabled }">
         <span v-if="tab.icon" class="d-tab-icon {{ tab.icon }}"></span>
         <span class="d-tab-label">{{ tab.title }}</span>
-        <span v-if="tab.closable" class="d-tab-close fa fa-close" @click="close($event, tab)"></span>
+        <span v-if="tab.closable" class="d-tab-close d-icon icon-close" @click="close($event, tab)"></span>
       </li>
     </ul>
     <div class="d-tabs-content">
@@ -148,6 +148,6 @@
   }
 
   .d-tab + .d-tab {
-    margin: 0 0 0 3px;
+    margin: 0 0 0 1px;
   }
 </style>

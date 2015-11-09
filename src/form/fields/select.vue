@@ -2,12 +2,15 @@
   <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error' }" @click="$event.stopPropagation()">
     <label>{{ label || '' }}</label>
     <div>
-      <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">{{ visibleLabel }}</div>
+      <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
+        {{ visibleLabel }}
+        <span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>
+      </div>
       <d-select v-if="selectActive" v-show="selectVisible" :value.sync="bindProperty" @select="selectVisible = false">
         <d-option v-for="(key, val) in mapping" :value="val">{{key}}</d-option>
       </d-select>
       <div class="d-field-hint">
-        <i class='iconfont' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
+        <i class='d-icon' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
   </div>
@@ -21,17 +24,25 @@
   }
 
   .d-selectfield-box {
+    cursor: pointer;
+    padding-left: 4px;
     border: 1px solid #dedede;
     width: 300px;
     box-sizing: border-box;
     border-radius: 2px;
     line-height: 30px;
     height: 30px;
+    transition: border 0.3s;
   }
 
   .d-selectfield-box:hover,
   .d-selectfield-box.active {
     border-color: #5cb6e6;
+  }
+
+  .d-selectfield-box .d-selectfield-trigger {
+    float: right;
+    margin-right: 4px;
   }
 </style>
 

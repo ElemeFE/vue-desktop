@@ -4,7 +4,7 @@
     <div>
       <dyna-editor></dyna-editor>
       <div class="d-field-hint">
-        <i class='iconfont' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
+        <i class='d-icon' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
   </div>

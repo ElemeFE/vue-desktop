@@ -13,8 +13,6 @@
 
   <d-text-field :model="team" property="birthday" schema="Team" type="date"></d-text-field>
 
-  {{ team.birthday }}
-
   <d-radiogroup-field label="RadioGroup" :model="team" property="category">
     <d-radio value="1">dfadf</d-radio>
     <d-radio value="2">dfadf</d-radio>

@@ -2,10 +2,10 @@
   <div class="msgbox">
     <div class="msgbox-header">
       <div class="msgbox-title">{{ title }}</div>
-      <div class="msgbox-close icon-close" @click="handleAction('close')"></div>
+      <div class="msgbox-close d-icon icon-close" @click="handleAction('close')"></div>
     </div>
     <div class="msgbox-content">
-      <div class="msgbox-status iconfont {{ type ? 'icon-msgbox-' + type : '' }}"></div>
+      <div class="msgbox-status d-icon {{ type ? 'icon-msgbox-' + type : '' }}"></div>
       <div class="msgbox-message">{{ message }}</div>
     </div>
     <div class="msgbox-btns">
@@ -36,15 +36,12 @@
 
   .msgbox-close {
     display: inline-block;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Qjg5OEI5MDY1M0JFMTFFNTg2MDVGOTc4OThEQTJFMTkiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Qjg5OEI5MDc1M0JFMTFFNTg2MDVGOTc4OThEQTJFMTkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozQTQwNzA2OTUzQjExMUU1ODYwNUY5Nzg5OERBMkUxOSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozQTQwNzA2QTUzQjExMUU1ODYwNUY5Nzg5OERBMkUxOSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pt0xtsMAAAGHSURBVHjanNTLK0RhGMfxMxyX8kcosrG0UFZuGxETdkhSjoVS2MhCsXBJKSVJw0gol0bIpXFLSVnJJVFKyT8hI75PPVOn05lz5szUZxbved/fOe/zvL0hy7IihmHcYsXI7JeHAxSY/F0iigTWAgblIoZiVEnYpg7KF35jK0DQNkpRiS9TH6wiG+v4xa5PkMzdQJkGfcqgaZuwrPuXwB/s+wRVyNbwkXxgOiYuIEc/vxnHLkFR/RoJerc/NF3ePKeLpLBNiOt4CEuo06A350IzxVZmkY89NOIKixpegxe3RaZHkSd0y4c40ZBaPKVakOXTtTE8ohUjuPea7Bc2redIujeF8kzDxtGHBnRoF+N6towgNRvFEOpxo2ODOj+utXtIJ2xYhXFtG/9Dv3b5TBvy7BU2oEUP6wLnTwItPYfnet5e3Womb51EC049aimBPfqyC5Q4w3oxgzYcpXFjyGXQpfWUK6woGdaNee1YLMBdJoHtuNPAQgmrRid2MrhlE7ob6WzkX4ABAE+4USc2gfN/AAAAAElFTkSuQmCC) no-repeat;
     position: absolute;
     top: 14px;
     right: 15px;
     width: 20px;
     height: 20px;
     cursor: pointer;
-    color: #ccc;
-    font-size: 12px;
     line-height: 20px;
     text-align: center;
   }

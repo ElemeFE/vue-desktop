@@ -1,4 +1,4 @@
-require('./css/iconfont.css');
+require('./icon/iconfont.css');
 require('./css/font-awesome.css');
 
 import Vue from './config';

@@ -1,7 +1,7 @@
 <template>
-  <span class="d-text-editor {{size}}" :class="{ 'have-trigger': haveTrigger }">
-    <editor v-ref:editor @click="$event.stopPropagation()"></editor>
-    <span @click="toggleDatePicker()" class="d-text-editor-trigger" v-if="haveTrigger">X</span>
+  <span class="d-text-editor {{size}} {{ haveTrigger ? 'have-trigger' : '' }} {{ pickerVisible ? 'active' : '' }}" @click="$event.stopPropagation()">
+    <editor></editor>
+    <span @click="toggleDatePicker()" class="d-text-editor-trigger d-icon icon-editor-date-trigger" v-if="haveTrigger"></span>
   </span>
 </template>
 
@@ -23,9 +23,14 @@
   }
 
   .d-text-editor .d-text-editor-trigger {
+    cursor: pointer;
     position: absolute;
+    display: inline-block;
+    width: 20px;
     right: 0;
     top: 0;
+    bottom: 0;
+    line-height: 28px;
   }
 
   .d-text-editor input {
@@ -69,7 +74,9 @@
   }
 
   .d-text-editor input:focus,
-  .d-text-editor textarea:focus {
+  .d-text-editor textarea:focus,
+  .d-text-editor.active input,
+  .d-text-editor.active textarea {
     outline: none;
     border-color: #5cb6e6;
   }
@@ -128,14 +135,13 @@
       pickerVisible(newVal) {
         if (newVal === true) {
           var self = this;
-          Vue.nextTick(function() {
-            domUtil.once(document, 'click', function(event) {
-              var target = event.target;
-              if (target === self.$el || self.$el.contains(target)) {
-                return;
-              }
-              self.hideDatePicker();
-            });
+          domUtil.once(document, 'click', function(event) {
+            console.log('click on document');
+            var target = event.target;
+            if (target === self.$el || self.$el.contains(target)) {
+              return;
+            }
+            self.hideDatePicker();
           });
         }
       }
