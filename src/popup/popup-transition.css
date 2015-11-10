@@ -53,13 +53,13 @@
 }
 
 .pop-fade-enter {
-  -webkit-animation: pop-fade-in 0.3s ease;
-  animation: pop-fade-in 0.3s ease;
+  -webkit-animation: pop-fade-in 0.3s linear;
+  animation: pop-fade-in 0.3s linear;
 }
 
 .pop-fade-leave {
-  -webkit-animation: pop-fade-out 0.3s ease;
-  animation: pop-fade-out 0.3s ease;
+  -webkit-animation: pop-fade-out 0.3s linear;
+  animation: pop-fade-out 0.3s linear;
 }
 
 @-webkit-keyframes pop-fade-in {

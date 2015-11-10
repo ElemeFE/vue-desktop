@@ -84,6 +84,8 @@ export var initComponents = (Vue, prefix, components) => {
   }
 };
 
+require('./service/tooltip');
+
 export { default as MessageBox } from './service/msgbox'
 
 export { default as Notification } from './service/notification'

@@ -84,6 +84,9 @@ router.map({
   },
   '/notification': {
     component: require('./service/notification.vue')
+  },
+  '/tooltip': {
+    component: require('./service/tooltip.vue')
   }
 });
 

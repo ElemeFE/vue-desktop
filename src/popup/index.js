@@ -85,10 +85,9 @@ export default {
       PopupManager.register(this.popupId, this);
     },
 
-    $locate() {
+    $locate(props) {
       var popup = this;
       var dom = popup.getDOM();
-      var props = this.popupProps;
       var target = props.target;
       var adjustTop = props.adjustTop || 0;
       var adjustLeft = props.adjustLeft || 0;
@@ -206,9 +205,8 @@ export default {
       popup.afterLocate && popup.afterLocate(afterLocateArgs);
     },
 
-    $doOpen() {
+    $doOpen(props) {
       var popup = this;
-      var props = this.popupProps;
 
       this.visible = this.$visible = true;
 
@@ -246,7 +244,7 @@ export default {
         domUtil.setStyle(dom, 'position', 'absolute');
       }
 
-      popup.$locate();
+      popup.$locate(props);
 
       var zIndex = props.zIndex;
       if (modal) {
@@ -294,8 +292,8 @@ export default {
       }
     },
 
-    open() {
-      var props = this.popupProps;
+    open(options) {
+      var props = util.merge({}, this.popupProps, options);
 
       var popup = this;
 
@@ -315,10 +313,10 @@ export default {
       if (openDelay > 0) {
         this.openTimer = setTimeout(() => {
           this.openTimer = null;
-          this.$doOpen();
+          this.$doOpen(props);
         }, openDelay);
       } else {
-        this.$doOpen();
+        this.$doOpen(props);
       }
     },
 
