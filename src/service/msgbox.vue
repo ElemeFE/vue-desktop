@@ -1,5 +1,5 @@
 <template>
-  <div class="msgbox">
+  <div class="msgbox" v-show="visible" transition="pop-bounce">
     <div class="msgbox-header">
       <div class="msgbox-title">{{ title }}</div>
       <div class="msgbox-close d-icon icon-close" @click="handleAction('close')"></div>
@@ -99,25 +99,18 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  var Popup = require('../basic/popup');
   var util = require('../util');
 
   var CONFIRM_TEXT = '确定';
   var CANCEL_TEXT = '取消';
 
+  var Popup = require('../popup');
+
   export default {
-    methods: {
-      getDOM: function() {
-        if (!this.dom) {
-          this.$mount();
+    mixins: [ Popup ],
 
-          this.dom = this.$el;
-        }
-
-        return this.dom;
-      },
-
-      getPopupOptions: function() {
+    computed: {
+      popupOptions() {
         return {
           target: 'center',
           modal: true,
@@ -127,8 +120,10 @@
           closeOnPressEscape: true,
           closeOnClickModal: true
         };
-      },
+      }
+    },
 
+    methods: {
       handleAction(action) {
         var callback = this.callback;
         this.close();

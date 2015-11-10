@@ -1,9 +1,9 @@
 <template>
-  <div class="d-dialog" :style="{ width: width + 'px' }" :class="{ hidden: !show }">
+  <div class="d-dialog" :style="{ width: width + 'px' }" v-show="visible" transition="pop-bounce">
     <div class="d-dialog-header">
       <span class="d-dialog-title">{{title}}</span>
       <div class="d-dialog-header-buttons">
-        <i class="d-dialog-close fa fa-close" @click='hide'></i>
+        <i class="d-dialog-close fa fa-close" @click='close()'></i>
       </div>
     </div>
     <div class="d-dialog-body"><slot></slot></div>
@@ -12,10 +12,11 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  var domUtil = require('wind-dom');
-  var Popup = require('./popup');
+  var Popup = require('../popup');
 
   export default {
+    mixins: [ Popup ],
+
     props: {
       title: {
         type: String,
@@ -45,53 +46,29 @@
       }
     },
 
-    compiled() {
-      Popup(this);
-    },
-
-    watch: {
-      show(val) {
-        var self = this;
-        if (val) {
-          setTimeout(function () {
-            self.open();
-          }, 0);
-        } else {
-          this.close();
-        }
-      }
-    },
-
-    methods: {
-      hide() {
-        this.close();
-      },
-
-      onClose() {
-        this.show = false;
-      },
-
-      getDOM() {
-        return this.$el;
-      },
-
-      getPopupOptions() {
+    computed: {
+      popupOptions() {
         return {
           hideOnPressEscape: true,
           modal: true,
           target: 'center',
-          closeOnClickModal: true
+          closeOnClickModal: true,
+          closeOnPressEscape: true,
+          updatePositionOnResize: true
         };
+      }
+    },
+
+    methods: {
+      getDOM() {
+        return this.$el;
       }
     }
   }
 </script>
 <style>
-  .hidden {
-    display: none;
-  }
-
   .d-dialog {
+    position: fixed;
     background: #fff;
     border-radius: 3px;
   }

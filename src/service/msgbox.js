@@ -18,30 +18,36 @@ var Vue = require('../config');
 var util = require('../util');
 
 var MessageBoxConstructor = Vue.extend(require('./msgbox.vue'));
-var Popup = require('../basic/popup');
 
-var instance = new MessageBoxConstructor({});
-Popup(instance);
-
-var currentMsg = null;
+var currentMsg, instance;
 var msgQueue = [];
 
-instance.callback = function(action) {
-  var result;
-  if (currentMsg) {
-    var callback = currentMsg.callback;
-    if (typeof callback === 'function') {
-      result = callback(action);
+var initInstance = function() {
+  instance = new MessageBoxConstructor({
+    el: document.createElement('div')
+  });
+
+  instance.callback = function(action) {
+    var result;
+    if (currentMsg) {
+      var callback = currentMsg.callback;
+      if (typeof callback === 'function') {
+        result = callback(action);
+      }
     }
-  }
-  if (result !== false) {
-    showNextMsg();
-  } else {
-    return false;
-  }
+    if (result !== false) {
+      showNextMsg();
+    } else {
+      return false;
+    }
+  };
 };
 
 var showNextMsg = function() {
+  if (!instance) {
+    initInstance();
+  }
+
   if (!instance.visible || instance.closeTimer) {
     if (msgQueue.length > 0) {
       currentMsg = msgQueue.shift();

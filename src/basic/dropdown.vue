@@ -31,7 +31,8 @@
   }
 
   .fade-transition {
-    transition: .4s ease-in;
+    transition: 4s ease-in;
+    opacity: 1;
   }
 
   .fade-enter, .fade-leave {

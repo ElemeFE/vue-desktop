@@ -27,17 +27,16 @@ var PopupManager = {
     placement: 'top',
     alignment: 'center',
 
+    //TODO Remove
     attachToBody: false,
-    detachAfterHide: true,
+    detachAfterHide: false,
 
     target: null,
 
     adjustLeft: 0,
     adjustTop: 0,
 
-    animation: false,
-    openAnimation: undefined,
-    closeAnimation: undefined,
+    animation: true,
 
     modal: false,
     zIndex: null,
@@ -45,7 +44,7 @@ var PopupManager = {
     closeOnPressEscape: false,
     closeOnClickModal: false,
 
-    updatePositionOnResize: false
+    updatePositionOnResize: true
   },
 
   getInstance: function(id) {
@@ -84,7 +83,7 @@ var PopupManager = {
     if (!topItem) return;
 
     var instance = PopupManager.getInstance(topItem.id);
-    if (instance.getPopupOptions()['closeOnClickModal']) {
+    if (instance.popupProps['closeOnClickModal']) {
       instance.close();
     }
   },
@@ -103,6 +102,12 @@ var PopupManager = {
       opacity: '0.5',
       background: '#000'
     };
+
+    domUtil.addClass(modalDom, 'modal-enter');
+
+    setTimeout(() => {
+      domUtil.removeClass(modalDom, 'modal-enter');
+    }, 300);
 
     domUtil.setStyle(modalDom, style);
 
@@ -140,20 +145,12 @@ var PopupManager = {
     }
 
     if (modalStack.length === 0) {
-      modalDom.style.display = 'none';
+      if (modalDom.parentNode) modalDom.parentNode.removeChild(modalDom);
 
-      modalDom.parentNode.removeChild(modalDom);
+      modalDom.style.display = 'none';
     }
   }
 };
-
-var supportAnimations = require('./animation');
-
-for (var prop in supportAnimations) {
-  if (supportAnimations.hasOwnProperty(prop)) {
-    PopupManager.registerAnimation(prop, supportAnimations[prop]);
-  }
-}
 
 domUtil.on(window, 'keydown', function(event) {
   if (event.keyCode === 27) { // ESC
@@ -161,8 +158,8 @@ domUtil.on(window, 'keydown', function(event) {
       var topItem = PopupManager.modalStack[PopupManager.modalStack.length - 1];
       if (!topItem) return;
       var instance = PopupManager.getInstance(topItem.id);
-      var options = instance.getPopupOptions();
-      if (options['closeOnPressEscape']) {
+      var options = instance.popupProps;
+      if (options.closeOnPressEscape) {
         instance.close();
       }
     }
@@ -173,9 +170,9 @@ domUtil.on(window, 'resize', function() {
   for (var id in instances) {
     if (instances.hasOwnProperty(id)) {
       var instance = PopupManager.getInstance(id);
-      var options = instance.getPopupOptions();
-      if (instance.visible && options['updatePositionOnResize']) {
-        instance.locate();
+      var options = instance.popupProps;
+      if (instance.visible && options.updatePositionOnResize) {
+        instance.$locate();
       }
     }
   }
