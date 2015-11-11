@@ -29,7 +29,7 @@ export default {
 
     fieldSchema() {
       var schema = this.schema;
-      if (!schema && this.form) {
+      if (!schema && this.form && this.form.schema) {
         schema = this.form.schema;
       }
 

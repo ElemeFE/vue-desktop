@@ -11,7 +11,9 @@
     我是Custom的内容
   </d-field>
 
-  <d-checkbox-field label="CheckBox" :model="team" property="sex"></d-checkbox-field>
+  <d-select-field label="Select Field" schema="Team" :model="team" property="hasMapping"></d-select-field>
+
+  <d-checkbox-field label="CheckBox" :model="team" property="sex" schema="Team"></d-checkbox-field>
 
   <d-text-field :model="team" property="birthday" schema="Team" type="date"></d-text-field>
 
@@ -24,7 +26,7 @@
 
   <d-radiogroup-field label="RadioGroup Use mapping" schema="Team" :model="team" property="hasMapping"></d-radiogroup-field>
 
-  <d-select-field label="Select Field" schema="Team" :model="team" property="hasMapping"></d-select-field>
+  <div>Checkbox: {{ team.sex }}</div>
 
   <div>teamName: {{ team.teamName }}</div>
   <div>hasMapping: {{ team.hasMapping }}</div>
@@ -51,7 +53,11 @@
         return new Date()
       }
     },
-    sex: {},
+    sex: {
+      default: 'male',
+      trueValue: 'male',
+      falseValue: 'female'
+    },
     category: {},
     hasMapping: {
       mapping: {

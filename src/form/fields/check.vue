@@ -22,14 +22,21 @@
   var common = require('./field-common');
 
   export default {
-    props: merge({}, common.props),
+    props: merge({
+      trueValue: {
+        default: true
+      },
+      falseValue: {
+        default: false
+      }
+    }, common.props),
 
     components: {
       editor: {
         inherit: true,
         template: '',
         created() {
-          this.$options.template = `<input type="checkbox" v-model="${ '$parent.model.' + this.$parent.property }" />`;
+          this.$options.template = `<input type="checkbox" v-model="${ '$parent.model.' + this.$parent.property }" :true-value.once="$parent.trueValue" :false-value.once="$parent.falseValue"/>`;
         }
       }
     },
@@ -37,6 +44,24 @@
     computed: merge({}, common.computed),
 
     created: common.onCreated,
+
+    beforeCompile() {
+      if (this.property) {
+        var schema = this.fieldSchema;
+        if (schema) {
+          var descriptor = schema.$getPropertyDescriptor(this.property);
+          if (!descriptor) return;
+
+          if (descriptor.trueValue !== undefined) {
+            this.trueValue = descriptor.trueValue;
+          }
+
+          if (descriptor.falseValue !== undefined) {
+            this.falseValue = descriptor.falseValue;
+          }
+        }
+      }
+    },
 
     compiled: common.onCompiled,
 

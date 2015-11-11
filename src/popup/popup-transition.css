@@ -4,8 +4,8 @@
 }
 
 .pop-bounce-leave {
-  -webkit-animation: pop-bounce-out 0.2s cubic-bezier(0.3, 0, 0, 1.5);
-  animation: pop-bounce-out 0.2s cubic-bezier(0.3, 0, 0, 1.5);
+  -webkit-animation: pop-bounce-out 0.2s ease-out;
+  animation: pop-bounce-out 0.2s ease-out;
 }
 
 @-webkit-keyframes pop-bounce-in {
@@ -36,8 +36,8 @@
     transform: scale(1);
   }
   100% {
-    -webkit-transform: scale(0.7);
-    transform: scale(0.7);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
   }
 }
 
@@ -47,8 +47,8 @@
     transform: scale(1);
   }
   100% {
-    -webkit-transform: scale(0.7);
-    transform: scale(0.7);
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
   }
 }
 

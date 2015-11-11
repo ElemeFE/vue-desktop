@@ -20,6 +20,8 @@
     position: absolute;
     top: 32px;
     max-height: 200px;
+    z-index: 1;
+    background: #fff;
   }
 
   .d-selectfield-box {
