@@ -15,9 +15,23 @@
     },
 
     props: {
+      cols: {
+        type: Number,
+        default: 1
+      },
       schema: {},
       model: {},
       labelWidth: {
+      }
+    },
+
+    computed: {
+      fieldClass() {
+        var cols = this.cols;
+        if (cols > 1 && cols <= 6) {
+          return `d-cell-1-${ cols }`;
+        }
+        return '';
       }
     }
   }

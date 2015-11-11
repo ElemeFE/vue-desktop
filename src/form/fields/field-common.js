@@ -1,4 +1,5 @@
 var SchemaStore = require('../../schema/store');
+var domUtil = require('wind-dom');
 
 export default {
   methods: {
@@ -50,6 +51,14 @@ export default {
   onCompiled() {
     if (this.form && !this.labelWidth && this.form.labelWidth) {
       this.labelWidth = this.form.labelWidth;
+    }
+
+    if (this.form) {
+      var className = this.$el.className;
+      if (className.indexOf('d-cell-') === -1) {
+        var fieldClass = this.form.fieldClass;
+        domUtil.addClass(this.$el, fieldClass);
+      }
     }
 
     if (this.property) {
