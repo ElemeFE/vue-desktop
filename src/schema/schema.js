@@ -35,12 +35,14 @@ var initObject = object => {
   Object.defineProperty(object, '$hints', {
     configurable: true,
     enumerable: false,
+    writable: true,
     value: {}
   });
 
   Object.defineProperty(object, '$hintTypes', {
     configurable: true,
     enumerable: false,
+    writable: true,
     value: {}
   });
 };
@@ -119,7 +121,6 @@ class Schema {
     var mapping = this.$getPropertyMapping(property);
     if (mapping) {
       var reversedMapping = reverseMapping(mapping);
-      console.log(reversedMapping);
       return reversedMapping[object[property]];
     }
     return null;

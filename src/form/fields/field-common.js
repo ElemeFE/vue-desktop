@@ -49,23 +49,23 @@ export default {
   },
 
   onCompiled() {
-    if (this.form && !this.labelWidth && this.form.labelWidth) {
-      this.labelWidth = this.form.labelWidth;
-    }
+    var form = this.form;
 
-    if (this.form) {
+    if (form) {
       var className = this.$el.className;
       if (className.indexOf('d-cell-') === -1) {
-        var fieldClass = this.form.fieldClass;
+        var fieldClass = form.fieldClass;
         domUtil.addClass(this.$el, fieldClass);
+      }
+      if (!this.labelWidth && form.labelWidth) {
+        this.labelWidth = form.labelWidth;
+      }
+      if (form && form.model) {
+        this.model = form.model;
       }
     }
 
     if (this.property) {
-      if (!this.model && this.form) {
-        this.model = this.form.model;
-      }
-
       this.$watch('model.' + this.property, function() {
         this.validate();
       });

@@ -26,6 +26,8 @@
 
   <d-radiogroup-field label="RadioGroup Use mapping" schema="Team" :model="team" property="hasMapping"></d-radiogroup-field>
 
+  <d-button @click="validate">Validate</d-button>
+
   <div>Checkbox: {{ team.sex }}</div>
 
   <div>teamName: {{ team.teamName }}</div>
@@ -37,7 +39,7 @@
 <script type="text/ecmascript-6" lang="babel">
   import { SchemaStore } from '../../src/index.js'
 
-  SchemaStore.defineSchema('Team', {
+  var TeamSchema = SchemaStore.defineSchema('Team', {
     teamName: {
       required: true
     },
@@ -71,6 +73,12 @@
   });
 
   export default {
+    methods: {
+      validate() {
+        TeamSchema.$validate(this.team);
+      }
+    },
+
     data () {
       return {
         team: SchemaStore.getSchema('Team').$new()

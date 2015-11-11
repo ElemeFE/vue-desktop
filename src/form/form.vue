@@ -3,6 +3,12 @@
 </template>
 
 <style>
+  .d-form::after {
+    content: "";
+    clear: both;
+    display: block;
+  }
+
   .d-form > .d-field {
     float: left;
   }
@@ -21,8 +27,7 @@
       },
       schema: {},
       model: {},
-      labelWidth: {
-      }
+      labelWidth: {}
     },
 
     computed: {

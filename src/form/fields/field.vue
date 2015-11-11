@@ -110,6 +110,8 @@
 
     created: common.onCreated,
 
+    compiled: common.onCompiled,
+
     computed: merge({}, common.computed)
   };
 </script>
