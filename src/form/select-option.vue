@@ -7,6 +7,8 @@
 <style>
   .d-select-option {
     padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
   }
 
   .d-select-option.selected {

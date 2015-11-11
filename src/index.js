@@ -1,5 +1,6 @@
 require('./icon/iconfont.css');
 require('./css/font-awesome.css');
+require('./grid.css');
 
 import Vue from './config';
 
@@ -21,6 +22,7 @@ import Tabs from './nav/tabs.vue'
 import Grid from './data/grid.vue'
 import Pagination from './data/pagination.vue'
 
+import Form from './form/form.vue'
 import Radio from './form/radio.vue'
 import TextEditor from './form/text-editor.vue'
 import RadioGroup from './form/radio-group.vue'
@@ -44,12 +46,16 @@ export var Components = {
   Sticky,
   Dropdown,
   DropdownItem,
+
   Accordion,
   AccordionPanel,
   Tab,
   Tabs,
+
   Grid,
   Pagination,
+
+  Form,
   Field,
   TextField,
   CheckboxField,

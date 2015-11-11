@@ -29,6 +29,10 @@ export default {
 
     fieldSchema() {
       var schema = this.schema;
+      if (!schema && this.form) {
+        schema = this.form.schema;
+      }
+
       if (typeof schema === 'string') {
         schema = this.schema = SchemaStore.getSchema(schema);
       }
@@ -37,8 +41,22 @@ export default {
     }
   },
 
+  onCreated() {
+    if (this.$parent.$isForm) {
+      this.form = this.$parent;
+    }
+  },
+
   onCompiled() {
+    if (this.form && !this.labelWidth && this.form.labelWidth) {
+      this.labelWidth = this.form.labelWidth;
+    }
+
     if (this.property) {
+      if (!this.model && this.form) {
+        this.model = this.form.model;
+      }
+
       this.$watch('model.' + this.property, function() {
         this.validate();
       });
@@ -61,11 +79,13 @@ export default {
   },
 
   props: {
+    form: {},
     model: {
       default() {
         return {}
       }
     },
+    labelWidth: {},
     property: {},
     schema: {},
     label: {

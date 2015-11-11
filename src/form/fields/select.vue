@@ -1,6 +1,6 @@
 <template>
   <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }" @click="$event.stopPropagation()">
-    <label>{{ label || '' }}</label>
+    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }">{{ label || '' }}</label>
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
         {{ textValue }}<span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>
@@ -24,9 +24,10 @@
 
   .d-selectfield-box {
     cursor: pointer;
+    font-size: 14px;
     padding-left: 4px;
     border: 1px solid #dedede;
-    width: 300px;
+    width: 100%;
     box-sizing: border-box;
     border-radius: 2px;
     line-height: 30px;
@@ -93,6 +94,8 @@
       DSelect: require('../select.vue'),
       DOption: require('../select-option.vue')
     },
+
+    created: common.onCreated,
 
     compiled: common.onCompiled,
 

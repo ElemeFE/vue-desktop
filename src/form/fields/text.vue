@@ -1,8 +1,8 @@
 <template>
   <div class='d-field d-textfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label>{{ label || '' }}</label>
+    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }">{{ label || '' }}</label>
     <div>
-      <dyna-editor></dyna-editor>
+      <editor></editor>
       <slot></slot>
       <div class="d-field-hint">
         <i class='d-icon' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
@@ -13,7 +13,7 @@
 
 <style>
   .d-textfield .d-text-editor {
-    width: 300px;
+    width: 100%;
   }
 </style>
 
@@ -30,7 +30,7 @@
     }, common.props),
 
     components: {
-      dynaEditor: {
+      editor: {
         inherit: true,
         template: '',
         components: {
@@ -43,6 +43,8 @@
     },
 
     computed: merge({}, common.computed),
+
+    created: common.onCreated,
 
     compiled: common.onCompiled,
 

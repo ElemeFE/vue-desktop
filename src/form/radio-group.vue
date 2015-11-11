@@ -4,6 +4,7 @@
   }
 
   .d-radio-group label {
+    font-size: 14px;
     vertical-align: text-bottom;
   }
 </style>

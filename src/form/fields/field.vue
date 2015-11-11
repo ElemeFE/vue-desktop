@@ -1,6 +1,6 @@
 <template>
   <div class='d-field' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label>{{ label || '' }}</label>
+    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }">{{ label || '' }}</label>
     <div>
       <slot></slot>
       <div class="d-field-hint">
@@ -13,7 +13,8 @@
 <style>
   .d-field {
     position: relative;
-    display: table;
+    display: table !important;
+    width: 300px;
   }
 
   .d-field.required > label::before {
@@ -106,6 +107,8 @@
         type: String
       }
     },
+
+    created: common.onCreated,
 
     computed: merge({}, common.computed)
   };

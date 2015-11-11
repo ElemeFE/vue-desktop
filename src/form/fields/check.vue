@@ -1,6 +1,6 @@
 <template>
   <div class='d-field d-checkboxfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label>{{ label || '' }}</label>
+    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }">{{ label || '' }}</label>
     <div>
       <editor></editor>
       <div class="d-field-hint">
@@ -35,6 +35,8 @@
     },
 
     computed: merge({}, common.computed),
+
+    created: common.onCreated,
 
     compiled: common.onCompiled,
 

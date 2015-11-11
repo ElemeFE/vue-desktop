@@ -1,7 +1,9 @@
 <template>
-  <d-text-field label="团队名称" :model='team' property='teamName' schema='Team'></d-text-field>
-  <d-text-field label="昵称" :model='team' property='nickname' schema='Team'></d-text-field>
-  <d-text-field label="密码" :model='team' type='password' property='password' schema='Team'></d-text-field>
+  <d-form :model='team' schema='Team' label-width="140">
+    <d-text-field class="d-cell-1-2" label-width="180" label="团队名称" property='teamName'></d-text-field>
+    <d-text-field class="d-cell-1-2" label="昵称" property='nickname'></d-text-field>
+    <d-text-field class="d-cell-1-2" label="密码" type='password' property='password'></d-text-field>
+  </d-form>
 
   <d-field label="Custom" required>
     我是Custom的内容<br/>

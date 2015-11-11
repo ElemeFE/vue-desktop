@@ -1,6 +1,6 @@
 <template>
   <div class='d-field d-radiogroupfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label>{{ label || '' }}</label>
+    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }">{{ label || '' }}</label>
     <div>
       <d-radio-group v-ref:group :value.sync="editorValue"><d-radio v-for="(key, val) in mapping" :value="val">{{key}}</d-radio><slot></slot></d-radio-group>
       <div class="d-field-hint">
@@ -13,7 +13,6 @@
 <style>
   .d-radiogroupfield .d-radio-group {
     line-height: 30px;
-    height: 30px;
   }
 
   .d-radiogroupfield .d-radio-group input {
@@ -59,6 +58,8 @@
         mapping: null
       };
     },
+
+    created: common.onCreated,
 
     compiled: common.onCompiled,
 
