@@ -48,7 +48,7 @@ Vue.elementDirective('d-grid-column', {
       }
     } else {
       if (/^\s*$/.test(template) && property) {
-        template = `{{row.${property}}}`;
+        template = `{{ $getPropertyText(row, '${property}') }}`;
       }
     }
 

@@ -414,11 +414,26 @@
 
         var bodyTable = this.$el.querySelector(fixed ? '.grid-fixed-body-wrapper tbody' : '.grid-body tbody');
 
+        var grid = this;
+
         this.$body = new Vue({
           parent: this,
+          inherit: true,
           el: bodyTable,
           template: repeatTemplate,
-          replace: false
+          replace: false,
+          methods: {
+            $getPropertyText: function(row, property) {
+              var schema = grid.gridSchema;
+              if (schema) {
+                var mapping = schema.$getPropertyMapping(property);
+                if (mapping) {
+                  return schema.$translateProperty(row, property);
+                }
+              }
+              return row[property];
+            }
+          }
         });
       }
     },

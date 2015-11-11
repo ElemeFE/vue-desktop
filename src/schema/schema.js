@@ -45,6 +45,19 @@ var initObject = object => {
   });
 };
 
+var reverseMapping = mapping => {
+  var result = Object.create(null);
+
+  for (var key in mapping) {
+    if (mapping.hasOwnProperty(key)) {
+      var value = mapping[key];
+      result[value] = key;
+    }
+  }
+
+  return result;
+};
+
 class Schema {
   constructor(options) {
     var props = this.props = {};
@@ -100,6 +113,16 @@ class Schema {
     }
 
     return result;
+  }
+
+  $translateProperty(object, property) {
+    var mapping = this.$getPropertyMapping(property);
+    if (mapping) {
+      var reversedMapping = reverseMapping(mapping);
+      console.log(reversedMapping);
+      return reversedMapping[object[property]];
+    }
+    return null;
   }
 
   $validate(object) {
