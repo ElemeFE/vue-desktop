@@ -68,6 +68,7 @@ export default {
 
   compiled() {
     this.$initPopup();
+    domUtil.addClass(this.$el, 'd-popup');
   },
 
   methods: {
@@ -86,6 +87,10 @@ export default {
     },
 
     $locate(props) {
+      if (!props) {
+        props = this.popupProps;
+      }
+
       var popup = this;
       var dom = popup.getDOM();
       var target = props.target;

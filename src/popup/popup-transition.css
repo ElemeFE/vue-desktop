@@ -4,8 +4,8 @@
 }
 
 .pop-bounce-leave {
-  -webkit-animation: pop-bounce-out 0.2s ease-out;
-  animation: pop-bounce-out 0.2s ease-out;
+  -webkit-animation: pop-bounce-out 0.2s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  animation: pop-bounce-out 0.2s cubic-bezier(0.895, 0.03, 0.685, 0.22);
 }
 
 @-webkit-keyframes pop-bounce-in {
@@ -36,8 +36,8 @@
     transform: scale(1);
   }
   100% {
-    -webkit-transform: scale(0.8);
-    transform: scale(0.8);
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
   }
 }
 
@@ -47,8 +47,8 @@
     transform: scale(1);
   }
   100% {
-    -webkit-transform: scale(0.8);
-    transform: scale(0.8);
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
   }
 }
 
@@ -138,4 +138,9 @@
   100% {
     opacity: 0;
   }
+}
+
+.d-popup {
+  left: -9999px;
+  top: -9999px;
 }

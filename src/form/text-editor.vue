@@ -127,7 +127,9 @@
         type: String
       },
 
-      value: {}
+      value: {},
+
+      height: {}
     },
 
     watch: {
@@ -160,7 +162,14 @@
         },
         set(value) {
           if (this.type === 'date' && !(value instanceof Date)) return;
+          if (this.type === 'number') {
+            value = Number(value);
+            if (!isNaN(value)) {
+              this.value = value;
+            }
 
+            return;
+          }
           this.value = value;
         }
       },
@@ -183,13 +192,15 @@
         created() {
           var parent = this.$parent;
           var type = parent.type;
-          if (type === 'date') {
-            this.$options.template = `<input lazy @change="$parent.handleChange($event)" @focus="$parent.handleFocus()" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" />`;
+          if (type === 'date' || type === 'number') {
+            this.$options.template = `<input lazy @change="$parent.handleChange($event)" @focus="$parent.handleFocus()" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"/>`;
           } else if (type !== 'textarea') {
-            this.$options.template = `<input type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" />`;
+            this.$options.template = `<input type="${parent.editorType}" v-model="$parent.visualValue" ${ type === 'number' ? 'number' : '' } placeholder="{{$parent.placeholder}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }" readonly="{{$parent.readonly}}" />`;
           } else {
-            this.$options.template = `<textarea placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.visualValue"></textarea>`;
+            this.$options.template = `<textarea placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.visualValue" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"></textarea>`;
           }
+
+          console.log(this.$options.template);
         }
       }
     },
@@ -197,19 +208,30 @@
     methods: {
       handleChange(event) {
         var value = event.target.value;
-        if (value) {
-          var parsedValue = fecha.parse(value, this.format || 'YYYY-MM-DD');
+        var type = this.type;
+        if (type === 'date') {
+          if (value) {
+            var parsedValue = fecha.parse(value, this.format || 'YYYY-MM-DD');
 
-          if (parsedValue) {
-            this.value = parsedValue;
+            if (parsedValue) {
+              this.value = parsedValue;
+            }
+          }
+          this.hideDatePicker();
+        } else if (type === 'number') {
+          value = Number(value);
+          if (!isNaN(value)){
+            this.value = value;
           }
         }
-        this.hideDatePicker();
       },
 
       handleFocus() {
-        if (!this.pickerVisible) {
-          this.showDatePicker();
+        var type = this.type;
+        if (type === 'date') {
+          if (!this.pickerVisible) {
+            this.showDatePicker();
+          }
         }
       },
 

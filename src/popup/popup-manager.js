@@ -83,7 +83,7 @@ var PopupManager = {
     if (!topItem) return;
 
     var instance = PopupManager.getInstance(topItem.id);
-    if (instance.popupProps['closeOnClickModal']) {
+    if (instance && instance.popupProps && instance.popupProps.closeOnClickModal) {
       instance.close();
     }
   },

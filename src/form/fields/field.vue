@@ -15,6 +15,7 @@
     position: relative;
     display: table !important;
     width: 300px;
+    min-height: 44px;
   }
 
   .d-field.required > label::before {

@@ -24,8 +24,11 @@
   export default {
     props: merge({
       type: {
-        type: String,
-        default: 'text'
+        type: String
+      },
+
+      editorHeight: {
+        type: Number
       }
     }, common.props),
 
@@ -37,12 +40,32 @@
           DTextEditor: require('../text-editor.vue')
         },
         created() {
-          this.$options.template = `<d-text-editor type="${ this.$parent.type}" :value.sync="${ '$parent.model.' + this.$parent.property }" />`;
+          this.$options.template = `<d-text-editor type="${ this.$parent.editorType }" :value.sync="${ '$parent.model.' + this.$parent.property }" :height="$parent.editorHeight" />`;
         }
       }
     },
 
-    computed: merge({}, common.computed),
+    computed: merge({
+      editorType() {
+        if (this.type) {
+          return this.type;
+        }
+
+        if (this.property) {
+          var fieldSchema = this.fieldSchema;
+          var descriptor = fieldSchema.$getPropertyDescriptor(this.property);
+          if (descriptor) {
+            if (descriptor.type === Date) {
+              return 'date';
+            } else if (descriptor.type === Number) {
+              return 'number';
+            }
+          }
+        }
+
+        return 'text';
+      }
+    }, common.computed),
 
     created: common.onCreated,
 

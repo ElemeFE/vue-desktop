@@ -15,7 +15,11 @@
 
   <d-checkbox-field label="CheckBox" :model="team" property="sex" schema="Team"></d-checkbox-field>
 
-  <d-text-field :model="team" property="birthday" schema="Team" type="date"></d-text-field>
+  <d-text-field :model="team" property="birthday" schema="Team"></d-text-field>
+
+  <d-text-field :model="team" property="count" schema="Team"></d-text-field>
+
+  <d-text-field type="textarea" :editor-height="100"></d-text-field>
 
   <d-radiogroup-field label="RadioGroup" :model="team" property="category">
     <d-radio value="1">dfadf</d-radio>
@@ -29,7 +33,7 @@
   <d-button @click="validate">Validate</d-button>
 
   <div>Checkbox: {{ team.sex }}</div>
-
+  <div>Count: {{ team.count }}</div>
   <div>teamName: {{ team.teamName }}</div>
   <div>hasMapping: {{ team.hasMapping }}</div>
   <div>Category: {{ team.category }}</div>
@@ -61,6 +65,10 @@
       falseValue: 'female'
     },
     category: {},
+    count: {
+      label: '数量',
+      type: Number
+    },
     hasMapping: {
       mapping: {
         '测试1': 1,
