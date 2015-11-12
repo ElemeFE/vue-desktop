@@ -5,7 +5,7 @@
     <d-text-field label="密码" type='password' property='password'></d-text-field>
   </d-form>
 
-  <d-field label="Custom" required>
+  <d-field label="Custom" required :label-width="0">
     我是Custom的内容<br/>
     我是Custom的内容<br/>
     我是Custom的内容

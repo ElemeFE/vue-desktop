@@ -1,6 +1,6 @@
 <template>
   <div class='d-field' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
+    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <slot></slot>
       <div class="d-field-hint">

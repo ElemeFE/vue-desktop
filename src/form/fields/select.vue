@@ -1,6 +1,6 @@
 <template>
   <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }" @click="$event.stopPropagation()">
-    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
+    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
         {{ textValue }}<span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>

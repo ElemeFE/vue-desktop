@@ -163,6 +163,11 @@
         set(value) {
           if (this.type === 'date' && !(value instanceof Date)) return;
           if (this.type === 'number') {
+            if (value === null || value === undefined || value === '') {
+              this.value = null;
+              return;
+            }
+
             value = Number(value);
             if (!isNaN(value)) {
               this.value = value;
@@ -195,7 +200,7 @@
           if (type === 'date' || type === 'number') {
             this.$options.template = `<input lazy @change="$parent.handleChange($event)" @focus="$parent.handleFocus()" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"/>`;
           } else if (type !== 'textarea') {
-            this.$options.template = `<input type="${parent.editorType}" v-model="$parent.visualValue" ${ type === 'number' ? 'number' : '' } placeholder="{{$parent.placeholder}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }" readonly="{{$parent.readonly}}" />`;
+            this.$options.template = `<input type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }" readonly="{{$parent.readonly}}" />`;
           } else {
             this.$options.template = `<textarea placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.visualValue" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"></textarea>`;
           }
@@ -217,6 +222,11 @@
           }
           this.hideDatePicker();
         } else if (type === 'number') {
+          if (value === undefined || value === null || value === '') {
+            this.value = null;
+            return;
+          }
+
           value = Number(value);
           if (!isNaN(value)){
             this.value = value;
