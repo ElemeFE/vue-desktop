@@ -1,23 +1,25 @@
 <template>
-  <d-grid :data="testData" schema="Test" height2="300" :fit="true" @row-click="handleClick2">
-    <d-grid-column type="index"></d-grid-column>
-    <d-grid-column property="prop1"></d-grid-column>
-    <d-grid-column property="prop2"></d-grid-column>
-    <d-grid-column property="prop3" width="400"></d-grid-column>
-    <d-grid-column property="prop4"></d-grid-column>
-    <d-grid-column label="5" property="prop5"></d-grid-column>
-  </d-grid>
+  <d-vbox style="height: 100%;">
+    <d-form schema="Test" :model="item" >
+      <d-text-field property="prop1"></d-text-field>
+      <d-text-field property="prop2"></d-text-field>
+      <d-field>
+        {{ item ? item.prop1 : '' }}, {{ item ? item.prop2 : '' }}
+      </d-field>
+      <d-field>
+        <d-button @click="writeBack()">WriteBack</d-button>
+      </d-field>
+    </d-form>
 
-  <d-form schema="Test" :model="item" >
-    <d-text-field property="prop1"></d-text-field>
-    <d-text-field property="prop2"></d-text-field>
-    <d-field>
-      {{ item ? item.prop1 : '' }}, {{ item ? item.prop2 : '' }}
-    </d-field>
-    <d-field>
-      <d-button @click="writeBack()">WriteBack</d-button>
-    </d-field>
-  </d-form>
+    <d-grid :data="testData" schema="Test" :fit="true" @row-click="handleClick2" flex>
+      <d-grid-column type="index"></d-grid-column>
+      <d-grid-column property="prop1"></d-grid-column>
+      <d-grid-column property="prop2"></d-grid-column>
+      <d-grid-column property="prop3" width="400"></d-grid-column>
+      <d-grid-column property="prop4"></d-grid-column>
+      <d-grid-column label="5" property="prop5"></d-grid-column>
+    </d-grid>
+  </d-vbox>
 </template>
 
 <script type="text/ecmascript-6" lang="babel">

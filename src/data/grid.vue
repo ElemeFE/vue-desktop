@@ -7,7 +7,8 @@
     max-width: 100%;
     background-color: transparent;
     border-collapse: collapse;
-    /* border: 1px solid #ccc; */
+    /*border: 1px solid #ddd;*/
+    font-size: 14px;
   }
 
   .d-grid-fit {
@@ -22,15 +23,19 @@
   .d-grid td {
     height: 20px;
     max-width: 250px;
-    padding: 8px 5px;
+    padding: 2px;
     box-sizing: border-box;
     overflow: hidden;
-    line-height: 20px;
+    line-height: 28px;
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
     vertical-align: middle;
     border-bottom: 1px solid #ddd;
+  }
+
+  .d-grid th {
+    background-color: #f2f2f2;
   }
 
   .d-grid .grid-fixed-header-wrapper {
@@ -72,7 +77,7 @@
   .d-grid td,
   .d-grid th {
     position: relative;
-    /*border-right: 1px solid #ccc;*/
+    /*border-right: 1px solid #ddd;*/
   }
 
   /** TODO */
@@ -144,10 +149,11 @@
     box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
+    min-height: 28px;
   }
 
   .d-grid tr:nth-child(2n) {
-    background: #f5f5f5;
+    background: #f9f9f9;
   }
 
   .d-grid tr.current-row {
