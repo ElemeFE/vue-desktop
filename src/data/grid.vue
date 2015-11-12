@@ -244,6 +244,15 @@
       }
     },
 
+    events: {
+      onresize() {
+        var grid = this;
+        Vue.nextTick(function() {
+          grid.height = grid.$el.offsetHeight;
+        });
+      }
+    },
+
     methods: {
       toggleSelection(event, row) {
         var target = event.target;

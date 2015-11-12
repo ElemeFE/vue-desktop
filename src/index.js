@@ -13,6 +13,7 @@ import Slider from './basic/slider.vue'
 import Sticky from './basic/sticky.vue'
 import Dropdown from './basic/dropdown.vue'
 import DropdownItem from './basic/dropdown-item.vue'
+import Vbox from './basic/vbox.vue'
 
 import Accordion from './nav/accordion.vue'
 import AccordionPanel from './nav/accordion-panel.vue'
@@ -46,6 +47,7 @@ export var Components = {
   Sticky,
   Dropdown,
   DropdownItem,
+  Vbox,
 
   Accordion,
   AccordionPanel,
