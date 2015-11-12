@@ -60,8 +60,15 @@ var reverseMapping = mapping => {
   return result;
 };
 
+var cache = require('./cache');
+
 class Schema {
-  constructor(options) {
+  constructor(name, options) {
+    if (typeof name === 'object') {
+      options = name;
+    } else {
+      cache[name] = this;
+    }
     var props = this.props = {};
     for (var option in options) {
       if (options.hasOwnProperty(option)) {
@@ -126,7 +133,7 @@ class Schema {
     return null;
   }
 
-  $validate(object) {
+  $validate(object, options) {
     if (!object) return console.warn('$validate require an object.');
 
     initObject(object);
@@ -134,14 +141,26 @@ class Schema {
     object.$hints = {};
     object.$hintTypes = {};
 
-    var props = this.props;
+    options = options || {};
+
+    var props;
+    if (options.props) {
+      props = options.props;
+    } else {
+      props = Object.keys(this.props);
+    }
+
+    var skips = options.skips;
+    if (skips) {
+      props = props.filter(item => skips.indexOf(item) === -1);
+    }
+
     var passed = true;
 
-    for (var property in props) {
-      if (props.hasOwnProperty(property)) {
-        if (!this.$validateProperty(object, property)) {
-          passed = false;
-        }
+    for (var i = 0, j = props.length; i < j; i++) {
+      var property = props[i];
+      if (!this.$validateProperty(object, property)) {
+        passed = false;
       }
     }
 
@@ -166,6 +185,29 @@ class Schema {
 
     if (required) {
       if (!doValidate(object, property, propDefinition, { type: 'required', message: propDefinition.message })) {
+        return false;
+      }
+    }
+
+    var pattern = propDefinition.pattern;
+    if (pattern) {
+      if (!doValidate(object, property, propDefinition, { type: 'pattern', pattern: pattern, message: propDefinition.message })) {
+        return false;
+      }
+    }
+
+    var min = propDefinition.min;
+    var max = propDefinition.max;
+    if (typeof min !== 'undefined' || typeof max !== 'undefined') {
+      if (!doValidate(object, property, propDefinition, { type: 'range', min: min, max: max, message: propDefinition.message })) {
+        return false;
+      }
+    }
+
+    var minLength = propDefinition.minLength;
+    var maxLength = propDefinition.maxLength;
+    if (typeof minLength !== 'undefined' || typeof maxLength !== 'undefined') {
+      if (!doValidate(object, property, propDefinition, { type: 'length', min: minLength, max: maxLength, message: propDefinition.message })) {
         return false;
       }
     }

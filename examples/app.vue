@@ -97,6 +97,7 @@
     <div class="demoheader">Data</div>
     <ul class="demolist">
       <li><a v-link="{ path: '/grid' }">Grid</a></li>
+      <li><a v-link="{ path: '/grid-form' }">Grid & Form</a></li>
       <li><a v-link="{ path: '/pagination' }">Pagination</a></li>
     </ul>
     <div class="demoheader">Service</div>

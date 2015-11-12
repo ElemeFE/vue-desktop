@@ -1,4 +1,5 @@
 var SchemaStore = require('../src/schema/store');
+var Schema = require('../src/schema/schema');
 
 describe('Schema Store', function() {
   afterEach(function() {
@@ -10,6 +11,13 @@ describe('Schema Store', function() {
       var schema = SchemaStore.defineSchema('test', {});
 
       schema.$validate.should.be.a('function');
+    });
+
+    it('should define a Schema with new operator', function () {
+      var schema = new Schema('test2', {});
+      schema.$validate.should.be.a('function');
+
+      SchemaStore.getSchema('test2').should.equal(schema);
     });
   });
 
@@ -59,6 +67,32 @@ describe('Schema Store', function() {
       });
 
       result.should.be.false;
+    });
+
+    it('should validate object with props option', function() {
+      var schema = SchemaStore.defineSchema('test', validateConfig);
+
+      var result = schema.$validate({
+        name: '',
+        test: 2
+      }, {
+        props: [ 'test' ]
+      });
+
+      result.should.be.true;
+    });
+
+    it('should validate object with skips option', function() {
+      var schema = SchemaStore.defineSchema('test', validateConfig);
+
+      var result = schema.$validate({
+        name: '',
+        test: 2
+      }, {
+        skips: ['name']
+      });
+
+      result.should.be.true;
     });
 
     it('should validate object property with rules', function () {

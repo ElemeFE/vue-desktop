@@ -199,8 +199,6 @@
           } else {
             this.$options.template = `<textarea placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.visualValue" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"></textarea>`;
           }
-
-          console.log(this.$options.template);
         }
       }
     },

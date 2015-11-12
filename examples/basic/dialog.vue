@@ -1,7 +1,7 @@
 <template>
-  <button class="btn btn-success btn-lg" @click="bigModal = !bigModal">Big modal</button>
+  <button class="btn btn-success btn-lg" @click="showDialog = !showDialog">Big modal</button>
 
-  <d-dialog title="Big Modal" :visible.sync="bigModal" width="400">
+  <d-dialog title="Big Modal" :visible.sync="showDialog" width="400">
     <div>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -11,8 +11,8 @@
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
     <div slot="dialog-footer">
-      <d-button @click="bigModal = !bigModal">OK</d-button>
-      <d-button @click="bigModal = !bigModal">Cancel</d-button>
+      <d-button @click="showDialog = !showDialog">OK</d-button>
+      <d-button @click="showDialog = !showDialog">Cancel</d-button>
     </div>
   </d-dialog>
 </template>
@@ -21,14 +21,8 @@
   export default {
     data() {
       return {
-        bigModal: false
+        showDialog: false
       }
-    },
-    methods: {
-
-    },
-    components: {
-
     }
   };
 </script>

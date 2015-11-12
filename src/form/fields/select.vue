@@ -1,6 +1,6 @@
 <template>
   <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }" @click="$event.stopPropagation()">
-    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }">{{ label || '' }}</label>
+    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
         {{ textValue }}<span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>
@@ -67,7 +67,7 @@
         var mapping = this.mapping;
         var selectValue = this.selectValue;
 
-        if (mapping && selectValue) {
+        if (mapping && selectValue !== null && selectValue !== undefined) {
           for (var label in mapping) {
             if (mapping.hasOwnProperty(label)) {
               var value = mapping[label];
@@ -96,6 +96,8 @@
       DSelect: require('../select.vue'),
       DOption: require('../select-option.vue')
     },
+
+    events: common.events,
 
     created: common.onCreated,
 

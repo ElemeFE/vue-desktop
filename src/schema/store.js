@@ -1,11 +1,11 @@
-let store = Object.create(null);
+let cache = require('./cache');
 
 var Schema = require('./schema');
 var validators = require('./validators');
 
 export default {
   getSchema(name) {
-    return store[name];
+    return cache[name];
   },
 
   defineSchema(name, config) {
@@ -19,14 +19,14 @@ export default {
 
     var result = new Schema(config);
 
-    store[name] = result;
+    cache[name] = result;
 
     return result;
   },
 
   removeSchema(name) {
-    store[name] = null;
-    delete store[name];
+    cache[name] = null;
+    delete cache[name];
   },
 
   defineValidator(name, fn) {

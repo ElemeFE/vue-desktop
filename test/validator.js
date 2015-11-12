@@ -26,6 +26,19 @@ describe('Validator Unit test', function() {
     validator(undefined, { min: 1 }).should.be.false;
   });
 
+  it('type: range', function() {
+    var validator = SchemaStore.getValidator('range');
+
+    validator(0).should.be.false;
+    validator(null).should.be.true;
+    validator(undefined).should.be.true;
+    validator(null, { min: 1 }).should.be.true;
+    validator(undefined, { min: 1 }).should.be.true;
+
+    validator(0, { min: 1 }).should.be.false;
+    validator('').should.be.false;
+  });
+
   it('type: pattern', function() {
     var validator = SchemaStore.getValidator('pattern');
 
@@ -35,6 +48,16 @@ describe('Validator Unit test', function() {
 
     validator('', { pattern: /i/ }).should.be.false;
     validator('i', { pattern: /i/ }).should.be.true;
+  });
+
+  it('type: enum', function() {
+    var validator = SchemaStore.getValidator('enum');
+
+    validator(null, { enum: ['a', 'b', 'c'] }).should.be.true;
+    validator(undefined, { enum: ['a', 'b', 'c'] }).should.be.true;
+
+    validator('', { enum: ['a', 'b', 'c'] }).should.be.false;
+    validator('a', { enum: ['a', 'b', 'c'] }).should.be.true;
   });
 
   it('type: custom', function() {

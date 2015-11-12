@@ -410,7 +410,7 @@
           rowTemplate += '<td class="gutter"></td>';
         }
 
-        var repeatTemplate = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection">' + rowTemplate + '</tr>';
+        var repeatTemplate = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection" @click="handleClick(row)">' + rowTemplate + '</tr>';
 
         var bodyTable = this.$el.querySelector(fixed ? '.grid-fixed-body-wrapper tbody' : '.grid-body tbody');
 
@@ -423,6 +423,9 @@
           template: repeatTemplate,
           replace: false,
           methods: {
+            handleClick: function(row) {
+              grid.$emit('row-click', row);
+            },
             $getPropertyText: function(row, property) {
               var schema = grid.gridSchema;
               if (schema) {

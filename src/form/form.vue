@@ -20,6 +20,12 @@
       this.$isForm = true;
     },
 
+    watch: {
+      model() {
+        this.$broadcast('formModelChange');
+      }
+    },
+
     props: {
       cols: {
         type: Number,

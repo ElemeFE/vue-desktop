@@ -1,6 +1,6 @@
 <template>
   <div class='d-field d-textfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }">{{ label || '' }}</label>
+    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <editor></editor>
       <slot></slot>
@@ -31,6 +31,8 @@
         type: Number
       }
     }, common.props),
+
+    events: common.events,
 
     components: {
       editor: {

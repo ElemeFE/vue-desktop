@@ -1,6 +1,6 @@
 <template>
   <div class='d-field d-checkboxfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }">{{ label || '' }}</label>
+    <label :style="{ width: labelWidth ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <editor></editor>
       <div class="d-field-hint">
@@ -62,6 +62,8 @@
         }
       }
     },
+
+    events: common.events,
 
     compiled: common.onCompiled,
 

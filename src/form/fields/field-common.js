@@ -16,6 +16,17 @@ export default {
     }
   },
 
+  events: {
+    formModelChange() {
+      var form = this.form;
+      if (form && form.model) {
+        if (this.model !== form.model) {
+          this.model = form.model;
+        }
+      }
+    }
+  },
+
   computed: {
     isRequired() {
       var property = this.property;
@@ -99,6 +110,10 @@ export default {
     schema: {},
     label: {
       type: String
+    },
+    hideLabel: {
+      type: Boolean,
+      default: false
     },
     hintType: {
       type: String,

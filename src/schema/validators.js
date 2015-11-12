@@ -28,6 +28,42 @@ export default {
     return true;
   },
 
+  range: function(value, options) {
+    options = options || {};
+    var min = options.min;
+    var max = options.max;
+
+    if (value === null || value === undefined) return true;
+
+    value = Number(value);
+    if (!isNaN(value)) return false;
+
+    if (typeof min === 'number') {
+      if (value < min) {
+        return false;
+      }
+    }
+
+    if (typeof max === 'number') {
+      if (value > max) {
+        return false;
+      }
+    }
+
+    return true;
+  },
+
+  enum: function(value, options) {
+    if (value === null || value === undefined) return true;
+    var validValues = options.enum;
+
+    if (!(validValues instanceof Array)) {
+      throw new Error('enum should be a array.');
+    }
+
+    return validValues.indexOf(value) !== -1;
+  },
+
   pattern: function(value, options) {
     options = options || {};
     var pattern = options.pattern;

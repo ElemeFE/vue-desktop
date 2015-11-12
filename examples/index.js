@@ -72,6 +72,9 @@ router.map({
   '/grid': {
     component: require('./data/grid.vue')
   },
+  '/grid-form': {
+    component: require('./data/grid-form.vue')
+  },
   '/pagination': {
     component: require('./data/pagination.vue')
   }
