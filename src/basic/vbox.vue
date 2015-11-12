@@ -23,10 +23,12 @@
   var throttle = require('../util').throttle;
 
   export default {
-    data: {
-      $isBox: true,
-      $isTop: false,
-      $resizeListener: null
+    data(){
+      return {
+        $isBox: true,
+        $isTop: false,
+        $resizeListener: null
+      }
     },
 
     methods: {

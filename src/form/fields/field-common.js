@@ -91,10 +91,16 @@ export default {
         this.label = schema.$getPropertyLabel(property);
       }
 
-      var mapping = schema.$getPropertyMapping(property);
+      var mapping = schema.$getPropertyMapping(property, this.model);
       if (!mapping) return;
 
-      this.mapping = mapping;
+      if (mapping.then) {
+        mapping.then((value) => {
+          this.mapping = value;
+        });
+      } else {
+        this.mapping = mapping;
+      }
     }
   },
 
@@ -121,6 +127,7 @@ export default {
     },
     hintMessage: {
       type: String
-    }
+    },
+    mapping: {}
   }
 };

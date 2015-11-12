@@ -53,7 +53,9 @@
   var common = require('./field-common');
 
   export default {
-    props: merge({}, common.props),
+    props: merge({
+      parentProperty: {}
+    }, common.props),
 
     data() {
       return {
@@ -102,6 +104,26 @@
     created: common.onCreated,
 
     compiled: common.onCompiled,
+
+    ready() {
+      if (this.parentProperty) {
+        var select = this;
+        this.$watch('model.' + this.parentProperty, function() {
+          var schema = select.fieldSchema;
+          if (schema) {
+            var result = schema.$getPropertyMapping(select.property, select.model);
+            if (result.then) {
+              result.then(function(value) {
+                select.selectValue = null;
+                select.mapping = value;
+              });
+            } else {
+              select.mapping = result;
+            }
+          }
+        });
+      }
+    },
 
     watch: {
       selectVisible(newVal) {

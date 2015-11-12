@@ -105,7 +105,7 @@ class Schema {
     return this.props[property] || {};
   }
 
-  $getPropertyMapping(property) {
+  $getPropertyMapping(property, object) {
     var propDefinition = this.props[property];
     var mapping = propDefinition.mapping;
     var result = mapping;
@@ -118,7 +118,7 @@ class Schema {
         result[config.name || config.label] = config.value;
       }
     } else if (typeof mapping === 'function') {
-      result = mapping();
+      result = mapping(object);
     }
 
     return result;

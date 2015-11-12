@@ -13,6 +13,12 @@
 
   <d-select-field label="Select Field" schema="Team" :model="team" property="hasMapping"></d-select-field>
 
+  <d-select-field label="Remote Mapping" schema="Team" :model="team" property="remoteMapping"></d-select-field>
+
+  <d-select-field v-ref:select-field label="Remote Mapping 2" schema="Team" :model="team" property="remoteMapping2" parent-property="remoteMapping"></d-select-field>
+
+  {{ team.remoteMapping }} {{ team.remoteMapping2 }}
+
   <d-checkbox-field label="CheckBox" :model="team" property="sex" schema="Team"></d-checkbox-field>
 
   <d-text-field :model="team" property="birthday" schema="Team"></d-text-field>
@@ -47,11 +53,14 @@
     teamName: {
       required: true
     },
+
     nickname: {
       required: true
     },
+
     password: {
     },
+
     birthday: {
       label: '生日',
       type: Date,
@@ -59,16 +68,20 @@
         return new Date()
       }
     },
+
     sex: {
       default: 'male',
       trueValue: 'male',
       falseValue: 'female'
     },
+
     category: {},
+
     count: {
       label: '数量',
       type: Number
     },
+
     hasMapping: {
       mapping: {
         '测试0': 0,
@@ -77,6 +90,38 @@
         '测试3': 3,
         '测试4': 4,
         '测试5': 5
+      }
+    },
+
+    remoteMapping: {
+      default: 2,
+      mapping: function() {
+        return new Promise(function(resolve) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', '/examples/json/mapping.json', true);
+          xhr.onload = function(response) {
+            resolve(JSON.parse(response.target.responseText));
+          };
+          xhr.send();
+        });
+      }
+    },
+
+    remoteMapping2: {
+      default: 21,
+      mapping: function(model) {
+        return new Promise(function(resolve) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', '/examples/json/mapping2.json', true);
+          xhr.onload = function(response) {
+            var remoteMapping = model.remoteMapping;
+            if (!remoteMapping) {
+              remoteMapping = 1;
+            }
+            resolve(JSON.parse(response.target.responseText)[remoteMapping]);
+          };
+          xhr.send();
+        });
       }
     }
   });

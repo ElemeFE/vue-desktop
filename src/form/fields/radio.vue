@@ -53,12 +53,6 @@
       DRadio: require('../radio.vue')
     },
 
-    data() {
-      return {
-        mapping: null
-      };
-    },
-
     events: common.events,
 
     created: common.onCreated,
