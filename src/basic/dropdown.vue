@@ -28,6 +28,7 @@
     border: solid 1px #ddd;
     border-radius: 3px;
     box-shadow: 0 0 2px #ddd;
+    background-color: #fff;
   }
 
   .fade-transition {
