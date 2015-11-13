@@ -18,7 +18,7 @@ export default {
   },
 
   formatDate(date, format) {
-    if (!date) return '';
+    if (!(date instanceof Date)) return '';
     return dateUtil.format(date, format || 'YYYY-MM-DD');
   },
 

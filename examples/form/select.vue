@@ -1,5 +1,5 @@
 <template>
-  <d-select value="1">
+  <d-select value="1" multi-select>
     <d-option value="1">test1</d-option>
     <d-option value="2">test2</d-option>
     <d-option value="3">test3</d-option>
@@ -9,7 +9,5 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  export default {
-
-  };
+  export default {};
 </script>

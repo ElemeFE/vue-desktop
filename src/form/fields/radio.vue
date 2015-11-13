@@ -2,7 +2,7 @@
   <div class='d-field d-radiogroupfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
-      <d-radio-group v-ref:group :value.sync="editorValue"><d-radio v-for="(key, val) in mapping" :value="val">{{key}}</d-radio><slot></slot></d-radio-group>
+      <d-radio-group :value.sync="editorValue" v-ref:group><d-radio v-for="(key, val) in mapping" :value="val">{{key}}</d-radio><slot></slot></d-radio-group>
       <div class="d-field-hint">
         <i class='d-icon' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>

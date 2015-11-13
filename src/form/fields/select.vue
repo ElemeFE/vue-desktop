@@ -1,12 +1,12 @@
 <template>
-  <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }" @click="$event.stopPropagation()">
+  <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }" @click="handleSelfClick($event)">
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
         {{ textValue }}<span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>
       </div>
-      <d-select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false">
-        <d-option v-for="(key, val) in mapping" :value="val">{{key}}</d-option>
+      <d-select v-ref:select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false" @selection-change="handleSelectionChange">
+        <d-option v-for="(key, val) in mapping" :value="val" :show-checkbox="multiSelect">{{key}}</d-option>
       </d-select>
       <div class="d-field-hint">
         <i class='d-icon' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
@@ -30,6 +30,7 @@
     padding-left: 4px;
     border: 1px solid #dedede;
     width: 100%;
+    padding-right: 24px;
     box-sizing: border-box;
     border-radius: 2px;
     line-height: 30px;
@@ -42,7 +43,9 @@
   }
 
   .d-selectfield-box .d-selectfield-trigger {
-    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
     margin-right: 4px;
   }
 </style>
@@ -54,7 +57,11 @@
 
   export default {
     props: merge({
-      parentProperty: {}
+      parentProperty: {},
+      multiSelect: {
+        type: Boolean,
+        default: false
+      }
     }, common.props),
 
     data() {
@@ -69,15 +76,23 @@
         var mapping = this.mapping;
         var selectValue = this.selectValue;
 
-        if (mapping && selectValue !== null && selectValue !== undefined) {
-          for (var label in mapping) {
-            if (mapping.hasOwnProperty(label)) {
-              var value = mapping[label];
-              if (value === selectValue) {
-                return label;
-              }
-            }
+        var reversedMap = {};
+
+        for (var label in mapping) {
+          if (mapping.hasOwnProperty(label)) {
+            var value = mapping[label];
+            reversedMap[value] = label;
           }
+        }
+
+        if (selectValue instanceof Array) {
+          return selectValue.map(function(item) {
+            return reversedMap[item];
+          }).join(',');
+        }
+
+        if (mapping && selectValue !== null && selectValue !== undefined) {
+          return reversedMap[selectValue];
         }
       },
       selectValue: {
@@ -141,6 +156,24 @@
     },
 
     methods: merge({
+      handleSelectionChange() {
+        var children = this.$refs.select.$children;
+        var value = [];
+
+        children.forEach(function(child) {
+          if (child.selected) {
+            value.push(child.value);
+          }
+        });
+        this.selectValue = value;
+      },
+
+      handleSelfClick(event) {
+        if (this.selectVisible) {
+          event.stopPropagation();
+        }
+      },
+
       toggleSelect() {
         this.selectActive = true;
         this.selectVisible = !this.selectVisible;

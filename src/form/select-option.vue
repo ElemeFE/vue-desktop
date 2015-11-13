@@ -1,5 +1,6 @@
 <template>
-  <div class="d-select-option" :class="{ selected: value === $parent.value }" @click="handleClick">
+  <div class="d-select-option" :class="{ selected: !showCheckbox && value === $parent.value }" @click="handleClick">
+    <input type="checkbox" v-if="showCheckbox" v-model="selected" />
     <slot></slot>
   </div>
 </template>
@@ -19,13 +20,31 @@
 <script type="text/ecmascript-6" lang="babel">
   export default {
     props: {
-      value: {}
+      value: {},
+      showCheckbox: {
+        type: Boolean,
+        default: false
+      },
+      selected: {
+        type: Boolean
+      }
+    },
+
+    ready() {
+      if (this.$parent.multiSelect) {
+        this.showCheckbox = true;
+      }
     },
 
     methods: {
       handleClick() {
-        this.$parent.value = this.value;
-        this.$parent.$emit('select', this.value);
+        if (this.showCheckbox) {
+          this.selected = !this.selected;
+          this.$parent.$emit('selection-change');
+        } else {
+          this.$parent.value = this.value;
+          this.$parent.$emit('select', this.value);
+        }
       }
     }
   }

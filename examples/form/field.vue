@@ -11,7 +11,7 @@
     我是Custom的内容
   </d-field>
 
-  <d-select-field label="Select Field" schema="Team" :model="team" property="hasMapping"></d-select-field>
+  <d-select-field label="Select Field" schema="Team" :model="team" property="hasMapping" multi-select></d-select-field>
 
   <d-select-field label="Remote Mapping" schema="Team" :model="team" property="remoteMapping"></d-select-field>
 

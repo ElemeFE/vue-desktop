@@ -1,7 +1,7 @@
 <template>
   <div class="d-select">
     <slot></slot>
-    <d-option v-for="item in mapping" :value="item.value || item.label">{{item.label}}</d-option>
+    <d-option v-for="item in mapping" :value="item.value || item.label" :show-checkbox="multiSelect">{{item.label}}</d-option>
   </div>
 </template>
 
@@ -18,8 +18,12 @@
     components: {
       DOption: require('./select-option.vue')
     },
+
     props: {
-      value: {
+      value: {},
+      multiSelect: {
+        type: Boolean,
+        default: false
       },
       mapping: {
         default() {
