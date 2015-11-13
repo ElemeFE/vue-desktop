@@ -1,6 +1,7 @@
 <template>
   <div class="dropdown btn btn-primary" :class="{active: showItem}">
     {{title}}
+    <span class="fa fa-chevron-down"></span>
     <ul class="dropdown-list" v-show="showItem" v-el:ul transition="fade">
       <slot></slot>
     </ul>
@@ -11,6 +12,10 @@
   .dropdown {
     position: relative;
     box-sizing: border-box;
+  }
+
+  .dropdown span {
+    margin-left: 10px;
   }
 
   .dropdown.active {
@@ -52,7 +57,7 @@
       },
       trigger: {
         type: String,
-        default: 'hover'
+        default: 'click'
       },
       position: {
         type: String,
@@ -79,6 +84,12 @@
         if (event.target.className.indexOf('disabled') === -1 && event.target.tagName !== 'HR') {
           this.showItem = !this.showItem;
         }
+      },
+
+      outerClose(event) {
+        if (this.showItem && event.target !== this.$el) {
+          this.showItem = false;
+        }
       }
     },
 
@@ -89,6 +100,7 @@
         this.$el.addEventListener('mouseenter', this.onMouseEnter);
         this.$el.addEventListener('mouseleave', this.onMouseLeave);
       }
+      document.addEventListener('click', this.outerClose);
       switch(this.position) {
         case 'top':
           this.$els.ul.style.bottom = parseInt(getStyle(this.$el, 'height')) + 5 + 'px';
