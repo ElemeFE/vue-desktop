@@ -1,8 +1,7 @@
 <template>
-  <li class="dropdown-item" :class="{'dropdown-item-disabled': disabled}" v-if="!divider" @click="select()">
+  <li class="dropdown-item" :class="{'dropdown-item-disabled': disabled}" @click="select()">
     <slot></slot>
   </li>
-  <hr v-if="divider">
 </template>
 
 <style>
@@ -37,35 +36,23 @@
     color: #999;
     background-color: inherit;
   }
-
-  .dropdown hr {
-    margin: 0;
-    border: none;
-    border-bottom: solid 1px #ddd;
-    cursor: default;
-    padding: 0;
-  }
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
   export default {
     props: {
-      divider: {
-        type: Boolean,
-        default: false
-      },
       disabled: {
         type: Boolean,
         default: false
       },
-      key: {
-        type: Number
+      name: {
+        type: String
       }
     },
     methods: {
       select() {
-        if (!this.disabled && !this.divider) {
-          this.$parent.$emit('select', this.key);
+        if (!this.disabled) {
+          this.$parent.$emit('select', this.name);
           if (this.$parent.trigger !== 'click') {
             this.$parent.showItem = false;
           }

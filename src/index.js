@@ -11,8 +11,9 @@ import ButtonGroup from './basic/button-group.vue'
 import ProgressBar from './basic/progress-bar.vue'
 import Slider from './basic/slider.vue'
 import Sticky from './basic/sticky.vue'
-import Dropdown from './basic/dropdown.vue'
+import DropdownButton from './basic/dropdown.vue'
 import DropdownItem from './basic/dropdown-item.vue'
+import DropdownDivider from './basic/dropdown-divider.vue'
 import Vbox from './basic/vbox.vue'
 
 import Accordion from './nav/accordion.vue'
@@ -45,8 +46,9 @@ export var Components = {
   ProgressBar,
   Slider,
   Sticky,
-  Dropdown,
+  DropdownButton,
   DropdownItem,
+  DropdownDivider,
   Vbox,
 
   Accordion,
