@@ -1,6 +1,6 @@
 var validatorFnMap = require('./validators');
-
 var Vue = require('../config');
+var formatDate = require('../util').formatDate;
 
 var getMessage = function(key, options) {
   var result = Vue.prototype.$t.call(null, key, options);
@@ -99,6 +99,19 @@ class Schema {
     var descriptor = this.props[property] || {};
 
     return descriptor.label;
+  }
+
+  $getPropertyText(object, property) {
+    var descriptor = this.props[property];
+    if (descriptor) {
+      var value = object[property];
+
+      if (descriptor.type === Date) {
+        return formatDate(value, descriptor.format);
+      }
+    }
+
+    return object[property];
   }
 
   $getPropertyDescriptor(property) {

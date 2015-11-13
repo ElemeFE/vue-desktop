@@ -448,6 +448,7 @@
                 if (mapping) {
                   return schema.$translateProperty(row, property);
                 }
+                return schema.$getPropertyText(row, property);
               }
               return row[property];
             }

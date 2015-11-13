@@ -98,9 +98,8 @@
 
 <script type="text/ecmascript-6" lang="babel">
   var Vue = require('vue');
-  var fecha = require('fecha');
-  var merge = require('../util').merge;
   var domUtil = require('wind-dom');
+  import { merge, formatDate, parseDate } from '../util';
 
   export default {
     props: {
@@ -156,7 +155,7 @@
         get() {
           var value = this.value;
           if (value instanceof Date) {
-            return fecha.format(value, this.format || 'YYYY-MM-DD');
+            return formatDate(value, this.format || 'YYYY-MM-DD');
           }
           return value;
         },
@@ -214,7 +213,7 @@
         var type = this.type;
         if (type === 'date') {
           if (value) {
-            var parsedValue = fecha.parse(value, this.format || 'YYYY-MM-DD');
+            var parsedValue = parseDate(value, this.format || 'YYYY-MM-DD');
 
             if (parsedValue) {
               this.value = parsedValue;
