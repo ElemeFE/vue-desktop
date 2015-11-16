@@ -100,4 +100,4 @@ export { default as MessageBox } from './service/msgbox'
 
 export { default as Notification } from './service/notification'
 
-export { default as SchemaStore } from './schema/store'
+export { default as Schema } from './schema'

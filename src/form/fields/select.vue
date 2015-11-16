@@ -126,7 +126,7 @@
         this.$watch('model.' + this.parentProperty, function() {
           var schema = select.fieldSchema;
           if (schema) {
-            var result = schema.$getPropertyMapping(select.property, select.model);
+            var result = schema.getPropertyMapping(select.property, select.model);
             if (result.then) {
               result.then(function(value) {
                 select.selectValue = null;

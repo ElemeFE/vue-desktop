@@ -1,6 +1,6 @@
 let cache = require('./cache');
 
-var Schema = require('./schema');
+var Schema = require('./index');
 var validators = require('./validators');
 
 export default {

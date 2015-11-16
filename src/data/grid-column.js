@@ -13,7 +13,7 @@ Vue.elementDirective('d-grid-column', {
     var schema = this._host.gridSchema;
 
     if (property && schema && !label) {
-      label = schema.$getPropertyLabel(property);
+      label = schema.getPropertyLabel(property);
     }
 
     if (sortable === 'true') {

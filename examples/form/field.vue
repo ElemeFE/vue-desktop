@@ -47,9 +47,9 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  import { SchemaStore } from '../../src/index.js'
+  import { Schema } from '../../src/index.js'
 
-  var TeamSchema = SchemaStore.defineSchema('Team', {
+  var TeamSchema = new Schema('Team', {
     teamName: {
       required: true
     },
@@ -58,12 +58,11 @@
       required: true
     },
 
-    password: {
-    },
+    password: {},
 
     birthday: {
       label: '生日',
-      type: Date,
+      type: 'date',
       default() {
         return new Date()
       }
@@ -79,7 +78,9 @@
 
     count: {
       label: '数量',
-      type: Number
+      type: 'integer',
+      min: 1,
+      max: 10
     },
 
     hasMapping: {
@@ -129,13 +130,13 @@
   export default {
     methods: {
       validate() {
-        TeamSchema.$validate(this.team);
+        TeamSchema.validate(this.team);
       }
     },
 
     data () {
       return {
-        team: SchemaStore.getSchema('Team').$new()
+        team: TeamSchema.create()
       }
     }
   }

@@ -2,13 +2,40 @@ var SchemaStore = require('../../schema/store');
 var domUtil = require('wind-dom');
 
 export default {
+  props: {
+    form: {},
+    model: {
+      default() {
+        return {}
+      }
+    },
+    labelWidth: {},
+    property: {},
+    schema: {},
+    label: {
+      type: String
+    },
+    hideLabel: {
+      type: Boolean,
+      default: false
+    },
+    hintType: {
+      type: String,
+      default: ''
+    },
+    hintMessage: {
+      type: String
+    },
+    mapping: {}
+  },
+
   methods: {
     validate() {
       var model = this.model;
       var schema = this.fieldSchema;
 
       if (schema) {
-        schema.$validateProperty(model, this.property);
+        schema.validateProperty(model, this.property);
 
         this.hintType = model.$hintTypes[this.property];
         this.hintMessage = model.$hints[this.property];
@@ -33,7 +60,7 @@ export default {
       var schema = this.fieldSchema;
 
       if (schema && property) {
-        return !!schema.$getPropertyDescriptor(property).required;
+        return !!schema.getPropertyDescriptor(property).required;
       }
 
       return this.required;
@@ -88,10 +115,10 @@ export default {
       if (!schema) return;
 
       if (!this.label) {
-        this.label = schema.$getPropertyLabel(property);
+        this.label = schema.getPropertyLabel(property);
       }
 
-      var mapping = schema.$getPropertyMapping(property, this.model);
+      var mapping = schema.getPropertyMapping(property, this.model);
       if (!mapping) return;
 
       if (mapping.then) {
@@ -102,32 +129,5 @@ export default {
         this.mapping = mapping;
       }
     }
-  },
-
-  props: {
-    form: {},
-    model: {
-      default() {
-        return {}
-      }
-    },
-    labelWidth: {},
-    property: {},
-    schema: {},
-    label: {
-      type: String
-    },
-    hideLabel: {
-      type: Boolean,
-      default: false
-    },
-    hintType: {
-      type: String,
-      default: ''
-    },
-    hintMessage: {
-      type: String
-    },
-    mapping: {}
   }
 };

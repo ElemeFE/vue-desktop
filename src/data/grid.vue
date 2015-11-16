@@ -444,11 +444,11 @@
             $getPropertyText: function(row, property) {
               var schema = grid.gridSchema;
               if (schema) {
-                var mapping = schema.$getPropertyMapping(property);
+                var mapping = schema.getPropertyMapping(property);
                 if (mapping) {
-                  return schema.$translateProperty(row, property);
+                  return schema.translateProperty(row, property);
                 }
-                return schema.$getPropertyText(row, property);
+                return schema.getPropertyText(row, property);
               }
               return row[property];
             }

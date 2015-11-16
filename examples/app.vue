@@ -104,6 +104,7 @@
     <ul class="demolist">
       <li><a v-link="{ path: '/msgbox' }">MessageBox</a></li>
       <li><a v-link="{ path: '/notification' }">Notification</a></li>
+      <li><a v-link="{ path: '/tooltip' }">Tooltip</a></li>
     </ul>
   </div>
   <div id="main">

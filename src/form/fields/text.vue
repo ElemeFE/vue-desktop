@@ -21,6 +21,14 @@
   var merge = require('../../util').merge;
   var common = require('./field-common');
 
+  const TYPES_MAP = {
+    date: 'date',
+    datetime: 'datetime',
+    integer: 'number',
+    float: 'number',
+    number: 'number'
+  };
+
   export default {
     props: merge({
       type: {
@@ -56,12 +64,10 @@
         if (this.property) {
           var fieldSchema = this.fieldSchema;
           if (fieldSchema) {
-            var descriptor = fieldSchema.$getPropertyDescriptor(this.property);
+            var descriptor = fieldSchema.getPropertyDescriptor(this.property);
             if (descriptor) {
-              if (descriptor.type === Date) {
-                return 'date';
-              } else if (descriptor.type === Number) {
-                return 'number';
+              if (TYPES_MAP[descriptor.type]) {
+                return TYPES_MAP[descriptor.type];
               }
             }
           }

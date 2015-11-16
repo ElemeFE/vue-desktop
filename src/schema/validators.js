@@ -1,9 +1,16 @@
+var format = require('./format');
+
 export default {
-  required: function(value) {
-    return !(value === null || value === undefined || value === '');
+  required: function(value, options, property, descriptor) {
+    var result = !(value === null || value === undefined || value === '');
+    if (!result) {
+      options.message = format(options.message, { label: descriptor.label || property });
+    }
+
+    return result;
   },
 
-  length: function(value, options) {
+  length: function(value, options, property, descriptor) {
     options = options || {};
     var min = options.min;
     var max = options.max;
@@ -13,47 +20,81 @@ export default {
       string = '' + value;
     }
 
+    var result = true;
+
     if (typeof min === 'number') {
       if (string.length < min) {
-        return false;
+        result = false;
       }
     }
 
     if (typeof max === 'number') {
       if (string.length > max) {
-        return false;
+        result = false;
       }
     }
 
-    return true;
+    if (!result) {
+      var params = { label: descriptor.label || property, min: min, max: max };
+      if (typeof options.message === 'object') {
+        if (typeof max === 'number' && typeof min === 'number') {
+          options.message = format(options.message.range, params);
+        } else if (typeof min === 'number') {
+          options.message = format(options.message.min, params);
+        } else {
+          options.message = format(options.message.max, params);
+        }
+      } else {
+        options.message = format(options.message, params);
+      }
+    }
+
+    return result;
   },
 
-  range: function(value, options) {
+  range: function(value, options, property, descriptor) {
     options = options || {};
     var min = options.min;
     var max = options.max;
 
-    if (value === null || value === undefined) return true;
+    var result = true;
+
+    if (value === null || value === undefined) result = true;
 
     value = Number(value);
-    if (!isNaN(value)) return false;
+    if (isNaN(value)) result = false;
 
     if (typeof min === 'number') {
       if (value < min) {
-        return false;
+        result = false;
       }
     }
 
     if (typeof max === 'number') {
       if (value > max) {
-        return false;
+        result = false;
       }
     }
 
-    return true;
+    if (!result) {
+      var params = { label: descriptor.label || property, min: min, max: max };
+      if (typeof options.message === 'object') {
+        if (typeof max === 'number' && typeof min === 'number') {
+          options.message = format(options.message.range, params);
+        } else if (typeof min === 'number') {
+          options.message = format(options.message.min, params);
+        } else {
+          options.message = format(options.message.max, params);
+        }
+      } else {
+        options.message = format(options.message, params);
+      }
+    }
+
+    return result;
   },
 
-  enum: function(value, options) {
+  enum: function(value, options, property, descriptor) {
     if (value === null || value === undefined) return true;
     var validValues = options.enum;
 
@@ -61,23 +102,51 @@ export default {
       throw new Error('enum should be a array.');
     }
 
-    return validValues.indexOf(value) !== -1;
+    var result = validValues.indexOf(value) !== -1;
+
+    if (!result) {
+      options.message = format(options.message, { label: descriptor.label || property, list: validValues.join(', ') });
+    }
+
+    return result;
   },
 
-  pattern: function(value, options) {
+  whitespace: function(value, options, property, descriptor) {
+    options = options || {};
+    var whitespace = !!options.whitespace;
+    var result = /^\s+$/.test(value);
+    result = whitespace ? result : !result;
+
+    if (!result) {
+      options.message = format(options.message, { label: descriptor.label || property });
+    }
+
+    return result;
+  },
+
+  pattern: function(value, options, property, descriptor) {
     options = options || {};
     var pattern = options.pattern;
     if (!pattern) throw new Error('pattern is required!');
 
-    return pattern.test(value);
+    var result = pattern.test(value);
+    if (!result) {
+      options.message = format(options.message, { label: descriptor.label || property });
+    }
+
+    return result;
   },
 
-  custom: function(value, options) {
+  custom: function(value, options, property, descriptor) {
     options = options || {};
     var validate = options.validate;
 
     if (typeof validate === 'function') {
-      return !!validate(value);
+      var result = !!validate(value);
+      if (!result) {
+        options.message = format(options.message, { label: descriptor.label || property });
+      }
+      return result;
     } else {
       throw new Error('validate must be a function.');
     }

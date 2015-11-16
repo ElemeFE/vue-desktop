@@ -22,9 +22,9 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  import { SchemaStore } from '../../src/index.js'
+  import { Schema } from '../../src/index.js'
 
-  SchemaStore.defineSchema('GridTest', {
+  new Schema('GridTest', {
     prop1: {
       label: '测试1',
       required: true

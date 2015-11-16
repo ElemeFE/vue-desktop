@@ -49,7 +49,7 @@
       if (this.property) {
         var schema = this.fieldSchema;
         if (schema) {
-          var descriptor = schema.$getPropertyDescriptor(this.property);
+          var descriptor = schema.getPropertyDescriptor(this.property);
           if (!descriptor) return;
 
           if (descriptor.trueValue !== undefined) {

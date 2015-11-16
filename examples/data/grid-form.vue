@@ -23,9 +23,9 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  import { SchemaStore } from '../../src/index.js'
+  import { Schema } from '../../src/index.js'
 
-  var TestSchema = SchemaStore.defineSchema('Test', {
+  var TestSchema = new Schema('Test', {
     prop1: {
       label: '测试1',
       required: true
@@ -68,10 +68,11 @@
         Object.assign(this.editingRow, this.item);
       }
     },
+
     data() {
       return {
         editingRow: null,
-        item2: TestSchema.$new(),
+        item2: TestSchema.create(),
         item: null,
         testData: [
           {prop1: '11', prop2: '12', prop3: '13', prop4: '14', prop5: true},
