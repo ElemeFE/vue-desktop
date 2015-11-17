@@ -17,7 +17,7 @@ var doValidate = function(object, property, descriptor, rule) {
 
     var clonedRule = merge({ message: message || '' }, rule);
 
-    if (!validateFn(object[property], clonedRule, property, descriptor)) {
+    if (!validateFn.call(object, object[property], clonedRule, property, descriptor)) {
       object.$hints[property] = clonedRule.message;
       object.$hintTypes[property] = 'error';
 
@@ -352,6 +352,34 @@ class Schema {
         }
       }
     }
+  }
+
+  convert(data) {
+    if (!data) return;
+    if (!(data instanceof Array)) {
+      data = [data];
+    }
+    data.forEach((item) => {
+      var props = this.props;
+      for (var prop in props) {
+        if (props.hasOwnProperty(prop)) {
+          var descriptor = props[prop];
+          var value = item[prop];
+          var type = descriptor.type;
+          if (type === 'date' || type === 'datetime') {
+            if (typeof value === 'string') {
+              item[prop] = new Date(value);
+            }
+          } else if (type === 'number' || type === 'float' || type === 'integer') {
+            if (typeof value === 'string') {
+              item[prop] = Number(value);
+            }
+          }
+        }
+      }
+    });
+
+    return data;
   }
 
   // TODO move hint message to form field

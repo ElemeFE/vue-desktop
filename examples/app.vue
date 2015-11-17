@@ -87,6 +87,7 @@
     </ul>
     <div class="demoheader">Form</div>
     <ul class="demolist">
+      <li><a v-link="{ path: '/validation' }">Validation</a></li>
       <li><a v-link="{ path: '/field' }">FormField</a></li>
       <li><a v-link="{ path: '/texteditor' }">TextEditor</a></li>
       <li><a v-link="{ path: '/radio' }">RadioGroup</a></li>

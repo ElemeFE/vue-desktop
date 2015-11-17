@@ -108,7 +108,8 @@
       },
 
       required: {
-        type: Boolean
+        type: Boolean,
+        default: null
       },
 
       hintMessage: {

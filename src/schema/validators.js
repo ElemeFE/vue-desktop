@@ -154,7 +154,7 @@ export default {
     var validate = options.validate;
 
     if (typeof validate === 'function') {
-      var result = !!validate(value);
+      var result = !!validate.call(this, value);
       if (!result) {
         options.message = format(options.message, { label: descriptor.label || property });
       }

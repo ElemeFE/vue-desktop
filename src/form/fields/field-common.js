@@ -15,6 +15,10 @@ export default {
     label: {
       type: String
     },
+    required: {
+      type: Boolean,
+      default: null
+    },
     hideLabel: {
       type: Boolean,
       default: false
@@ -56,6 +60,10 @@ export default {
 
   computed: {
     isRequired() {
+      if (typeof this.required !== 'undefined' && this.required !== null) {
+        return this.required;
+      }
+
       var property = this.property;
       var schema = this.fieldSchema;
 
@@ -63,7 +71,7 @@ export default {
         return !!schema.getPropertyDescriptor(property).required;
       }
 
-      return this.required;
+      return false;
     },
 
     fieldSchema() {

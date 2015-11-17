@@ -37,6 +37,9 @@ router.map({
 
 // form
 router.map({
+  'validation': {
+    component: require('./form/validation.vue')
+  },
   'texteditor': {
     component: require('./form/text-editor.vue')
   },

@@ -1,6 +1,6 @@
 <template>
   <d-form :model='team' schema='Team' label-width="140" :cols="3">
-    <d-text-field label-width="180" label="团队名称" property='teamName'></d-text-field>
+    <d-text-field label-width="180" label="团队名称" property='teamName' :required="false"></d-text-field>
     <d-text-field class="d-cell-1-2" label="昵称" property='nickname'></d-text-field>
     <d-text-field label="密码" type='password' property='password'></d-text-field>
   </d-form>

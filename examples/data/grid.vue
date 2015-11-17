@@ -24,7 +24,7 @@
 <script type="text/ecmascript-6" lang="babel">
   import { Schema } from '../../src/index.js'
 
-  new Schema('GridTest', {
+  var testSchema = new Schema('GridTest', {
     prop1: {
       label: '测试1',
       required: true
@@ -35,7 +35,7 @@
     },
     prop3: {
       label: '测试3',
-      type: Date
+      type: 'date'
     },
     prop4: {
       label: '测试4'
@@ -65,14 +65,14 @@
     data() {
       return {
         selection: [],
-        testData: [
+        testData: testSchema.convert([
           {prop1: '11', prop2: '12', prop3: new Date(), prop4: '14', prop5: true},
           {prop1: '21', prop2: '22', prop3: new Date(), prop4: '24', prop5: false},
           {prop1: '31', prop2: '32', prop3: new Date(), prop4: '34', prop5: false},
           {prop1: '41', prop2: '42', prop3: new Date(), prop4: '44', prop5: true},
           {prop1: '51', prop2: '52', prop3: new Date(), prop4: '54', prop5: false},
-          {prop1: '11', prop2: '12', prop3: '13', prop4: '14', prop5: true},
-          {prop1: '21', prop2: '22', prop3: new Date(), prop4: '24', prop5: false},
+          {prop1: '11', prop2: '12', prop3: 'Tue Dec 17 2015 15:50:04 GMT+0800 (CST)', prop4: '14', prop5: true},
+          {prop1: '21', prop2: '22', prop3: '1970-01-01T00:00:12.314Z', prop4: '24', prop5: false},
           {prop1: '31', prop2: '32', prop3: new Date(), prop4: '34', prop5: true},
           {prop1: '41', prop2: '42', prop3: new Date(), prop4: '44', prop5: false},
           {prop1: '51', prop2: '52', prop3: new Date(), prop4: '54', prop5: true},
@@ -81,7 +81,7 @@
           {prop1: '31', prop2: '32', prop3: new Date(), prop4: '34', prop5: true},
           {prop1: '41', prop2: '42', prop3: null, prop4: '44', prop5: false},
           {prop1: '51', prop2: '52', prop3: undefined, prop4: '54', prop5: true}
-        ]
+        ])
       };
     }
   };
