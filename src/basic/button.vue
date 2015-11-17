@@ -1,20 +1,21 @@
 <template>
-  <div class="btn" :class="{'btn-primary': type === 'primary', 'btn-phantom': type === 'phantom', 'btn-lg': size === 'large', 'btn-sm': size === 'small', 'disabled': disabled}">
+  <button class="btn" :class="{'btn-primary': type === 'primary', 'btn-phantom': type === 'phantom', 'btn-lg': size === 'large', 'btn-sm': size === 'small', 'disabled': disabled}">
     <slot></slot>
-  </div>
+  </button>
 </template>
 
 <style>
   .btn {
+    outline: none;
     display: inline-block;
     text-align: center;
     padding: 4px 12px;
     border-radius: 3px;
-    border: solid 1px #47bac1;
-    background-color: #47bac1;
+    border: solid 1px #d0dbe6;
+    background-color: #d0dbe6;
     font-size: 12px;
     font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
-    color: #fff;
+    color: #6f7e95;
     text-decoration: none;
     line-height: 1.5;
     vertical-align: middle;
@@ -22,9 +23,27 @@
     transition: .3s;
   }
 
+  .btn:hover {
+    background-color: #639af5;
+    border-color: #639af5;
+    color: #fff;
+  }
+
   .btn-primary {
-    background-color: #2a94d6;
-    border-color: #2a94d6;
+    background-color: #47bac1;
+    border-color: #47bac1;
+    color: #fff;
+  }
+
+  .btn.btn-primary:hover {
+    background-color: #639af5;
+    border-color: #639af5;
+  }
+
+  .btn:active,
+  .btn.btn-primary:active {
+    background-color: #6f7e95;
+    border-color: #6f7e95;
     color: #fff;
   }
 
@@ -34,21 +53,10 @@
     color: #333;
   }
 
-  .btn:hover {
-    background-color: #639af5;
-    border-color: #639af5;
-  }
-
   .btn.btn-phantom:hover {
     background-color: #fff;
     color: #0089dc;
     border-color: #0089dc;
-  }
-
-  .btn.btn-primary:hover {
-    background-color: #2585c0;
-    color: #fff;
-    border-color: #2585c0;
   }
 
   .btn-lg {

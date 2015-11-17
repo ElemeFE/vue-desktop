@@ -12,8 +12,10 @@
     cursor: pointer;
   }
 
+  .d-select-option:hover,
   .d-select-option.selected {
-    color: #0089dc;
+    background-color: #639af5;
+    color: #fff;
   }
 </style>
 

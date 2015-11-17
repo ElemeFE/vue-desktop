@@ -15,10 +15,6 @@
     border-right: 0;
   }
 
-  .d-grid th {
-    background: #fff;
-  }
-
   .d-grid th,
   .d-grid td {
     height: 20px;
@@ -31,11 +27,16 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     vertical-align: middle;
-    border-bottom: 1px solid #ddd;
+  }
+
+  .d-grid td {
+    border-bottom: 1px solid #f5f5f5;
+    background-color: #fff;
   }
 
   .d-grid th {
-    background-color: #f2f2f2;
+    background-color: #59677f;
+    color: #fff;
   }
 
   .d-grid .grid-fixed-header-wrapper {
@@ -58,6 +59,7 @@
   .d-grid .grid-header-wrapper,
   .d-grid .grid-body-wrapper {
     width: 100%;
+    border-radius: 5px 5px 0 0;
   }
 
   .d-grid .grid-header,
@@ -121,13 +123,13 @@
     vertical-align: baseline;
     border-top: none;
     border-right: 4px solid transparent;
-    border-bottom: 4px solid #000000;
+    border-bottom: 4px solid #fff;
     border-left: 4px solid transparent;
   }
 
   .d-grid .descending .sort-caret {
     vertical-align: super;
-    border-top: 4px solid #000000;
+    border-top: 4px solid #fff;
     border-right: 4px solid transparent;
     border-bottom: none;
     border-left: 4px solid transparent;
@@ -153,7 +155,7 @@
   }
 
   .d-grid tr:nth-child(2n) {
-    background: #f9f9f9;
+    /*background: #f9f9f9;*/
   }
 
   .d-grid tr.current-row {

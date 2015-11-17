@@ -93,7 +93,6 @@
 
   .msgbox-cancel {
     min-width: 100px;
-    background-color: #d2d2d2;
     margin-right: 30px;
   }
 </style>

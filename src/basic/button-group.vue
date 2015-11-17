@@ -38,32 +38,32 @@
   }
 
   .btn-group .btn-primary + .btn {
-    border-left-color: #0089dc;
+    /*border-left-color: #0089dc;*/
   }
 
   .btn-group .btn-primary + .btn-primary {
-    border-left-color: #178;
+    /*border-left-color: #178;*/
   }
 
   .btn-group .btn-primary:hover {
-    border-left-color: #178;
+    /*border-left-color: #178;*/
   }
 
   .btn-group .btn:hover+.btn,
   .btn-group .btn-phantom:hover+.btn {
-    border-left-color: #0089dc;
+    /*border-left-color: #0089dc;*/
   }
 
   .btn-group .btn-primary:hover+.btn {
-    border-left-color: #178;
+    /*border-left-color: #178;*/
   }
 
   .btn-group .btn-primary:first-child {
-    border-left-color: #0089dc;
+    /*border-left-color: #0089dc;*/
   }
 
   .btn-group .btn-primary:first-child:hover {
-    border-left-color: #4bf;
+    /*border-left-color: #4bf;*/
   }
 </style>
 

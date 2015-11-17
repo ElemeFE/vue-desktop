@@ -29,6 +29,7 @@
     font-size: 14px;
     padding-left: 4px;
     border: 1px solid #dedede;
+    background-color: #fff;
     width: 100%;
     padding-right: 24px;
     box-sizing: border-box;

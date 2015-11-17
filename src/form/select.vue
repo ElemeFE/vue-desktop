@@ -10,6 +10,7 @@
     border: 1px solid #ccc;
     min-width: 140px;
     overflow: auto;
+    box-shadow: 0 0 4px 0 rgba(71, 186, 193, 0.75);
   }
 </style>
 

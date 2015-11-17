@@ -1,7 +1,7 @@
 <style>
   html, body {
     font: 100% Helvetica, sans-serif;
-    color: #293f54;
+    color: #6f7e95;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -28,6 +28,7 @@
     padding: 12px;
     box-sizing: border-box;
     overflow: auto;
+    background-color: #ecf2f6;
   }
 
   .demolist {

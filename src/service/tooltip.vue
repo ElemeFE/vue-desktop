@@ -26,7 +26,7 @@
     margin-top: -6px;
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    border-right: 6px solid #726F77;
+    border-right: 6px solid #333;
   }
 
   .tooltip.tooltip-placeleft {
@@ -39,7 +39,7 @@
     margin-top: -6px;
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    border-left: 6px solid #726F77;
+    border-left: 6px solid #333;
   }
 
   .tooltip.tooltip-placetop {
@@ -52,7 +52,7 @@
     margin-left: -6px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 6px solid #726F77;
+    border-top: 6px solid #333;
   }
 
   .tooltip.tooltip-placebottom {
@@ -65,14 +65,14 @@
     margin-left: -6px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-bottom: 6px solid #726F77;
+    border-bottom: 6px solid #333;
   }
 
   .tooltip-content {
     font-size: 14px;
     color: white;
     padding: 5px 10px;
-    background: #726F77;
+    background: #333;
     border-radius: 3px;
   }
 
