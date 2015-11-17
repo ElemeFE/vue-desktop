@@ -240,7 +240,7 @@ describe('Schema Store', function() {
   describe('#getPropertyText', function() {
     it('should get type=date prop\'s formatted text', function() {
       var schema = new Schema({
-        a: { type: Date, default: function() {
+        a: { type: 'date', default: function() {
           return new Date(2015, 0, 1)
         }}
       });

@@ -3,6 +3,9 @@ var format = require('./format');
 export default {
   required: function(value, options, property, descriptor) {
     var result = !(value === null || value === undefined || value === '');
+    options = options || {};
+    descriptor = descriptor || {};
+
     if (!result) {
       options.message = format(options.message, { label: descriptor.label || property });
     }
@@ -12,6 +15,7 @@ export default {
 
   length: function(value, options, property, descriptor) {
     options = options || {};
+    descriptor = descriptor || {};
     var min = options.min;
     var max = options.max;
     var string = '';
@@ -54,25 +58,28 @@ export default {
 
   range: function(value, options, property, descriptor) {
     options = options || {};
+    descriptor = descriptor || {};
     var min = options.min;
     var max = options.max;
 
     var result = true;
 
-    if (value === null || value === undefined) result = true;
+    if (value === null || value === undefined) return true;
 
-    value = Number(value);
-    if (isNaN(value)) result = false;
-
-    if (typeof min === 'number') {
-      if (value < min) {
-        result = false;
+    value = parseFloat(value);
+    if (isNaN(value)) {
+      result = false;
+    } else {
+      if (typeof min === 'number') {
+        if (value < min) {
+          result = false;
+        }
       }
-    }
 
-    if (typeof max === 'number') {
-      if (value > max) {
-        result = false;
+      if (typeof max === 'number') {
+        if (value > max) {
+          result = false;
+        }
       }
     }
 
@@ -95,6 +102,8 @@ export default {
   },
 
   enum: function(value, options, property, descriptor) {
+    options = options || {};
+    descriptor = descriptor || {};
     if (value === null || value === undefined) return true;
     var validValues = options.enum;
 
@@ -113,6 +122,7 @@ export default {
 
   whitespace: function(value, options, property, descriptor) {
     options = options || {};
+    descriptor = descriptor || {};
     var whitespace = !!options.whitespace;
     var result = /^\s+$/.test(value);
     result = whitespace ? result : !result;
@@ -126,6 +136,7 @@ export default {
 
   pattern: function(value, options, property, descriptor) {
     options = options || {};
+    descriptor = descriptor || {};
     var pattern = options.pattern;
     if (!pattern) throw new Error('pattern is required!');
 
@@ -139,6 +150,7 @@ export default {
 
   custom: function(value, options, property, descriptor) {
     options = options || {};
+    descriptor = descriptor || {};
     var validate = options.validate;
 
     if (typeof validate === 'function') {

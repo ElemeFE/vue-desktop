@@ -17,8 +17,6 @@ var doValidate = function(object, property, descriptor, rule) {
 
     var clonedRule = merge({ message: message || '' }, rule);
 
-    console.log(clonedRule.message);
-
     if (!validateFn(object[property], clonedRule, property, descriptor)) {
       object.$hints[property] = clonedRule.message;
       object.$hintTypes[property] = 'error';

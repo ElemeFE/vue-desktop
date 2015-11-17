@@ -29,7 +29,7 @@ describe('Validator Unit test', function() {
   it('type: range', function() {
     var validator = SchemaStore.getValidator('range');
 
-    validator(0).should.be.false;
+    validator(0).should.be.true;
     validator(null).should.be.true;
     validator(undefined).should.be.true;
     validator(null, { min: 1 }).should.be.true;
