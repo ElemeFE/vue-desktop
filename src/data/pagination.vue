@@ -22,7 +22,7 @@
     background-color: #d0dbe6;
     font-size: 0;
     padding: 0;
-    margin: 0;
+    margin: 2px 0;
     border-radius: 5px;
   }
 
@@ -30,7 +30,6 @@
     display: inline-block;
     font-size: 14px;
     min-width: 26px;
-    line-height: 20px;
     box-sizing: border-box;
     text-align: center;
     padding: 4px;
@@ -66,7 +65,7 @@
         type: Number,
         default: 10
       },
-      itemTotal: {
+      itemCount: {
         type: Number,
         default: 0
       },
@@ -162,7 +161,7 @@
 
     computed: {
       pageCount() {
-        return Math.ceil(this.itemTotal / this.pageSize);
+        return Math.ceil(this.itemCount / this.pageSize);
       }
     },
 

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-success btn-lg" @click="showDialog = !showDialog">Big modal</button>
+  <d-button type="primary" @click="showDialog = !showDialog">Show Dialog</d-button>
 
   <d-dialog title="Big Modal" :visible.sync="showDialog" width="400">
     <div>

@@ -5,6 +5,7 @@ require('./grid.css');
 import Vue from './config';
 
 import Alert from './basic/alert.vue'
+import Panel from './basic/panel.vue'
 import Dialog from './basic/dialog.vue'
 import Button from './basic/button.vue'
 import ButtonGroup from './basic/button-group.vue'
@@ -40,6 +41,7 @@ import RadiogroupField from './form/fields/radio.vue'
 
 export var Components = {
   Alert,
+  Panel,
   Dialog,
   Button,
   ButtonGroup,

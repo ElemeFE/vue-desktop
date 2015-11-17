@@ -1,28 +1,72 @@
 <style>
   html, body {
     font: 100% Helvetica, sans-serif;
-    color: #6f7e95;
+    color: #293f54;
     height: 100%;
     margin: 0;
     padding: 0;
   }
-
   body {
     overflow: hidden;
   }
-
+  .loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -170px;
+    margin-top: -30px;
+    height: 60px;
+    width: 340px;
+    color: #666;
+    font-size: 48px;
+    text-align: center;
+  }
+  .loading i {
+    font-size: inherit;
+  }
+  .login {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -170px;
+    margin-top: -130px;
+    height: 260px;
+    width: 340px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 12px #bbb;
+    padding: 30px 20px;
+  }
+  .login span {
+    display: block;
+    text-align: center;
+  }
+  .login .d-form {
+    margin-top: 30px;
+  }
+  .content {
+    height: 100%;
+  }
   #aside {
     box-sizing: border-box;
     box-shadow: inset -2px 0 6px rgba(41,63,84,0.24);
     width: 200px;
     height: 100%;
     float: left;
-    background: #f6f7f7;
+    background: #354052;
     overflow-x: hidden;
     overflow-y: auto;
   }
-
+  #aside p {
+    margin: 0;
+    padding: 18px 8px;
+    color: #8294aa;
+    font-size: 20px;
+    background-color: rgba(0, 0, 0, 0.28);
+    color: rgba(255, 255, 255, 0.75);
+  }
   #main {
+    position: relative;
     margin-left: 200px;
     height: 100%;
     padding: 12px;
@@ -30,46 +74,41 @@
     overflow: auto;
     background-color: #ecf2f6;
   }
-
   .demolist {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-
   .demolist li {
     padding: 0;
     cursor: pointer;
   }
-
-  .demolist li:hover {
-    background-color: #e2e4e7;
-  }
-
   .demolist li:hover a {
-    color: #2a94d6;
+    background-color: #2b3647;
   }
-
   .demolist .v-link-active {
-    color: #2a94de;
+    background-color: #0f141e;
     font-weight: 400;
   }
-
+  .demolist .v-link-active:hover {
+    background-color: #0f141e;
+  }
   .demolist a {
     padding: 8px 30px;
     display: block;
-    color: #333;
+    color: #c0cad8;
     text-decoration: none;
+    transition: background-color .3s;
   }
-
   .demoheader {
     padding: 8px;
-    color: #777;
+    color: #8294aa;
   }
 </style>
 
 <template>
   <div id="aside">
+    <p class="title">Vue Desktop</p>
     <div class="demoheader">Basic</div>
     <ul class="demolist">
       <li><a v-link="{ path: '/alert' }">Alert</a></li>
@@ -88,13 +127,10 @@
     </ul>
     <div class="demoheader">Form</div>
     <ul class="demolist">
+      <li><a v-link="{ path: '/field' }">Form & Field</a></li>
+      <li><a v-link="{ path: '/editor' }">Editor</a></li>
+      <li><a v-link="{ path: '/mapping' }">Mapping</a></li>
       <li><a v-link="{ path: '/validation' }">Validation</a></li>
-      <li><a v-link="{ path: '/field' }">FormField</a></li>
-      <li><a v-link="{ path: '/texteditor' }">TextEditor</a></li>
-      <li><a v-link="{ path: '/radio' }">RadioGroup</a></li>
-      <li><a v-link="{ path: '/checkbox' }">CheckBox</a></li>
-      <li><a v-link="{ path: '/select' }">Select</a></li>
-      <li><a v-link="{ path: '/datepicker' }">DatePicker</a></li>
     </ul>
     <div class="demoheader">Data</div>
     <ul class="demolist">

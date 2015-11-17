@@ -1,19 +1,19 @@
 <template>
   <d-button @click="changePageCount()">Change ItemTotal</d-button>
-  <d-pagination :item-total="itemTotal" current-page="1"></d-pagination>
+  <d-pagination :item-count="itemCount" current-page="1"></d-pagination>
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
   export default {
     data() {
       return {
-        itemTotal: 5
+        itemCount: 5
       }
     },
 
     methods: {
       changePageCount() {
-        this.itemTotal = 98;
+        this.itemCount = 98;
       }
     }
   };

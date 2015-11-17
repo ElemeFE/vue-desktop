@@ -1,7 +1,13 @@
 <template>
   <d-vbox style="height: 100%;">
-    <d-form>
-      <d-text-field></d-text-field>
+    <d-form :cols="2">
+      <d-text-field label="Condition1"></d-text-field>
+      <d-text-field label="Condition2"></d-text-field>
+      <d-text-field label="Condition3"></d-text-field>
+      <d-field></d-field>
+      <d-field>
+        <d-button type="primary">Query</d-button>
+      </d-field>
     </d-form>
 
     <d-grid :data="testData" schema="GridTest" height="300" :fit="true" :selection.sync="selection" :fixed-column-count2="3" flex>
@@ -12,11 +18,13 @@
       <d-grid-column property="prop3" width="400"></d-grid-column>
       <d-grid-column property="prop4"></d-grid-column>
       <d-grid-column label="5" property="prop5"></d-grid-column>
-      <d-grid-column label="操作" width="200"><d-button>测试1</d-button><button>测试2</button><button>测试3</button></d-grid-column>
+      <d-grid-column label="操作" width="200">
+        <d-button>测试1</d-button>
+      </d-grid-column>
     </d-grid>
 
     <div>
-      xxx
+
     </div>
   </d-vbox>
 </template>

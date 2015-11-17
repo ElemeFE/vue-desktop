@@ -37,26 +37,17 @@ router.map({
 
 // form
 router.map({
-  'validation': {
+  '/validation': {
     component: require('./form/validation.vue')
   },
-  'texteditor': {
-    component: require('./form/text-editor.vue')
-  },
-  'select': {
-    component: require('./form/select.vue')
-  },
-  '/radio': {
-    component: require('./form/radio.vue')
+  '/mapping': {
+    component: require('./form/mapping.vue')
   },
   '/field': {
     component: require('./form/field.vue')
   },
-  '/checkbox': {
-    component: require('./form/checkbox.vue')
-  },
-  '/datepicker': {
-    component: require('./form/date-picker.vue')
+  '/editor': {
+    component: require('./form/editor.vue')
   }
 });
 

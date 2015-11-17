@@ -37,7 +37,9 @@
 
       editorHeight: {
         type: Number
-      }
+      },
+
+      placeholder: {}
     }, common.props),
 
     events: common.events,
@@ -50,7 +52,7 @@
           DTextEditor: require('../text-editor.vue')
         },
         created() {
-          this.$options.template = `<d-text-editor type="${ this.$parent.editorType }" :value.sync="${ '$parent.model.' + this.$parent.property }" :height="$parent.editorHeight" />`;
+          this.$options.template = `<d-text-editor type="${ this.$parent.editorType }" :value.sync="${ '$parent.model.' + this.$parent.property }" :height="$parent.editorHeight" :placeholder="$parent.placeholder"/>`;
         }
       }
     },
