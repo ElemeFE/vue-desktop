@@ -1,41 +1,59 @@
 <template>
   <div class="pagination">
     <ul @click="onPagerClick($event)">
-      <li class="prevBtn" v-show="showButton">&lt;</li>
-      <li :class="{ active: currentPage === 1 }" v-show="pageCount > 0">1</li>
+      <li class="prevBtn d-icon icon-datepicker-left-arrow" v-show="showButton"></li>
+      <li :class="{ active: currentPage === 1 }" v-show="pageCount > 0" class="number">1</li>
       <li class="ellipsis" v-show="showPrevMore">...</li>
-      <li v-for="pager in pagers" :class="{ active: currentPage === pager }">{{ pager }}</li>
+      <li v-for="pager in pagers" :class="{ active: currentPage === pager }" class="number">{{ pager }}</li>
       <li class="ellipsis" v-show="showNextMore">...</li>
-      <li :class="{ active: currentPage === pageCount }">{{ pageCount }}</li>
-      <li class="nextBtn" v-show="showButton">&gt;</li>
+      <li :class="{ active: currentPage === pageCount }" class="number" v-show="pageCount > 1">{{ pageCount }}</li>
+      <li class="nextBtn d-icon icon-datepicker-right-arrow" v-show="showButton"></li>
     </ul>
   </div>
 </template>
 
 <style>
   .pagination ul {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     list-style: none;
-    font-size: 14px;
-  }
-
-  .pagination ul li {
     display: inline-block;
-    border: solid 1px #eee;
-    width: 22px;
-    text-align: center;
-    padding: 4px 0;
-    cursor: pointer;
-    margin-right: 6px;
+    background-color: #d0dbe6;
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
   }
 
-  .pagination ul li.active {
-    border: solid 1px #0089dc;
-    background-color: #0089dc;
+  .pagination li {
+    display: inline-block;
+    font-size: 14px;
+    min-width: 26px;
+    line-height: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .pagination li.number:hover {
+    background-color: #639af5;
+    border-color: #639af5;
+    border-radius: 5px;
+    color: #fff;
+  }
+
+  .pagination li.active {
+    border: solid 1px #6f7e95;
+    background-color: #6f7e95;
     color: #fff;
     cursor: default;
+    border-radius: 5px;
   }
 
-  .pagination ul li.ellipsis {
+  .pagination li.ellipsis {
     border: none;
     cursor: default;
   }
@@ -44,9 +62,17 @@
 <script type="text/ecmascript-6" lang="babel">
   export default {
     props: {
-      pageCount: {},
+      pageSize: {
+        type: Number,
+        default: 10
+      },
+      itemTotal: {
+        type: Number,
+        default: 0
+      },
       currentPage: {}
     },
+
     methods: {
       onPagerClick(event) {
         var target = event.target;
@@ -59,9 +85,9 @@
 
         if (target.className === 'ellipsis') {
           return;
-        } else if (target.className === 'prevBtn') {
+        } else if (target.className.indexOf('prevBtn') !== -1) {
           newPage = currentPage - 1;
-        } else if (target.className === 'nextBtn') {
+        } else if (target.className.indexOf('nextBtn') !== -1) {
           newPage = currentPage + 1;
         }
 
@@ -133,9 +159,23 @@
         this.pagers = array;
       }
     },
+
+    computed: {
+      pageCount() {
+        return Math.ceil(this.itemTotal / this.pageSize);
+      }
+    },
+
     compiled() {
       this.refresh();
     },
+
+    watch: {
+      pageCount() {
+        this.refresh();
+      }
+    },
+
     data() {
       return {
         pagers: [],

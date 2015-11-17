@@ -9,6 +9,8 @@
     border-collapse: collapse;
     /*border: 1px solid #ddd;*/
     font-size: 14px;
+    border-bottom: 2px solid #d0dbe6;
+    border-radius: 3px;
   }
 
   .d-grid-fit {
@@ -59,7 +61,6 @@
   .d-grid .grid-header-wrapper,
   .d-grid .grid-body-wrapper {
     width: 100%;
-    border-radius: 5px 5px 0 0;
   }
 
   .d-grid .grid-header,
@@ -115,7 +116,7 @@
     content: "";
     position: absolute;
     z-index: 2;
-    top: 16px;
+    top: 14px;
     right: 4px;
   }
 
