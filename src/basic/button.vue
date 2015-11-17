@@ -10,11 +10,11 @@
     text-align: center;
     padding: 4px 12px;
     border-radius: 3px;
-    border: solid 1px #ccc;
-    background-color: #eee;
+    border: solid 1px #47bac1;
+    background-color: #47bac1;
     font-size: 12px;
     font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
-    color: #333;
+    color: #fff;
     text-decoration: none;
     line-height: 1.5;
     vertical-align: middle;
@@ -30,9 +30,15 @@
 
   .btn-phantom {
     background-color: #fff;
+    border-color: #ccc;
+    color: #333;
   }
 
-  .btn:hover,
+  .btn:hover {
+    background-color: #639af5;
+    border-color: #639af5;
+  }
+
   .btn.btn-phantom:hover {
     background-color: #fff;
     color: #0089dc;
