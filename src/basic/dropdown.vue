@@ -18,9 +18,23 @@
     margin-left: 10px;
   }
 
+  .dropdown span:before {
+    color: #6f7e95;
+    transition: .3s;
+  }
+
+  .dropdown:hover span:before {
+    color: #fff;
+  }
+
   .dropdown.active {
     background-color: #639af5;
     border-color: #639af5;
+    color: #fff;
+  }
+
+  .dropdown.active span:before {
+    color: #fff;
   }
 
   .dropdown-list {

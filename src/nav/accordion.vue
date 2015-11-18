@@ -6,11 +6,8 @@
 
 <style>
   .accordion {
-    width: 95%;
-    margin: 0 auto;
+    margin: 0;
     color: #333;
-    border: solid 1px #999;
-    border-radius: 4px;
   }
 </style>
 
