@@ -1,8 +1,8 @@
 <template>
-  <div class="section" :class="{active: active, disabled: disabled}" @click="onHeaderClick($event)">
-    <h3 class="header fa fa-angle-right">{{title}}</h3>
-    <div class="content-wrap" transition="section" v-show="active">
-      <div class="content" v-el:content>
+  <div class="accordion-section" :class="{active: active, disabled: disabled}" @click="onHeaderClick($event)">
+    <h3 class="accordion-header fa fa-angle-right">{{title}}</h3>
+    <div class="accordion-content-wrap" transition="section" v-show="active">
+      <div class="accordion-content" v-el:content>
         <slot></slot>
       </div>
     </div>
@@ -10,7 +10,7 @@
 </template>
 
 <style>
-  .section .header {
+  .accordion-section .accordion-header {
     margin: 0;
     padding: 10px 8px;
     display: block;
@@ -19,60 +19,60 @@
     transition: background-color .3s;
   }
 
-  .section .header:before {
+  .accordion-section .accordion-header:before {
     color: #333;
     float: right;
     transform: rotateZ(0deg);
     transition: transform .3s;
   }
 
-  .section .header:hover {
+  .accordion-section .accordion-header:hover {
     color: #0089dc;
   }
 
-  .section.active {
+  .accordion-section.active {
     border-bottom: solid 1px #999;
   }
 
-  .section.active .header {
+  .accordion-section.active .accordion-header {
     background-color: #ccc;
     color: #0089dc;
   }
 
-  .section.active .header:before {
+  .accordion-section.active .accordion-header:before {
     transform: rotateZ(90deg);
   }
 
-  .section.active .content-wrap {
+  .accordion-section.active .accordion-content-wrap {
     height: auto;
   }
 
-  .section.disabled .header {
+  .accordion-section.disabled .accordion-header {
     cursor: not-allowed;
   }
 
-  .section:first-child .header {
+  .accordion-section:first-child .accordion-header {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
   }
 
-  .section:last-child .header{
+  .accordion-section:last-child .accordion-header{
     border-bottom: none;
   }
 
-  .section:last-child.active {
+  .accordion-section:last-child.active {
     border-bottom: none;
   }
 
-  .section:last-child.active .header {
+  .accordion-section:last-child.active .accordion-header {
     border-bottom: solid 1px #999;
   }
 
-  .section .content-wrap {
+  .accordion-section .accordion-content-wrap {
     overflow: hidden;
   }
 
-  .section .content {
+  .accordion-section .accordion-content {
     margin: 0;
     padding: 10px 15px;
     box-sizing: border-box;
