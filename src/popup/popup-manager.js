@@ -88,28 +88,19 @@ var PopupManager = {
     }
   },
 
-  openModal: function(id, zIndex) {
+  openModal: function(id, zIndex, modalClass) {
     if (!id || zIndex === undefined) return;
 
     var modalDom = getModal();
 
-    var style = {
-      position: 'fixed',
-      left: 0,
-      top: 0,
-      width: '100%',
-      height: '100%',
-      opacity: '0.5',
-      background: '#000'
-    };
-
-    domUtil.addClass(modalDom, 'modal-enter');
+    domUtil.addClass(modalDom, 'd-modal modal-enter');
+    if (modalClass) {
+      domUtil.addClass(modalDom, modalClass);
+    }
 
     setTimeout(() => {
       domUtil.removeClass(modalDom, 'modal-enter');
     }, 300);
-
-    domUtil.setStyle(modalDom, style);
 
     if (!modalDom.parentNode || modalDom.parentNode.nodeType === 11) {
       document.body.appendChild(modalDom);
@@ -120,7 +111,7 @@ var PopupManager = {
     }
     modalDom.style.display = '';
 
-    this.modalStack.push({ id: id, zIndex: zIndex });
+    this.modalStack.push({ id: id, zIndex: zIndex, modalClass: modalClass });
   },
 
   closeModal: function(id) {
@@ -130,6 +121,7 @@ var PopupManager = {
     if (modalStack.length > 0) {
       var topItem = modalStack[modalStack.length - 1];
       if (topItem.id === id) {
+        domUtil.removeClass(modalDom, topItem.modalClass);
         modalStack.pop();
         if (modalStack.length > 0) {
           modalDom.style.zIndex = modalStack[modalStack.length - 1].zIndex;

@@ -232,7 +232,7 @@ export default {
 
       var modal = props.modal;
       if (modal) {
-        PopupManager.openModal(this.popupId, PopupManager.nextZIndex());
+        PopupManager.openModal(this.popupId, PopupManager.nextZIndex(), props.modalClass);
       }
 
       if (!dom) {

@@ -23,7 +23,7 @@
 
     data () {
       return {
-        model: schema.create(),
+        model: schema.newModel(),
         schema: schema
       }
     }

@@ -61,7 +61,7 @@
     data () {
       return {
         userSchema: userSchema,
-        team: userSchema.create()
+        team: userSchema.newModel()
       }
     }
   }

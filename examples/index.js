@@ -84,6 +84,9 @@ router.map({
   },
   '/tooltip': {
     component: require('./service/tooltip.vue')
+  },
+  '/loading-mask': {
+    component: require('./service/loading-mask.vue')
   }
 });
 

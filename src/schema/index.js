@@ -133,7 +133,7 @@ class Schema {
     this.$reversedMappings = {};
   }
 
-  create() {
+  newModel() {
     var result = {};
     var props = this.props;
 

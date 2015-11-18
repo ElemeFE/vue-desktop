@@ -152,12 +152,12 @@
         addDialogVisible: false,
         editDialogVisible: false,
         userSchema: userSchema,
-        newUser: userSchema.create(),
-        editUser: userSchema.create(),
+        newUser: userSchema.newModel(),
+        editUser: userSchema.newModel(),
         editingUser: null,
         users: [],
         querySchema: querySchema,
-        queryCondition: querySchema.create()
+        queryCondition: querySchema.newModel()
       };
     }
   };

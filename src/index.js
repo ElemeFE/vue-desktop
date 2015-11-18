@@ -103,3 +103,5 @@ export { default as MessageBox } from './service/msgbox'
 export { default as Notification } from './service/notification'
 
 export { default as Schema } from './schema'
+
+export { default as LoadingMask } from './service/loading-mask'

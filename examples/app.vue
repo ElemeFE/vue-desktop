@@ -143,6 +143,7 @@
       <li><a v-link="{ path: '/msgbox' }">MessageBox</a></li>
       <li><a v-link="{ path: '/notification' }">Notification</a></li>
       <li><a v-link="{ path: '/tooltip' }">Tooltip</a></li>
+      <li><a v-link="{ path: '/loading-mask' }">Loading Mask</a></li>
     </ul>
   </div>
   <div id="main">
