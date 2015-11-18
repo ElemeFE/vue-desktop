@@ -120,11 +120,6 @@
       <li><a v-link="{ path: '/sticky' }">Sticky</a></li>
       <li><a v-link="{ path: '/dropdown' }">Dropdown</a></li>
     </ul>
-    <div class="demoheader">Nav</div>
-    <ul class="demolist">
-      <li><a v-link="{ path: '/tabs' }">Tabs</a></li>
-      <li><a v-link="{ path: '/accordion' }">Accordion</a></li>
-    </ul>
     <div class="demoheader">Form</div>
     <ul class="demolist">
       <li><a v-link="{ path: '/field' }">Form & Field</a></li>
@@ -135,8 +130,13 @@
     <div class="demoheader">Data</div>
     <ul class="demolist">
       <li><a v-link="{ path: '/grid' }">Grid</a></li>
-      <li><a v-link="{ path: '/grid-form' }">Grid & Form</a></li>
-      <li><a v-link="{ path: '/pagination' }">Pagination</a></li>
+      <li><a v-link="{ path: '/crud' }">CRUD</a></li>
+      <!--<li><a v-link="{ path: '/pagination' }">Pagination</a></li>-->
+    </ul>
+    <div class="demoheader">Nav</div>
+    <ul class="demolist">
+      <li><a v-link="{ path: '/tabs' }">Tabs</a></li>
+      <li><a v-link="{ path: '/accordion' }">Accordion</a></li>
     </ul>
     <div class="demoheader">Service</div>
     <ul class="demolist">

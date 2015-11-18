@@ -1,10 +1,10 @@
 <template>
-  <div class="alert {{type}}" transition="alert" v-if="live">
+  <div class="alert {{type}}" transition="alert">
     <i class="icon fa fa-lg {{iconClass}}"></i>
-    <div class="group">
-      <span>{{title}}</span>
+    <div class="alert-content">
+      <span class="alert-title">{{title}}</span>
       <p><slot></slot></p>
-      <div class="alert-closeBtn" :class="{custom: closeText !== '', 'fa': closeText === '', 'fa-times': closeText === ''}" v-show="closable" @click="close()">{{closeText}}</div>
+      <div class="alert-closebtn" :class="{custom: closeText !== '', 'fa': closeText === '', 'fa-times': closeText === ''}" v-show="closable" @click="close()">{{closeText}}</div>
     </div>
   </div>
 </template>
@@ -15,13 +15,17 @@
     width: 100%;
     padding: 10px 20px;
     box-sizing: border-box;
-    border: solid 1px #eee;
+    border: solid 1px #ddd;
     border-radius: 10px;
     position: relative;
     background-color: #fff;
     overflow: hidden;
     transition: opacity .2s;
     opacity: 1;
+  }
+
+  .alert.destroyed {
+    transition: none;
   }
 
   .alert.success {
@@ -40,7 +44,7 @@
     background-color: #fff9ee;
   }
 
-  .alert .group {
+  .alert-content {
     float: left;
     display: inline-block;
   }
@@ -78,18 +82,18 @@
     color: #fff9ee;
   }
 
-  .alert span {
-    font-size: 15px;
+  .alert-title {
+    font-size: 14px;
     color: #666;
   }
 
-  .alert p {
+  .alert-content > p {
     color: #999;
     font-size: 12px;
     margin: 5px 0 0 0;
   }
 
-  .alert .alert-closeBtn {
+  .alert-closebtn {
     font-size: 20px;
     position: absolute;
     transform: translateY(50%);
@@ -98,9 +102,9 @@
     cursor: pointer;
   }
 
-  .alert .alert-closeBtn.custom {
+  .alert-closebtn.custom {
     color: #0089dc;
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .alert-leave {
@@ -109,6 +113,12 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
+  const TYPE_CLASSES_MAP = {
+    'success': 'fa-check success',
+    'warning': 'fa-exclamation warning',
+    'error': 'fa-times error'
+  };
+
   export default {
     props: {
       title: {
@@ -131,34 +141,20 @@
       }
     },
 
-    data() {
-      return {
-        live: true
-      };
-    },
-
     methods: {
       close() {
-        this.live = false;
         this.$emit('close');
+        this.$destroy(true);
       }
+    },
+
+    beforeDestroy() {
+      this.$el.className += ' destroyed';
     },
 
     computed: {
       iconClass() {
-        switch(this.type) {
-          case 'success':
-            return 'fa-check success';
-            break;
-          case 'warning':
-            return 'fa-exclamation warning';
-            break;
-          case 'error':
-            return 'fa-times error';
-            break;
-          default:
-            return 'fa-info info';
-        }
+        return TYPE_CLASSES_MAP[this.type] || 'fa-info info';
       }
     }
   }

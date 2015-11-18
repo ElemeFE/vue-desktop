@@ -1,7 +1,7 @@
 <template>
   <d-button type="primary" @click="showDialog = !showDialog">Show Dialog</d-button>
 
-  <d-dialog title="Big Modal" :visible.sync="showDialog" width="400">
+  <d-dialog title="Dialog" :visible.sync="showDialog" width="400">
     <div>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

@@ -62,7 +62,7 @@ var initObject = (object, schema, addMethod) => {
       configurable: true,
       enumerable: false,
       value: function() {
-        this.$schema.validate(this);
+        return this.$schema.validate(this);
       }
     });
 
@@ -70,7 +70,7 @@ var initObject = (object, schema, addMethod) => {
       configurable: true,
       enumerable: false,
       value: function(property) {
-        this.$schema.validateProperty(this, property);
+        return this.$schema.validateProperty(this, property);
       }
     });
 
@@ -87,6 +87,14 @@ var initObject = (object, schema, addMethod) => {
       enumerable: false,
       value: function() {
         this.$schema.reset(this);
+      }
+    });
+
+    Object.defineProperty(object, 'assign', {
+      configurable: true,
+      enumerable: false,
+      value: function(...sources) {
+        this.$schema.assign(this, ...sources);
       }
     });
   }
@@ -352,6 +360,9 @@ class Schema {
         }
       }
     }
+
+    object.$hints = {};
+    object.$hintTypes = {};
   }
 
   convert(data) {
@@ -380,6 +391,23 @@ class Schema {
     });
 
     return data;
+  }
+
+  assign(target, ...sources) {
+    if (!target) {
+      return;
+    }
+
+    var props = this.props;
+
+    for (var i = 0, j = sources.length; i < j; i++) {
+      var source = sources[i];
+      for (var prop in props) {
+        if (props.hasOwnProperty(prop)) {
+          target[prop] = source[prop];
+        }
+      }
+    }
   }
 
   // TODO move hint message to form field

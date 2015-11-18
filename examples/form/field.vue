@@ -1,8 +1,6 @@
 <template>
   <d-alert>
-    <p>
-      Setting fields common properties in form component.
-    </p>
+    Setting fields common properties in form component.
   </d-alert>
 
   <d-panel title="Multi Columns Form" style="margin: 5px 0;">
