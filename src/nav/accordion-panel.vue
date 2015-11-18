@@ -11,23 +11,20 @@
 
 <style>
   .accordion-section .accordion-header {
+    font-size: 14px;
     margin: 0;
     padding: 10px 8px;
     display: block;
     cursor: pointer;
-    transition: background-color .3s;
-    color: #6f7e95;
+    color: #fff;
+    background-color: #59677e;
   }
 
   .accordion-section .accordion-header:before {
-    color: #6f7e95;
+    color: #fff;
     float: right;
     transform: rotateZ(0deg);
     transition: transform .3s;
-  }
-
-  .accordion-section.active .accordion-header {
-    color: #8294aa;
   }
 
   .accordion-section.active .accordion-header:before {
@@ -42,16 +39,30 @@
     cursor: not-allowed;
   }
 
-  .accordion-section .accordion-content-wrap {
+  .accordion-content-wrap {
     overflow: hidden;
   }
 
-  .accordion-section .accordion-content {
-    text-align: center;
+  .accordion-content {
+    padding: 8px 16px;
     margin: 0;
     box-sizing: border-box;
     line-height: 1.8;
     font-size: 14px;
+    background-color: #fff;
+  }
+
+  .accordion-transparent .accordion-header {
+    color: inherit;
+    background-color: transparent;
+  }
+
+  .accordion-transparent .accordion-header:before {
+    color: inherit;
+  }
+
+  .accordion-transparent .accordion-content {
+    background-color: transparent;
   }
 
   .section-transition {

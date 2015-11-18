@@ -1,5 +1,5 @@
 <template>
-  <div class="accordion">
+  <div class="accordion" :class="{'accordion-transparent': type === 'transparent'}">
     <slot></slot>
   </div>
 </template>
@@ -12,5 +12,12 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  export default {}
+  export default {
+    props: {
+      type: {
+        type: String,
+        default: 'default'
+      }
+    }
+  }
 </script>
