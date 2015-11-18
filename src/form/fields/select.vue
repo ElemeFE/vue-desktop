@@ -1,5 +1,5 @@
 <template>
-  <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }" @click="handleSelfClick($event)">
+  <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
@@ -55,6 +55,7 @@
   var domUtil = require('wind-dom');
   var merge = require('../../util').merge;
   var common = require('./field-common');
+  var Dropdown = require('../../service/dropdown');
 
   export default {
     props: merge({
@@ -144,19 +145,18 @@
     watch: {
       selectVisible(newVal) {
         if (newVal === true) {
-          var self = this;
-          domUtil.once(document, 'click', function(event) {
-            var target = event.target;
-            if (target === self.$el || self.$el.contains(target)) {
-              return;
-            }
-            self.selectVisible = false;
-          });
+          Dropdown.open(this);
+        } else {
+          Dropdown.close(this);
         }
       }
     },
 
     methods: merge({
+      onDocumentClick() {
+        this.selectVisible = false;
+      },
+
       handleSelectionChange() {
         var children = this.$refs.select.$children;
         var value = [];
@@ -167,12 +167,6 @@
           }
         });
         this.selectValue = value;
-      },
-
-      handleSelfClick(event) {
-        if (this.selectVisible) {
-          event.stopPropagation();
-        }
       },
 
       toggleSelect() {

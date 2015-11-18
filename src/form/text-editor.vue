@@ -1,5 +1,5 @@
 <template>
-  <span class="d-text-editor {{size}} {{ haveTrigger ? 'have-trigger' : '' }} {{ pickerVisible ? 'active' : '' }}" @click="$event.stopPropagation()">
+  <span class="d-text-editor {{size}} {{ haveTrigger ? 'have-trigger' : '' }} {{ pickerVisible ? 'active' : '' }}">
     <editor></editor>
     <span @click="toggleDatePicker()" class="d-text-editor-trigger d-icon icon-editor-date-trigger" v-if="haveTrigger"></span>
   </span>
@@ -100,6 +100,7 @@
   var Vue = require('vue');
   var domUtil = require('wind-dom');
   import { merge, formatDate, parseDate } from '../util';
+  var Dropdown = require('../service/dropdown');
 
   export default {
     props: {
@@ -134,14 +135,9 @@
     watch: {
       pickerVisible(newVal) {
         if (newVal === true) {
-          var self = this;
-          domUtil.once(document, 'click', function(event) {
-            var target = event.target;
-            if (target === self.$el || self.$el.contains(target)) {
-              return;
-            }
-            self.hideDatePicker();
-          });
+          Dropdown.open(this);
+        } else {
+          Dropdown.close(this);
         }
       }
     },
@@ -240,6 +236,10 @@
             this.showDatePicker();
           }
         }
+      },
+
+      onDocumentClick() {
+        this.hideDatePicker();
       },
 
       toggleDatePicker() {
