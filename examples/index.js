@@ -2,6 +2,10 @@ var Vue = require('vue');
 var VueRouter = require('vue-router');
 Vue.use(VueRouter);
 
+require('./markdown.css');
+require('./markdown');
+require('highlight.js/styles/agate.css');
+
 var initComponents = require('../src/index').initComponents;
 initComponents(Vue);
 

@@ -5,6 +5,7 @@
 
 <script type="text/ecmascript-6" lang="babel">
   import { LoadingMask } from '../../src/index.js'
+
   export default {
     methods: {
       showLoadingMask() {
