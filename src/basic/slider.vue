@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="slider" :class="{'show-input': showInput}" @click="onSliderClick($event)" v-el:slider>
-      <div class="bar" :style="{width: currentPosition}"></div>
-      <div class="button" :style="{left: currentPosition}" v-el:button>
+      <div class="slider-bar" :style="{width: currentPosition}"></div>
+      <div class="slider-button" :style="{left: currentPosition}" v-el:button>
         <div class="pop-up" :class="{active: showTip}" v-el:pop-up>{{currentValue}}</div>
       </div>
     </div>
@@ -36,11 +36,11 @@
     text-align: center;
   }
 
-  .slider:hover .button .pop-up {
+  .slider:hover .slider-button .pop-up {
     display: block;
   }
 
-  .slider .bar {
+  .slider .slider-bar {
     height: 5px;
     background-color: #4997dc;
     border-top-left-radius: 3px;
@@ -48,7 +48,7 @@
     position: absolute;
   }
 
-  .slider .button {
+  .slider .slider-button {
     height: 9px;
     width: 9px;
     border: solid 2px #4997dc;
@@ -60,7 +60,7 @@
     cursor: pointer;
   }
 
-  .slider .button .pop-up {
+  .slider .slider-button .pop-up {
     font-size: 12px;
     line-height: 1.7;
     text-align: center;
@@ -75,7 +75,7 @@
     display: none;
   }
 
-  .slider .button .pop-up.active {
+  .slider .slider-button .pop-up.active {
      display: block;
   }
 </style>
@@ -127,7 +127,9 @@
 
       onSliderClick(event) {
         var currentX = event.clientX;
-        var newPos = (currentX - this.$els.slider.offsetLeft) / this.$sliderWidth * 100;
+        var sliderOffsetLeft;
+        getStyle(this.$el.parentNode, 'position') === 'static' ? sliderOffsetLeft = this.$els.slider.offsetLeft : sliderOffsetLeft = this.$el.parentNode.offsetLeft + this.$els.slider.offsetLeft;
+        var newPos = (currentX - sliderOffsetLeft) / this.$sliderWidth * 100;
         this.setPosition(newPos);
       },
 
