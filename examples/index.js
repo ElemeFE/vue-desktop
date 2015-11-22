@@ -70,6 +70,9 @@ router.map({
   '/grid': {
     component: require('./data/grid.vue')
   },
+  '/tree': {
+    component: require('./data/tree.vue')
+  },
   '/crud': {
     component: require('./data/crud.vue')
   },

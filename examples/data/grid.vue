@@ -10,7 +10,7 @@
       </d-field>
     </d-form>
 
-    <d-grid :data="testData" schema="GridTest" height="300" :fit="true" :selection.sync="selection" :fixed-column-count2="3" flex>
+    <d-grid :data="testData" schema="GridTest" height="300" :selection.sync="selection" flex>
       <d-grid-column type="index"></d-grid-column>
       <d-grid-column type="selection"></d-grid-column>
       <d-grid-column property="prop1"></d-grid-column>

@@ -1,0 +1,284 @@
+<template>
+  <div class="tree-node">
+    <div class="tree-node-content">
+      <span class="expand-icon" :class="{ leaf: !hasChild, expanded: expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon fa fa-home"></span><span class="text">{{ label + '(' + level + ')' }}</span>
+    </div>
+    <div class="tree-node-children" v-if="childrenRendered" v-show="expanded">
+      <d-tree-node v-for="child in childrenData" :data="child"></d-tree-node>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+  .tree-node {
+    white-space: nowrap;
+  }
+
+  .tree-node .expand-icon {
+    display: inline-block;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+    vertical-align: top;
+    margin-top: 5px;
+    margin-right: 3px;
+    border: 5px solid transparent;
+
+    border-right-width: 0;
+    border-left-color: #333;
+    border-left-width: 7px;
+  }
+
+  .tree-node .expand-icon:hover {
+    border-left-color: #999;
+  }
+
+  .tree-node .expand-icon.expanded {
+    border: 5px solid transparent;
+    border-bottom-width: 0;
+    border-top-color: #333;
+    border-top-width: 7px;
+    margin-top: 7px;
+    margin-right: 0;
+  }
+
+  .tree-node .expand-icon.expanded:hover {
+    border-top-color: #999;
+  }
+
+  .tree-node .expand-icon.leaf {
+    border-color: transparent;
+  }
+
+  .tree-node .text {
+    font-size: 14px;
+    vertical-align: middle;
+  }
+
+  .tree-node .icon {
+    vertical-align: middle;
+    margin-right: 2px;
+  }
+
+  .tree-node .tree-node-content {
+    padding: 2px;
+    cursor: default;
+  }
+
+  .tree-node .tree-node-content > input {
+    vertical-align: top;
+    margin-top: 5px;
+  }
+
+  .tree-node.current > .tree-node-content {
+    /*color: red;*/
+  }
+
+  .tree-node > .tree-node-children {
+    background-color: transparent;
+    padding-left: 16px;
+  }
+</style>
+
+<script type="text/ecmascript-6" lang="babel">
+  var Vue = require('vue');
+
+  export default {
+    name: 'd-tree-node',
+    props: {
+      checked: {
+        type: Boolean,
+        default: false
+      },
+      data: {
+        type: Object
+      }
+    },
+
+    computed: {
+      hasChild() {
+        var childrenData = this.childrenData;
+        if (!this.lazyload || (this.lazyload === true && this.childrenLoaded === true)) {
+          return childrenData && childrenData.length > 0;
+        }
+        return true;
+      },
+      label() {
+        var data = this.data;
+        if (!data) return '';
+        var levelConfig = this.levelConfig;
+        var labelProperty;
+        if (levelConfig) {
+          labelProperty = levelConfig.label;
+        }
+        if (!labelProperty) {
+          return data['label'] || data['name']
+        }
+        return data[labelProperty];
+      },
+      childrenData: {
+        get() {
+          var data = this.data;
+          if (!data) return null;
+          var levelConfig = this.levelConfig;
+          var childrenProperty = 'children';
+          if (levelConfig) {
+            childrenProperty = levelConfig.childrenProperty || 'children';
+          }
+          return data[childrenProperty];
+        },
+        set(value) {
+          var data = this.data;
+          if (!data) return;
+          var levelConfig = this.levelConfig;
+          var childrenProperty = 'children';
+          if (levelConfig) {
+            childrenProperty = levelConfig.childrenProperty || 'children';
+          }
+          data[childrenProperty] = value;
+        }
+      }
+    },
+
+    methods: {
+      handleExpandIconClick() {
+        this.expanded = !this.expanded;
+        this.childrenRendered = true;
+        this.loadIfNeeded();
+      },
+
+      handleCheckChange() {
+        var value = this.checked;
+
+        this.setChecked(value);
+
+        var children = this.$children;
+        for (var i = 0, j = children.length; i < j; i++) {
+          var child = children[i];
+          child.setChecked(value, true);
+        }
+      },
+
+      loadIfNeeded(callback) {
+        if (this.lazyload === true) {
+          if (!this.childrenLoaded && this.loadFn) {
+            this.childrenLoaded = 'loading';
+            this.loadFn(() => {
+              this.childrenLoaded = true;
+              if (!this.childrenRendered) {
+                this.childrenRendered = true;
+              }
+              if (callback) {
+                callback.call(this);
+              }
+            });
+            return true;
+          }
+        } else {
+          if (!this.childrenRendered) {
+            this.childrenRendered = true;
+            callback();
+          }
+        }
+      },
+
+      setChecked(value, deep) {
+        this.loadIfNeeded(() => {
+          var children = this.$children || [];
+          Vue.nextTick(function() {
+            for (var i = 0, j = children.length; i < j; i++) {
+              var child = children[i];
+              child.setChecked(value);
+            }
+          });
+        });
+
+        var input = this.$els.input;
+        if (value === 'half') {
+          input.indeterminate = true;
+          input.checked = false;
+        } else {
+          input.indeterminate = false;
+          input.checked = !!value;
+        }
+
+        this.checked = value;
+        var i, j;
+
+        if (deep) {
+          var children = this.$children;
+          for (i = 0, j = children.length; i < j; i++) {
+            var child = children[i];
+            child.setChecked(value, deep);
+          }
+        }
+
+        var parent = this.$parent;
+
+        if (parent.level === undefined) return;
+
+        var siblings = parent.$children;
+
+        var all = true;
+        var none = true;
+        for (i = 0, j = siblings.length; i < j; i++) {
+          var sibling = siblings[i];
+          if (sibling.checked !== true) {
+            all = false;
+          }
+          if (sibling.checked !== false) {
+            none = false;
+          }
+        }
+
+        if (all) {
+          parent.setChecked(true);
+        } else if (!all && !none) {
+          parent.setChecked('half');
+        } else if (none) {
+          parent.setChecked(false);
+        }
+      }
+    },
+
+    created() {
+      var parent = this.$parent;
+      if (parent.$isTree) {
+        this.level = 0;
+        this.$tree = parent;
+        this.levelConfig = parent.levelConfig;
+      } else {
+        this.level = parent.level + 1;
+        this.$tree = parent.$tree;
+        if (parent.levelConfig) {
+          this.levelConfig = parent.levelConfig.children;
+        }
+      }
+      var levelConfig = this.levelConfig;
+      if (levelConfig) {
+        var children = levelConfig.children;
+        if (children && children.lazy) {
+          this.lazyload = true;
+          this.loadFn = children.load;
+        }
+      }
+
+      if (!this.$tree) {
+        console.warn('Can not find node\'s tree.');
+        return;
+      }
+    },
+
+    data() {
+      return {
+        level: 0,
+        children: [],
+        expanded: false,
+        levelConfig: null,
+        $tree: null,
+        $item: null,
+        childrenRendered: false
+      }
+    }
+  }
+</script>

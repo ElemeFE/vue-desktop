@@ -130,6 +130,7 @@
     <div class="demoheader">Data</div>
     <ul class="demolist">
       <li><a v-link="{ path: '/grid' }">Grid</a></li>
+      <li><a v-link="{ path: '/tree' }">Tree</a></li>
       <li><a v-link="{ path: '/crud' }">CRUD</a></li>
       <!--<li><a v-link="{ path: '/pagination' }">Pagination</a></li>-->
     </ul>

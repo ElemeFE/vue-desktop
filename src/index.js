@@ -23,6 +23,9 @@ import Tab from './nav/tab.vue'
 import Tabs from './nav/tabs.vue'
 
 import Grid from './data/grid.vue'
+import Tree from './data/tree.vue'
+import TreeNode from './data/tree-node.vue'
+
 import Pagination from './data/pagination.vue'
 
 import Form from './form/form.vue'
@@ -59,6 +62,9 @@ export var Components = {
   Tabs,
 
   Grid,
+  Tree,
+  TreeNode,
+
   Pagination,
 
   Form,
@@ -102,6 +108,6 @@ export { default as MessageBox } from './service/msgbox'
 
 export { default as Notification } from './service/notification'
 
-export { default as Schema } from './schema'
+export { default as Schema } from './schema/index'
 
 export { default as LoadingMask } from './service/loading-mask'

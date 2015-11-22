@@ -15,7 +15,16 @@
 
 <script type="text/ecmascript-6" lang="babel">
   export default {
-    props: {},
+    props: {
+      activeTabIndex: {
+      }
+    },
+
+    watch: {
+      activeTabIndex(newVal) {
+
+      }
+    },
 
     ready() {
       if (!this.activeTab) {
