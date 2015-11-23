@@ -12,7 +12,7 @@ var isElementOutside = require('./util').isElementOutside;
 
 var idSeed = 1;
 
-var Vue = require('../config');
+import { default as Vue } from '../config';
 
 var transitions = ['pop-bounce', 'pop-fade'];
 

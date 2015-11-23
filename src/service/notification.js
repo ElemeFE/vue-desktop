@@ -1,4 +1,4 @@
-var Vue = require('../config');
+import { default as Vue } from '../config';
 var NotificationConstructor = Vue.extend(require('./notification.vue'));
 
 var instance;

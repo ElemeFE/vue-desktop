@@ -1,6 +1,6 @@
 ## Vue Desktop
 
-A UI Library for building pc website.
+A UI library for building admin panel website.
 
 ## Dev
 
@@ -8,3 +8,10 @@ A UI Library for building pc website.
 npm install
 npm run dev
 ```
+
+## Examples
+
+After run npm dev, visit http://localhost:9000.
+
+## License
+MIT.

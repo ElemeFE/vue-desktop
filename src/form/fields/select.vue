@@ -53,7 +53,7 @@
 
 <script type="text/ecmascript-6" lang="babel">
   var domUtil = require('wind-dom');
-  var merge = require('../../util').merge;
+  import { merge } from '../../util';
   var common = require('./field-common');
   var Dropdown = require('../../service/dropdown');
 

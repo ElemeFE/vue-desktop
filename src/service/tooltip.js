@@ -1,4 +1,4 @@
-var Vue = require('../config');
+import { default as Vue } from '../config';
 var Tooltip = Vue.extend(require('./tooltip.vue'));
 
 Vue.directive('tooltip', {

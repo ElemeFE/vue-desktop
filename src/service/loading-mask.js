@@ -1,4 +1,4 @@
-var Vue = require('../config');
+import { default as Vue } from '../config';
 var LoadingMask = Vue.extend(require('./loading-mask.vue'));
 
 var instance;

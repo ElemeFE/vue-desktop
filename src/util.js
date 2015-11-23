@@ -1,79 +1,77 @@
 const dateUtil = require('fecha');
 
-export default {
-  merge(target) {
-    for (var i = 1, j = arguments.length; i < j; i++) {
-      var source = arguments[i];
-      for (var prop in source) {
-        if (source.hasOwnProperty(prop)) {
-          var value = source[prop];
-          if (value !== undefined) {
-            target[prop] = value;
-          }
+export function merge(target) {
+  for (var i = 1, j = arguments.length; i < j; i++) {
+    var source = arguments[i];
+    for (var prop in source) {
+      if (source.hasOwnProperty(prop)) {
+        var value = source[prop];
+        if (value !== undefined) {
+          target[prop] = value;
         }
       }
     }
+  }
 
-    return target;
-  },
+  return target;
+}
 
-  formatDate(date, format) {
-    if (!(date instanceof Date)) return '';
-    return dateUtil.format(date, format || 'YYYY-MM-DD');
-  },
+export function formatDate(date, format) {
+  if (!(date instanceof Date)) return '';
+  return dateUtil.format(date, format || 'YYYY-MM-DD');
+}
 
-  parseDate(string, format) {
-    return dateUtil.parse(string, format || 'YYYY-MM-DD');
-  },
+export function parseDate(string, format) {
+  return dateUtil.parse(string, format || 'YYYY-MM-DD');
+}
 
-  debounce(fn, delay) {
-    var timer;
+export function debounce(fn, delay) {
+  var timer;
 
-    return function() {
-      var context = this;
-      var args = arguments;
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
-      }
-      timer = setTimeout(function() {
-        fn.apply(context, args);
-        timer = null;
-      }, delay);
-    };
-  },
-
-  throttle(fn, delay) {
-    var now, lastExec, timer, context, args;
-
-    var execute = function () {
+  return function() {
+    var context = this;
+    var args = arguments;
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    timer = setTimeout(function() {
       fn.apply(context, args);
-      lastExec = now;
-    };
+      timer = null;
+    }, delay);
+  };
+}
 
-    return function() {
-      context = this;
-      args = arguments;
+export function throttle(fn, delay) {
+  var now, lastExec, timer, context, args;
 
-      now = Date.now();
+  var execute = function () {
+    fn.apply(context, args);
+    lastExec = now;
+  };
 
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
-      }
+  return function() {
+    context = this;
+    args = arguments;
 
-      if (!lastExec) {
+    now = Date.now();
+
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+
+    if (!lastExec) {
+      execute();
+    } else {
+      var diff = delay - (now - lastExec);
+      if (diff < 0) {
         execute();
       } else {
-        var diff = delay - (now - lastExec);
-        if (diff < 0) {
+        timer = setTimeout(function() {
           execute();
-        } else {
-          timer = setTimeout(function() {
-            execute();
-          }, diff);
-        }
+        }, diff);
       }
-    };
-  }
-};
+    }
+  };
+}

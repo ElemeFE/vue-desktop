@@ -1,7 +1,6 @@
-// This config file is for development setup using
-// webpack-dev-server.
-
-var webpack = require('webpack');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: {
@@ -13,35 +12,29 @@ module.exports = {
     publicPath: '/dist/',
     filename: '[name].js'
   },
+  vue: {
+    loaders: { 
+      css: ExtractTextPlugin.extract('style', 'css')
+    }
+  },
+  babel: {
+    presets: ['es2015']
+    //,plugins: ['transform-runtime']
+  },
   module: {
     loaders: [
-      {
-        test: /\.vue$/,
-        loader: 'vue'
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel'
-      },
-      {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader'
-      },
-      {
-        test: /\.html$/,
-        loader: 'html'
-      },
-      {
-        test: /\.(ttf|svg|woff2|woff|eot)$/,
-        loader: 'url?limit=100&name=[path][name].[hash:6].[ext]'
-      }
+      { test: /\.js$/, exclude: /node_modules\/(?!vue-desktop)/, loader: 'babel' },
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') },
+      { test: /\.html$/, loader: 'html' },
+      { test: /\.vue$/, loader: 'vue' },
+      { test: /\.(ttf|svg|woff2|woff|eot)$/, loader: 'url?limit=20000&name=[path][name].[hash:6].[ext]' }
     ]
   }
 };
 
-if (process.env.NODE_ENV === 'production') {
+if (isProduction) {
   module.exports.plugins = [
+    new ExtractTextPlugin('[name].[contenthash:6].css'),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
@@ -55,5 +48,8 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.optimize.OccurenceOrderPlugin()
   ]
 } else {
-  module.exports.devtool = '#source-map'
+  module.exports.plugins = [
+    new ExtractTextPlugin('[name].css')
+  ];
+  //module.exports.devtool = '#source-map'
 }

@@ -137,9 +137,9 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  var Popup = require('../popup');
-  var Vue = require('../config');
-  var Popover = require('../popover');
+  import { default as Vue } from '../config'
+  import { default as Popup } from '../popup/index'
+  import { default as Popover } from '../popover'
 
   export default {
     mixins: [ Popup, Popover ],

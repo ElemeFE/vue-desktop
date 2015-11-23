@@ -1,6 +1,5 @@
 var validatorFnMap = require('./validators');
-var formatDate = require('../util').formatDate;
-var merge = require('../util').merge;
+import { formatDate, merge } from '../util'
 
 var defaultMessages = require('./messages');
 

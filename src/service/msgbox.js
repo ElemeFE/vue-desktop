@@ -14,7 +14,7 @@ var defaults = {
   buttons: null
 };
 
-var Vue = require('../config');
+import { default as Vue } from '../config';
 var util = require('../util');
 
 var MessageBoxConstructor = Vue.extend(require('./msgbox.vue'));

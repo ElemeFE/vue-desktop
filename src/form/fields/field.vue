@@ -86,7 +86,7 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  var merge = require('../../util').merge;
+  import { merge } from '../../util';
   var common = require('./field-common');
 
   export default {
