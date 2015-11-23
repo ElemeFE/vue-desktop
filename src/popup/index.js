@@ -32,6 +32,7 @@ export default {
   props: {
     visible: {
       type: Boolean,
+      twoWay: true,
       default: false
     }
   },

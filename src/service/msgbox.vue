@@ -9,8 +9,8 @@
       <div class="msgbox-message">{{ message }}</div>
     </div>
     <div class="msgbox-btns">
-      <button class="btn btn-primary btn-lg msgbox-confirm" @click="handleAction('confirm')">{{ confirmButtonText }}</button>
-      <button class="btn btn-lg msgbox-cancel" v-show="showCancelButton" @click="handleAction('cancel')">{{ cancelButtonText }}</button>
+      <button class="btn btn-primary btn-lg msgbox-confirm {{confirmButtonClass}}" v-show="showConfirmButton" @click="handleAction('confirm')">{{ confirmButtonText }}</button>
+      <button class="btn btn-lg msgbox-cancel {{cancelButtonClass}}" v-show="showCancelButton" @click="handleAction('cancel')">{{ cancelButtonText }}</button>
     </div>
   </div>
 </template>

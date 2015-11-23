@@ -1,7 +1,7 @@
 <template>
   <d-button type="primary" @click="showDialog = !showDialog">Show Dialog</d-button>
 
-  <d-dialog title="Dialog" :visible.sync="showDialog" width="400">
+  <d-dialog title="Dialog" :visible.sync="dialogVisible" width="400">
     <div>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -11,8 +11,8 @@
       proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </div>
     <div slot="dialog-footer">
-      <d-button @click="showDialog = !showDialog">OK</d-button>
-      <d-button @click="showDialog = !showDialog">Cancel</d-button>
+      <d-button @click="dialogVisible = false">OK</d-button>
+      <d-button @click="dialogVisible = false">Cancel</d-button>
     </div>
   </d-dialog>
 </template>
@@ -21,7 +21,7 @@
   export default {
     data() {
       return {
-        showDialog: false
+        dialogVisible: false
       }
     }
   };

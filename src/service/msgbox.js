@@ -10,8 +10,7 @@ var defaults = {
   confirmButtonText: CONFIRM_TEXT,
   cancelButtonText: CANCEL_TEXT,
   confirmButtonClass: '',
-  cancelButtonClass: '',
-  buttons: null
+  cancelButtonClass: ''
 };
 
 import { default as Vue } from '../config';

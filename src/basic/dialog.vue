@@ -23,26 +23,8 @@
         default: ''
       },
 
-      show: {
-        require: true,
-        type: Boolean,
-        default: false,
-        twoWay: true
-      },
-
       width: {
         default: 600
-      },
-
-      callback: {
-        type: Function,
-        default: function () {
-        }
-      },
-
-      effect: {
-        type: String,
-        default: 'fade'
       }
     },
 

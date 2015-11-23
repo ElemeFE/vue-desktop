@@ -22,7 +22,6 @@
 
     watch: {
       activeTabIndex(newVal) {
-
       }
     },
 

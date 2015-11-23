@@ -9,6 +9,20 @@
     "test": "mocha -r chai -r sinon test/index.js",
     "coverage": "istanbul cover _mocha -- -r chai -r sinon -R spec test/index.js & open ./coverage/lcov-report/index.html"
   },
+  "repository" : {
+    "type" : "git",
+    "url" : "git@github.com:ElemeFE/vue-desktop.git"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "src",
+    "test"
+  ],
+  "keywords": [
+    "vue",
+    "vue-component"
+  ],
   "directories": {
     "src": "src/"
   },

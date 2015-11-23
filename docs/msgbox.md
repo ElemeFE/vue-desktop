@@ -1,7 +1,13 @@
 # 简介
-MessageBox是一个类似SweetAlert的组件，用来替代浏览器的alert和confirm。
+MessageBox 是一个类似 SweetAlert 的组件，用来替代浏览器的 alert 和 confirm。
 
 # 用法
+
+## 引用
+
+```JavaScript
+import { MessageBox } from 'vue-desktop'
+```
 
 ## 不需要callback
 
@@ -9,11 +15,11 @@ MessageBox是一个类似SweetAlert的组件，用来替代浏览器的alert和c
 
     MessageBox("Good job!", "You clicked the button!", "success");
 
-第一个参数为title，第二个参数为message，第三个参数为type。
+第一个参数为 title，第二个参数为 message，第三个参数为 type。
 
 ## 需要callback
 
-在需要callback的情况下，需要这么使用：
+在需要 callback 的情况下，需要这么使用：
 
     MessageBox({
       title: 'I'm a title',
@@ -25,10 +31,10 @@ MessageBox是一个类似SweetAlert的组件，用来替代浏览器的alert和c
       MessageBox('你点击了: ' + action);
     });
 
-如果callback返回一个false，则可以阻止MessageBox的关闭，你可以使用MessageBox.close()来关闭所有的MessageBox。
+如果 callback 返回一个 false，则可以阻止 MessageBox 的关闭，你可以使用 MessageBox.close() 来关闭所有的 MessageBox。
 
 ## 需要自定义按钮
-如果默认Button的样式无法满足你的需求，可以使用自定义按钮来完成你需要的功能。
+如果默认 Button 的样式无法满足你的需求，可以使用自定义按钮来完成你需要的功能。
 
 自定义按钮使用buttons属性来配置，该属性为数组，每个button可以定义这么两个属性：
 
@@ -54,8 +60,8 @@ MessageBox是一个类似SweetAlert的组件，用来替代浏览器的alert和c
 # 参数列表
 目前MessageBox支持如下参数：
 
-- title: MessageBox显示的标题，可以为HTML。
-- message: MessageBox显示的内容，可以为HTML。
+- title: MessageBox显示的标题。
+- message: MessageBox显示的内容。
 - type: MessageBox显示的图标的类型，可选值：success、warning、error，默认值为空。
 - showConfirmButton: 是否显示确定按钮，默认值为true。
 - showCancelButton: 是否显示取消按钮，默认值为false。
@@ -64,4 +70,3 @@ MessageBox是一个类似SweetAlert的组件，用来替代浏览器的alert和c
 - cancelButtonText: 取消按钮显示的文本，默认值为『取消』。
 - confirmButtonClass: 确定按钮的className，默认值为空。注：msgbox-confirm这个class是一定存在的。
 - cancelButtonClass: 取消按钮的className，默认值为空。注：msgbox-cancel这个class是一定存在的。
-- buttons: 用户的自定义按钮，数组类型，默认为空。

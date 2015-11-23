@@ -111,3 +111,5 @@ export { default as Notification } from './service/notification'
 export { default as Schema } from './schema/index'
 
 export { default as LoadingMask } from './service/loading-mask'
+
+export { default as Popup } from './popup/index'
