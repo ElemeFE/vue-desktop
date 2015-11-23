@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown btn" :class="{active: showItem}">
+  <div class="dropdown btn btn-default" :class="{active: showItem}">
     {{title}}
     <span class="fa fa-chevron-down"></span>
     <ul class="dropdown-list" v-show="showItem" v-el:ul transition="fade">
@@ -19,17 +19,13 @@
   }
 
   .dropdown span:before {
-    color: #6f7e95;
+    color: #676a6c;
     transition: .3s;
   }
 
-  .dropdown:hover span:before {
-    color: #fff;
-  }
-
   .dropdown.active {
-    background-color: #639af5;
-    border-color: #639af5;
+    background-color: #1c84c6;
+    border-color: #1c84c6;
     color: #fff;
   }
 

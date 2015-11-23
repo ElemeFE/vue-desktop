@@ -37,33 +37,8 @@
     border-bottom-right-radius: 3px;
   }
 
-  .btn-group .btn-primary + .btn {
-    /*border-left-color: #0089dc;*/
-  }
-
-  .btn-group .btn-primary + .btn-primary {
-    /*border-left-color: #178;*/
-  }
-
-  .btn-group .btn-primary:hover {
-    /*border-left-color: #178;*/
-  }
-
-  .btn-group .btn:hover+.btn,
-  .btn-group .btn-phantom:hover+.btn {
-    /*border-left-color: #0089dc;*/
-  }
-
-  .btn-group .btn-primary:hover+.btn {
-    /*border-left-color: #178;*/
-  }
-
-  .btn-group .btn-primary:first-child {
-    /*border-left-color: #0089dc;*/
-  }
-
-  .btn-group .btn-primary:first-child:hover {
-    /*border-left-color: #4bf;*/
+  .btn-group .btn-default:hover + .btn-default {
+    border-left-color: #d2d2d2;
   }
 </style>
 
@@ -73,6 +48,58 @@
       size: {
         type: String,
         default: ''
+      },
+      exclusive: {
+        type: Boolean,
+        default: true
+      }
+    },
+
+    data() {
+      return {
+        selectedArr: []
+      }
+    },
+
+    created() {
+      this.$isButtonGroup = true;
+    },
+
+    events: {
+      onButtonClick(button) {
+        if (this.exclusive) {
+          this.selectedArr = [];
+          var buttons = this.$el.querySelectorAll('button.btn');
+          for (var i = 0, len = buttons.length; i < len; i++) {
+            buttons[i].__vue__.selected = false;
+          }
+          if (button.selected) {
+            button.selected = false;
+          }
+        }
+        if (!button.selected) {
+          this.selectedArr.push(button.value);
+          button.selected = true;
+        } else {
+          this.selectedArr.splice(this.selectedArr.indexOf(button.value), 1);
+          button.selected = false;
+        }
+        this.$emit('select', this.selectedArr);
+      }
+    },
+
+
+    ready() {
+      var buttons = this.$el.querySelectorAll('button.btn');
+      for (var i = 0, len = buttons.length; i < len; i++) {
+        var btn = buttons[i];
+        if (btn.__vue__.selected) {
+          this.selectedArr.push(btn.__vue__.value);
+        }
+      }
+      if (this.selectedArr.length === 0 && this.exclusive) {
+        buttons[0].__vue__.selected = true;
+        this.selectedArr.push(buttons[0].__vue__.value);
       }
     }
   }

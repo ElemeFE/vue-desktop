@@ -10,18 +10,23 @@
 </template>
 
 <style>
+  .accordion-section {
+    margin-top: 5px;
+  }
+
+  .accordion-section:first-child {
+    margin-top: 0;
+  }
+
   .accordion-section .accordion-header {
     font-size: 14px;
     margin: 0;
     padding: 10px 8px;
     display: block;
     cursor: pointer;
-    color: #fff;
-    background-color: #59677e;
   }
 
   .accordion-section .accordion-header:before {
-    color: #fff;
     float: right;
     transform: rotateZ(0deg);
     transition: transform .3s;
@@ -50,15 +55,40 @@
     line-height: 1.8;
     font-size: 14px;
     background-color: #fff;
+    color: #676a6c;
+  }
+
+  .accordion-default .accordion-section {
+    border: solid 1px #d2d2d2;
+    border-bottom-width: 0;
+    border-radius: 3px;
+  }
+
+  .accordion-default .accordion-header {
+    border-radius: 3px;
+    border-bottom: solid 1px #d2d2d2;
+    background-color: #f5f5f5;
+  }
+
+  .accordion-default .accordion-content-wrap {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  .accordion-default .accordion-section.active .accordion-header {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .accordion-default .accordion-section.active {
+    border-bottom-width: 1px;
   }
 
   .accordion-transparent .accordion-header {
-    color: inherit;
     background-color: transparent;
   }
 
   .accordion-transparent .accordion-header:before {
-    color: inherit;
   }
 
   .accordion-transparent .accordion-content {

@@ -27,7 +27,7 @@
   }
 
   .dropdown-item:hover {
-    background-color: #47bac1;
+    background-color: #1c84c6;
     color: #fff;
   }
 
