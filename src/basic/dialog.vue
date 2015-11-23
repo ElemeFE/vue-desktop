@@ -12,7 +12,7 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  var Popup = require('../popup');
+  import { default as Popup } from '../popup/index';
 
   export default {
     mixins: [ Popup ],

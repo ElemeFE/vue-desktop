@@ -61,7 +61,8 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  var Popup = require('../popup');
+  import Popup from '../popup/index';
+
   export default {
     mixins: [ Popup ],
 

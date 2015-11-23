@@ -1,6 +1,6 @@
 <template>
   <d-panel title="Validation Example">
-    <d-form :model='team' :schema='userSchema' label-width="140" :cols="1" style="width: 360px;">
+    <d-form :model='user' :schema='userSchema' label-width="140" :cols="1" style="width: 360px;">
       <d-text-field property='userName'></d-text-field>
       <d-text-field property='email'></d-text-field>
       <d-text-field type='password' property='password'></d-text-field>
@@ -54,14 +54,14 @@
   export default {
     methods: {
       validate() {
-        userSchema.validate(this.team);
+        userSchema.validate(this.user);
       }
     },
 
     data () {
       return {
         userSchema: userSchema,
-        team: userSchema.newModel()
+        user: userSchema.newModel()
       }
     }
   }

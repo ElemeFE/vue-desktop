@@ -34,7 +34,7 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  var schema = require('./schema');
+  import { default as schema } from './schema';
 
   export default {
     methods: {

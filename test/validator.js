@@ -1,4 +1,4 @@
-var SchemaStore = require('../src/schema/store');
+import { default as SchemaStore } from '../src/schema/store';
 
 describe('Validator Unit test', function() {
   it('type: required', function() {

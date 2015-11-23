@@ -1,7 +1,6 @@
-let cache = require('./cache');
-
-var Schema = require('./index');
-var validators = require('./validators');
+import { default as cache } from './cache';
+import { default as Schema } from './index';
+import { default as validators } from './validators';
 
 export default {
   getSchema(name) {

@@ -1,5 +1,5 @@
-var SchemaStore = require('../src/schema/store');
-var Schema = require('../src/schema/index');
+import { default as Schema } from '../src/schema/index';
+import { default as SchemaStore } from '../src/schema/store';
 
 describe('Schema Store', function() {
   afterEach(function() {
@@ -21,7 +21,7 @@ describe('Schema Store', function() {
     });
   });
 
-  describe('#create', function() {
+  describe('#newModel', function() {
     var newConfig = {
       a: {
         type: String,
@@ -44,7 +44,7 @@ describe('Schema Store', function() {
     it('should return a new object with all props', function() {
       var schema = SchemaStore.defineSchema('test', newConfig);
 
-      var newObject = schema.create();
+      var newObject = schema.newModel();
 
       var keys = Object.keys(newObject);
       keys.length.should.equal(4);
@@ -55,7 +55,7 @@ describe('Schema Store', function() {
     it('should return a new object with default value', function() {
       var schema = SchemaStore.defineSchema('test', newConfig);
 
-      var newObject = schema.create();
+      var newObject = schema.newModel();
 
       newObject.a.should.equal('');
       newObject.b.should.be.a('date');
@@ -191,7 +191,7 @@ describe('Schema Store', function() {
 
     it('should save current state & reset saved state', function() {
       var schema = new Schema(newConfig);
-      var object = schema.create();
+      var object = schema.newModel();
 
       schema.save(object);
       object.d = 3;
@@ -202,7 +202,7 @@ describe('Schema Store', function() {
 
     it('should reset to default value when no saved state', function() {
       var schema = new Schema(newConfig);
-      var object = schema.create();
+      var object = schema.newModel();
 
       object.c.should.equal(4);
       object.c = 5;
@@ -245,7 +245,7 @@ describe('Schema Store', function() {
         }}
       });
 
-      var object = schema.create();
+      var object = schema.newModel();
 
       schema.getPropertyText(object, 'a').should.equal('2015-01-01');
     });

@@ -11,7 +11,7 @@ npm run dev
 
 ## Examples
 
-After run npm dev, visit http://localhost:9000.
+After npm run dev, visit http://localhost:9000.
 
 ## License
 MIT.

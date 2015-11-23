@@ -1,5 +1,5 @@
 <template>
-  <button class="btn {{type !== '' ? 'btn-' + type : ''}} {{selected ? selectedClass : 'btn-default'}}" :class="{'btn-lg': size === 'large', 'btn-sm': size === 'small', 'disabled': disabled}">
+  <button class="btn {{btnClasses}}">
     <slot></slot>
   </button>
 </template>
@@ -130,6 +130,28 @@
       selected: {
         type: Boolean,
         default: false
+      }
+    },
+
+    computed: {
+      btnClasses() {
+        var classes = [ this.selected ? this.selectedClass : 'btn-default' ];
+
+        if (this.type) {
+          classes.push('btn-' + this.type);
+        }
+
+        if (this.size === 'large') {
+          classes.push('btn-lg');
+        } else if (this.size === 'small') {
+          classes.push('btn-sm');
+        }
+
+        if (this.disabled) {
+          classes.push('disabled');
+        }
+
+        return classes.join(' ');
       }
     },
 

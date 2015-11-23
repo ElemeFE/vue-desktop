@@ -7,7 +7,7 @@ export default {
   length: {
     'min': '{label}至少有{min}个字符',
     'max': '{label}最多有{max}个字符',
-    'range': '{label}的长度应该大于等于{min}并且小鱼等于{max}'
+    'range': '{label}的长度应该大于等于{min}并且小于等于{max}'
   },
   range: {
     'min': '{label}应该大于{min}',

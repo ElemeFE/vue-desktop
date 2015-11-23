@@ -1,14 +1,16 @@
 <style>
   html, body {
     font: 100% Helvetica, sans-serif;
-    color: #293f54;
+    color: #333;
     height: 100%;
     margin: 0;
     padding: 0;
   }
+
   body {
     overflow: hidden;
   }
+
   .loading {
     position: absolute;
     left: 50%;
@@ -21,9 +23,11 @@
     font-size: 48px;
     text-align: center;
   }
+
   .loading i {
     font-size: inherit;
   }
+
   .login {
     position: absolute;
     left: 50%;
@@ -72,7 +76,7 @@
     padding: 12px;
     box-sizing: border-box;
     overflow: auto;
-    background-color: #ecf2f6;
+    background-color: #f3f3f4;
   }
   .demolist {
     list-style: none;

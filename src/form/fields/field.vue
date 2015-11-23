@@ -87,7 +87,7 @@
 
 <script type="text/ecmascript-6" lang="babel">
   import { merge } from '../../util';
-  var common = require('./field-common');
+  import { default as common } from './field-common';
 
   export default {
     props: {

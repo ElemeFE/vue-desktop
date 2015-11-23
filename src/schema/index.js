@@ -1,7 +1,6 @@
-var validatorFnMap = require('./validators');
+import { default as validatorFnMap } from './validators';
 import { formatDate, merge } from '../util';
-
-var defaultMessages = require('./messages');
+import { default as defaultMessages } from './messages';
 
 var doValidate = function(object, property, descriptor, rule) {
   var type = rule.type;

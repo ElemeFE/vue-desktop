@@ -33,7 +33,7 @@
   }
 
   .d-text-editor input {
-    border: 1px solid #dedede;
+    border: 1px solid #e5e6e7;
     border-radius: 2px;
     line-height: 18px;
     padding: 4px 2px;
@@ -63,7 +63,7 @@
   }
 
   .d-text-editor textarea {
-    border: 1px solid #dedede;
+    border: 1px solid #e5e6e7;
     border-radius: 2px;
     box-sizing: border-box;
     width: 100%;
@@ -77,7 +77,7 @@
   .d-text-editor.active input,
   .d-text-editor.active textarea {
     outline: none;
-    border-color: #5cb6e6;
+    border-color: #1ab394;
   }
 
   .d-text-editor.lg input {
@@ -100,7 +100,7 @@
   var Vue = require('vue');
   var domUtil = require('wind-dom');
   import { merge, formatDate, parseDate } from '../util';
-  var Dropdown = require('../service/dropdown');
+  import { default as Dropdown } from '../service/dropdown';
 
   export default {
     props: {

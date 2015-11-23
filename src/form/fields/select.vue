@@ -28,7 +28,7 @@
     cursor: pointer;
     font-size: 14px;
     padding-left: 4px;
-    border: 1px solid #dedede;
+    border: 1px solid #e5e6e7;
     background-color: #fff;
     width: 100%;
     padding-right: 24px;
@@ -40,7 +40,7 @@
   }
 
   .d-selectfield-box.active {
-    border-color: #5cb6e6;
+    border-color: #1ab394;
   }
 
   .d-selectfield-box .d-selectfield-trigger {
@@ -54,8 +54,8 @@
 <script type="text/ecmascript-6" lang="babel">
   var domUtil = require('wind-dom');
   import { merge } from '../../util';
-  var common = require('./field-common');
-  var Dropdown = require('../../service/dropdown');
+  import { default as common } from './field-common';
+  import { default as Dropdown } from '../../service/dropdown';
 
   export default {
     props: merge({

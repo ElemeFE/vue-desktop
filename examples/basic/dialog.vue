@@ -1,5 +1,5 @@
 <template>
-  <d-button type="primary" @click="showDialog = !showDialog">Show Dialog</d-button>
+  <d-button type="primary" @click="dialogVisible = !dialogVisible">Show Dialog</d-button>
 
   <d-dialog title="Dialog" :visible.sync="dialogVisible" width="400">
     <div>

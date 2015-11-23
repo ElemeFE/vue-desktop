@@ -9,20 +9,19 @@
 
 <style>
   .d-panel {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   }
 
   .d-panel-header {
-    background: #59677e;
-    color: #fff;
-    padding: 5px 8px;
+    padding: 14px 15px 7px;
     font-size: 14px;
-    border-radius: 5px 5px 0 0;
+    background-color: #ffffff;
   }
 
   .d-panel-content {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 0 0 5px 5px;
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
   }
 
   .d-panel.noheader .d-panel-content {
