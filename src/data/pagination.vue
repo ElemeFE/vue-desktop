@@ -69,7 +69,9 @@
         type: Number,
         default: 0
       },
-      currentPage: {}
+      currentPage: {
+        twoWay: true
+      }
     },
 
     methods: {
@@ -103,7 +105,7 @@
         this.currentPage = newPage;
 
         if (newPage !== currentPage) {
-          this.$emit('change', {currentPage: newPage});
+          this.$emit('change', { currentPage: newPage });
           this.refresh();
         }
       },

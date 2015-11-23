@@ -22,7 +22,6 @@ import Tabs from './nav/tabs.vue';
 
 import Grid from './data/grid.vue';
 import Tree from './data/tree.vue';
-import TreeNode from './data/tree-node.vue';
 
 import Pagination from './data/pagination.vue';
 
@@ -61,7 +60,6 @@ export var Components = {
 
   Grid,
   Tree,
-  TreeNode,
 
   Pagination,
 

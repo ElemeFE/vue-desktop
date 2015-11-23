@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
+    "watch": "webpack --progress --hide-modules --watch",
     "build": "NODE_ENV=production webpack --progress --hide-modules",
     "test": "mocha -r chai -r sinon test/index.js",
     "coverage": "istanbul cover _mocha -- -r chai -r sinon -R spec test/index.js & open ./coverage/lcov-report/index.html"

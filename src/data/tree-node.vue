@@ -1,7 +1,7 @@
 <template>
   <div class="tree-node">
     <div class="tree-node-content">
-      <span class="expand-icon" :class="{ leaf: !hasChild, expanded: expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon fa fa-home"></span><span class="text">{{ label + '(' + level + ')' }}</span>
+      <span class="expand-icon" :class="{ leaf: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon fa fa-home"></span><span class="text">{{ label + '(' + level + ')' }}</span>
     </div>
     <div class="tree-node-children" v-if="childrenRendered" v-show="expanded">
       <d-tree-node v-for="child in childrenData" :data="child"></d-tree-node>
@@ -48,6 +48,7 @@
 
   .tree-node .expand-icon.leaf {
     border-color: transparent;
+    cursor: default;
   }
 
   .tree-node .text {

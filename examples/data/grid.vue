@@ -10,7 +10,7 @@
       </d-field>
     </d-form>
 
-    <d-grid :data="testData" schema="GridTest" height="300" :selection.sync="selection" flex>
+    <d-grid :data="gridData" :schema="gridSchema" height="300" :selection.sync="selection" flex>
       <d-grid-column type="index"></d-grid-column>
       <d-grid-column type="selection"></d-grid-column>
       <d-grid-column property="prop1"></d-grid-column>
@@ -32,7 +32,7 @@
 <script type="text/ecmascript-6" lang="babel">
   import { Schema } from '../../src/index.js'
 
-  var testSchema = new Schema('GridTest', {
+  var gridSchema = new Schema({
     prop1: {
       label: '测试1',
       required: true
@@ -59,21 +59,12 @@
 
   export default {
     methods: {
-      test() {
-        alert(123);
-      },
-
-      removeThis(row) {
-        var index = this.selection.indexOf(row);
-        if (index !== -1) {
-          this.selection.splice(index, 1);
-        }
-      }
     },
     data() {
       return {
         selection: [],
-        testData: testSchema.convert([
+        gridSchema: gridSchema,
+        gridData: gridSchema.convert([
           {prop1: '11', prop2: '12', prop3: new Date(), prop4: '14', prop5: true},
           {prop1: '21', prop2: '22', prop3: new Date(), prop4: '24', prop5: false},
           {prop1: '31', prop2: '32', prop3: new Date(), prop4: '34', prop5: false},
