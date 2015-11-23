@@ -13,7 +13,8 @@ module.exports = {
     filename: '[name].js'
   },
   vue: {
-    loaders: { 
+    loaders: {
+      js: 'babel',
       css: ExtractTextPlugin.extract('style', 'css')
     }
   },
@@ -22,6 +23,9 @@ module.exports = {
     //,plugins: ['transform-runtime']
   },
   module: {
+    preLoaders: [
+      { test: /\.js$/, exclude: /node_modules/, loader: 'eslint-loader' }
+    ],
     loaders: [
       { test: /\.js$/, exclude: /node_modules\/(?!vue-desktop)/, loader: 'babel' },
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css') },

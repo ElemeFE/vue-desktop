@@ -1,5 +1,5 @@
 var validatorFnMap = require('./validators');
-import { formatDate, merge } from '../util'
+import { formatDate, merge } from '../util';
 
 var defaultMessages = require('./messages');
 
@@ -212,7 +212,7 @@ class Schema {
   }
 
   validate(object, options) {
-    if (!object) return console.warn('validate require an object.');
+    if (!object) return console.warn('validate require an object.'); // eslint-disable-line no-console
 
     initObject(object, this);
 
@@ -246,7 +246,7 @@ class Schema {
   }
 
   validateProperty(object, property) {
-    if (!object) return console.warn('validate require an object.');
+    if (!object) return console.warn('validate require an object.'); // eslint-disable-line no-console
 
     initObject(object, this);
 
@@ -255,7 +255,7 @@ class Schema {
     var descriptor = props[property];
 
     if (!descriptor) {
-      console.warn(`no property ${property} found in object:`, object);
+      console.warn(`no property ${property} found in object:`, object); // eslint-disable-line no-console
       return true;
     }
 
@@ -457,7 +457,7 @@ class Schema {
 
     object.$hints[property] = '';
     object.$hintTypes[property] = '';
-  };
+  }
 
   $showHintMessage(object, property) {
     var hintMessage = this.$getHintMessage(property);

@@ -43,7 +43,7 @@ export default {
       openTimer: null,
       closeTimer: null,
       popupId: null
-    }
+    };
   },
 
   watch: {

@@ -1,4 +1,4 @@
-import { Schema } from '../../src/index.js'
+import { Schema } from '../../src/index.js';
 
 export default new Schema({
   nickname: {
@@ -15,7 +15,7 @@ export default new Schema({
     label: 'Birthday',
     type: 'date',
     default() {
-      return new Date()
+      return new Date();
     }
   },
 

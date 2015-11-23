@@ -6,7 +6,7 @@ export default {
     form: {},
     model: {
       default() {
-        return {}
+        return {};
       }
     },
     labelWidth: {},

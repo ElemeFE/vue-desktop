@@ -1,4 +1,5 @@
 var bindEvent = require('wind-dom').on;
+var unbindEvent = require('wind-dom').off;
 
 export default {
   props: {

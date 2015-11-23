@@ -40,4 +40,4 @@ export default {
 
     return validators[name];
   }
-}
+};

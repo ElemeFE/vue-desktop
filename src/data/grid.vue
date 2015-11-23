@@ -194,7 +194,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   var Vue = require('vue');
   var throttle = require('../util').throttle;
   var SchemaStore = require('../schema/store');
@@ -209,7 +209,7 @@
       data: {
         type: Array,
         default: function() {
-          return []
+          return [];
         }
       },
 
@@ -374,7 +374,7 @@
         }
 
         if (!column.direction) {
-          column.direction = 'ascending'
+          column.direction = 'ascending';
         } else if (column.direction === 'ascending') {
           column.direction = 'descending';
         } else {

@@ -9,9 +9,9 @@
     "test": "mocha -r chai -r sinon test/index.js",
     "coverage": "istanbul cover _mocha -- -r chai -r sinon -R spec test/index.js & open ./coverage/lcov-report/index.html"
   },
-  "repository" : {
-    "type" : "git",
-    "url" : "git@github.com:ElemeFE/vue-desktop.git"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ElemeFE/vue-desktop.git"
   },
   "files": [
     "LICENSE",
@@ -43,6 +43,8 @@
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
     "css-loader": "^0.21.0",
+    "eslint": "^1.10.1",
+    "eslint-loader": "^1.1.1",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.4",
     "highlight.js": "^8.9.1",
