@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" :class="{'btn-primary': type === 'primary', 'btn-phantom': type === 'phantom', 'btn-lg': size === 'large', 'btn-sm': size === 'small', 'disabled': disabled}">
+  <button class="btn {{type !== '' ? 'btn-' + type : ''}} {{selected ? selectedClass : 'btn-default'}}" :class="{'btn-lg': size === 'large', 'btn-sm': size === 'small', 'disabled': disabled}">
     <slot></slot>
   </button>
 </template>
@@ -11,52 +11,77 @@
     text-align: center;
     padding: 4px 12px;
     border-radius: 3px;
-    border: solid 1px #d0dbe6;
-    background-color: #d0dbe6;
+    border-style: solid;
+    border-width: 1px;
     font-size: 12px;
     font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
-    color: #6f7e95;
     text-decoration: none;
     line-height: 1.5;
     vertical-align: middle;
     cursor: pointer;
     transition: .3s;
+    background-color: #fff;
+    border-color: #e7eaec;
+    color: #676a6c;
   }
 
   .btn:hover {
-    background-color: #639af5;
-    border-color: #639af5;
-    color: #fff;
+    border-color: #d2d2d2;
   }
 
   .btn-primary {
-    background-color: #47bac1;
-    border-color: #47bac1;
     color: #fff;
+    background-color: #1ab394;
+    border-color: #1ab394;
   }
 
   .btn.btn-primary:hover {
-    background-color: #639af5;
-    border-color: #639af5;
+    background-color: #18a689;
+    border-color: #18a689;
   }
 
-  .btn:active,
-  .btn.btn-primary:active {
-    background-color: #6f7e95;
-    border-color: #6f7e95;
+  .btn-success {
     color: #fff;
+    background-color: #1c84c6;
+    border-color: #1c84c6;
   }
 
-  .btn-phantom {
-    background-color: #fff;
-    border-color: #ccc;
-    color: #333;
+  .btn.btn-success:hover {
+    background-color: #1a7bb9;
+    border-color: #1a7bb9;
   }
 
-  .btn.btn-phantom:hover {
-    background-color: #fff;
-    color: #0089dc;
-    border-color: #0089dc;
+  .btn-info {
+    color: #fff;
+    background-color: #23c6c8;
+    border-color: #23c6c8;
+  }
+
+  .btn.btn-info:hover {
+    background-color: #21b9bb;
+    border-color: #21b9bb;
+  }
+
+  .btn-warning {
+    color: #fff;
+    background-color: #f8ac59;
+    border-color: #f8ac59;
+  }
+
+  .btn.btn-warning:hover {
+    background-color: #f7a54a;
+    border-color: #f7a54a;
+  }
+
+  .btn-danger {
+    color: #fff;
+    background-color: #ed5565;
+    border-color: #ed5565;
+  }
+
+  .btn.btn-danger:hover {
+    background-color: #ec4758;
+    border-color: #ec4758;
   }
 
   .btn-lg {
@@ -100,8 +125,20 @@
       icon: {
         type: String,
         default: ''
+      },
+      value: {},
+      selected: {
+        type: Boolean,
+        default: false
       }
     },
+
+    data() {
+      return {
+        selectedClass: 'btn-primary'
+      }
+    },
+
     ready() {
       if (this.icon !== '' && (this.icon.indexOf('fa-') > -1)) {
         var span = document.createElement('span');
@@ -110,6 +147,14 @@
           span.className += ' fa-lg';
         }
         this.$el.insertBefore(span, this.$el.childNodes[0]);
+      }
+      if (this.$parent.$isButtonGroup) {
+        if (!this.value) {
+          this.value = this.$el.textContent.trim();
+        }
+        this.$el.addEventListener('click', () => {
+          this.$dispatch('onButtonClick', this);
+        });
       }
     }
   }

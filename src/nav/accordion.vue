@@ -1,5 +1,5 @@
 <template>
-  <div class="accordion" :class="{'accordion-transparent': type === 'transparent'}">
+  <div class="accordion accordion-{{type}}">
     <slot></slot>
   </div>
 </template>
@@ -7,7 +7,6 @@
 <style>
   .accordion {
     margin: 0;
-    color: #333;
   }
 </style>
 
