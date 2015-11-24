@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown btn btn-default" :class="{active: showItem}">
     {{title}}
-    <span class="" v-el:span>v</span>
+    <span class="d-icon icon-arrow-down" v-el:span></span>
     <ul class="dropdown-list" v-show="showItem" v-el:ul transition="fade">
       <slot></slot>
     </ul>

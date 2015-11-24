@@ -10,6 +10,8 @@
     padding: 5px;
     font-size: 14px;
     cursor: pointer;
+    min-height: 20px;
+    line-height: 20px;
   }
 
   .d-select-option:hover,

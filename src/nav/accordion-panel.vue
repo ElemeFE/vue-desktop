@@ -1,6 +1,6 @@
 <template>
   <div class="accordion-section" :class="{active: active, disabled: disabled}" @click="onHeaderClick($event)">
-    <h3 class="accordion-header fa fa-angle-right">{{title}}</h3>
+    <h3 class="accordion-header d-icon icon-arrow-right">{{title}}</h3>
     <div class="accordion-content-wrap" transition="section" v-show="active">
       <div class="accordion-content" v-el:content>
         <slot></slot>

@@ -64,6 +64,7 @@
 
   .d-tabpane {
     display: block;
+    padding: 10px;
     background: #fff;
   }
 

@@ -3,13 +3,13 @@
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
-        {{ textValue }}<span class="d-selectfield-trigger d-icon icon-select-arrow-down"></span>
+        {{ textValue }}<span class="d-selectfield-trigger d-icon icon-arrow-down"></span>
       </div>
       <d-select v-ref:select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false" @selection-change="handleSelectionChange">
         <d-option v-for="(key, val) in mapping" :value="val" :show-checkbox="multiSelect">{{key}}</d-option>
       </d-select>
       <div class="d-field-hint">
-        <i class='d-icon' :class="{ 'icon-formfield-error': hintType === 'error', 'icon-formfield-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
+        <i class='d-icon' :class="{ 'icon-error': hintType === 'error', 'icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
   </div>
@@ -61,6 +61,10 @@
     props: merge({
       parentProperty: {},
       multiSelect: {
+        type: Boolean,
+        default: false
+      },
+      emptyRecord: {
         type: Boolean,
         default: false
       }
@@ -127,15 +131,22 @@
         var select = this;
         this.$watch('model.' + this.parentProperty, function() {
           var schema = select.fieldSchema;
+          var emptyRecord = this.emptyRecord;
           if (schema) {
             var result = schema.getPropertyMapping(select.property, select.model);
             if (result.then) {
               result.then(function(value) {
                 select.selectValue = null;
                 select.mapping = value;
+                if (emptyRecord) {
+                  select.mapping[''] = null;
+                }
               });
             } else {
               select.mapping = result;
+              if (emptyRecord) {
+                select.mapping[''] = null;
+              }
             }
           }
         });

@@ -5,7 +5,7 @@
       <div class="msgbox-close d-icon icon-close" @click="handleAction('close')"></div>
     </div>
     <div class="msgbox-content">
-      <div class="msgbox-status d-icon {{ type ? 'icon-msgbox-' + type : '' }}"></div>
+      <div class="msgbox-status d-icon {{ type ? 'icon-' + type : '' }}"></div>
       <div class="msgbox-message">{{ message }}</div>
     </div>
     <div class="msgbox-btns">
@@ -61,15 +61,15 @@
     font-size: 36px !important;
   }
 
-  .msgbox-status.icon-msgbox-success {
+  .msgbox-status.icon-success {
     color: #94c852;
   }
 
-  .msgbox-status.icon-msgbox-warning {
+  .msgbox-status.icon-warning {
     color: #ff9c00;
   }
 
-  .msgbox-status.icon-msgbox-error {
+  .msgbox-status.icon-error {
     color: #ff4248;
   }
 

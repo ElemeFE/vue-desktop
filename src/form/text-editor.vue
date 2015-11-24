@@ -1,7 +1,7 @@
 <template>
   <span class="d-text-editor {{size}} {{ haveTrigger ? 'have-trigger' : '' }} {{ pickerVisible ? 'active' : '' }}">
     <editor></editor>
-    <span @click="toggleDatePicker()" class="d-text-editor-trigger d-icon icon-editor-date-trigger" v-if="haveTrigger"></span>
+    <span @click="toggleDatePicker()" class="d-text-editor-trigger d-icon icon-date-trigger" v-if="haveTrigger"></span>
   </span>
 </template>
 

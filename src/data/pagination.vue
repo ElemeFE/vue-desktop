@@ -1,13 +1,13 @@
 <template>
   <div class="d-pagination">
     <ul @click="onPagerClick($event)">
-      <li class="prevBtn d-icon icon-datepicker-left-arrow" v-show="showButton"></li>
+      <li class="prevBtn d-icon icon-arrow-left" v-show="showButton"></li>
       <li :class="{ active: currentPage === 1 }" v-show="pageCount > 0" class="number">1</li>
       <li class="ellipsis" v-show="showPrevMore">...</li>
       <li v-for="pager in pagers" :class="{ active: currentPage === pager }" class="number">{{ pager }}</li>
       <li class="ellipsis" v-show="showNextMore">...</li>
       <li :class="{ active: currentPage === pageCount }" class="number" v-show="pageCount > 1">{{ pageCount }}</li>
-      <li class="nextBtn d-icon icon-datepicker-right-arrow" v-show="showButton"></li>
+      <li class="nextBtn d-icon icon-arrow-right" v-show="showButton"></li>
     </ul>
   </div>
 </template>

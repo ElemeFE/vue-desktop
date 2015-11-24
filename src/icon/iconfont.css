@@ -15,14 +15,13 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-select-arrow-down:before { content: "\e609"; }
-.icon-datepicker-left-arrow:before { content: "\e600"; }
+.icon-arrow-down:before { content: "\e609"; }
+.icon-arrow-left:before { content: "\e600"; }
+.icon-warning:before { content: "\e603"; }
 .icon-close:before { content: "\e607"; }
-.icon-formfield-error:before { content: "\e606"; }
-.icon-select-arrow-up:before { content: "\e60a"; }
-.icon-editor-date-trigger:before { content: "\e608"; }
-.icon-msgbox-warning:before { content: "\e601"; }
-.icon-msgbox-success:before { content: "\e602"; }
-.icon-msgbox-error:before { content: "\e603"; }
-.icon-formfield-warning:before { content: "\e605"; }
-.icon-datepicker-right-arrow:before { content: "\e604"; }
+.icon-info:before { content: "\e601"; }
+.icon-error:before { content: "\e606"; }
+.icon-arrow-up:before { content: "\e60a"; }
+.icon-date-trigger:before { content: "\e608"; }
+.icon-success:before { content: "\e602"; }
+.icon-arrow-right:before { content: "\e604"; }

@@ -95,7 +95,6 @@
   }
 
   .d-tabs-content {
-    padding: 5px;
     border: 1px solid #e7eaec;
     background: #fff;
   }

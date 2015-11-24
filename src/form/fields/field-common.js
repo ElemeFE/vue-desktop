@@ -1,4 +1,5 @@
 import { default as SchemaStore } from '../../schema/store';
+import { merge } from '../../util';
 var domUtil = require('wind-dom');
 
 export default {
@@ -129,12 +130,21 @@ export default {
       var mapping = schema.getPropertyMapping(property, this.model);
       if (!mapping) return;
 
+      var emptyRecord = this.emptyRecord;
       if (mapping.then) {
         mapping.then((value) => {
-          this.mapping = value;
+          if (emptyRecord) {
+            this.mapping = merge({ '': null }, value);
+          } else {
+            this.mapping = value;;
+          }
         });
       } else {
-        this.mapping = mapping;
+        if (emptyRecord) {
+          this.mapping = merge({ '': null }, mapping);
+        } else {
+          this.mapping = mapping;
+        }
       }
     }
   }
