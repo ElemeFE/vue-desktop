@@ -136,7 +136,7 @@ export default {
           if (emptyRecord) {
             this.mapping = merge({ '': null }, value);
           } else {
-            this.mapping = value;;
+            this.mapping = value;
           }
         });
       } else {
