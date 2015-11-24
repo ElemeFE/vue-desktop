@@ -15,7 +15,8 @@
     width: 100%;
     padding: 10px 20px;
     box-sizing: border-box;
-    border: solid 1px #ddd;
+    border-style: solid;
+    border-width: 1px;
     border-radius: 10px;
     position: relative;
     background-color: #fff;
@@ -30,18 +31,22 @@
 
   .alert.success {
     background-color: #f3faf0;
+    border-color: #d6e9c6;
   }
 
   .alert.error {
     background-color: #fff0e6;
+    border-color: #ebccd1;
   }
 
   .alert.info {
     background-color: #eaf8fe;
+    border-color: #bce8f1;
   }
 
   .alert.warning {
     background-color: #fff9ee;
+    border-color: #faebcc;
   }
 
   .alert-content {
