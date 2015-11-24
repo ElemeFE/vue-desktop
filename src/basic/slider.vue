@@ -110,6 +110,9 @@
     data() {
       return {
         showTip: false,
+        dragging: false,
+        newPos: null,
+        oldValue: this.defaultValue,
         currentValue: this.defaultValue,
         currentPosition: (this.defaultValue - this.min) / (this.max - this.min) * 100 + '%'
       }
@@ -122,6 +125,12 @@
           var steps = Math.round(newPos / lengthPerStep);
           this.currentValue = steps * lengthPerStep * (this.max - this.min) * 0.01 + this.min;
           this.currentPosition = (this.currentValue - this.min) / (this.max - this.min) * 100 + '%';
+          if (!this.dragging) {
+            if (this.currentValue !== this.oldValue) {
+              this.$emit('change', this.currentValue);
+              this.oldValue = this.currentValue;
+            }
+          }
         }
       },
 
@@ -150,32 +159,32 @@
     },
 
     compiled() {
-      var dragging = false;
       var startX = 0;
       var currentX = 0;
       var startPos = 0;
       var self = this;
 
       var onDragStart = function(event) {
-        dragging = true;
+        self.dragging = true;
         self.showTip = true;
         startX = event.clientX;
         startPos = parseInt(self.currentPosition);
       };
 
       var onDragging = function(event) {
-        if (dragging) {
+        if (self.dragging) {
           currentX = event.clientX;
           var diff = (currentX - startX) / self.$sliderWidth * 100;
-          var newPos = startPos + diff;
-          self.setPosition(newPos);
+          self.newPos = startPos + diff;
+          self.setPosition(self.newPos);
         }
       };
 
       var onDragEnd = function() {
-        if (dragging) {
-          dragging = false;
+        if (self.dragging) {
+          self.dragging = false;
           self.showTip = false;
+          self.setPosition(self.newPos);
           window.removeEventListener('mousemove', onDragging);
           window.removeEventListener('mouseup', onDragEnd);
         }

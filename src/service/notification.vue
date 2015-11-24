@@ -28,7 +28,7 @@
     float: left;
     display: inline-block;
     width: 230px;
-    color: #333;
+    color: #666;
   }
 
   .notification .icon {

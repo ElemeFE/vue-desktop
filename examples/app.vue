@@ -117,7 +117,6 @@
     <ul class="demolist">
       <li><a v-link="{ path: '/alert' }">Alert</a></li>
       <li><a v-link="{ path: '/dialog' }">Dialog</a></li>
-      <li><a v-link="{ path: '/icon' }">Icon</a></li>
       <li><a v-link="{ path: '/button' }">Button</a></li>
       <li><a v-link="{ path: '/progress-bar' }">ProgressBar</a></li>
       <li><a v-link="{ path: '/slider' }">Slider</a></li>
