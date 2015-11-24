@@ -55,7 +55,7 @@
   </div>
 
   <div class="button-example">
-    <d-button-group  @select="selectFunc" :exclusive=false>
+    <d-button-group  @select="selectFunc" selection-mode='multiple'>
       <d-button>下单立减</d-button>
       <d-button selected>专享红包</d-button>
       <d-button>特价秒杀</d-button>
@@ -65,7 +65,7 @@
   </div>
 
   <div class="button-example">
-    <d-button-group  @select="selectFunc">
+    <d-button-group  @select="selectFunc" selection-mode='single'>
       <d-button value="1">全部商家</d-button>
       <d-button value="2">甜品饮品</d-button>
       <d-button value="3">小吃零食</d-button>

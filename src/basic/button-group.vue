@@ -49,9 +49,9 @@
         type: String,
         default: ''
       },
-      exclusive: {
-        type: Boolean,
-        default: true
+      selectionMode: {
+        type: String,
+        default: 'none'
       }
     },
 
@@ -67,39 +67,43 @@
 
     events: {
       onButtonClick(button) {
-        if (this.exclusive) {
-          this.selectedArr = [];
-          var buttons = this.$el.querySelectorAll('button.btn');
-          for (var i = 0, len = buttons.length; i < len; i++) {
-            buttons[i].__vue__.selected = false;
+        if (this.selectionMode !== 'none') {
+          if (this.selectionMode === 'single') {
+            this.selectedArr = [];
+            var buttons = this.$el.querySelectorAll('button.btn');
+            for (var i = 0, len = buttons.length; i < len; i++) {
+              buttons[i].__vue__.selected = false;
+            }
+            if (button.selected) {
+              button.selected = false;
+            }
           }
-          if (button.selected) {
+          if (!button.selected) {
+            this.selectedArr.push(button.value);
+            button.selected = true;
+          } else {
+            this.selectedArr.splice(this.selectedArr.indexOf(button.value), 1);
             button.selected = false;
           }
+          this.$emit('select', this.selectedArr);
         }
-        if (!button.selected) {
-          this.selectedArr.push(button.value);
-          button.selected = true;
-        } else {
-          this.selectedArr.splice(this.selectedArr.indexOf(button.value), 1);
-          button.selected = false;
-        }
-        this.$emit('select', this.selectedArr);
       }
     },
 
 
     ready() {
-      var buttons = this.$el.querySelectorAll('button.btn');
-      for (var i = 0, len = buttons.length; i < len; i++) {
-        var btn = buttons[i];
-        if (btn.__vue__.selected) {
-          this.selectedArr.push(btn.__vue__.value);
+      if (this.selectionMode !== 'none') {
+        var buttons = this.$el.querySelectorAll('button.btn');
+        for (var i = 0, len = buttons.length; i < len; i++) {
+          var btn = buttons[i];
+          if (btn.__vue__.selected) {
+            this.selectedArr.push(btn.__vue__.value);
+          }
         }
-      }
-      if (this.selectedArr.length === 0 && this.exclusive) {
-        buttons[0].__vue__.selected = true;
-        this.selectedArr.push(buttons[0].__vue__.value);
+        if (this.selectedArr.length === 0 && this.selectionMode === 'single') {
+          buttons[0].__vue__.selected = true;
+          this.selectedArr.push(buttons[0].__vue__.value);
+        }
       }
     }
   }
