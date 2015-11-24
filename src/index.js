@@ -1,5 +1,4 @@
 require('./icon/iconfont.css');
-require('./css/font-awesome.css');
 require('./grid.css');
 
 import Alert from './basic/alert.vue';

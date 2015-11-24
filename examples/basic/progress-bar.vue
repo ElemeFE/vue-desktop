@@ -1,7 +1,7 @@
 <template>
   <d-progress-bar></d-progress-bar>
 
-  <d-progress-bar :percent=30 type="warn"></d-progress-bar>
+  <d-progress-bar :percent=30 type="warning"></d-progress-bar>
 
   <d-progress-bar :percent=50 :bar-height=30></d-progress-bar>
 

@@ -24,6 +24,7 @@
     padding: 10px 8px;
     display: block;
     cursor: pointer;
+    color: #666;
   }
 
   .accordion-section .accordion-header:before {
@@ -93,6 +94,7 @@
 
   .accordion-transparent .accordion-content {
     background-color: transparent;
+    padding: 0;
   }
 
   .section-transition {
@@ -105,10 +107,6 @@
   export default {
     props: {
       title: {
-        type: String,
-        default: ''
-      },
-      content: {
         type: String,
         default: ''
       },

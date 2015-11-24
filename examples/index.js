@@ -16,9 +16,6 @@ router.map({
   '/dialog': {
     component: require('./basic/dialog.vue')
   },
-  '/icon': {
-    component: require('./basic/icon.vue')
-  },
   '/button': {
     component: require('./basic/button.vue')
   },

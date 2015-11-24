@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown btn btn-default" :class="{active: showItem}">
     {{title}}
-    <span class="fa fa-chevron-down"></span>
+    <span class="" v-el:span>v</span>
     <ul class="dropdown-list" v-show="showItem" v-el:ul transition="fade">
       <slot></slot>
     </ul>
@@ -97,7 +97,7 @@
       },
 
       outerClose(event) {
-        if (this.showItem && event.target !== this.$el) {
+        if (this.showItem && event.target !== this.$el && event.target !== this.$els.span) {
           this.showItem = false;
         }
       }

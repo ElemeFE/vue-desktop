@@ -41,7 +41,7 @@
     background-color: #0089dc;
   }
 
-  .progress .bar.warn .active-bar {
+  .progress .bar.warning .active-bar {
     background-color: #ffdb35;
   }
 
@@ -74,6 +74,10 @@
         type: Number,
         default: 15
       }
+    },
+
+    compiled() {
+      this.percent = Math.min(this.percent, 100);
     }
   }
 </script>
