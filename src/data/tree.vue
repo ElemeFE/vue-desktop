@@ -6,7 +6,6 @@
 
 <style scoped>
   .tree {
-    background-color: white;
     overflow: auto;
     cursor: default;
   }

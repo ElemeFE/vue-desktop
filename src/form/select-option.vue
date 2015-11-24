@@ -14,7 +14,7 @@
 
   .d-select-option:hover,
   .d-select-option.selected {
-    background-color: #639af5;
+    background-color: #428bca;
     color: #fff;
   }
 </style>

@@ -26,7 +26,7 @@
 
   .msgbox-header{
     padding: 15px 20px 5px 10px;
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #e5e5e5;
   }
 
   .msgbox-content {
@@ -58,7 +58,7 @@
     float: left;
     width: 36px;
     height: 36px;
-    font-size: 36px;
+    font-size: 36px !important;
   }
 
   .msgbox-status.icon-msgbox-success {

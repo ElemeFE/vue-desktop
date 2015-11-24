@@ -52,16 +52,21 @@
   .d-dialog {
     position: fixed;
     background: #fff;
-    border-radius: 3px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   }
 
   .d-dialog-header {
-    border-bottom: 1px solid #e9e9e9;
+    border-bottom: 1px solid #e5e5e5;
     padding: 10px 8px;
   }
 
   .d-dialog-close {
     cursor: pointer;
+  }
+
+  .d-dialog-close:hover {
+    color: #18a689;
   }
 
   .d-dialog-title {
@@ -77,7 +82,7 @@
   }
 
   .d-dialog-footer {
-    border-top: 1px solid #e9e9e9;
+    border-top: 1px solid #e5e5e5;
     padding: 10px;
     text-align: right;
   }

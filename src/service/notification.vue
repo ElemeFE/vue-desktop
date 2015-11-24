@@ -15,11 +15,11 @@
     width: 320px;
     padding: 15px;
     box-sizing: border-box;
-    border: solid 1px #eee;
-    border-radius: 10px;
+    border-radius: 4px;
     position: fixed;
     right: 25px;
-    background-color: #f8f8f8;
+    background-color: #fff;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: opacity 0.2s, top 0.2s;
     overflow: hidden;
   }

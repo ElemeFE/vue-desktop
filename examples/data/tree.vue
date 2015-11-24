@@ -1,7 +1,7 @@
 <template>
-  <d-tree :nodes1="data"></d-tree>
-
-  <d-tree :nodes="regions" :level-config="levelConfig"></d-tree>
+  <d-panel style="height: 400px;">
+    <d-tree :nodes="regions" :level-config="levelConfig"></d-tree>
+  </d-panel>
 </template>
 
 <script type="text/ecmascript-6" lang="babel">

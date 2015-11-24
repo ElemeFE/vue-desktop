@@ -26,7 +26,7 @@
   }
 
   .datepicker-header > label:hover {
-    background: #33bcff;
+    background: #428bca;
     color: #fff;
   }
 
@@ -68,12 +68,12 @@
   }
 
   .datepicker td:hover {
-    background-color: #33bcff;
+    background-color: #428bca;
     color: #fff;
   }
 
   .datepicker td.current {
-    background: #0089dc;
+    background: #428bca;
     color: #fff;
   }
 

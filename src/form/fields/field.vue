@@ -20,7 +20,7 @@
 
   .d-field.required > label::before {
     content: '*';
-    color: #ff0000;
+    color: #ed5565;
     margin-right: 2px;
   }
 
@@ -52,11 +52,11 @@
   }
 
   .d-field.validate-error input {
-    border-color: #ff464c;
+    border-color: #ed5565;
   }
 
   .d-field.validate-error .d-field-hint {
-    color: #ff464c;
+    color: #ed5565;
   }
 
   .d-field-hint {
@@ -68,7 +68,7 @@
   .d-field-hint .icon-formfield-error {
     font-size: 14px;
     line-height: 14px;
-    color: #ff464c;
+    color: #ed5565;
   }
 
   .d-field-hint .icon-formfield-error:before {
