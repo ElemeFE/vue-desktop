@@ -1,5 +1,6 @@
 require('./icon/iconfont.css');
 require('./grid.css');
+require('./config');
 
 import Alert from './basic/alert.vue';
 import Panel from './basic/panel.vue';

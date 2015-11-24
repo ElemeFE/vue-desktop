@@ -170,4 +170,4 @@ domUtil.on(window, 'resize', function() {
   }
 });
 
-module.exports = PopupManager;
+export default PopupManager;

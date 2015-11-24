@@ -1,14 +1,12 @@
 var domUtil = require('wind-dom');
-var util = require('../util');
 require('./popup-transition.css');
 
-var PopupManager = require('./popup-manager');
+import { merge } from '../util';
+import { positionElement, isElementOutside } from './util';
+import { default as PopupManager } from './popup-manager';
 
 var PLACEMENT_REVERSE = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
 var ALIGNMENT_REVERSE = { start: 'end', end: 'start', center: 'center' };
-
-var positionElement = require('./util').positionElement;
-var isElementOutside = require('./util').isElementOutside;
 
 var idSeed = 1;
 
@@ -63,7 +61,7 @@ export default {
       return {};
     },
     popupProps() {
-      return util.merge({}, PopupManager.defaultOptions, this.popupOptions);
+      return merge({}, PopupManager.defaultOptions, this.popupOptions);
     }
   },
 
@@ -299,7 +297,7 @@ export default {
     },
 
     open(options) {
-      var props = util.merge({}, this.popupProps, options);
+      var props = merge({}, this.popupProps, options);
 
       var popup = this;
 

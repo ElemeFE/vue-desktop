@@ -44,6 +44,10 @@
     methods: {
       getDOM() {
         return this.$el;
+      },
+
+      onOpen() {
+        this.$broadcast('onresize');
       }
     }
   }

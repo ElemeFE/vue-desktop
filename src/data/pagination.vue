@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination">
+  <div class="d-pagination">
     <ul @click="onPagerClick($event)">
       <li class="prevBtn d-icon icon-datepicker-left-arrow" v-show="showButton"></li>
       <li :class="{ active: currentPage === 1 }" v-show="pageCount > 0" class="number">1</li>
@@ -13,47 +13,49 @@
 </template>
 
 <style>
-  .pagination ul {
+  .d-pagination {
+    overflow: hidden;
+  }
+
+  .d-pagination ul {
+    float: right;
+    border-radius: 3px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     list-style: none;
     display: inline-block;
-    background-color: #d0dbe6;
     font-size: 0;
     padding: 0;
     margin: 2px 0;
-    border-radius: 5px;
   }
 
-  .pagination li {
+  .d-pagination li {
+    background: #fff;
+    vertical-align: top;
+    border: 1px solid #dddddd;
+    margin-left: -1px;
     display: inline-block;
     font-size: 14px;
     min-width: 26px;
+    height: 28px;
     box-sizing: border-box;
     text-align: center;
-    padding: 4px;
     cursor: pointer;
-    border: 1px solid transparent;
+    line-height: 26px;
   }
 
-  .pagination li.number:hover {
-    background-color: #639af5;
-    border-color: #639af5;
-    border-radius: 5px;
-    color: #fff;
+  .d-pagination li.number:hover {
+    background-color: #fff;
+    margin-left: -1px;
   }
 
-  .pagination li.active {
-    border: solid 1px #6f7e95;
-    background-color: #6f7e95;
-    color: #fff;
+  .d-pagination li.active {
+    background-color: #f4f4f4;
     cursor: default;
-    border-radius: 5px;
   }
 
-  .pagination li.ellipsis {
-    border: none;
+  .d-pagination li.ellipsis {
     cursor: default;
   }
 </style>
@@ -70,7 +72,6 @@
         default: 0
       },
       currentPage: {
-        twoWay: true
       }
     },
 

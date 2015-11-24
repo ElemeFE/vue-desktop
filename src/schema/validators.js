@@ -1,4 +1,4 @@
-var format = require('./format');
+import { default as format } from './format';
 
 export default {
   required: function(value, options, property, descriptor) {

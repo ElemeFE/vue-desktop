@@ -14,7 +14,7 @@ var defaults = {
 };
 
 import { default as Vue } from '../config';
-var util = require('../util');
+import { merge } from '../util';
 
 var MessageBoxConstructor = Vue.extend(require('./msgbox.vue'));
 
@@ -84,7 +84,7 @@ var MessageBox = function(options, callback) {
   }
 
   msgQueue.push({
-    options: util.merge({}, defaults, MessageBox.defaults || {}, options),
+    options: merge({}, defaults, MessageBox.defaults || {}, options),
     callback: callback
   });
 

@@ -1,4 +1,4 @@
-var SchemaStore = require('../../schema/store');
+import { default as SchemaStore } from '../../schema/store';
 var domUtil = require('wind-dom');
 
 export default {

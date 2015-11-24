@@ -111,7 +111,7 @@ var reverseMapping = mapping => {
   return result;
 };
 
-var cache = require('./cache');
+import { default as cache } from './cache';
 
 class Schema {
   constructor(name, options) {

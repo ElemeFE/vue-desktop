@@ -8,6 +8,4 @@ Vue.use(i18n, {
   locales: locales
 });
 
-Vue.config.debug = true;
-
 export default Vue;

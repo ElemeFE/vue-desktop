@@ -34,8 +34,8 @@
     padding-right: 24px;
     box-sizing: border-box;
     border-radius: 2px;
-    line-height: 30px;
-    height: 30px;
+    line-height: 28px;
+    height: 28px;
     transition: border 0.3s;
   }
 

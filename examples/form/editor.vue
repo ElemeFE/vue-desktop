@@ -3,6 +3,7 @@
     <d-form :model='model' :schema='schema' label-width="140" :cols="1" style="width: 450px;">
       <d-text-field property='nickname'></d-text-field>
       <d-text-field type="password" property="password"></d-text-field>
+      <d-select-field property="simpleMapping"></d-select-field>
       <d-text-field property="birthday"></d-text-field>
       <d-text-field property="count"></d-text-field>
       <d-text-field type="textarea" :editor-height="100" property="comment"></d-text-field>

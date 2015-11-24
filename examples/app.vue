@@ -11,46 +11,6 @@
     overflow: hidden;
   }
 
-  .loading {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -170px;
-    margin-top: -30px;
-    height: 60px;
-    width: 340px;
-    color: #666;
-    font-size: 48px;
-    text-align: center;
-  }
-
-  .loading i {
-    font-size: inherit;
-  }
-
-  .login {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -170px;
-    margin-top: -130px;
-    height: 260px;
-    width: 340px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    box-shadow: 0 0 12px #bbb;
-    padding: 30px 20px;
-  }
-  .login span {
-    display: block;
-    text-align: center;
-  }
-  .login .d-form {
-    margin-top: 30px;
-  }
-  .content {
-    height: 100%;
-  }
   #aside {
     box-sizing: border-box;
     box-shadow: inset -2px 0 6px rgba(41,63,84,0.24);
@@ -61,6 +21,7 @@
     overflow-x: hidden;
     overflow-y: auto;
   }
+
   #aside p {
     margin: 0;
     padding: 18px 8px;
@@ -69,6 +30,7 @@
     background-color: rgba(0, 0, 0, 0.28);
     color: rgba(255, 255, 255, 0.75);
   }
+
   #main {
     position: relative;
     margin-left: 200px;
@@ -78,25 +40,31 @@
     overflow: auto;
     background-color: #f3f3f4;
   }
+
   .demolist {
     list-style: none;
     padding: 0;
     margin: 0;
   }
+
   .demolist li {
     padding: 0;
     cursor: pointer;
   }
+
   .demolist li:hover a {
     background-color: #2b3647;
   }
+
   .demolist .v-link-active {
     background-color: #0f141e;
     font-weight: 400;
   }
+
   .demolist .v-link-active:hover {
     background-color: #0f141e;
   }
+
   .demolist a {
     padding: 8px 30px;
     display: block;
@@ -104,6 +72,7 @@
     text-decoration: none;
     transition: background-color .3s;
   }
+
   .demoheader {
     padding: 8px;
     color: #8294aa;

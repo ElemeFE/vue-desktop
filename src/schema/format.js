@@ -1,6 +1,6 @@
 var RE_ARGS = /\{([0-9a-zA-Z]+)\}/g;
 
-module.exports = function(string, ...args) {
+export default function(string, ...args) {
   if (!string) return null;
   if (arguments.length === 2 && typeof arguments[1] === 'object') {
     args = arguments[1];
@@ -24,4 +24,4 @@ module.exports = function(string, ...args) {
       return result;
     }
   });
-};
+}

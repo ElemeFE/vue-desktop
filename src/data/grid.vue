@@ -199,8 +199,8 @@
 
 <script type="text/ecmascript-6">
   var Vue = require('vue');
-  var throttle = require('../util').throttle;
-  var SchemaStore = require('../schema/store');
+  import { throttle } from '../util';
+  import { default as SchemaStore } from '../schema/store';
 
   var gridIdSeed = 1;
   var GUTTER_WIDTH = 15;
@@ -261,6 +261,7 @@
         var grid = this;
         Vue.nextTick(function() {
           grid.height = grid.$el.offsetHeight;
+          grid.$calcColumns();
         });
       }
     },

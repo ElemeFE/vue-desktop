@@ -20,7 +20,7 @@
 <script type="text/ecmascript-6" lang="babel">
   var Vue = require('vue');
   var domUtil = require('wind-dom');
-  var throttle = require('../util').throttle;
+  import { throttle } from '../util';
 
   export default {
     data(){
