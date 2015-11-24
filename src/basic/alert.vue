@@ -1,10 +1,10 @@
 <template>
   <div class="alert {{type}}" transition="alert">
-    <i class="icon fa fa-lg {{iconClass}}"></i>
+    <i class="icon d-icon {{iconClass}}"></i>
     <div class="alert-content">
       <span class="alert-title">{{title}}</span>
       <p><slot></slot></p>
-      <div class="alert-closebtn" :class="{custom: closeText !== '', 'fa': closeText === '', 'fa-times': closeText === ''}" v-show="closable" @click="close()">{{closeText}}</div>
+      <div class="alert-closebtn" :class="{custom: closeText !== '', 'd-icon': closeText === '', 'icon-close': closeText === ''}" v-show="closable" @click="close()">{{closeText}}</div>
     </div>
   </div>
 </template>
@@ -57,29 +57,29 @@
     text-align: center;
     width: 42px;
     border-radius: 50%;
-    font-size: 18px;
+    font-size: 44px;
     float: left;
     margin-right: 10px;
   }
 
   .alert .success {
-    background-color: #87d068;
-    color: #f3faf0;
+    background-color: #f3faf0;
+    color: #87d068;
   }
 
   .alert .error {
-    background-color: #f60;
-    color: #fff0e6;
+    background-color: #fff0e6;
+    color: #f60;
   }
 
   .alert .info {
-    background-color: #2db7f5;
-    color: #eaf8fe;
+    background-color: #eaf8fe;
+    color: #2db7f5;
   }
 
   .alert .warning {
-    background-color: #fac450;
-    color: #fff9ee;
+    background-color: #fff9ee;
+    color: #fac450;
   }
 
   .alert-title {
@@ -114,9 +114,9 @@
 
 <script type="text/ecmascript-6" lang="babel">
   const TYPE_CLASSES_MAP = {
-    'success': 'fa-check success',
-    'warning': 'fa-exclamation warning',
-    'error': 'fa-times error'
+    'success': 'icon-success success',
+    'warning': 'icon-warning warning',
+    'error': 'icon-error error'
   };
 
   export default {
@@ -154,7 +154,7 @@
 
     computed: {
       iconClass() {
-        return TYPE_CLASSES_MAP[this.type] || 'fa-info info';
+        return TYPE_CLASSES_MAP[this.type] || 'icon-info info';
       }
     }
   }

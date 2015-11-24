@@ -23,8 +23,6 @@ import { Notification } from 'vue-desktop'
       }
     });
 
-如果 callback 返回一个 false，则可以阻止 MessageBox 的关闭，你可以使用 MessageBox.close() 来关闭所有的 MessageBox。
-
 # 参数列表
 目前 Notification 支持如下参数：
 
