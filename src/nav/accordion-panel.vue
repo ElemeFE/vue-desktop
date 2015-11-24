@@ -20,6 +20,7 @@
 
   .accordion-section .accordion-header {
     font-size: 14px;
+    line-height: 20px;
     margin: 0;
     padding: 10px 8px;
     display: block;
@@ -29,6 +30,7 @@
 
   .accordion-section .accordion-header:before {
     float: right;
+    line-height: 20px;
     transform: rotateZ(0deg);
     transition: transform .3s;
   }

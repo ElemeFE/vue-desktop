@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown btn btn-default" :class="{active: showItem}">
     {{title}}
-    <span class="d-icon icon-arrow-down" v-el:span></span>
+    <span class="dropdown-icon d-icon icon-arrow-down" v-el:span></span>
     <ul class="dropdown-list" v-show="showItem" v-el:ul transition="fade">
       <slot></slot>
     </ul>
@@ -14,11 +14,12 @@
     box-sizing: border-box;
   }
 
-  .dropdown span {
+  .dropdown .dropdown-icon {
     margin-left: 10px;
+    color: #676a6c;
   }
 
-  .dropdown span:before {
+  .dropdown .dropdown-icon:before {
     color: #676a6c;
     transition: .3s;
   }
@@ -29,7 +30,7 @@
     color: #fff;
   }
 
-  .dropdown.active span:before {
+  .dropdown.active .dropdown-icon:before {
     color: #fff;
   }
 

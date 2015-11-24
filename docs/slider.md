@@ -25,5 +25,5 @@ Slider 目前可以使用的属性如下：
 当滑动条的值发生变化时, 会触发 @change 事件, 调用相应的回调函数, 该回调函数的参数为滑动条的值。绑定事件的方法如下:
  
  ```HTML
-    <d-slider @change="changeFunc"></d-slider>
+  <d-slider @change="changeFunc"></d-slider>
  ```

@@ -1,10 +1,10 @@
 <template>
   <div class="notification" transition="fade" :style="{ top: top ? top + 'px' : 'auto' }" @mouseenter="clearTimer()" @mouseleave="startTimer()">
-    <div class="icon fa {{iconClass}}"></div>
+    <div class="icon d-icon {{iconClass}}"></div>
     <div class="group">
       <span>{{title}}</span>
       <p>{{message}}</p>
-      <div class="closeBtn fa fa-times" @click="handleClose()"></div>
+      <div class="closeBtn d-icon icon-close" @click="handleClose()"></div>
     </div>
   </div>
 </template>
@@ -38,31 +38,25 @@
     line-height: 42px;
     text-align: center;
     width: 48px;
-    border: solid 3px;
-    border-radius: 50%;
-    font-size: 30px;
+    font-size: 46px;
     float: left;
     margin-right: 10px;
   }
 
   .notification .success {
     color: #87d068;
-    border-color: #87d068;
   }
 
   .notification .error {
     color: #f60;
-    border-color: #f60;
   }
 
   .notification .info {
     color: #2db7f5;
-    border-color: #2db7f5;
   }
 
   .notification .warning {
     color: #fac450;
-    border-color: #fac450;
   }
 
   .notification span {
@@ -115,16 +109,16 @@
       iconClass() {
         switch(this.type) {
           case 'success':
-            return 'fa-check success';
+            return 'icon-success success';
             break;
           case 'warning':
-            return 'fa-exclamation warning';
+            return 'icon-warning warning';
             break;
           case 'error':
-            return 'fa-times error';
+            return 'icon-error error';
             break;
           default:
-            return 'fa-info info';
+            return 'icon-info info';
         }
       }
     },
