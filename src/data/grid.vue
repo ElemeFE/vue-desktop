@@ -387,6 +387,53 @@
         this.sortingDirection = column.direction === 'descending' ? -1 : 1;
       },
 
+      reRender() {
+        if (this.$body) {
+          this.$body.$destroy();
+        }
+
+        if (this.$head) {
+          this.$head.$destroy();
+        }
+
+        this.doRender();
+      },
+
+      doRender() {
+        var bodyWrapper = this.$el.querySelector('.grid-body-wrapper');
+        var headerWrapper = this.$el.querySelector('.grid-header-wrapper');
+        var fixedBodyWrapper = this.$el.querySelector('.grid-fixed-body-wrapper');
+
+        if (!this.$ready) {
+          bodyWrapper.addEventListener('scroll', function () {
+            headerWrapper.scrollLeft = this.scrollLeft;
+            if (fixedBodyWrapper) {
+              fixedBodyWrapper.scrollTop = this.scrollTop;
+            }
+          });
+        }
+
+        this.$calcColumns();
+
+        var self = this;
+        if (!this.$ready && this.fit) {
+          window.addEventListener('resize', throttle(function () {
+            self.$calcColumns();
+          }, 200));
+        }
+
+        this.$renderHeader();
+        this.$renderBody();
+        this.$renderHeader(true);
+        this.$renderBody(true);
+
+        Vue.nextTick(function () {
+          if (self.height) {
+            self.$calcHeight(self.height);
+          }
+        });
+      },
+
       $renderHeader(fixed) {
         var columns = fixed ? this.fixedColumns : this.columns;
         if (fixed) {
@@ -518,36 +565,9 @@
     },
 
     ready() {
-      var bodyWrapper = this.$el.querySelector('.grid-body-wrapper');
-      var headerWrapper = this.$el.querySelector('.grid-header-wrapper');
-      var fixedBodyWrapper = this.$el.querySelector('.grid-fixed-body-wrapper');
+      this.doRender();
 
-      bodyWrapper.addEventListener('scroll', function() {
-        headerWrapper.scrollLeft = this.scrollLeft;
-        if (fixedBodyWrapper) {
-          fixedBodyWrapper.scrollTop = this.scrollTop;
-        }
-      });
-
-      this.$calcColumns();
-
-      var self = this;
-      if (this.fit) {
-        window.addEventListener('resize', throttle(function() {
-          self.$calcColumns();
-        }, 200));
-      }
-
-      this.$renderHeader();
-      this.$renderBody();
-      this.$renderHeader(true);
-      this.$renderBody(true);
-
-      Vue.nextTick(function() {
-        if (self.height) {
-          self.$calcHeight(self.height);
-        }
-      });
+      this.$ready = true;
     },
 
     data() {

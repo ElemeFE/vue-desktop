@@ -53,6 +53,7 @@ Vue.elementDirective('d-grid-column', {
     }
 
     var columnId = this._host.gridId + 'column_' + columnIdSeed++;
+    this.columnId = columnId;
 
     this._host.columns.push({
       id: columnId,
@@ -67,6 +68,29 @@ Vue.elementDirective('d-grid-column', {
       template: template
     });
 
+    if (this._host.$ready) {
+      this._host.reRender();
+    }
+
     this.el.parentNode.removeChild(this.el);
+  },
+
+  unbind() {
+    var columns = this._host.columns;
+    if (columns) {
+      var columnId = this.columnId;
+      for (var i = 0, j = columns.length; i < j; i++) {
+        var column = columns[i];
+
+        if (column.id === columnId) {
+          columns.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    if (this._host.$ready) {
+      this._host.reRender();
+    }
   }
 });

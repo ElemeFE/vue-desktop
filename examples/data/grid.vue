@@ -18,13 +18,13 @@
       <d-grid-column property="prop3" width="400"></d-grid-column>
       <d-grid-column property="prop4"></d-grid-column>
       <d-grid-column label="5" property="prop5"></d-grid-column>
-      <d-grid-column label="操作" width="200">
+      <d-grid-column label="操作" width="200" v-if="visible">
         <d-button>测试1</d-button>
       </d-grid-column>
     </d-grid>
 
     <div>
-
+      <d-button @click="toggleColumnVisible()">Toggle...</d-button>{{visible}}
     </div>
   </d-vbox>
 </template>
@@ -59,9 +59,13 @@
 
   export default {
     methods: {
+      toggleColumnVisible() {
+        this.visible = !this.visible;
+      }
     },
     data() {
       return {
+        visible: false,
         selection: [],
         gridSchema: gridSchema,
         gridData: gridSchema.convert([

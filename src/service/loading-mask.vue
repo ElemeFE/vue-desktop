@@ -55,7 +55,7 @@
   }
 
   .loading-mask-modal {
-    background-color: #fff;
+    background-color: #333;
     opacity: 0.1;
   }
 </style>
