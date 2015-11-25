@@ -1,7 +1,7 @@
 
 @font-face {font-family: "d-icon";
   src: url('iconfont.eot'); /* IE9*/
-  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  src: url('iconfont.woff2') format('woff2'), /* chrome、firefox */
   url('iconfont.woff') format('woff'), /* chrome、firefox */
   url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url('iconfont.svg#d-icon') format('svg'); /* iOS 4.1- */
@@ -15,13 +15,13 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-.icon-arrow-down:before { content: "\e609"; }
-.icon-arrow-left:before { content: "\e600"; }
-.icon-warning:before { content: "\e603"; }
-.icon-close:before { content: "\e607"; }
-.icon-info:before { content: "\e601"; }
-.icon-error:before { content: "\e606"; }
-.icon-arrow-up:before { content: "\e60a"; }
-.icon-date-trigger:before { content: "\e608"; }
-.icon-success:before { content: "\e602"; }
-.icon-arrow-right:before { content: "\e604"; }
+.icon-arrow-down:before { content: '\E901'; } /* '' */
+.icon-arrow-left:before { content: '\E902'; } /* '' */
+.icon-arrow-right:before { content: '\E903'; } /* '' */
+.icon-arrow-up:before { content: '\E904'; } /* '' */
+.icon-close:before { content: '\E905'; } /* '' */
+.icon-date-trigger:before { content: '\E906'; } /* '' */
+.icon-error:before { content: '\E907'; } /* '' */
+.icon-info:before { content: '\E908'; } /* '' */
+.icon-success:before { content: '\E909'; } /* '' */
+.icon-warning:before { content: '\E90A'; } /* '' */
