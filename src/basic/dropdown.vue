@@ -2,9 +2,7 @@
   <div class="dropdown btn btn-default" :class="{active: showItem}">
     {{title}}
     <span class="dropdown-icon d-icon icon-arrow-down" v-el:span></span>
-    <ul class="dropdown-list" v-show="showItem" v-el:ul transition="fade">
-      <slot></slot>
-    </ul>
+    <dropdown-list :visible.sync="showItem" v-ref:list><slot></slot></dropdown-list>
   </div>
 </template>
 
@@ -46,18 +44,12 @@
     box-shadow: 0 0 2px #ddd;
     background-color: #fff;
   }
-
-  .fade-transition {
-    transition: .4s ease-in;
-    opacity: 1;
-  }
-
-  .fade-enter, .fade-leave {
-    opacity: 0;
-  }
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
+  import { default as Popup } from '../popup/index'
+  import { default as Dropdown } from '../service/dropdown'
+
   var getStyle = require('wind-dom').getStyle;
   
   export default {
@@ -82,24 +74,56 @@
       }
     },
 
+    components: {
+      dropdownList: {
+        mixins: [Popup],
+        computed: {
+          popupOptions() {
+            return {
+              placement: this.$parent.position,
+              alignment: 'start',
+              closeDelay: this.trigger !== 'click' ? 200 : null
+            };
+          }
+        },
+        watch: {
+          visible(newVal) {
+            if (newVal === true) {
+              Dropdown.open(this);
+            } else {
+              Dropdown.close(this);
+            }
+          }
+        },
+
+        methods: {
+          onDocumentClick(event) {
+            if (event.target !== this.$parent.$el && event.target !== this.$parent.$els.span) {
+              this.visible = false;
+            }
+          }
+        },
+        inherit: true,
+        template: '<ul class="dropdown-list" v-show="visible" transition="pop-fade"><slot></slot></ul>'
+      }
+    },
+
     methods: {
       onMouseEnter() {
-        this.showItem = true;
+        this.$refs.list.open({ target: this.$el });
       },
 
       onMouseLeave() {
-        this.showItem = false;
+        this.$refs.list.close({ closeDelay: 1000 });
       },
 
       onClick(event) {
         if (event.target.className.indexOf('disabled') === -1 && event.target.tagName !== 'HR') {
-          this.showItem = !this.showItem;
-        }
-      },
-
-      outerClose(event) {
-        if (this.showItem && event.target !== this.$el && event.target !== this.$els.span) {
-          this.showItem = false;
+          if (this.$refs.list.visible) {
+            this.$refs.list.close();
+          } else {
+            this.$refs.list.open({ target: this.$el });
+          }
         }
       }
     },
@@ -110,24 +134,6 @@
       } else {
         this.$el.addEventListener('mouseenter', this.onMouseEnter);
         this.$el.addEventListener('mouseleave', this.onMouseLeave);
-      }
-      document.addEventListener('click', this.outerClose);
-      switch(this.position) {
-        case 'top':
-          this.$els.ul.style.bottom = parseInt(getStyle(this.$el, 'height')) + 5 + 'px';
-          this.$els.ul.style.left = '0';
-          break;
-        case 'left':
-          this.$els.ul.style.right = parseInt(getStyle(this.$el, 'width')) + 5 + 'px';
-          this.$els.ul.style.top = '0';
-          break;
-        case 'right':
-          this.$els.ul.style.left = parseInt(getStyle(this.$el, 'width')) + 5 + 'px';
-          this.$els.ul.style.top = '0';
-          break;
-        default:
-          this.$els.ul.style.top = parseInt(getStyle(this.$el, 'height')) + 5 + 'px';
-          this.$els.ul.style.left = '0';
       }
     }
   }

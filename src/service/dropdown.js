@@ -6,7 +6,7 @@ document.addEventListener('click', function(event) {
     if (target === dropdown.$el || dropdown.$el.contains(target)) {
       return;
     }
-    dropdown.onDocumentClick && dropdown.onDocumentClick();
+    dropdown.onDocumentClick && dropdown.onDocumentClick(event);
   });
 });
 

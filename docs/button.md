@@ -36,7 +36,7 @@ Button-group 目前可以使用的属性如下：
 | Property | Description |
 | ---- | ---- |
 | size | Button-group 的尺寸, 可设置为 "large" 或 "small", 若不设置则尺寸为中。无需再为 Button-group 中的 Button 组件设置尺寸。 |
-| exclusive | Button-group 中可被选中的 Button 是否唯一, Boolean 类型，默认值为 true。 |
+| selection-mode | Button-group 中可被选中的 Button 是否唯一, 设置为 'single' 时只能选中一个，设置为 'multiple' 时可选择多个, 默认值为 'none', 即按钮不可被选中。 |
 
 嵌套于 Button-group 组件中的 Button 组件还可设置如下两个属性：
 
