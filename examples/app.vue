@@ -13,22 +13,11 @@
 
   #aside {
     box-sizing: border-box;
-    box-shadow: inset -2px 0 6px rgba(41,63,84,0.24);
     width: 200px;
     height: 100%;
     float: left;
-    background: #354052;
     overflow-x: hidden;
     overflow-y: auto;
-  }
-
-  #aside p {
-    margin: 0;
-    padding: 18px 8px;
-    color: #8294aa;
-    font-size: 20px;
-    background-color: rgba(0, 0, 0, 0.28);
-    color: rgba(255, 255, 255, 0.75);
   }
 
   #main {
@@ -41,83 +30,27 @@
     background-color: #f3f3f4;
   }
 
-  .demolist {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  #aside {
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.30),
+        0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0 1px 5px 0 rgba(0, 0, 0, 0.12);
   }
 
-  .demolist li {
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .demolist li:hover a {
-    background-color: #2b3647;
-  }
-
-  .demolist .v-link-active {
-    background-color: #0f141e;
-    font-weight: 400;
-  }
-
-  .demolist .v-link-active:hover {
-    background-color: #0f141e;
-  }
-
-  .demolist a {
-    padding: 8px 30px;
-    display: block;
-    color: #c0cad8;
-    text-decoration: none;
-    transition: background-color .3s;
-  }
-
-  .demoheader {
-    padding: 8px;
-    color: #8294aa;
+  #aside .v-link-active {
+    color: #0f141e;
+    font-weight: 600;
   }
 </style>
 
 <template>
   <div id="aside">
-    <p class="title">Vue Desktop</p>
-    <div class="demoheader">Basic</div>
-    <ul class="demolist">
-      <li><a v-link="{ path: '/alert' }">Alert</a></li>
-      <li><a v-link="{ path: '/dialog' }">Dialog</a></li>
-      <li><a v-link="{ path: '/button' }">Button</a></li>
-      <li><a v-link="{ path: '/progress-bar' }">ProgressBar</a></li>
-      <li><a v-link="{ path: '/slider' }">Slider</a></li>
-      <li><a v-link="{ path: '/sticky' }">Sticky</a></li>
-      <li><a v-link="{ path: '/dropdown' }">Dropdown</a></li>
-    </ul>
-    <div class="demoheader">Form</div>
-    <ul class="demolist">
-      <li><a v-link="{ path: '/field' }">Form & Field</a></li>
-      <li><a v-link="{ path: '/editor' }">Editor</a></li>
-      <li><a v-link="{ path: '/mapping' }">Mapping</a></li>
-      <li><a v-link="{ path: '/validation' }">Validation</a></li>
-    </ul>
-    <div class="demoheader">Data</div>
-    <ul class="demolist">
-      <li><a v-link="{ path: '/grid' }">Grid</a></li>
-      <li><a v-link="{ path: '/tree' }">Tree</a></li>
-      <li><a v-link="{ path: '/crud' }">CRUD</a></li>
-      <!--<li><a v-link="{ path: '/pagination' }">Pagination</a></li>-->
-    </ul>
-    <div class="demoheader">Nav</div>
-    <ul class="demolist">
-      <li><a v-link="{ path: '/tabs' }">Tabs</a></li>
-      <li><a v-link="{ path: '/accordion' }">Accordion</a></li>
-    </ul>
-    <div class="demoheader">Service</div>
-    <ul class="demolist">
-      <li><a v-link="{ path: '/msgbox' }">MessageBox</a></li>
-      <li><a v-link="{ path: '/notification' }">Notification</a></li>
-      <li><a v-link="{ path: '/tooltip' }">Tooltip</a></li>
-      <li><a v-link="{ path: '/loading-mask' }">Loading Mask</a></li>
-    </ul>
+    <d-nav-menu>
+      <d-nav-menu-item v-for="menu in menus" :text="menu.text" :path="menu.path" :expanded="$index === 0">
+        <d-nav-menu-item v-for="child in menu.children" :text="child.text" :path="child.path"></d-nav-menu-item>
+      </d-nav-menu-item>
+    </d-nav-menu>
   </div>
   <div id="main">
     <router-view></router-view>
@@ -125,5 +58,89 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
-  export default {}
+  export default {
+    data() {
+      return {
+        menus: [{
+          text: 'Basic',
+          children: [{
+            text: 'Alert',
+            path: '/alert'
+          }, {
+            text: 'Dialog',
+            path: '/dialog'
+          }, {
+            text: 'Button',
+            path: '/button'
+          }, {
+            text: 'ProgressBar',
+            path: '/progress-bar'
+          }, {
+            text: 'Slider',
+            path: '/slider'
+          }, {
+            text: 'Sticky',
+            path: '/sticky'
+          }, {
+            text: 'Dropdown',
+            path: '/dropdown'
+          }, {
+            text: 'NavMenu',
+            path: '/navmenu'
+          }]
+        }, {
+          text: 'Form',
+          children: [{
+            text: 'Form & Field',
+            path: '/field'
+          }, {
+            text: 'Editor',
+            path: '/editor'
+          }, {
+            text: 'Mapping',
+            path: '/mapping'
+          }, {
+            text: 'Validation',
+            path: '/validation'
+          }]
+        }, {
+          text: 'Data',
+          children: [{
+            text: 'Grid',
+            path: '/grid'
+          }, {
+            text: 'Tree',
+            path: '/tree'
+          }, {
+            text: 'CRUD',
+            path: '/crud'
+          }]
+        }, {
+          text: 'Nav',
+          children: [{
+            text: 'Tabs',
+            path: '/tabs'
+          }, {
+            text: 'Accordion',
+            path: '/accordion'
+          }]
+        }, {
+          text: 'Service',
+          children: [{
+            text: 'MessageBox',
+            path: '/msgbox'
+          }, {
+            text: 'Notification',
+            path: '/notification'
+          }, {
+            text: 'Tooltip',
+            path: '/tooltip'
+          }, {
+            text: 'Loading Mask',
+            path: '/loading-mask'
+          }]
+        }]
+      }
+    }
+  }
 </script>

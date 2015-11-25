@@ -33,6 +33,9 @@ router.map({
   },
   '/dropdown': {
     component: require('./basic/dropdown.vue')
+  },
+  '/navmenu': {
+    component: require('./basic/nav-menu.vue')
   }
 });
 

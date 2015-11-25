@@ -14,6 +14,8 @@ import DropdownButton from './basic/dropdown.vue';
 import DropdownItem from './basic/dropdown-item.vue';
 import DropdownDivider from './basic/dropdown-divider.vue';
 import Vbox from './basic/vbox.vue';
+import NavMenu from './basic/nav-menu.vue';
+import NavMenuItem from './basic/nav-menu-item.vue';
 
 import Accordion from './nav/accordion.vue';
 import AccordionPanel from './nav/accordion-panel.vue';
@@ -52,6 +54,8 @@ export var Components = {
   DropdownItem,
   DropdownDivider,
   Vbox,
+  NavMenu,
+  NavMenuItem,
 
   Accordion,
   AccordionPanel,
