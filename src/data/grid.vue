@@ -353,7 +353,7 @@
           }
         }
 
-        if (!isNaN(height)) {
+        if (!isNaN(height) && this.$el) {
           var headerHeight = this.$el.querySelector('.grid-header-wrapper').offsetHeight;
           var bodyHeight = (height - headerHeight) + 'px';
 
