@@ -54,7 +54,7 @@
         if (!this.disabled) {
           this.$parent.$emit('select', this.name);
           if (this.$parent.trigger !== 'click') {
-            this.$parent.showItem = false;
+            this.$parent.$refs.list.close();
           }
         }
       }
