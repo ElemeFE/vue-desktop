@@ -21,6 +21,8 @@ import Accordion from './nav/accordion.vue';
 import AccordionPanel from './nav/accordion-panel.vue';
 import Tab from './nav/tab.vue';
 import Tabs from './nav/tabs.vue';
+import Breadcrumb from './nav/breadcrumb.vue';
+import BreadcrumbItem from './nav/breadcrumb-item.vue';
 
 import Grid from './data/grid.vue';
 import Tree from './data/tree.vue';
@@ -61,6 +63,8 @@ export var Components = {
   AccordionPanel,
   Tab,
   Tabs,
+  Breadcrumb,
+  BreadcrumbItem,
 
   Grid,
   Tree,
