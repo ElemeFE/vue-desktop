@@ -123,6 +123,9 @@
           }, {
             text: 'Accordion',
             path: '/accordion'
+          }, {
+            text: 'Breadcrumb',
+            path: '/breadcrumb'
           }]
         }, {
           text: 'Service',

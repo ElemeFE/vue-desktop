@@ -62,6 +62,9 @@ router.map({
   },
   '/accordion': {
     component: require('./nav/accordion.vue')
+  },
+  '/breadcrumb': {
+    component: require('./nav/breadcrumb.vue')
   }
 });
 
