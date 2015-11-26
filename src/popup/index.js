@@ -337,7 +337,7 @@ export default {
       if (!this.$visible) return;
 
       clearTimeout(this.closeTimer);
-      var props = this.popupProps;
+      var props = this.popupProps || {};
       var closeDelay = props.closeDelay;
 
       if (Number(closeDelay) > 0) {

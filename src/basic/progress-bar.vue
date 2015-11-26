@@ -1,6 +1,6 @@
 <template>
   <div class="progress">
-    <div class="bar {{type}}" :class="{'show-info': showPercent}" :style="{height: barHeight + 'px'}" v-el:bar>
+    <div class="bar {{barClasses}}" :style="{height: barHeight + 'px'}" v-el:bar>
       <div class="active-bar" :style="{height: barHeight + 'px', width: percent + '%'}"></div>
     </div>
     <span v-if="showPercent" :style="{height: barHeight + 'px', lineHeight: barHeight + 'px'}">{{percent}}%</span>
@@ -73,6 +73,12 @@
       barHeight: {
         type: Number,
         default: 15
+      }
+    },
+
+    computed: {
+      barClasses() {
+        return (this.showPercent ? 'show-info ' : '') + this.type;
       }
     },
 

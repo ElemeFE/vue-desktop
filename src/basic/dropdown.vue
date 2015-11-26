@@ -128,6 +128,14 @@
       }
     },
 
+    detached() {
+      Dropdown.close(this);
+    },
+
+    destroyed() {
+      Dropdown.close(this);
+    },
+
     ready() {
       if (this.trigger === 'click') {
         this.$el.addEventListener('click', this.onClick);
