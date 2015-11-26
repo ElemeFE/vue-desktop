@@ -25,6 +25,7 @@ import Breadcrumb from './nav/breadcrumb.vue';
 import BreadcrumbItem from './nav/breadcrumb-item.vue';
 
 import Grid from './data/grid.vue';
+import GridColumn from './data/grid-column.vue';
 import Tree from './data/tree.vue';
 
 import Pagination from './data/pagination.vue';
@@ -67,6 +68,7 @@ export var Components = {
   BreadcrumbItem,
 
   Grid,
+  GridColumn,
   Tree,
 
   Pagination,

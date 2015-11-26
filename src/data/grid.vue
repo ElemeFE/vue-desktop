@@ -12,6 +12,10 @@
     border-radius: 3px;
   }
 
+  .hidden-columns {
+    display: none;
+  }
+
   .d-grid-fit {
     border-right: 0;
   }
@@ -153,7 +157,6 @@
     min-height: 28px;
   }
 
-
   .d-grid tr {
     background-color: #fff;
   }
@@ -173,7 +176,7 @@
 
 <template>
   <div class="d-grid" :class="{ 'd-grid-fit': fit }">
-    <slot></slot>
+    <div class="hidden-columns"><slot></slot></div>
     <div class="grid-header-wrapper">
       <table class="grid-header" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth + 'px' : '' }">
         <thead></thead>
@@ -204,8 +207,6 @@
 
   var gridIdSeed = 1;
   var GUTTER_WIDTH = 15;
-
-  require('./grid-column');
 
   export default {
     props: {
@@ -415,11 +416,11 @@
 
         this.$calcColumns();
 
-        var self = this;
         if (!this.$ready && this.fit) {
-          window.addEventListener('resize', throttle(function () {
-            self.$calcColumns();
-          }, 200));
+          this.windowResizeListener = throttle(() => {
+            this.$calcColumns();
+          }, 200);
+          window.addEventListener('resize', this.windowResizeListener);
         }
 
         this.$renderHeader();
@@ -427,9 +428,9 @@
         this.$renderHeader(true);
         this.$renderBody(true);
 
-        Vue.nextTick(function () {
-          if (self.height) {
-            self.$calcHeight(self.height);
+        Vue.nextTick(() => {
+          if (this.height) {
+            this.$calcHeight(this.height);
           }
         });
       },
@@ -561,6 +562,9 @@
     destroyed() {
       if (this.styleNode) {
         this.styleNode.parentNode.removeChild(this.styleNode);
+      }
+      if (this.windowResizeListener) {
+        window.removeEventListener('resize', this.windowResizeListener);
       }
     },
 
