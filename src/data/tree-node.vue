@@ -1,10 +1,10 @@
 <template>
   <div class="tree-node">
     <div class="tree-node-content">
-      <span class="expand-icon" :class="{ leaf: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon fa fa-home"></span><span class="text">{{ label + '(' + level + ')' }}</span>
+      <span class="expand-icon" :class="{ leaf: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon"></span><span class="text">{{ label }}</span>
     </div>
     <div class="tree-node-children" v-if="childrenRendered" v-show="expanded">
-      <d-tree-node v-for="child in childrenData" :data="child"></d-tree-node>
+      <d-tree-node v-for="child in children" :data="child"></d-tree-node>
     </div>
   </div>
 </template>
@@ -98,9 +98,9 @@
 
     computed: {
       hasChild() {
-        var childrenData = this.childrenData;
+        var children = this.children;
         if (!this.lazyload || (this.lazyload === true && this.childrenLoaded === true)) {
-          return childrenData && childrenData.length > 0;
+          return children && children.length > 0;
         }
         return true;
       },
@@ -110,14 +110,14 @@
         var levelConfig = this.levelConfig;
         var labelProperty;
         if (levelConfig) {
-          labelProperty = levelConfig.label;
+          labelProperty = levelConfig.labelProperty;
         }
         if (!labelProperty) {
           return data['label'] || data['name']
         }
         return data[labelProperty];
       },
-      childrenData: {
+      children: {
         get() {
           var data = this.data;
           if (!data) return null;

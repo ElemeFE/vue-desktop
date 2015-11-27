@@ -1,5 +1,5 @@
 <template>
-  <div class="d-navmenu-item expanded active" :class="{ expanded: hasChild && expanded, active: !hasChild && active, toplevel: topLevel }">
+  <div class="d-navmenu-item" :class="{ expanded: hasChild && expanded, active: !hasChild && active, toplevel: topLevel }">
     <div class="d-navmenu-item-label" @click="handleHeaderClick"><span v-if="icon"></span><a v-link="{ path: path }">{{text}}</a><span class="d-icon icon-arrow-right" v-if="hasChild"></span></div>
     <div class="d-navmenu-item-content" @click="$event.stopPropagation()" transition="navmenu" v-show="expanded">
       <slot></slot>
@@ -12,7 +12,6 @@
     box-sizing: border-box;
   }
 
-  .d-navmenu-item.toplevel.active,
   .d-navmenu-item.toplevel.expanded {
     border-left: 4px solid #19aa8d;
   }
@@ -61,17 +60,8 @@
     font-weight: normal;
   }
 
-  .d-navmenu-item.expanded .d-navmenu-item-label > a,
-  .d-navmenu-item.active .d-navmenu-item-label > a {
+  .d-navmenu-item.expanded .d-navmenu-item-label > a {
     padding-left: 16px;
-  }
-
-  .d-navmenu-item .d-navmenu-item.active {
-    border-left: none;
-  }
-
-  .d-navmenu-item .d-navmenu-item.active .d-navmenu-item-label > a{
-    padding-left: 20px;
   }
 
   .d-navmenu-item-content {
@@ -93,9 +83,6 @@
       path: {},
       text: {},
       expanded: {
-        type: Boolean
-      },
-      active: {
         type: Boolean
       },
       exclusive: {

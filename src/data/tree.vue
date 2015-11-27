@@ -1,6 +1,6 @@
 <template>
   <div class="tree">
-    <tree-node v-for="child in nodes" :data="child"></tree-node>
+    <tree-node v-for="child in data" :data="child"></tree-node>
   </div>
 </template>
 
@@ -22,7 +22,7 @@
     },
 
     props: {
-      nodes: {
+      data: {
         type: Array
       },
       levelConfig: {

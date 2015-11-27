@@ -1,7 +1,7 @@
 # Schema 使用说明
 
 ## 介绍
-vue-desktop 项目中 Field 和 Grid 的使用依赖于 Schema，Schema 是 vie-desktop 区别于其他 UI 项目的特点，在使用 vie-desktop 之前，需要先了解 Schema 的概念和用途。
+vue-desktop 项目中 Field 和 Grid 的使用依赖于 Schema，Schema 是 vue-desktop 区别于其他 UI 项目的特点，在使用 vue-desktop 之前，需要先了解 Schema 的概念和用途。
 
 ## 简单示例
 Schema 用来描述表单里面的一个数据显示使用的 label、数据类型、校验规则等。

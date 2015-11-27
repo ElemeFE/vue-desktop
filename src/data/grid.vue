@@ -261,7 +261,9 @@
       onresize() {
         var grid = this;
         Vue.nextTick(function() {
-          grid.height = grid.$el.offsetHeight;
+          if (grid.height !== undefined) {
+            grid.height = grid.$el.offsetHeight;
+          }
           grid.$calcColumns();
         });
       }

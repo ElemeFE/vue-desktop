@@ -68,7 +68,7 @@
         visible: false,
         selection: [],
         gridSchema: gridSchema,
-        gridData: gridSchema.convert([
+        gridData: gridSchema.format([
           {prop1: '11', prop2: '12', prop3: new Date(), prop4: '14', prop5: true},
           {prop1: '21', prop2: '22', prop3: new Date(), prop4: '24', prop5: false},
           {prop1: '31', prop2: '32', prop3: new Date(), prop4: '34', prop5: false},

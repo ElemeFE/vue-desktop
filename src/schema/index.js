@@ -363,7 +363,7 @@ class Schema {
     object.$hintTypes = {};
   }
 
-  convert(data) {
+  format(data) {
     if (!data) return;
     if (!(data instanceof Array)) {
       data = [data];
@@ -374,6 +374,9 @@ class Schema {
         if (props.hasOwnProperty(prop)) {
           var descriptor = props[prop];
           var value = item[prop];
+          if (!item.hasOwnProperty(prop)) {
+            item[prop] = undefined;
+          }
           var type = descriptor.type;
           if (type === 'date' || type === 'datetime') {
             if (typeof value === 'string') {
