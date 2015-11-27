@@ -46,7 +46,6 @@
   }
 
   .d-pagination li.number:hover {
-    background-color: #fff;
     margin-left: -1px;
   }
 
