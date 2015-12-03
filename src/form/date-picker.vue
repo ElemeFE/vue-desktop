@@ -1,7 +1,7 @@
-<style type="sass">
+<style>
   .datepicker {
     font-size: 12px;
-    width: 260px;
+    width: 280px;
     border: 1px solid #ddd;
     background: #fff;
   }
@@ -102,26 +102,40 @@
     padding: 15px;
     cursor: pointer;
   }
+
+  .datepicker-time-wrap {
+    text-align: center;
+  }
+
+  .datepicker-timelabel {
+    float: left;
+    cursor: pointer;
+    line-height: 30px;
+    margin-left: 10px;
+  }
 </style>
 
 <template>
   <div class="datepicker">
-    <div class="datepicker-header">
+    <div class="datepicker-header" v-show="currentView !== 'time'">
       <button @click="prev" class="datepicker-prevbtn d-icon icon-arrow-left"></button>
       <label @click="handleLabelClick">{{ label }}</label>
       <button @click="next" class="datepicker-nextbtn d-icon icon-arrow-right"></button>
     </div>
     <div class="datepicker-body">
+      <div :class="{ hidden: currentView !== 'time' }" class="datepicker-time-wrap" v-if="showTime">
+        <d-time-picker v-ref:time-picker @pick="handleTimePick" @close="currentView = 'date'"></d-time-picker>
+      </div>
       <table :class="{ hidden: currentView !== 'date' }" @click="handleDateTableClick">
         <tbody>
           <tr>
+            <th>{{ $t('datepicker.weeks.sun') }}</th>
             <th>{{ $t('datepicker.weeks.mon') }}</th>
             <th>{{ $t('datepicker.weeks.tue') }}</th>
             <th>{{ $t('datepicker.weeks.wed') }}</th>
             <th>{{ $t('datepicker.weeks.thu') }}</th>
             <th>{{ $t('datepicker.weeks.fri') }}</th>
             <th>{{ $t('datepicker.weeks.sat') }}</th>
-            <th>{{ $t('datepicker.weeks.sun') }}</th>
           </tr>
           <tr v-for="row in 6">
             <td v-for="column in 7" class="{{ cells[row * 7 + column].type }} {{ cells[row * 7 + column].type === 'normal' && monthDate == cells[row * 7 + column].text ? 'current' : '' }}">{{ cells[row * 7 + column].text }}</td>
@@ -181,6 +195,7 @@
     </div>
 
     <div class="datepicker-footer" :class="{ hidden: currentView !== 'date' }">
+      <span class="datepicker-timelabel" @click="currentView = 'time'" v-if="showTime">{{ timeText }}</span>
       <button class="datepicker-todaybtn" @click="changeToToday">{{ $t('datepicker.today') }}</button>
     </div>
   </div>
@@ -210,6 +225,31 @@
   };
 
   export default {
+    props: {
+      currentView: {
+        default: 'date'
+      },
+
+      date: {
+        default() {
+          return new Date()
+        }
+      },
+
+      showTime: {
+        type: Boolean
+      }
+    },
+
+    watch: {
+      currentView(val) {
+        if (val === 'time') {
+          this.$refs.timePicker.hours = this.hours;
+          this.$refs.timePicker.minutes = this.minutes;
+        }
+      }
+    },
+
     methods: {
       resetDate() {
         this.date = new Date(this.date);
@@ -299,6 +339,14 @@
         }
       },
 
+      handleTimePick(picker) {
+        this.hours = picker.hours;
+        this.minutes = picker.minutes;
+
+        this.currentView = 'date';
+        this.resetDate();
+      },
+
       handleMonthTableClick(event) {
         var target = event.target;
         if (target.tagName === 'TD') {
@@ -363,16 +411,8 @@
       }
     },
 
-    props: {
-      currentView: {
-        default: 'date'
-      },
-
-      date: {
-        default() {
-          return new Date()
-        }
-      }
+    components: {
+      DTimePicker: require('./time-picker.vue')
     },
 
     computed: {
@@ -433,6 +473,34 @@
         var date = this.date;
         var year = date.getFullYear();
         return Math.floor(year / 10) * 10;
+      },
+
+      resetView() {
+        this.currentView = 'date';
+      },
+
+      hours: {
+        get() {
+          return this.date.getHours();
+        },
+        set(hours) {
+          this.date.setHours(hours);
+        }
+      },
+
+      minutes: {
+        get() {
+          return this.date.getMinutes();
+        },
+        set(minutes) {
+          this.date.setMinutes(minutes);
+        }
+      },
+
+      timeText() {
+        var hours = this.hours;
+        var minutes = this.minutes;
+        return (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes);
       },
 
       label() {

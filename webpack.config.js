@@ -12,6 +12,9 @@ module.exports = {
     publicPath: '/dist/',
     filename: '[name].js'
   },
+  devServer: {
+    stats: 'errors-only'
+  },
   vue: {
     loaders: {
       js: 'babel',
@@ -50,10 +53,10 @@ if (isProduction) {
       }
     }),
     new webpack.optimize.OccurenceOrderPlugin()
-  ]
+  ];
 } else {
   module.exports.plugins = [
     new ExtractTextPlugin('[name].css')
   ];
-  //module.exports.devtool = '#source-map'
+  module.exports.devtool = '#source-map';
 }

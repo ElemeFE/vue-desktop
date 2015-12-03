@@ -1,4 +1,8 @@
 <template>
+  <div>
+    <!--<d-time-picker :hours="18" :minutes="24"></d-time-picker>-->
+  </div>
+
   <d-panel title="Editors">
     <d-form :model='model' :schema='schema' label-width="140" :cols="1" style="width: 450px;">
       <d-text-field property='nickname'></d-text-field>

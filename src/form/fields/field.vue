@@ -65,6 +65,10 @@
     height: 16px;
   }
 
+  .d-field-hint .d-icon {
+    vertical-align: top;
+  }
+
   .d-field-hint .icon-formfield-error {
     font-size: 14px;
     line-height: 14px;

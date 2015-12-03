@@ -151,7 +151,7 @@
         get() {
           var value = this.value;
           if (value instanceof Date) {
-            return formatDate(value, this.format || 'YYYY-MM-DD');
+            return formatDate(value, this.format || (this.type === 'date' ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm'));
           }
           return value;
         },
@@ -207,9 +207,9 @@
       handleChange(event) {
         var value = event.target.value;
         var type = this.type;
-        if (type === 'date') {
+        if (type === 'date' || type === 'datetime') {
           if (value) {
-            var parsedValue = parseDate(value, this.format || 'YYYY-MM-DD');
+            var parsedValue = parseDate(value, this.format || (type === 'date' ? 'YYYY-MM-DD' : 'YYYY-MM-DD HH:mm'));
 
             if (parsedValue) {
               this.value = parsedValue;
@@ -252,6 +252,7 @@
 
       hideDatePicker() {
         if (this.picker) {
+          this.picker.resetView && this.picker.resetView();
           this.picker.$el.style.display = 'none';
           this.pickerVisible = false;
         }
@@ -263,6 +264,7 @@
         if (!this.picker) {
           var pickerEl = document.createElement('div');
           this.picker = new Vue(merge({ el: pickerEl, replace: true }, DatePicker));
+          this.picker.showTime = this.type === 'datetime';
           this.picker.$appendTo(this.$el);
 
           var self = this;

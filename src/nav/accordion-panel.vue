@@ -106,6 +106,8 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
+  import { hasClass } from 'wind-dom';
+
   export default {
     props: {
       title: {
@@ -125,7 +127,7 @@
     methods: {
       onHeaderClick(event) {
         var currentTarget = event.currentTarget;
-        if (currentTarget.classList.contains('disabled')) {
+        if (hasClass(currentTarget, 'disabled')) {
           return;
         }
         var target = event.target;

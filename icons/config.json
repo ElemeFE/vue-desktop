@@ -1,11 +1,29 @@
 {
-  "default": [],
-  "new": [
+  "categories": {
+    "default": [
+      "arrow-down.svg",
+      "arrow-left.svg",
+      "arrow-right.svg",
+      "arrow-up.svg",
+      "error.svg",
+      "info.svg",
+      "success.svg",
+      "warning.svg",
+      "close-circle.svg",
+      "close.svg",
+      "confirm-circle.svg",
+      "date-trigger.svg"
+    ],
+    "exclude": []
+  },
+  "useless": [
     "arrow-down.svg",
     "arrow-left.svg",
     "arrow-right.svg",
     "arrow-up.svg",
+    "close-circle.svg",
     "close.svg",
+    "confirm-circle.svg",
     "date-trigger.svg",
     "error.svg",
     "info.svg",

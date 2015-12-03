@@ -35,6 +35,7 @@ import Radio from './form/radio.vue';
 import TextEditor from './form/text-editor.vue';
 import RadioGroup from './form/radio-group.vue';
 import DatePicker from './form/date-picker.vue';
+import TimePicker from './form/time-picker.vue';
 import Checkbox from './form/checkbox.vue';
 import Select from './form/select.vue';
 import Option from './form/select-option.vue';
@@ -84,6 +85,7 @@ export var Components = {
   TextEditor,
   Checkbox,
   DatePicker,
+  TimePicker,
   Select,
   Option
 };
