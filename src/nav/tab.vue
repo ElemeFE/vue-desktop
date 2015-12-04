@@ -7,6 +7,10 @@
 <script type="text/ecmascript-6" lang="babel">
   export default {
     props: {
+      name: {
+        type: String
+      },
+
       title: {
         type: String
       },

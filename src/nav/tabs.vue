@@ -1,5 +1,8 @@
 <template>
-  <div class="d-tabs">
+  <div class="d-tabs {{ placementClass }}">
+    <div class="d-tabs-content" v-if="tabPlacement === 'bottom'">
+      <slot></slot>
+    </div>
     <ul class="d-tabs-nav">
       <li class="d-tab" v-for="tab in tabs" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: tab.disabled }">
         <span v-if="tab.icon" class="d-tab-icon {{ tab.icon }}"></span>
@@ -7,7 +10,7 @@
         <span v-if="tab.closable" class="d-tab-close d-icon icon-close" @click="close($event, tab)"></span>
       </li>
     </ul>
-    <div class="d-tabs-content">
+    <div class="d-tabs-content" v-if="tabPlacement !== 'bottom'">
       <slot></slot>
     </div>
   </div>
@@ -16,7 +19,19 @@
 <script type="text/ecmascript-6" lang="babel">
   export default {
     props: {
-      activeTabIndex: {
+      tabPlacement: {
+        defaultValue: 'top'
+      }
+    },
+
+    computed: {
+      placementClass() {
+        return {
+          top: '',
+          bottom: 'placement-bottom',
+          left: 'placement-left',
+          right: 'placement-right'
+        }[this.tabPlacement || 'top'];
       }
     },
 
@@ -42,6 +57,34 @@
         event.preventDefault();
         if (tab.disabled) return;
         this.activeTab = tab;
+      },
+
+      setActiveTab(index) {
+        var tabs = this.tabs;
+        var tab;
+        if (typeof index === 'number') {
+          tab = tabs[index];
+        } else if (typeof index === 'string') {
+          tabs.forEach(function(item) {
+            if (item.name === index) {
+              tab = index;
+            }
+          });
+        } else {
+          tabs.forEach(function(item) {
+            if (item === index) {
+              tab = index;
+            }
+          });
+        }
+
+        if (tab) {
+          this.activeTab = tab;
+        }
+      },
+
+      getActiveTab() {
+        return this.activeTab;
       },
 
       close(event, tab) {
@@ -87,7 +130,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .d-tabs-nav {
     list-style: none;
     padding: 0;
@@ -110,6 +153,18 @@
     font-size: 14px;
     min-width: 100px;
     border-radius: 5px 5px 0 0;
+  }
+
+  .placement-bottom .d-tab {
+    border-radius:  0 0 5px 5px;
+  }
+
+  .placement-bottom .d-tab.active {
+    border-top: 0;
+    border-bottom: 1px;
+    /* TODO */
+    margin-top: -1px;
+    margin-bottom: 0;
   }
 
   .d-tab:hover {
