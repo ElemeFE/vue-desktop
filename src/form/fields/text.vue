@@ -52,7 +52,7 @@
           DTextEditor: require('../text-editor.vue')
         },
         created() {
-          this.$options.template = `<d-text-editor type="${ this.$parent.editorType }" :value.sync="${ '$parent.model.' + this.$parent.property }" :height="$parent.editorHeight" :placeholder="$parent.placeholder || ''"/>`;
+          this.$options.template = `<d-text-editor @focus="$parent.handleFocus" type="${ this.$parent.editorType }" :value.sync="${ '$parent.model.' + this.$parent.property }" :height="$parent.editorHeight" :placeholder="$parent.placeholder || ''"/>`;
         }
       }
     },
@@ -81,8 +81,20 @@
 
     created: common.onCreated,
 
+    beforeCompile() {
+      this.editorFocused = false;
+    },
+
     compiled: common.onCompiled,
 
-    methods: merge({}, common.methods)
+    methods: merge({
+      handleFocus() {
+        this.editorFocused = true;
+      },
+
+      handleBlur() {
+        this.editorFocused = false;
+      }
+    }, common.methods)
   };
 </script>

@@ -31,7 +31,11 @@ export default {
     hintMessage: {
       type: String
     },
-    mapping: {}
+    mapping: {},
+    editorFocused: {
+      type: Boolean,
+      defaultValue: true
+    }
   },
 
   methods: {
@@ -114,7 +118,9 @@ export default {
 
     if (this.property) {
       this.$watch('model.' + this.property, function() {
-        this.validate();
+        if (this.editorFocused) {
+          this.validate();
+        }
       });
 
       var property = this.property;

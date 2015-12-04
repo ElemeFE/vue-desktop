@@ -193,11 +193,11 @@
           var parent = this.$parent;
           var type = parent.type;
           if (type === 'date' || type === 'number') {
-            this.$options.template = `<input lazy @change="$parent.handleChange($event)" @focus="$parent.handleFocus()" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"/>`;
+            this.$options.template = `<input @focus="$parent.handleFocus" @blur="$parent.handleBlur" lazy @change="$parent.handleChange($event)" @focus="$parent.handleFocus()" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"/>`;
           } else if (type !== 'textarea') {
-            this.$options.template = `<input type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }" readonly="{{$parent.readonly}}" />`;
+            this.$options.template = `<input @focus="$parent.handleFocus" @blur="$parent.handleBlur" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }" readonly="{{$parent.readonly}}" />`;
           } else {
-            this.$options.template = `<textarea placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.visualValue" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"></textarea>`;
+            this.$options.template = `<textarea @focus="$parent.handleFocus" @blur="$parent.handleBlur" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" v-model="$parent.visualValue" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"></textarea>`;
           }
         }
       }
@@ -236,6 +236,11 @@
             this.showDatePicker();
           }
         }
+        this.$emit('focus', this);
+      },
+
+      handleBlur() {
+        this.$emit('blur', this);
       },
 
       onDocumentClick() {
