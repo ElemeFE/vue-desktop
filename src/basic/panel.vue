@@ -1,7 +1,7 @@
 <template>
-  <div class="d-panel" :class="{'noheader': !title}">
-    <div class="d-panel-header" v-if="title">{{title}}</div>
-    <div class="d-panel-content">
+  <div class="d-panel" :class="{ noheader: !title, expanded: expanded }">
+    <div class="d-panel-header" v-if="title">{{title}}<slot name="header"></slot></div>
+    <div class="d-panel-content" transition="collapse" v-show="expanded">
       <slot></slot>
     </div>
   </div>
@@ -19,19 +19,60 @@
   }
 
   .d-panel-content {
-    color: inherit;
+    box-sizing: border-box;
     padding: 15px 20px 20px 20px;
+    overflow: auto;
+    display: none;
   }
 
   .d-panel.noheader .d-panel-content {
     border-radius: 5px;
+  }
+
+  .d-panel.expanded .d-panel-content {
+    display: block;
+  }
+
+  .collapse-transition {
+    transition: 0.3s height ease-in-out;
   }
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
   export default {
     props: {
-      title: {}
+      title: {},
+      expanded: {
+        type: Boolean,
+        default: true
+      }
+    },
+
+    transitions: {
+      collapse: {
+        beforeEnter: function (el) {
+          el.style.height = '0';
+        },
+        enter: function (el) {
+          el.style.display = 'block';
+          el.style.height = el.scrollHeight + 'px';
+        },
+        afterEnter: function(el) {
+          el.style.display = '';
+          el.style.height = '';
+        },
+        beforeLeave: function (el) {
+          el.style.display = 'block';
+          el.style.height = el.scrollHeight + 'px';
+        },
+        leave: function (el) {
+          setTimeout(() => el.style.height = '0');
+        },
+        afterLeave: function (el) {
+          el.style.display = '';
+          el.style.height = '';
+        }
+      }
     }
   }
 </script>

@@ -24,7 +24,7 @@
     display: block;
   }
 
-  .d-navmenu-item.expanded > .d-navmenu-item-label .d-icon{
+  .d-navmenu-item.expanded > .d-navmenu-item-label .d-icon {
     transform: rotate(90deg);
   }
 
@@ -71,7 +71,7 @@
   }
 
   .navmenu-transition {
-    transition: .3s;
+    transition: 0.3s;
   }
 </style>
 
@@ -148,10 +148,10 @@
           el.style.height = '';
         },
         beforeLeave: function (el) {
+          el.style.display = 'block';
           el.style.height = el.scrollHeight + 'px';
         },
         leave: function (el) {
-          el.style.display = 'block';
           setTimeout(() => el.style.height = '0');
         },
         afterLeave: function (el) {
