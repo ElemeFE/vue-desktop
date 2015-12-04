@@ -1,15 +1,15 @@
 <template>
-  <div class="tree-node">
+  <div class="tree-node" :class="{ expanded: childrenRendered && expanded }">
     <div class="tree-node-content">
-      <span class="expand-icon" :class="{ leaf: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon"></span><span class="text">{{ label }}</span>
+      <span class="expand-icon" :class="{ leaf: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon"></span><span class="text">{{ label + (childrenLoaded === 'loading' ? '(Loading)' : '') }}</span>
     </div>
-    <div class="tree-node-children" v-if="childrenRendered" v-show="expanded">
-      <d-tree-node v-for="child in children" :data="child"></d-tree-node>
+    <div class="tree-node-children" v-if="childrenRendered" v-show="expanded" transition="collapse">
+      <d-tree-node v-for="child in children || childrenData" :data="child"></d-tree-node>
     </div>
   </div>
 </template>
 
-<style scoped>
+<style>
   .tree-node {
     white-space: nowrap;
   }
@@ -76,8 +76,18 @@
   }
 
   .tree-node > .tree-node-children {
+    overflow: hidden;
     background-color: transparent;
     padding-left: 16px;
+    display: none;
+  }
+
+  .tree-node.expanded > .tree-node-children {
+    display: block;
+  }
+
+  .collapse-transition {
+    transition: 0.3s height ease-in-out;
   }
 </style>
 
@@ -98,7 +108,7 @@
 
     computed: {
       hasChild() {
-        var children = this.children;
+        var children = this.children || this.childrenData;
         if (!this.lazyload || (this.lazyload === true && this.childrenLoaded === true)) {
           return children && children.length > 0;
         }
@@ -126,6 +136,9 @@
           if (levelConfig) {
             childrenProperty = levelConfig.childrenProperty || 'children';
           }
+          if (data[childrenProperty] === undefined) {
+            data[childrenProperty] = null;
+          }
           return data[childrenProperty];
         },
         set(value) {
@@ -136,16 +149,22 @@
           if (levelConfig) {
             childrenProperty = levelConfig.childrenProperty || 'children';
           }
-          data[childrenProperty] = value;
+          this.childrenData = data[childrenProperty] = value;
         }
       }
     },
 
     methods: {
       handleExpandIconClick() {
-        this.expanded = !this.expanded;
-        this.childrenRendered = true;
-        this.loadIfNeeded();
+        if (!this.expanded) {
+          this.loadIfNeeded(() => {
+            this.expanded = true;
+            this.childrenRendered = true;
+          });
+        } else {
+          this.expanded = false;
+          this.childrenRendered = true;
+        }
       },
 
       handleCheckChange() {
@@ -161,25 +180,22 @@
       },
 
       loadIfNeeded(callback) {
-        if (this.lazyload === true) {
-          if (!this.childrenLoaded && this.loadFn) {
-            this.childrenLoaded = 'loading';
-            this.loadFn(() => {
-              this.childrenLoaded = true;
-              if (!this.childrenRendered) {
-                this.childrenRendered = true;
-              }
-              if (callback) {
-                callback.call(this);
-              }
-            });
-            return true;
-          }
+        if (this.lazyload === true && !this.childrenLoaded && this.loadFn) {
+          this.childrenLoaded = 'loading';
+          this.loadFn(() => {
+            this.childrenLoaded = true;
+            if (!this.childrenRendered) {
+              this.childrenRendered = true;
+            }
+            if (callback) {
+              callback.call(this);
+            }
+          });
         } else {
           if (!this.childrenRendered) {
             this.childrenRendered = true;
-            callback();
           }
+          callback.call(this);
         }
       },
 
@@ -270,10 +286,46 @@
       }
     },
 
+    transitions: {
+      collapse: {
+        beforeEnter: function (el) {
+          el.style.height = '0';
+        },
+        enter: function (el) {
+          el.style.display = 'block';
+          if (el.scrollHeight !== 0) {
+            el.style.height = el.scrollHeight + 'px';
+          } else {
+            el.style.height = '';
+          }
+        },
+        afterEnter: function(el) {
+          el.style.display = '';
+          el.style.height = '';
+        },
+        beforeLeave: function (el) {
+          el.style.display = 'block';
+          if (el.scrollHeight !== 0) {
+            el.style.height = el.scrollHeight + 'px';
+          }
+        },
+        leave: function (el) {
+          if (el.scrollHeight !== 0) {
+            setTimeout(() => el.style.height = '0');
+          }
+        },
+        afterLeave: function (el) {
+          el.style.display = '';
+          el.style.height = '';
+        }
+      }
+    },
+
     data() {
       return {
         level: 0,
-        children: [],
+        childrenData: [],
+        childrenLoaded: false,
         expanded: false,
         levelConfig: null,
         $tree: null,

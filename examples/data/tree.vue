@@ -38,7 +38,7 @@
       load: function (callback) {
         var node = this;
 
-        var hasChild = Math.random() > 0.5;
+        var hasChild = Math.random() > 0.1;
         setTimeout(function () {
           var data;
           if (hasChild) {
