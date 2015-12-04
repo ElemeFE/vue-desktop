@@ -4,10 +4,10 @@
     <div>
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
         {{ textValue }}<span class="d-selectfield-trigger d-icon icon-arrow-down"></span>
+        <d-select v-ref:select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false" @selection-change="handleSelectionChange" @click="$event.stopPropagation()">
+          <d-option v-for="(key, val) in mapping" :value="val" :show-checkbox="multiSelect">{{key}}</d-option>
+        </d-select>
       </div>
-      <d-select v-ref:select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false" @selection-change="handleSelectionChange">
-        <d-option v-for="(key, val) in mapping" :value="val" :show-checkbox="multiSelect">{{key}}</d-option>
-      </d-select>
       <div class="d-field-hint">
         <i class='d-icon' :class="{ 'icon-error': hintType === 'error', 'icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
@@ -22,9 +22,13 @@
     max-height: 200px;
     z-index: 1;
     background: #fff;
+    width: 100%;
+    left: 0;
+    box-sizing: border-box;
   }
 
   .d-selectfield-box {
+    position: relative;
     cursor: pointer;
     font-size: 14px;
     padding-left: 4px;
