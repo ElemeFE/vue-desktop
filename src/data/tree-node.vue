@@ -3,7 +3,7 @@
     <div class="tree-node-content">
       <span class="expand-icon" :class="{ leaf: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon"></span><span class="text">{{ label + (childrenLoaded === 'loading' ? '(Loading)' : '') }}</span>
     </div>
-    <div class="tree-node-children" v-if="childrenRendered" v-show="expanded" transition="collapse">
+    <div class="tree-node-children" v-if="childrenRendered" v-show="expanded" transition="d-collapse">
       <d-tree-node v-for="child in children || childrenData" :data="child"></d-tree-node>
     </div>
   </div>
@@ -84,10 +84,6 @@
 
   .tree-node.expanded > .tree-node-children {
     display: block;
-  }
-
-  .collapse-transition {
-    transition: 0.3s height ease-in-out;
   }
 </style>
 
@@ -283,41 +279,6 @@
       if (!this.$tree) {
         console.warn('Can not find node\'s tree.');
         return;
-      }
-    },
-
-    transitions: {
-      collapse: {
-        beforeEnter: function (el) {
-          el.style.height = '0';
-        },
-        enter: function (el) {
-          el.style.display = 'block';
-          if (el.scrollHeight !== 0) {
-            el.style.height = el.scrollHeight + 'px';
-          } else {
-            el.style.height = '';
-          }
-        },
-        afterEnter: function(el) {
-          el.style.display = '';
-          el.style.height = '';
-        },
-        beforeLeave: function (el) {
-          el.style.display = 'block';
-          if (el.scrollHeight !== 0) {
-            el.style.height = el.scrollHeight + 'px';
-          }
-        },
-        leave: function (el) {
-          if (el.scrollHeight !== 0) {
-            setTimeout(() => el.style.height = '0');
-          }
-        },
-        afterLeave: function (el) {
-          el.style.display = '';
-          el.style.height = '';
-        }
       }
     },
 

@@ -1,7 +1,7 @@
 <template>
   <div class="d-navmenu-item" :class="{ expanded: hasChild && expanded, active: !hasChild && active, toplevel: topLevel }">
     <div class="d-navmenu-item-label" @click="handleHeaderClick"><span v-if="icon"></span><a v-link="{ path: path }">{{text}}</a><span class="d-icon icon-arrow-right" v-if="hasChild"></span></div>
-    <div class="d-navmenu-item-content" @click="$event.stopPropagation()" transition="navmenu" v-show="expanded">
+    <div class="d-navmenu-item-content" @click="$event.stopPropagation()" transition="d-collapse" v-show="expanded">
       <slot></slot>
     </div>
   </div>
@@ -69,10 +69,6 @@
     display: none;
     overflow: hidden;
   }
-
-  .navmenu-transition {
-    transition: 0.3s;
-  }
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
@@ -132,33 +128,6 @@
     ready() {
       this.hasChild = this.$children.length > 0;
       this.topLevel = !this.$parent.$isNavMenu;
-    },
-
-    transitions: {
-      navmenu: {
-        beforeEnter: function (el) {
-          el.style.height = '0';
-        },
-        enter: function (el) {
-          el.style.display = 'block';
-          el.style.height = el.scrollHeight + 'px';
-        },
-        afterEnter: function(el) {
-          el.style.display = '';
-          el.style.height = '';
-        },
-        beforeLeave: function (el) {
-          el.style.display = 'block';
-          el.style.height = el.scrollHeight + 'px';
-        },
-        leave: function (el) {
-          setTimeout(() => el.style.height = '0');
-        },
-        afterLeave: function (el) {
-          el.style.display = '';
-          el.style.height = '';
-        }
-      }
     }
   };
 </script>
