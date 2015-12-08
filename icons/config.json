@@ -12,9 +12,12 @@
       "close-circle.svg",
       "close.svg",
       "confirm-circle.svg",
-      "date-trigger.svg"
+      "date-trigger.svg",
+      "last.svg",
+      "first.svg"
     ],
-    "exclude": []
+    "exclude": [],
+    "new": []
   },
   "useless": [
     "arrow-down.svg",

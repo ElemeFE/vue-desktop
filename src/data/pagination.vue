@@ -1,163 +1,289 @@
 <template>
   <div class="d-pagination">
-    <ul @click="onPagerClick($event)">
-      <li class="prevBtn d-icon icon-arrow-left" v-show="showButton"></li>
-      <li :class="{ active: currentPage === 1 }" v-show="pageCount > 0" class="number">1</li>
-      <li class="ellipsis" v-show="showPrevMore">...</li>
-      <li v-for="pager in pagers" :class="{ active: currentPage === pager }" class="number">{{ pager }}</li>
-      <li class="ellipsis" v-show="showNextMore">...</li>
-      <li :class="{ active: currentPage === pageCount }" class="number" v-show="pageCount > 1">{{ pageCount }}</li>
-      <li class="nextBtn d-icon icon-arrow-right" v-show="showButton"></li>
-    </ul>
+    <span is="first"></span>
+    <span is="prev"></span>
+    <span is="manual"></span>
+    <!--<span is="pager" :current-page.sync="currentPage" :page-count.sync="pageCount"></span>-->
+    <span is="next"></span>
+    <span is="last"></span>
+
+    <span is="list"></span>
+
+    <slot></slot>
+
+    <span is="info"></span>
   </div>
 </template>
 
 <style>
   .d-pagination {
-    overflow: hidden;
+    padding: 2px 5px;
+    background: #fff;
   }
 
-  .d-pagination ul {
-    float: right;
+  .d-pagination > span {
+    display: inline-block;
+    font-size: 14px;
+    min-width: 26px;
+    height: 28px;
+    line-height: 28px;
+    vertical-align: top;
+  }
+
+  .d-pagination > span.disabled {
+    color: #bbb;
+    cursor: default;
+  }
+
+  .d-pagination > span.d-icon {
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .d-pagination .pager {
     border-radius: 3px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     list-style: none;
     display: inline-block;
+    vertical-align: top;
     font-size: 0;
     padding: 0;
-    margin: 2px 0;
   }
 
-  .d-pagination li {
+  .d-pagination .pager li {
+    border: 1px solid #dddddd;
     background: #fff;
     vertical-align: top;
-    border: 1px solid #dddddd;
     margin-left: -1px;
     display: inline-block;
     font-size: 14px;
     min-width: 26px;
     height: 28px;
+    line-height: 28px;
+    cursor: pointer;
     box-sizing: border-box;
     text-align: center;
-    cursor: pointer;
-    line-height: 26px;
   }
 
-  .d-pagination li.number:hover {
+  .d-pagination .pager li.number:hover {
     margin-left: -1px;
   }
 
-  .d-pagination li.active {
+  .d-pagination .pager li.active {
     background-color: #f4f4f4;
     cursor: default;
   }
 
-  .d-pagination li.ellipsis {
+  .d-pagination .pager li.ellipsis {
     cursor: default;
+  }
+
+  .d-pagination .d-selectfield {
+    display: inline-table !important;
+    min-height: 28px;
+    height: 28px;
+    width: 60px;
+  }
+
+  .d-pagination-info {
+    float: right;
   }
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
+  var Vue = require('vue');
+
   export default {
     props: {
       pageSize: {
         type: Number,
         default: 10
       },
+
       itemCount: {
         type: Number,
         default: 0
       },
+
       currentPage: {
+        type: Number
+      },
+
+      layout: {
+        type: String,
+        default: 'first, prev, next, last, manual, list, pager'
+      },
+
+      mapping: {
+        default() {
+          return { 10: 10, 20: 20, 30: 30, 40: 40, 50: 50 };
+        }
+      }
+    },
+
+    components: {
+      DSelectField: require('../form/fields/select.vue'),
+
+      DSelectOption: require('../form/select-option.vue'),
+
+      DTextEditor: require('../form/text-editor.vue'),
+
+      Prev: {
+        template: '<span class="d-icon icon-arrow-left" :class="{ disabled: $parent.currentPage === 1 }" @click="$parent.prev()"></span>'
+      },
+
+      Next: {
+        template: '<span class="d-icon icon-arrow-right" @click="$parent.next()" :class="{ disabled: $parent.currentPage === $parent.pageCount }"></span>'
+      },
+
+      First: {
+        template: '<span class="d-icon icon-first" :class="{ disabled: $parent.currentPage === 1 }" @click="$parent.first()"></span>'
+      },
+
+      Last: {
+        template: '<span class="d-icon icon-last"  :class="{ disabled: $parent.currentPage === $parent.pageCount }" @click="$parent.last()"></span>'
+      },
+
+      List: {
+        template: '<span><d-select-field hide-label hide-hint :mapping="$parent.mapping" :model="$parent.model" property="pageSize"></d-select-field></span>'
+      },
+
+      manual: {
+        template: '<span>第<d-text-editor :value.sync="$parent.currentPage" style="width: 40px;" lazy type="number"></d-text-editor>页</span>'
+      },
+
+      Info: {
+        template: '<span class="d-pagination-info">第 {{$parent.currentPage}} 页/共 {{$parent.pageCount}} 页, 共 {{$parent.itemCount}} 条数据 </span>'
+      },
+
+      Pager: {
+        template: `<ul @click="onPagerClick($event)" class="pager">
+          <li :class="{ active: currentPage === 1 }" v-show="pageCount > 0" class="number">1</li>
+          <li class="ellipsis" v-show="showPrevMore">...</li>
+          <li v-for="pager in pagers" :class="{ active: $parent.currentPage === pager }" class="number">{{ pager }}</li>
+          <li class="ellipsis" v-show="showNextMore">...</li>
+          <li :class="{ active: currentPage === pageCount }" class="number" v-show="pageCount > 1">{{ pageCount }}</li>
+        </ul>`,
+
+        props: {
+          currentPage: {
+            type: Number
+          },
+          pageCount: {
+            type: Number
+          }
+        },
+
+        methods: {
+          onPagerClick(event) {
+            var target = event.target;
+            if (target.tagName === 'UL') {
+              return;
+            }
+
+            var newPage = Number(event.target.textContent);
+            var pageCount = this.pageCount;
+            var currentPage = this.currentPage;
+
+            if (target.className === 'ellipsis') {
+              return;
+            }
+
+            if (!isNaN(newPage)) {
+              if (newPage < 1) {
+                newPage = 1;
+              }
+
+              if (newPage > pageCount) {
+                newPage = pageCount;
+              }
+            }
+
+            this.currentPage = newPage;
+
+            if (newPage !== currentPage) {
+              this.$emit('change', { currentPage: newPage });
+            }
+          }
+        },
+
+        computed: {
+          pagers() {
+            var pagerCount = 5;
+
+            var currentPage = Number(this.currentPage);
+            var pageCount = Number(this.pageCount);
+
+            var showPrevMore = false;
+            var showNextMore = false;
+
+            if (pageCount > pagerCount) {
+              if (currentPage > pagerCount - 2) {
+                showPrevMore = true;
+              }
+
+              if (currentPage < pageCount - 2) {
+                showNextMore = true;
+              }
+            }
+
+            var array = [];
+            var i;
+
+            if (showPrevMore && !showNextMore) {
+              for (i = pageCount - 3; i < pageCount; i++) {
+                array.push(i);
+              }
+            } else if (!showPrevMore && showNextMore) {
+              for (i = 2; i < pagerCount; i++) {
+                array.push(i);
+              }
+            } else if (showPrevMore && showNextMore) {
+              for (i = currentPage - 1; i <= currentPage + 1; i++) {
+                array.push(i);
+              }
+            } else {
+              for (i = 2; i < pageCount; i++) {
+                array.push(i);
+              }
+            }
+
+            this.showPrevMore = showPrevMore;
+            this.showNextMore = showNextMore;
+
+            return array;
+          }
+        },
+
+        data() {
+          return {
+            current: null,
+            showPrevMore: false,
+            showNextMore: false
+          };
+        }
       }
     },
 
     methods: {
-      onPagerClick(event) {
-        var target = event.target;
-        if (target.tagName === 'UL') {
-          return;
-        }
-        var newPage = Number(event.target.textContent);
-        var pageCount = this.pageCount;
-        var currentPage = this.currentPage;
-
-        if (target.className === 'ellipsis') {
-          return;
-        } else if (target.className.indexOf('prevBtn') !== -1) {
-          newPage = currentPage - 1;
-        } else if (target.className.indexOf('nextBtn') !== -1) {
-          newPage = currentPage + 1;
-        }
-
-        if (!isNaN(newPage)) {
-          if (newPage < 1) {
-            newPage = 1;
-          }
-
-          if (newPage > pageCount) {
-            newPage = pageCount;
-          }
-        }
-
-        this.currentPage = newPage;
-
-        if (newPage !== currentPage) {
-          this.$emit('change', { currentPage: newPage });
-          this.refresh();
+      prev() {
+        if (this.currentPage > 1) {
+          this.currentPage--;
         }
       },
-      refresh() {
-        var pagerCount = 5;
 
-        this.currentPage = Number(this.currentPage);
-        this.pageCount = Number(this.pageCount);
+      next() {
+        this.currentPage++;
+      },
 
-        var currentPage = this.currentPage;
-        var pageCount = this.pageCount;
+      first() {
+        this.currentPage = 1;
+      },
 
-        var showPrevMore = false;
-        var showNextMore = false;
-
-        var showButton = pageCount > pagerCount;
-
-        if (pageCount > pagerCount) {
-          if (currentPage > pagerCount - 2) {
-            showPrevMore = true;
-          }
-
-          if (currentPage < pageCount - 2) {
-            showNextMore = true;
-          }
-        }
-
-        var array = [];
-        var i;
-
-        if (showPrevMore && !showNextMore) {
-          for (i = pageCount - 3; i < pageCount; i++) {
-            array.push(i);
-          }
-        } else if (!showPrevMore && showNextMore) {
-          for (i = 2; i < pagerCount; i++) {
-            array.push(i);
-          }
-        } else if (showPrevMore && showNextMore) {
-          for (i = currentPage - 1; i <= currentPage + 1; i++) {
-            array.push(i);
-          }
-        } else {
-          for (i = 2; i < pageCount; i++) {
-            array.push(i);
-          }
-        }
-
-        this.showPrevMore = showPrevMore;
-        this.showNextMore = showNextMore;
-        this.showButton = showButton;
-        this.pagers = array;
+      last() {
+        this.currentPage = this.pageCount;
       }
     },
 
@@ -167,22 +293,32 @@
       }
     },
 
-    compiled() {
-      this.refresh();
-    },
-
     watch: {
-      pageCount() {
-        this.refresh();
+      currentPage(newVal, oldVal) {
+        newVal = parseInt(newVal, 10);
+
+        var resetVal;
+        if (isNaN(newVal)) {
+          resetVal = oldVal;
+        } else if (newVal < 1) {
+          resetVal = 1;
+        } else if (newVal > this.pageCount) {
+          resetVal = this.pageCount;
+        }
+
+        if (resetVal !== undefined) {
+          Vue.nextTick(() => {
+            this.currentPage = this.pageCount;
+          });
+        }
+
+        //this.refresh();
       }
     },
 
     data() {
       return {
-        pagers: [],
-        showPrevMore: false,
-        showNextMore: false,
-        showButton: false
+        model: this // TODO FIX IT: select model
       }
     }
   }

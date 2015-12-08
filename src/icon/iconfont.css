@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'd-icon';
+  font-family: 'eleme';
   src: url('iconfont.eot');
   src: url('iconfont.eot#iefix') format('embedded-opentype'),
        url('iconfont.woff') format('woff'),
@@ -9,7 +9,7 @@
   font-style: normal;
 }
 [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "d-icon";
+  font-family: "eleme";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -31,3 +31,5 @@
 .icon-close:before { content: '\E90A'; } /* '' */
 .icon-confirm-circle:before { content: '\E90B'; } /* '' */
 .icon-date-trigger:before { content: '\E90C'; } /* '' */
+.icon-last:before { content: '\E90D'; } /* '' */
+.icon-first:before { content: '\E90E'; } /* '' */

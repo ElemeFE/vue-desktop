@@ -4,7 +4,7 @@
     <div>
       <editor></editor>
       <slot></slot>
-      <div class="d-field-hint">
+      <div class="d-field-hint" v-if="!hideHint">
         <i class='d-icon' :class="{ 'icon-error': hintType === 'error', 'icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
@@ -39,7 +39,12 @@
         type: Number
       },
 
-      placeholder: {}
+      placeholder: {},
+
+      lazy: {
+        type: Boolean,
+        default: false
+      }
     }, common.props),
 
     events: common.events,

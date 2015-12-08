@@ -8,7 +8,7 @@
           <d-option v-for="(key, val) in mapping" :value="val" :show-checkbox="multiSelect">{{key}}</d-option>
         </d-select>
       </div>
-      <div class="d-field-hint">
+      <div class="d-field-hint" v-if="!hideHint">
         <i class='d-icon' :class="{ 'icon-error': hintType === 'error', 'icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
@@ -64,10 +64,12 @@
   export default {
     props: merge({
       parentProperty: {},
+
       multiSelect: {
         type: Boolean,
         default: false
       },
+
       emptyRecord: {
         type: Boolean,
         default: false

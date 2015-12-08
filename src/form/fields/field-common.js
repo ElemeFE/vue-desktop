@@ -24,6 +24,10 @@ export default {
       type: Boolean,
       default: false
     },
+    hideHint: {
+      type: Boolean,
+      default: false
+    },
     hintType: {
       type: String,
       default: ''

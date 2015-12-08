@@ -3,7 +3,7 @@
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
     <div>
       <slot></slot>
-      <div class="d-field-hint">
+      <div class="d-field-hint" v-if="!hideHint">
         <i class='d-icon' :class="{ 'icon-error': hintType === 'error', 'icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
