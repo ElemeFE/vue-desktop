@@ -60,6 +60,9 @@ router.map({
   '/tabs': {
     component: require('./nav/tabs.vue')
   },
+  '/tabs-bug': {
+    component: require('./nav/tabs_bug.vue')
+  },
   '/accordion': {
     component: require('./nav/accordion.vue')
   },

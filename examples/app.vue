@@ -121,6 +121,9 @@
             text: 'Tabs',
             path: '/tabs'
           }, {
+            text: 'Tabs-bug',
+            path: '/tabs-bug'
+          }, {
             text: 'Accordion',
             path: '/accordion'
           }, {

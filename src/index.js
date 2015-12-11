@@ -21,6 +21,10 @@ import Accordion from './nav/accordion.vue';
 import AccordionPanel from './nav/accordion-panel.vue';
 import Tab from './nav/tab.vue';
 import Tabs from './nav/tabs.vue';
+
+import TabBug from './nav/tab_bug.vue';
+import TabsBug from './nav/tabs_bug.vue';
+
 import Breadcrumb from './nav/breadcrumb.vue';
 import BreadcrumbItem from './nav/breadcrumb-item.vue';
 
@@ -65,6 +69,10 @@ export var Components = {
   AccordionPanel,
   Tab,
   Tabs,
+
+  TabBug,
+  TabsBug,
+
   Breadcrumb,
   BreadcrumbItem,
 

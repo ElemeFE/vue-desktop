@@ -3,13 +3,17 @@
     <div class="d-tabs-content" v-if="tabPlacement === 'bottom'">
       <slot></slot>
     </div>
-    <ul class="d-tabs-nav">
-      <li class="d-tab" v-for="tab in tabs" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: tab.disabled }">
-        <span v-if="tab.icon" class="d-tab-icon {{ tab.icon }}"></span>
-        <span class="d-tab-label">{{ tab.title }}</span>
-        <span v-if="tab.closable" class="d-tab-close d-icon icon-close" @click="close($event, tab)"></span>
-      </li>
-    </ul>
+    <div class="d-tabs-container" :class="{ 'd-tabs-container-shrinked': showNav }" v-el:tabs-container :style="{ 'margin': tabPlacement === 'bottom' ? '-1px 0 0' : '0 0 -1px' }">
+      <d-button class="d-tab-button d-tab-prev d-icon icon-arrow-left" v-if="showNav" @click="scrollList('prev')" :disabled="prevDisabled"></d-button>
+      <ul class="d-tabs-nav" v-el:tabs-list :style="{ 'transform': 'translateX(' + listOffset + 'px)' }">
+        <li class="d-tab" v-for="tab in tabs" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: tab.disabled }">
+          <span v-if="tab.icon" class="d-tab-icon {{ tab.icon }}"></span>
+          <span class="d-tab-label">{{ tab.title }}</span>
+          <span v-if="tab.closable" class="d-tab-close d-icon icon-close" @click="close($event, tab)"></span>
+        </li>
+      </ul>
+      <d-button class="d-tab-button d-tab-next d-icon icon-arrow-right" v-if="showNav" @click="scrollList('next')" :disabled="nextDisabled"></d-button>
+    </div>
     <div class="d-tabs-content" v-if="tabPlacement !== 'bottom'">
       <slot></slot>
     </div>
@@ -17,6 +21,10 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
+  var getStyle = require('wind-dom').getStyle;
+  var domUtil = require('wind-dom');
+  import { throttle } from '../util';
+
   export default {
     props: {
       tabPlacement: {
@@ -37,10 +45,28 @@
 
     watch: {
       activeTabIndex(newVal) {
+      },
+      tabs() {
+        this.$nextTick(() => {
+          this.showNav = parseInt(getStyle(this.$els.tabsContainer, 'width')) < parseInt(getStyle(this.$els.tabsList, 'width'));
+          if (!this.showNav) {
+            this.listOffset = 0;
+          } else {
+            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50;
+            this.prevDisabled = false;
+            this.nextDisabled = true;
+          }
+        })
       }
     },
 
     ready() {
+      console.log(this.$children.map((item) => item.title));
+      console.log(this.tabs);
+
+      this.$resizeListener = throttle(this.handleResize, 100);
+      domUtil.on(window, 'resize', this.$resizeListener);
+
       if (!this.activeTab) {
         for (var i = 0, j = this.tabs.length; i < j; i++) {
           var tab = this.tabs[i];
@@ -53,6 +79,40 @@
     },
 
     methods: {
+      handleResize() {
+        this.showNav = parseInt(getStyle(this.$els.tabsContainer, 'width')) < parseInt(getStyle(this.$els.tabsList, 'width'));
+        if (!this.showNav) {
+          this.listOffset = 0;
+        } else {
+          if (this.listOffset < parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50) {
+            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50;
+            this.nextDisabled = true;
+          } else {
+            this.nextDisabled = false;
+          }
+        }
+      },
+
+      scrollList(direction) {
+        if (direction === 'prev') {
+          if (this.listOffset > -150) {
+            this.listOffset = 0;
+            this.prevDisabled = true;
+          } else {
+            this.listOffset += 150;
+            this.nextDisabled = false;
+          }
+        } else {
+          if (this.listOffset - 150 < parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50) {
+            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50;
+            this.nextDisabled = true;
+          } else {
+            this.listOffset -= 150;
+            this.prevDisabled = false;
+          }
+        }
+      },
+
       handleTabClick(event, tab) {
         event.preventDefault();
         if (tab.disabled) return;
@@ -124,17 +184,50 @@
     data() {
       return {
         tabs: [],
-        activeTab: null
+        activeTab: null,
+        showNav: false,
+        listOffset: 0,
+        prevDisabled: false,
+        nextDisabled: false
       }
     }
   }
 </script>
 
 <style>
+  .d-tabs-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .d-tabs-container-shrinked {
+    padding: 0 26px;
+  }
+
+  .d-tab-button {
+    position: absolute;
+    top: 0;
+    padding: 5px;
+    z-index: 100;
+  }
+
+  .d-tab-prev {
+    left: 0;
+  }
+
+  .d-tab-next {
+    right: 0;
+  }
+
   .d-tabs-nav {
     list-style: none;
     padding: 0;
-    margin: 0 0 -1px 0;
+    margin: 0;
+    width: max-content;
+    display: inline-block;
+    transition: .2s;
   }
 
   .d-tabs-content {
@@ -160,11 +253,10 @@
   }
 
   .placement-bottom .d-tab.active {
-    border-top: 0;
-    border-bottom: 1px;
+    border-bottom-width: 1px;
+    border-bottom-color: #e7eaec;
     /* TODO */
     margin-top: -1px;
-    margin-bottom: 0;
   }
 
   .d-tab:hover {
@@ -177,7 +269,6 @@
     background: #fff;
     color: #555555;
     text-decoration: none;
-    margin-bottom: -1px;
   }
 
   .d-tab.disabled {
