@@ -44,6 +44,7 @@ import TextField from './form/fields/text.vue';
 import CheckboxField from './form/fields/check.vue';
 import SelectField from './form/fields/select.vue';
 import RadiogroupField from './form/fields/radio.vue';
+import Tags from './form/tags.vue';
 
 export var Components = {
   Alert,
@@ -82,6 +83,7 @@ export var Components = {
   RadiogroupField,
   Radio,
   RadioGroup,
+  Tags,
   TextEditor,
   Checkbox,
   DatePicker,

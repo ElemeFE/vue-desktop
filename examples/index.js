@@ -52,6 +52,9 @@ router.map({
   },
   '/editor': {
     component: require('./form/editor.vue')
+  },
+  '/tags': {
+    component: require('./form/tags.vue')
   }
 });
 

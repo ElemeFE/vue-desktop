@@ -102,6 +102,9 @@
           }, {
             text: 'Validation',
             path: '/validation'
+          }, {
+            text: 'Tags',
+            path: '/tags'
           }]
         }, {
           text: 'Data',
