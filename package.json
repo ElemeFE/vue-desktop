@@ -1,9 +1,10 @@
 {
   "name": "vue-desktop",
-  "version": "0.0.18",
+  "version": "0.1.0",
   "description": "A UI library for building admin panel website.",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "prepublish": "cp -r src lib & node_modules/babel-cli/bin/babel.js src --out-dir lib",
     "dev": "webpack-dev-server --inline --hot",
     "watch": "webpack --progress --hide-modules --watch",
     "build": "NODE_ENV=production webpack --progress --hide-modules",
@@ -20,13 +21,15 @@
     "src",
     "test"
   ],
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
   "keywords": [
     "vue",
     "vue-component"
   ],
-  "directories": {
-    "src": "src/"
-  },
   "dependencies": {
     "fecha": "^1.0.0",
     "wind-dom": "0.0.3",
@@ -37,6 +40,7 @@
     "vue-i18n": "^2.2.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.3.17",
     "babel-core": "^6.1.2",
     "babel-loader": "^6.1.0",
     "babel-plugin-transform-runtime": "^6.1.18",

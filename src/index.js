@@ -1,6 +1,5 @@
 require('./icon/iconfont.css');
 require('./common.css');
-require('./config');
 
 import Alert from './basic/alert.vue';
 import Panel from './basic/panel.vue';
@@ -30,22 +29,6 @@ import Tree from './data/tree.vue';
 
 import Pagination from './data/pagination.vue';
 
-import Form from './form/form.vue';
-import Radio from './form/radio.vue';
-import TextEditor from './form/text-editor.vue';
-import RadioGroup from './form/radio-group.vue';
-import DatePicker from './form/date-picker.vue';
-import TimePicker from './form/time-picker.vue';
-import Checkbox from './form/checkbox.vue';
-import Select from './form/select.vue';
-import Option from './form/select-option.vue';
-import Field from './form/fields/field.vue';
-import TextField from './form/fields/text.vue';
-import CheckboxField from './form/fields/check.vue';
-import SelectField from './form/fields/select.vue';
-import RadiogroupField from './form/fields/radio.vue';
-import Tags from './form/tags.vue';
-
 export var Components = {
   Alert,
   Panel,
@@ -55,44 +38,37 @@ export var Components = {
   ProgressBar,
   Slider,
   Sticky,
+
   DropdownButton,
   DropdownItem,
   DropdownDivider,
+
   Vbox,
+
   NavMenu,
   NavMenuItem,
 
   Accordion,
   AccordionPanel,
+
   Tab,
   Tabs,
+
   Breadcrumb,
   BreadcrumbItem,
 
   Grid,
   GridColumn,
   Tree,
-
-  Pagination,
-
-  Form,
-  Field,
-  TextField,
-  CheckboxField,
-  SelectField,
-  RadiogroupField,
-  Radio,
-  RadioGroup,
-  Tags,
-  TextEditor,
-  Checkbox,
-  DatePicker,
-  TimePicker,
-  Select,
-  Option
+  Pagination
 };
 
-export var initComponents = (Vue, prefix, components) => {
+import FormComponents from './form/index';
+import { merge } from './util';
+
+merge(Components, FormComponents);
+
+var initComponents = (Vue, prefix, components) => {
   if (arguments.length < 3) { // eslint-disable-line no-undef
     components = prefix;
     prefix = 'D';
@@ -111,6 +87,8 @@ export var initComponents = (Vue, prefix, components) => {
     }
   }
 };
+
+initComponents(require('vue'));
 
 require('./service/tooltip');
 

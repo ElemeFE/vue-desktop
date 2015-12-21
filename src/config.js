@@ -45,5 +45,3 @@ Vue.transition('d-collapse', {
     el.style.overflow = el.dataset.oldOverflow;
   }
 });
-
-export default Vue;

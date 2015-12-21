@@ -6,8 +6,7 @@ require('./markdown.css');
 require('./markdown');
 require('highlight.js/styles/agate.css');
 
-var initComponents = require('../src/index').initComponents;
-initComponents(Vue);
+require('../src/index');
 
 var router = new VueRouter();
 

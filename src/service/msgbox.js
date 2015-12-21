@@ -13,7 +13,7 @@ var defaults = {
   cancelButtonClass: ''
 };
 
-import { default as Vue } from '../config';
+import Vue from 'vue';
 import { merge } from '../util';
 
 var MessageBoxConstructor = Vue.extend(require('./msgbox.vue'));

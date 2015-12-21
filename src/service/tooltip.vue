@@ -119,8 +119,8 @@
 <script type="text/ecmascript-6" lang="babel">
   import Popup from 'vue-popup';
   require('vue-popup/lib/popup.css');
-  import { default as Vue } from '../config'
-  import { default as Popover } from '../popover'
+  import Vue from 'vue';
+  import Popover from '../popover';
 
   export default {
     mixins: [ Popup, Popover ],
