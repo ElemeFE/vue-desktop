@@ -47,7 +47,8 @@
 </style>
 
 <script type="text/ecmascript-6" lang="babel">
-  import { default as Popup } from '../popup/index'
+  import Popup from 'vue-popup';
+  require('vue-popup/lib/popup.css');
   import { default as Dropdown } from '../service/dropdown'
 
   var getStyle = require('wind-dom').getStyle;

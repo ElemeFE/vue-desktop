@@ -29,7 +29,8 @@
   },
   "dependencies": {
     "fecha": "^1.0.0",
-    "wind-dom": "0.0.3"
+    "wind-dom": "0.0.3",
+    "vue-popup": "0.0.4"
   },
   "peerDependencies": {
     "vue": "^1.0.8",

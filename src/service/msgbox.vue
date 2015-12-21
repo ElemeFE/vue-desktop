@@ -101,7 +101,8 @@
   var CONFIRM_TEXT = '确定';
   var CANCEL_TEXT = '取消';
 
-  import Popup from '../popup/index';
+  import Popup from 'vue-popup';
+  require('vue-popup/lib/popup.css');
 
   export default {
     mixins: [ Popup ],

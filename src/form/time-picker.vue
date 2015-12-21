@@ -68,7 +68,6 @@
     padding: 15px 10px 10px 10px;
     width: 260px;
 
-    -webkit-user-select: none;
     user-select: none;
 
     background-color: #fff;

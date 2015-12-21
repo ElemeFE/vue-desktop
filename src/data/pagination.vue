@@ -42,9 +42,7 @@
 
   .d-pagination .pager {
     border-radius: 3px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    user-select: none;
     list-style: none;
     display: inline-block;
     vertical-align: top;

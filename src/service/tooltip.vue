@@ -81,22 +81,11 @@
   }
 
   .tooltip-fade-enter {
-    -webkit-animation: tooltip-fade-in 0.2s ease-in;
     animation: tooltip-fade-in 0.2s ease-in;
   }
 
   .tooltip-fade-leave {
-    -webkit-animation: tooltip-fade-out 0.2s ease-out;
     animation: tooltip-fade-out 0.2s ease-out;
-  }
-
-  @-webkit-keyframes tooltip-fade-in {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 0.8;
-    }
   }
 
   @keyframes tooltip-fade-in {
@@ -105,15 +94,6 @@
     }
     100% {
       opacity: 0.8;
-    }
-  }
-
-  @-webkit-keyframes tooltip-fade-out {
-    0% {
-      opacity: 0.8;
-    }
-    100% {
-      opacity: 0;
     }
   }
 
@@ -137,8 +117,9 @@
 </template>
 
 <script type="text/ecmascript-6" lang="babel">
+  import Popup from 'vue-popup';
+  require('vue-popup/lib/popup.css');
   import { default as Vue } from '../config'
-  import { default as Popup } from '../popup/index'
   import { default as Popover } from '../popover'
 
   export default {
