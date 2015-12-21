@@ -21,7 +21,6 @@
   .d-panel-content {
     box-sizing: border-box;
     padding: 15px 20px 20px 20px;
-    overflow: auto;
     display: none;
   }
 

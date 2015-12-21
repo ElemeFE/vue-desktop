@@ -14,6 +14,8 @@ Vue.transition('d-collapse', {
   },
   enter: function (el) {
     el.style.display = 'block';
+    el.dataset.oldOverflow = el.style.overflow;
+    el.style.overflow = 'hidden';
     if (el.scrollHeight !== 0) {
       el.style.height = el.scrollHeight + 'px';
     } else {
@@ -23,9 +25,12 @@ Vue.transition('d-collapse', {
   afterEnter: function(el) {
     el.style.display = '';
     el.style.height = '';
+    el.style.overflow = el.dataset.oldOverflow;
   },
   beforeLeave: function (el) {
     el.style.display = 'block';
+    el.dataset.oldOverflow = el.style.overflow;
+    el.style.overflow = 'hidden';
     if (el.scrollHeight !== 0) {
       el.style.height = el.scrollHeight + 'px';
     }
@@ -36,8 +41,8 @@ Vue.transition('d-collapse', {
     }
   },
   afterLeave: function (el) {
-    el.style.display = '';
-    el.style.height = '';
+    el.style.display = el.style.height = '';
+    el.style.overflow = el.dataset.oldOverflow;
   }
 });
 
