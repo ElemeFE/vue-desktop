@@ -96,7 +96,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   var Vue = require('vue');
   var domUtil = require('wind-dom');
   import { merge, formatDate, parseDate } from '../util';

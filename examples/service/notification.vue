@@ -5,7 +5,7 @@
   <d-button @click="notification4">Notification 4</d-button>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   import { Notification } from '../../src/index.js'
   export default {
     methods: {

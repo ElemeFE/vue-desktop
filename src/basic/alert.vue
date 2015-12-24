@@ -117,7 +117,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   const TYPE_CLASSES_MAP = {
     'success': 'icon-success success',
     'warning': 'icon-warning warning',

@@ -3,7 +3,7 @@
   <d-pagination :item-count="itemCount" :current-page="1"></d-pagination>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   export default {
     data() {
       return {

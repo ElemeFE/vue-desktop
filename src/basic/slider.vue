@@ -80,7 +80,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   var getStyle = require('wind-dom').getStyle;
   
   export default {

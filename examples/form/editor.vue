@@ -1,5 +1,6 @@
 <template>
   <div>
+    <d-date-picker selection-mode="day" @pick="onPick"></d-date-picker>
     <!--<d-time-picker :hours="18" :minutes="24"></d-time-picker>-->
   </div>
 
@@ -19,11 +20,14 @@
   </d-panel>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   import { default as schema } from './schema';
 
   export default {
     methods: {
+      onPick(value) {
+        console.log(value);
+      }
     },
 
     data () {

@@ -12,7 +12,8 @@
       property: {},
       width: {},
       sortable: {
-        type: Boolean
+        type: Boolean,
+        default: undefined
       }
     },
 
@@ -52,13 +53,13 @@
     },
 
     ready() {
+      var property = this.property;
+
       if (this.sortable === undefined) {
-        this.sortable = !this.property;
+        this.sortable = !!property;
       }
 
-      var property = this.property;
       var label = this.label;
-
       var parent = this.$parent;
       var schema = parent.gridSchema;
 
@@ -67,7 +68,6 @@
       }
 
       var width = this.width;
-
       if (width) {
         width = parseInt(width, 10);
         if (isNaN(width)) {

@@ -225,6 +225,6 @@
 }
 
 /** d-collapse */
-.d-collapse-transition {
+.collapse-transition {
   transition: 0.3s height ease-in-out;
 }

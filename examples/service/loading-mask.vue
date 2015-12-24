@@ -3,7 +3,7 @@
   <d-button v-action="doAction()">Show Loading Mask By Directive</d-button>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   import { LoadingMask } from '../../src/index.js'
 
   export default {

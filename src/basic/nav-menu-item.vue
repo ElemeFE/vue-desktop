@@ -1,7 +1,7 @@
 <template>
   <div class="d-navmenu-item" :class="{ expanded: hasChild && expanded, active: !hasChild && active, toplevel: topLevel }">
     <div class="d-navmenu-item-label" @click="handleHeaderClick"><span v-if="icon"></span><a v-link="{ path: path }">{{text}}</a><span class="d-icon icon-arrow-right" v-if="hasChild"></span></div>
-    <div class="d-navmenu-item-content" @click="$event.stopPropagation()" transition="d-collapse" v-show="expanded">
+    <div class="d-navmenu-item-content" @click="$event.stopPropagation()" transition="collapse" v-show="expanded">
       <slot></slot>
     </div>
   </div>
@@ -71,7 +71,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   const domUtil = require('wind-dom');
 
   export default {
@@ -123,6 +123,10 @@
         hasChild: false,
         topLevel: false
       }
+    },
+
+    transitions: {
+      collapse: require('../collapse-transition')
     },
 
     ready() {

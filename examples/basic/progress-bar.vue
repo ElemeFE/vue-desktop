@@ -14,6 +14,6 @@
   <d-progress-bar :percent=100 type="success" :show-percent=false></d-progress-bar>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   export default {};
 </script>

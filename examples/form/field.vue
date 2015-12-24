@@ -33,7 +33,7 @@
 
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   import { default as schema } from './schema';
 
   export default {

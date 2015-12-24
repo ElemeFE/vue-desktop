@@ -97,7 +97,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   var CONFIRM_TEXT = '确定';
   var CANCEL_TEXT = '取消';
 

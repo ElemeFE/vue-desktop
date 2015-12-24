@@ -242,13 +242,6 @@
         default: 0
       },
 
-      columns: {
-        type: Array,
-        default: function() {
-          return [];
-        }
-      },
-
       selection: {
         type: Array,
         default: function() {
@@ -578,6 +571,7 @@
 
     data() {
       return {
+        columns: [],
         bodyWidth: '',
         fixedBodyWidth: '',
         sortingColumn: null,

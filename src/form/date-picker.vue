@@ -67,13 +67,19 @@
     color: #000;
   }
 
-  .datepicker td:hover {
+  .datepicker td:hover,
+  .datepicker td.current {
     background-color: #428bca;
     color: #fff;
   }
 
-  .datepicker td.current {
-    background: #428bca;
+  .datepicker.weekmode .datepicker-dayrow:hover,
+  .datepicker.weekmode .datepicker-dayrow.current {
+    background-color: #428bca;
+  }
+
+  .datepicker.weekmode .datepicker-dayrow:hover td,
+  .datepicker.weekmode .datepicker-dayrow.current td {
     color: #fff;
   }
 
@@ -116,7 +122,7 @@
 </style>
 
 <template>
-  <div class="datepicker">
+  <div class="datepicker" :class="{ weekmode: selectionMode === 'week' }">
     <div class="datepicker-header" v-show="currentView !== 'time'">
       <button @click="prev" class="datepicker-prevbtn d-icon icon-arrow-left"></button>
       <label @click="handleLabelClick">{{ label }}</label>
@@ -126,7 +132,7 @@
       <div :class="{ hidden: currentView !== 'time' }" class="datepicker-time-wrap" v-if="showTime">
         <d-time-picker v-ref:time-picker @pick="handleTimePick" @close="currentView = 'date'"></d-time-picker>
       </div>
-      <table :class="{ hidden: currentView !== 'date' }" @click="handleDateTableClick">
+      <table :class="{ hidden: currentView !== 'date' }" @click="handleDateTableClick" cellspacing="0">
         <tbody>
           <tr>
             <th>{{ $t('datepicker.weeks.sun') }}</th>
@@ -137,8 +143,8 @@
             <th>{{ $t('datepicker.weeks.fri') }}</th>
             <th>{{ $t('datepicker.weeks.sat') }}</th>
           </tr>
-          <tr v-for="row in 6">
-            <td v-for="column in 7" class="{{ cells[row * 7 + column].type }} {{ cells[row * 7 + column].type === 'normal' && monthDate == cells[row * 7 + column].text ? 'current' : '' }}">{{ cells[row * 7 + column].text }}</td>
+          <tr v-for="row in 6" class="datepicker-dayrow" :class="{ current: isWeekActive(cells[row * 7 + 1]) }">
+            <td v-for="column in 7" class="{{ cells[row * 7 + column].type }} {{ selectionMode === 'day' && cells[row * 7 + column].type === 'normal' && monthDate == cells[row * 7 + column].text ? 'current' : '' }}">{{ cells[row * 7 + column].text }}</td>
           </tr>
         </tbody>
       </table>
@@ -171,24 +177,24 @@
       <table @click="handleMonthTableClick" class="datepicker-monthtable" :class="{ hidden: currentView !== 'month' }">
         <tbody>
           <tr>
-            <td :class="{ current: month === 1 }">{{ $t('datepicker.months.jan') }}</td>
-            <td :class="{ current: month === 2 }">{{ $t('datepicker.months.feb') }}</td>
-            <td :class="{ current: month === 3 }">{{ $t('datepicker.months.mar') }}</td>
+            <td :class="{ current: isMonthActive(0) }">{{ $t('datepicker.months.jan') }}</td>
+            <td :class="{ current: isMonthActive(1) }">{{ $t('datepicker.months.feb') }}</td>
+            <td :class="{ current: isMonthActive(2) }">{{ $t('datepicker.months.mar') }}</td>
           </tr>
           <tr>
-            <td :class="{ current: month === 4 }">{{ $t('datepicker.months.apr') }}</td>
-            <td :class="{ current: month === 5 }">{{ $t('datepicker.months.may') }}</td>
-            <td :class="{ current: month === 6 }">{{ $t('datepicker.months.jun') }}</td>
+            <td :class="{ current: isMonthActive(3) }">{{ $t('datepicker.months.apr') }}</td>
+            <td :class="{ current: isMonthActive(4) }">{{ $t('datepicker.months.may') }}</td>
+            <td :class="{ current: isMonthActive(5) }">{{ $t('datepicker.months.jun') }}</td>
           </tr>
           <tr>
-            <td :class="{ current: month === 7 }">{{ $t('datepicker.months.jul') }}</td>
-            <td :class="{ current: month === 8 }">{{ $t('datepicker.months.aug') }}</td>
-            <td :class="{ current: month === 9 }">{{ $t('datepicker.months.sep') }}</td>
+            <td :class="{ current: isMonthActive(6) }">{{ $t('datepicker.months.jul') }}</td>
+            <td :class="{ current: isMonthActive(7) }">{{ $t('datepicker.months.aug') }}</td>
+            <td :class="{ current: isMonthActive(8) }">{{ $t('datepicker.months.sep') }}</td>
           </tr>
           <tr>
-            <td :class="{ current: month === 10 }">{{ $t('datepicker.months.oct') }}</td>
-            <td :class="{ current: month === 11 }">{{ $t('datepicker.months.nov') }}</td>
-            <td :class="{ current: month === 12 }">{{ $t('datepicker.months.dec') }}</td>
+            <td :class="{ current: isMonthActive(9) }">{{ $t('datepicker.months.oct') }}</td>
+            <td :class="{ current: isMonthActive(10) }">{{ $t('datepicker.months.nov') }}</td>
+            <td :class="{ current: isMonthActive(11) }">{{ $t('datepicker.months.dec') }}</td>
           </tr>
         </tbody>
       </table>
@@ -201,8 +207,8 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
-  var getDayCountOfMonth = function (year, month) {
+<script type="text/ecmascript-6">
+  var getDayCountOfMonth = function(year, month) {
     if (month === 3 || month === 5 || month === 8 || month === 10) {
       return 30;
     }
@@ -218,10 +224,21 @@
     return 31;
   };
 
-  var getFirstDayOfMonth = function (date) {
+  var getFirstDayOfMonth = function(date) {
     var temp = new Date(date.getTime());
     temp.setDate(1);
     return temp.getDay();
+  };
+
+  var getWeekNumber = function(src) {
+    var date = new Date(src.getTime());
+    date.setHours(0, 0, 0, 0);
+    // Thursday in current week decides the year.
+    date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+    // January 4 is always in week 1.
+    var week1 = new Date(date.getFullYear(), 0, 4);
+    // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+    return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   };
 
   export default {
@@ -236,8 +253,15 @@
         }
       },
 
+      value: {},
+
       showTime: {
         type: Boolean
+      },
+
+      selectionMode: {
+        type: String,
+        default: 'day'
       }
     },
 
@@ -251,6 +275,37 @@
     },
 
     methods: {
+      isMonthActive(month) {
+        var date = this.date;
+        if (this.selectionMode !== 'month'){
+          return month === date.getMonth();
+        } else {
+          return this.value === date.getFullYear() + '-' + month;
+        }
+      },
+
+      isWeekActive(cell) {
+        if (this.selectionMode !== 'week') return false;
+        var newDate = new Date(this.date.getTime());
+
+        var month = newDate.getMonth();
+        var year = newDate.getFullYear();
+
+        if (cell.type === 'prevmonth') {
+          newDate.setMonth(month === 0 ? 11 : month - 1);
+          newDate.setFullYear(month === 0 ? year - 1 : year);
+        }
+
+        if (cell.type === 'nextmonth') {
+          newDate.setMonth(month === 11 ? 0 : month + 1);
+          newDate.setFullYear(month === 11 ? year + 1 : year);
+        }
+
+        newDate.setDate(parseInt(cell.text));
+
+        return year + 'w' + getWeekNumber(newDate) === this.value;
+      },
+
       resetDate() {
         this.date = new Date(this.date);
       },
@@ -349,42 +404,65 @@
 
       handleMonthTableClick(event) {
         var target = event.target;
-        if (target.tagName === 'TD') {
-          var column = target.cellIndex;
-          var row = target.parentNode.rowIndex;
-          var month = row * 3 + column;
+        if (target.tagName !== 'TD') return;
+        var column = target.cellIndex;
+        var row = target.parentNode.rowIndex;
+        var month = row * 3 + column;
 
+        var selectionMode = this.selectionMode;
+        if (selectionMode !== 'month') {
           this.date.setMonth(month);
           this.currentView = 'date';
           this.resetDate();
+        } else {
+          this.date.setMonth(month);
+          this.resetDate();
+          this.value = this.date.getFullYear() + '-' + month;
+          this.$emit('pick', { year: this.date.getFullYear(), month: month });
         }
       },
 
       handleDateTableClick(event) {
         var target = event.target;
-        if (target.tagName === 'TD') {
-          var month = this.date.getMonth();
-          var text = target.textContent || target.innerText;
-          var className = target.className;
+        if (target.tagName !== 'TD') return;
 
-          if (className.indexOf('prev') !== -1) {
-            if (month === 0) {
-              month = 11;
-            } else {
-              month = month - 1;
-            }
-            this.date.setMonth(month);
-          } else if (className.indexOf('next') !== -1) {
-            if (month === 11) {
-              month = 0;
-            } else {
-              month = month + 1;
-            }
-            this.date.setMonth(month);
+        var selectionMode = this.selectionMode;
+
+        if (selectionMode === 'week') {
+          target = target.parentNode.cells[1];
+        }
+
+        var month = this.date.getMonth();
+        var text = target.textContent || target.innerText;
+        var className = target.className;
+
+        if (className.indexOf('prev') !== -1) {
+          if (month === 0) {
+            month = 11;
+          } else {
+            month = month - 1;
           }
+          this.date.setMonth(month);
+        } else if (className.indexOf('next') !== -1) {
+          if (month === 11) {
+            month = 0;
+          } else {
+            month = month + 1;
+          }
+          this.date.setMonth(month);
+        }
+
+        if (selectionMode === 'day') {
           this.date.setDate(parseInt(text, 10));
           this.resetDate();
           this.$emit('pick', { date: this.date });
+        } else if (selectionMode === 'week') {
+          this.date.setDate(parseInt(text, 10));
+          this.resetDate();
+
+          var weekNumber = getWeekNumber(this.date);
+          this.value = this.date.getFullYear() + 'w' + weekNumber;
+          this.$emit('pick', { year: this.date.getFullYear(), week: weekNumber });
         }
       },
 
@@ -415,6 +493,12 @@
       DTimePicker: require('./time-picker.vue')
     },
 
+    compiled() {
+      if (this.selectionMode === 'month') {
+        this.currentView = 'month';
+      }
+    },
+
     computed: {
       cells() {
         var date = this.date;
@@ -430,11 +514,7 @@
 
         for (var i = 0; i < 6; i++) {
           for (var j = 0; j < 7; j++) {
-            var cell = {
-              row: i,
-              column: j,
-              type: 'normal'
-            };
+            var cell = { row: i, column: j, type: 'normal' };
             if (i === 0) {
               if (j >= day) {
                 cell.text = count++;
@@ -470,13 +550,15 @@
       },
 
       startYear() {
-        var date = this.date;
-        var year = date.getFullYear();
-        return Math.floor(year / 10) * 10;
+        return Math.floor(this.date.getFullYear() / 10) * 10;
       },
 
       resetView() {
-        this.currentView = 'date';
+        if (this.selectionMode !== 'month') {
+          this.currentView = 'date';
+        } else {
+          this.currentView = 'month';
+        }
       },
 
       hours: {

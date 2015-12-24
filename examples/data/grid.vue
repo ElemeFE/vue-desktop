@@ -29,7 +29,7 @@
   </d-vbox>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   import { Schema } from '../../src/index.js'
 
   var gridSchema = new Schema({

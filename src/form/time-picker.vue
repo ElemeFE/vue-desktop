@@ -163,7 +163,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   var RADIUS = 130;
   var getPosition = function(degree, radius) {
     var x = RADIUS + radius * Math.cos(degree / 180 * Math.PI);

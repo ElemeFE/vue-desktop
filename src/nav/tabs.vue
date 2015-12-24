@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   var getStyle = require('wind-dom').getStyle;
   var domUtil = require('wind-dom');
   import { throttle } from '../util';

@@ -14,7 +14,7 @@
   }
 </style>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   export default {
     components: {
       DOption: require('./select-option.vue')
