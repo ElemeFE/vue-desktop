@@ -2,7 +2,7 @@
   <div><slot></slot></div>
 </template>
 
-<script type="text/ecmascript-6" lang="babel">
+<script type="text/ecmascript-6">
   var columnIdSeed = 1;
 
   export default {
