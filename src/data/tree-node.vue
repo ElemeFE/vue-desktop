@@ -1,7 +1,9 @@
 <template>
   <div class="tree-node" :class="{ expanded: childrenRendered && expanded }">
     <div class="tree-node-content">
-      <span class="expand-icon" :class="{ leaf: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span><input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input /><span class="icon"></span><span class="text">{{ label + (childrenLoaded === 'loading' ? '(Loading)' : '') }}</span>
+      <span class="expand-icon" :class="{ leafnode: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span>
+      <input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input />
+      <span class="icon {{icon}}" v-if="icon"></span><span class="text">{{ label + (childrenLoaded === 'loading' ? '(Loading)' : '') }}</span>
     </div>
     <div class="tree-node-children" v-if="childrenRendered" v-show="expanded" transition="d-collapse">
       <d-tree-node v-for="child in children || childrenData" :data="child"></d-tree-node>
@@ -46,7 +48,7 @@
     border-top-color: #999;
   }
 
-  .tree-node .expand-icon.leaf {
+  .tree-node .expand-icon.leafnode {
     border-color: transparent;
     cursor: default;
   }
@@ -57,6 +59,9 @@
   }
 
   .tree-node .icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
     vertical-align: middle;
     margin-right: 2px;
   }
@@ -122,6 +127,24 @@
           return data['label'] || data['name']
         }
         return data[labelProperty];
+      },
+      icon() {
+        var data = this.data;
+        if (!data) return '';
+        var levelConfig = this.levelConfig;
+        var iconProperty;
+        if (levelConfig) {
+          iconProperty = levelConfig.iconProperty;
+
+          if (!iconProperty) {
+            if (this.hasChild) {
+              return levelConfig.icon;
+            } else {
+              return levelConfig.leafIcon || levelConfig.icon;
+            }
+          }
+        }
+        return data[iconProperty];
       },
       children: {
         get() {
@@ -265,8 +288,12 @@
         this.$tree = parent.$tree;
         if (parent.levelConfig) {
           this.levelConfig = parent.levelConfig.children;
+          if (this.levelConfig.recursive) {
+            this.levelConfig.children = this.levelConfig;
+          }
         }
       }
+
       var levelConfig = this.levelConfig;
       if (levelConfig) {
         var children = levelConfig.children;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <d-date-picker selection-mode="day" @pick="onPick"></d-date-picker>
+    <!--<d-date-picker selection-mode="day" @pick="onPick"></d-date-picker>-->
     <!--<d-time-picker :hours="18" :minutes="24"></d-time-picker>-->
   </div>
 
