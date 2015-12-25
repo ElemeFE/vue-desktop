@@ -105,6 +105,9 @@
           }, {
             text: 'Tags',
             path: '/tags'
+          }, {
+            text: 'Upload',
+            path: '/upload'
           }]
         }, {
           text: 'Data',

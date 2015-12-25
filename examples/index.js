@@ -54,6 +54,9 @@ router.map({
   },
   '/tags': {
     component: require('./form/tags.vue')
+  },
+  '/upload': {
+    component: require('./form/upload.vue')
   }
 });
 
