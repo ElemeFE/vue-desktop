@@ -16,6 +16,8 @@ import CheckboxField from './fields/check.vue';
 import SelectField from './fields/select.vue';
 import RadiogroupField from './fields/radio.vue';
 
+import Upload from './upload.vue';
+
 export default {
   Form,
 
@@ -34,5 +36,7 @@ export default {
   TextField,
   CheckboxField,
   SelectField,
-  RadiogroupField
+  RadiogroupField,
+
+  Upload
 };
