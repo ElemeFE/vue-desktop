@@ -1,17 +1,5 @@
 <template>
   <div class="d-pagination">
-    <span is="first"></span>
-    <span is="prev"></span>
-    <span is="manual"></span>
-    <!--<span is="pager" :current-page.sync="currentPage" :page-count.sync="pageCount"></span>-->
-    <span is="next"></span>
-    <span is="last"></span>
-
-    <span is="list"></span>
-
-    <slot></slot>
-
-    <span is="info"></span>
   </div>
 </template>
 
@@ -21,7 +9,7 @@
     background: #fff;
   }
 
-  .d-pagination > span {
+  .d-pagination span {
     display: inline-block;
     font-size: 14px;
     min-width: 26px;
@@ -30,12 +18,12 @@
     vertical-align: top;
   }
 
-  .d-pagination > span.disabled {
+  .d-pagination span.disabled {
     color: #bbb;
     cursor: default;
   }
 
-  .d-pagination > span.d-icon {
+  .d-pagination span.d-icon {
     text-align: center;
     cursor: pointer;
   }
@@ -86,12 +74,27 @@
   }
 
   .d-pagination-info {
+  }
+
+  .d-pagination-rightwrapper {
     float: right;
   }
 </style>
 
 <script type="text/ecmascript-6">
   var Vue = require('vue');
+
+  var TEMPLATE_MAP = {
+    first: '<span is="first"></span>',
+    prev: '<span is="prev"></span>',
+    manual: '<span is="manual"></span>',
+    pager: '<span is="pager" :current-page.sync="currentPage" :page-count.sync="pageCount"></span>',
+    next: '<span is="next"></span>',
+    last: '<span is="last"></span>',
+    list: '<span is="list"></span>',
+    slot: '<slot></slot>',
+    info: '<span is="info"></span>'
+  };
 
   export default {
     props: {
@@ -110,8 +113,7 @@
       },
 
       layout: {
-        type: String,
-        default: 'first, prev, next, last, manual, list, pager'
+        default: 'first, prev, manual, next, last, slot, ->, info'
       },
 
       mapping: {
@@ -285,6 +287,31 @@
       }
     },
 
+    created() {
+      var template = '<div class="d-pagination">';
+      var layout = this.$options.layout || this.layout || '';
+
+      var components = layout.split(',').map((item) => item.trim());
+
+      var haveRightWrapper = false;
+
+      components.forEach((component) => {
+        if (component === '->') {
+          haveRightWrapper = true;
+          template += '<div class="d-pagination-rightwrapper">';
+        } else {
+          template += TEMPLATE_MAP[component];
+        }
+      });
+
+      if (haveRightWrapper) {
+        template += '</div>';
+      }
+      template += '</div>';
+
+      this.$options.template = template;
+    },
+
     computed: {
       pageCount() {
         return Math.ceil(this.itemCount / this.pageSize);
@@ -309,8 +336,6 @@
             this.currentPage = this.pageCount;
           });
         }
-
-        //this.refresh();
       }
     },
 
