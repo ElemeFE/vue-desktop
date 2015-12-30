@@ -12,7 +12,7 @@
       </div>
     </d-panel>
 
-    <d-grid :data="users" :schema="userSchema" :fit="true" flex>
+    <d-grid :data="users" :schema="userSchema" flex>
       <d-grid-column type="index"></d-grid-column>
       <d-grid-column property="userName"></d-grid-column>
       <d-grid-column property="sex" width="80"></d-grid-column>

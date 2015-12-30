@@ -1,6 +1,6 @@
 {
   "name": "vue-desktop",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A UI library for building admin panel website.",
   "main": "lib/index.js",
   "scripts": {
@@ -31,8 +31,9 @@
   ],
   "dependencies": {
     "fecha": "^1.0.0",
-    "wind-dom": "0.0.3",
-    "vue-popup": "0.0.4"
+    "vue": "^1.0.13",
+    "vue-popup": "0.0.4",
+    "wind-dom": "0.0.3"
   },
   "peerDependencies": {
     "vue": "^1.0.8",

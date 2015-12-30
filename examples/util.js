@@ -40,4 +40,4 @@ var escapeHTML = function (string) {
 
 export default {
   escapeHTML: escapeHTML
-}
+};

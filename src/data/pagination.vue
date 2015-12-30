@@ -131,7 +131,7 @@
       DTextEditor: require('../form/text-editor.vue'),
 
       Prev: {
-        template: '<span class="d-icon icon-arrow-left" :class="{ disabled: $parent.currentPage === 1 }" @click="$parent.prev()"></span>'
+        template: '<span class="d-icon icon-arrow-left" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.prev()"></span>'
       },
 
       Next: {
@@ -139,7 +139,7 @@
       },
 
       First: {
-        template: '<span class="d-icon icon-first" :class="{ disabled: $parent.currentPage === 1 }" @click="$parent.first()"></span>'
+        template: '<span class="d-icon icon-first" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.first()"></span>'
       },
 
       Last: {
@@ -284,6 +284,19 @@
 
       last() {
         this.currentPage = this.pageCount;
+      },
+
+      getValidCurrentPage(value) {
+        value = parseInt(value, 10);
+
+        var resetVal;
+        if (value < 1) {
+          resetVal = this.pageCount > 0 ? 1 : 0;
+        } else if (value > this.pageCount) {
+          resetVal = this.pageCount;
+        }
+
+        return resetVal === undefined ? value : resetVal;
       }
     },
 
@@ -322,21 +335,22 @@
       currentPage(newVal, oldVal) {
         newVal = parseInt(newVal, 10);
 
-        var resetVal;
         if (isNaN(newVal)) {
-          resetVal = oldVal;
-        } else if (newVal < 1) {
-          resetVal = 1;
-        } else if (newVal > this.pageCount) {
-          resetVal = this.pageCount;
+          newVal = oldVal;
+        } else {
+          newVal = this.getValidCurrentPage(newVal);
         }
 
-        if (resetVal !== undefined) {
+        if (newVal !== undefined) {
           Vue.nextTick(() => {
-            this.currentPage = this.pageCount;
+            this.currentPage = newVal;
           });
         }
       }
+    },
+
+    ready() {
+      this.currentPage = this.getValidCurrentPage(this.currentPage);
     },
 
     data() {

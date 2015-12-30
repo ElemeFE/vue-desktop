@@ -1,4 +1,5 @@
 var Vue = require('vue');
+Vue.config.debug = true;
 var VueRouter = require('vue-router');
 Vue.use(VueRouter);
 
@@ -83,6 +84,9 @@ router.map({
   },
   '/crud': {
     component: require('./data/crud.vue')
+  },
+  '/custom-grid-test': {
+    component: require('./data/custom-grid-test.vue')
   },
   '/pagination': {
     component: require('./data/pagination.vue')

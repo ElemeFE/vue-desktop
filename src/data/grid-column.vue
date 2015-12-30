@@ -14,6 +14,10 @@
       sortable: {
         type: Boolean,
         default: undefined
+      },
+      fitWidthByLabel: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -48,7 +52,7 @@
       }
 
       if (this.$parent.$ready) {
-        this.$parent.reRender();
+        this.$parent.debouncedReRender();
       }
     },
 
@@ -100,6 +104,9 @@
       var columnId = parent.gridId + 'column_' + columnIdSeed++;
       this.columnId = columnId;
 
+      var fitWidthByLabel = this.fitWidthByLabel;
+      if (type === 'selection' || type === 'index') fitWidthByLabel = false;
+
       parent.columns.push({
         id: columnId,
         label: label,
@@ -111,10 +118,11 @@
         sortable: this.sortable,
         type: type,
         template: template
+        //,fitWidthByLabel: fitWidthByLabel
       });
 
       if (parent.$ready) {
-        parent.reRender();
+        parent.debouncedReRender();
       }
     }
   }

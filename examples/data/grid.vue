@@ -1,5 +1,6 @@
 <template>
   <d-vbox style="height: 100%;">
+
     <d-form :cols="2">
       <d-text-field label="Condition1"></d-text-field>
       <d-text-field label="Condition2"></d-text-field>
@@ -10,7 +11,7 @@
       </d-field>
     </d-form>
 
-    <d-grid :data="gridData" :schema="gridSchema" height="300" :selection.sync="selection" flex>
+    <d-grid :data="gridData" :fit="false" :schema="gridSchema" :selection.sync="selection" selection-mode="none" @selection-change="handleSelectionChange" flex>
       <d-grid-column type="index"></d-grid-column>
       <d-grid-column type="selection"></d-grid-column>
       <d-grid-column property="prop1"></d-grid-column>
@@ -26,6 +27,7 @@
     <div>
       <d-button @click="toggleColumnVisible()">Toggle...</d-button>{{visible}}
     </div>
+
   </d-vbox>
 </template>
 
@@ -61,6 +63,10 @@
     methods: {
       toggleColumnVisible() {
         this.visible = !this.visible;
+      },
+
+      handleSelectionChange(selection) {
+        console.log('test', this, selection);
       }
     },
     data() {

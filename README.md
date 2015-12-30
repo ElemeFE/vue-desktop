@@ -24,7 +24,7 @@ Or
 import components from 'vue-desktop'
 ```
 
-### Import one components
+### Import one component
 
 Replace src to lib in source code.
 
@@ -53,7 +53,7 @@ make dev
 
 ## Examples
 
-After npm run dev, visit http://localhost:9000.
+After npm run dev, visit http://localhost:8080/examples.
 
 ## License
 MIT.

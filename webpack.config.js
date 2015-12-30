@@ -15,6 +15,9 @@ module.exports = {
   devServer: {
     stats: 'errors-only'
   },
+  stats: {
+    children: false
+  },
   vue: {
     loaders: {
       js: 'babel',

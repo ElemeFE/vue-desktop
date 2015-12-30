@@ -5,7 +5,7 @@
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
-    background-color: transparent;
+    background-color: #fff;
     border-collapse: collapse;
     border: 1px solid #e7eaec;
     font-size: 14px;
@@ -13,7 +13,9 @@
   }
 
   .hidden-columns {
-    display: none;
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
   }
 
   .d-grid-fit {
@@ -41,6 +43,10 @@
   .d-grid th {
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
+  }
+
+  .d-grid th > div {
+    display: inline-block;
   }
 
   .d-grid .grid-fixed-header-wrapper {
@@ -142,7 +148,12 @@
   .d-grid td.gutter {
     width: 15px;
     border-right-width: 0;
+    border-bottom-width: 0;
     padding: 0;
+  }
+
+  .d-grid td.gutter {
+    width: 0;
   }
 
   .d-grid-fit th.gutter,
@@ -166,7 +177,8 @@
   }
 
   .d-grid tr.current-row {
-    background: #90c9ff;
+    background: #007fc1;
+    color: #fff;
   }
 
   .d-grid tr:last-child td {
@@ -176,7 +188,7 @@
 
 <template>
   <div class="d-grid" :class="{ 'd-grid-fit': fit }">
-    <div class="hidden-columns"><slot></slot></div>
+    <div class="hidden-columns"><table><thead><th v-el:test-el></th></thead></table><slot></slot></div>
     <div class="grid-header-wrapper">
       <table class="grid-header" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth + 'px' : '' }">
         <thead></thead>
@@ -197,16 +209,17 @@
         <tbody></tbody>
       </table>
     </div>
+    <slot name="bottom"></slot>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   var Vue = require('vue');
-  import { throttle } from '../util';
+  import { throttle, debounce, getScrollbarWidth } from '../util';
   import { default as SchemaStore } from '../schema/store';
 
   var gridIdSeed = 1;
-  var GUTTER_WIDTH = 15;
+  var GUTTER_WIDTH;
 
   export default {
     props: {
@@ -242,19 +255,19 @@
         default: 0
       },
 
-      selection: {
-        type: Array,
-        default: function() {
-          return [];
-        }
-      }
+      selectionMode: {
+        type: String,
+        default: 'single'
+      },
+
+      selection: {}
     },
 
     events: {
       onresize() {
         var grid = this;
         Vue.nextTick(function() {
-          if (grid.height !== undefined) {
+          if (grid.height === undefined) {
             grid.height = grid.$el.offsetHeight;
           }
           grid.$calcColumns();
@@ -266,6 +279,9 @@
       toggleSelection(event, row) {
         var target = event.target;
         Vue.set(row, '$selected', target.checked);
+        if (this.selectionMode === 'multiple') {
+          this.$emit('selection-change', this.selection);
+        }
       },
 
       toggleAllSelection(event) {
@@ -274,6 +290,9 @@
         this.data.forEach(function(item) {
           Vue.set(item, '$selected', checked);
         });
+        if (this.selectionMode === 'multiple') {
+          this.$emit('selection-change', this.selection);
+        }
       },
 
       $calcColumns() {
@@ -288,10 +307,22 @@
           if (fitColumns) {
             var flexColumns = [];
             var hasWidthColumnWidth = 0;
-            columns.forEach(function(column) {
+
+            columns.forEach((column) => {
               if (typeof column.width === 'number') {
                 hasWidthColumnWidth += column.width;
               } else {
+                if (column.fitWidthByLabel) {
+                  var testEl = this.$els && this.$els.testEl;
+                  if (testEl) {
+                    testEl.innerHTML = column.label;
+
+                    column.realWidth = testEl.offsetWidth + 10;
+                    hasWidthColumnWidth += column.realWidth;
+                  }
+
+                  return;
+                }
                 flexColumns.push(column);
               }
             });
@@ -306,10 +337,18 @@
         } else {
           bodyWidth = 0;
 
-          columns.forEach(function(column) {
+          columns.forEach((column) => {
             if (!column.width) {
               column.realWidth = 80;
+            } else if (column.fitWidthByLabel) {
+              var testEl = this.$els && this.$els.testEl;
+              if (testEl) {
+                testEl.innerHTML = column.label || '';
+
+                column.realWidth = testEl.offsetWidth + 10;
+              }
             }
+
             bodyWidth += column.realWidth;
           });
         }
@@ -322,7 +361,7 @@
           }
 
           columns.forEach(function(column) {
-            styleSheet.insertRule(`.${column.id} { width: ${column.realWidth}px; }`, styleSheet.cssRules.length);
+            styleSheet.insertRule(`.${column.id}, .${column.id} > div { width: ${column.realWidth}px; }`, styleSheet.cssRules.length);
           });
         }
 
@@ -388,8 +427,8 @@
           this.$body.$destroy();
         }
 
-        if (this.$head) {
-          this.$head.$destroy();
+        if (this.$header) {
+          this.$header.$destroy();
         }
 
         this.doRender();
@@ -443,20 +482,20 @@
         });
 
         if (!fixed) {
-          rowTemplate += '<th class="gutter">&nbsp;</th>';
+          rowTemplate += `<th class="gutter" style="width: ${GUTTER_WIDTH}px">&nbsp;</th>`;
         }
 
         var repeatTemplate = '<tr>' + rowTemplate + '</tr>';
 
         var headerTable = this.$el.querySelector(fixed ? '.grid-fixed-header-wrapper thead' : '.grid-header thead');
 
-        this.$head = new Vue({
+        this.$header = new Vue({
           parent: this,
           el: headerTable,
           template: repeatTemplate,
           replace: false,
           data: {
-            columns: columns
+            columns: columns.slice(0)
           }
         });
       },
@@ -475,7 +514,7 @@
           rowTemplate += '<td class="gutter"></td>';
         }
 
-        var repeatTemplate = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection" @click="handleClick(row)">' + rowTemplate + '</tr>';
+        var repeatTemplate = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection" @click="handleClick(row)" :class="{ \'current-row\': row === $parent.$parent.selected }">' + rowTemplate + '</tr>';
 
         var bodyTable = this.$el.querySelector(fixed ? '.grid-fixed-body-wrapper tbody' : '.grid-body tbody');
 
@@ -489,6 +528,11 @@
           replace: false,
           methods: {
             handleClick: function(row) {
+              // TODO add selection change.
+              if (grid.selectionMode === 'single') {
+                grid.selected = row;
+                grid.$emit('selection-change', row);
+              }
               grid.$emit('row-click', row);
             },
             $getPropertyText: function(row, property) {
@@ -509,14 +553,30 @@
 
     created() {
       this.gridId = 'grid_' + gridIdSeed + '_';
+
+      if (GUTTER_WIDTH === undefined) {
+        GUTTER_WIDTH = getScrollbarWidth();
+      }
+
+      this.debouncedReRender = debounce(() => {
+        Vue.nextTick(() => {
+          this.reRender();
+        });
+      }, 200);
     },
 
     computed: {
       selection() {
-        var data = this.data || [];
-        return data.filter(function(item) {
-          return item.$selected === true;
-        });
+        if (this.selectionMode === 'multiple') {
+          var data = this.data || [];
+          return data.filter(function(item) {
+            return item.$selected === true;
+          });
+        } else if (this.selectionMode === 'single') {
+          return this.selected;
+        } else {
+          return null;
+        }
       },
 
       fixedColumns() {
@@ -571,6 +631,7 @@
 
     data() {
       return {
+        selected: null,
         columns: [],
         bodyWidth: '',
         fixedBodyWidth: '',

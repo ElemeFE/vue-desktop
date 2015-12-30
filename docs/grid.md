@@ -73,7 +73,18 @@ Grid 目前可用的属性如下：
 | schema | Grid 使用的 Schema。 |
 | height | Grid 的高度，默认高度为空，即自动高度。 |
 | fit | Grid 的列的宽度是否自撑开，Boolean 类型，默认为 false。|
-| selection | 为 Grid 添加了 selection 列之后，选中的列的数据会被写到 selection 属性中。|
+| selectionMode | selectionMode的可选值 single, multiple, none; 默认值 single。|
+| selection | 多选模式下返回数组, 单选模式下返回选中的元素。 |
+
+# Grid 的事件
+
+目前仅支持 selection-change 事件, 例子:
+
+```HTML
+<d-grid :data="gridData" :selection-change="handleSelectionChange">
+...
+</d-grid>
+```
 
 # Grid Column Properties
 
