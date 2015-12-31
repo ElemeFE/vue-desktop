@@ -4,15 +4,15 @@
       <slot></slot>
     </div>
     <div class="d-tabs-container" :class="{ 'd-tabs-container-shrinked': showNav }" v-el:tabs-container :style="{ 'margin': tabPlacement === 'bottom' ? '-1px 0 0' : '0 0 -1px' }">
-      <d-button class="d-tab-button d-tab-prev d-icon icon-arrow-left" v-if="showNav" @click="scrollList('prev')" :disabled="prevDisabled"></d-button>
+      <d-button class="d-tab-button d-tab-prev d-icon d-icon-arrow-left" v-if="showNav" @click="scrollList('prev')" :disabled="prevDisabled"></d-button>
       <ul class="d-tabs-nav" v-el:tabs-list :style="{ 'transform': 'translateX(' + listOffset + 'px)' }">
         <li class="d-tab" v-for="tab in tabs" @click="handleTabClick($event, tab)" :class="{ active: activeTab === tab, disabled: tab.disabled }">
           <span v-if="tab.icon" class="d-tab-icon {{ tab.icon }}"></span>
           <span class="d-tab-label">{{ tab.title }}</span>
-          <span v-if="tab.closable" class="d-tab-close d-icon icon-close" @click="close($event, tab)"></span>
+          <span v-if="tab.closable" class="d-tab-close d-icon d-icon-close" @click="close($event, tab)"></span>
         </li>
       </ul>
-      <d-button class="d-tab-button d-tab-next d-icon icon-arrow-right" v-if="showNav" @click="scrollList('next')" :disabled="nextDisabled"></d-button>
+      <d-button class="d-tab-button d-tab-next d-icon d-icon-arrow-right" v-if="showNav" @click="scrollList('next')" :disabled="nextDisabled"></d-button>
     </div>
     <div class="d-tabs-content" v-if="tabPlacement !== 'bottom'">
       <slot></slot>

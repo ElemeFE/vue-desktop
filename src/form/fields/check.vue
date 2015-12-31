@@ -4,7 +4,7 @@
     <div>
       <editor></editor>
       <div class="d-field-hint" v-if="!hideHint">
-        <i class='d-icon' :class="{ 'icon-error': hintType === 'error', 'icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
+        <i class='d-icon' :class="{ 'd-icon-error': hintType === 'error', 'd-icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
   </div>

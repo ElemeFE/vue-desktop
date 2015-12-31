@@ -3,7 +3,7 @@
     <div class="d-dialog-header">
       <span class="d-dialog-title">{{title}}</span>
       <div class="d-dialog-header-buttons">
-        <i class="d-dialog-close d-icon icon-close" @click='close()'></i>
+        <i class="d-dialog-close d-icon d-icon-close" @click='close()'></i>
       </div>
     </div>
     <div class="d-dialog-body"><slot></slot></div>

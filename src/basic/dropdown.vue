@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown btn btn-default" :class="{active: showItem}">
     {{title}}
-    <span class="dropdown-icon d-icon icon-arrow-down" v-el:span></span>
+    <span class="dropdown-icon d-icon d-icon-arrow-down" v-el:span></span>
     <dropdown-list :visible.sync="showItem" v-ref:list><slot></slot></dropdown-list>
   </div>
 </template>

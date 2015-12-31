@@ -6,7 +6,7 @@
       <ul class="d-tags-chosen" v-el:chosen>
         <li v-for="chosenTag in chosenTags" :class="{ 'highlight': $index === chosenTags.length - 1  && deleteInput}">
           <span>{{ chosenTag }}</span>
-          <div class="d-tags-delete d-icon icon-close" @click="handleDelete($event, chosenTag)"></div>
+          <div class="d-tags-delete d-icon d-icon-close" @click="handleDelete($event, chosenTag)"></div>
         </li>
         <li>
           <input type="text" v-el:input @keydown.8="keyDelete" @keydown.enter="keyEnter" @keydown.up="keyUp($event)" @keydown.down="keyDown($event)" @keydown="handleKeydown($event)" v-model="inputValue">

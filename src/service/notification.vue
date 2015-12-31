@@ -4,7 +4,7 @@
     <div class="group">
       <span>{{title}}</span>
       <p>{{message}}</p>
-      <div class="closeBtn d-icon icon-close" @click="handleClose()"></div>
+      <div class="closeBtn d-icon d-icon-close" @click="handleClose()"></div>
     </div>
   </div>
 </template>
@@ -109,16 +109,16 @@
       iconClass() {
         switch(this.type) {
           case 'success':
-            return 'icon-success success';
+            return 'd-icon-success success';
             break;
           case 'warning':
-            return 'icon-warning warning';
+            return 'd-icon-warning warning';
             break;
           case 'error':
-            return 'icon-error error';
+            return 'd-icon-error error';
             break;
           default:
-            return 'icon-info info';
+            return 'd-icon-info info';
         }
       }
     },

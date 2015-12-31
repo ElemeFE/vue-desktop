@@ -1,8 +1,8 @@
 <template>
   <div class="timepicker">
     <div class="timepicker-header">
-      <div class="timepicker-header-close d-icon icon-close-circle" @click="handleClose"></div>
-      <div class="timepicker-header-confirm d-icon icon-confirm-circle" @click="handleConfirm"></div>
+      <div class="timepicker-header-close d-icon d-icon-close-circle" @click="handleClose"></div>
+      <div class="timepicker-header-confirm d-icon d-icon-confirm-circle" @click="handleConfirm"></div>
       <div @click="view = 'hours'" class="timepicker-header-label" :class="{ active: view === 'hours' }">{{hours < 10 ? '0' + hours : hours}}</div>
       <div class="timepicker-header-separator">:</div>
       <div @click="view = 'minutes'" class="timepicker-header-label" :class="{ active: view === 'minutes' }">{{minutes < 10 ? '0' + minutes : minutes}}</div>

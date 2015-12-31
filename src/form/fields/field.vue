@@ -4,7 +4,7 @@
     <div>
       <slot></slot>
       <div class="d-field-hint" v-if="!hideHint">
-        <i class='d-icon' :class="{ 'icon-error': hintType === 'error', 'icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
+        <i class='d-icon' :class="{ 'd-icon-error': hintType === 'error', 'd-icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
       </div>
     </div>
   </div>
@@ -69,18 +69,18 @@
     vertical-align: top;
   }
 
-  .d-field-hint .icon-formfield-error {
+  .d-field-hint .d-icon-error {
     font-size: 14px;
     line-height: 14px;
     color: #ed5565;
   }
 
-  .d-field-hint .icon-formfield-error:before {
+  .d-field-hint .d-icon-error:before {
     margin-right: 3px;
     vertical-align: middle;
   }
 
-  .d-field-hint .icon-formfield-warning:before {
+  .d-field-hint .d-icon-warning:before {
     line-height: 14px;
     font-size: 14px;
     color: #65c04b;

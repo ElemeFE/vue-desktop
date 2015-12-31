@@ -2,10 +2,10 @@
   <div class="msgbox" v-show="visible" transition="pop-bounce">
     <div class="msgbox-header">
       <div class="msgbox-title">{{ title }}</div>
-      <div class="msgbox-close d-icon icon-close" @click="handleAction('close')"></div>
+      <div class="msgbox-close d-icon d-icon-close" @click="handleAction('close')"></div>
     </div>
     <div class="msgbox-content">
-      <div class="msgbox-status d-icon {{ type ? 'icon-' + type : '' }}"></div>
+      <div class="msgbox-status d-icon {{ type ? 'd-icon-' + type : '' }}"></div>
       <div class="msgbox-message">{{ message }}</div>
     </div>
     <div class="msgbox-btns">
@@ -61,15 +61,15 @@
     font-size: 36px !important;
   }
 
-  .msgbox-status.icon-success {
+  .msgbox-status.d-icon-success {
     color: #94c852;
   }
 
-  .msgbox-status.icon-warning {
+  .msgbox-status.d-icon-warning {
     color: #ff9c00;
   }
 
-  .msgbox-status.icon-error {
+  .msgbox-status.d-icon-error {
     color: #ff4248;
   }
 

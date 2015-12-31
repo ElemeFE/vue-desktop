@@ -4,7 +4,7 @@
     <div class="alert-content">
       <span class="alert-title">{{title}}</span>
       <p><slot></slot></p>
-      <div class="alert-closebtn" :class="{custom: closeText !== '', 'd-icon': closeText === '', 'icon-close': closeText === ''}" v-show="closable" @click="close()">{{closeText}}</div>
+      <div class="alert-closebtn" :class="{custom: closeText !== '', 'd-icon': closeText === '', 'd-icon-close': closeText === ''}" v-show="closable" @click="close()">{{closeText}}</div>
     </div>
   </div>
 </template>
@@ -119,9 +119,9 @@
 
 <script type="text/ecmascript-6">
   const TYPE_CLASSES_MAP = {
-    'success': 'icon-success success',
-    'warning': 'icon-warning warning',
-    'error': 'icon-error error'
+    'success': 'd-icon-success success',
+    'warning': 'd-icon-warning warning',
+    'error': 'd-icon-error error'
   };
 
   export default {
@@ -159,7 +159,7 @@
 
     computed: {
       iconClass() {
-        return TYPE_CLASSES_MAP[this.type] || 'icon-info info';
+        return TYPE_CLASSES_MAP[this.type] || 'd-icon-info info';
       }
     }
   }

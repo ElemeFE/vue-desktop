@@ -9,7 +9,7 @@
       </li>
     </ul>
     <form class="upload-operate" enctype="multipart/form-data">
-      <button class="btn btn-default btn-file"><input type="file" name="picture[]" @change="onChange($event)" multiple><span class="icon-plus">+</span>添加图片</button>
+      <button class="btn btn-default btn-file"><input type="file" name="picture[]" @change="onChange($event)" multiple><span class="d-icon-plus">+</span>添加图片</button>
       <button class="btn btn-primary" @click="upload()" v-disabled="uploading">{{uploading ? '正在上传...' : '上传'}}</button>
     </form>
     <!-- 上传结果 -->
@@ -71,7 +71,7 @@
   color: #eee;
   cursor: default;
 }
-.upload .btn .icon-plus {
+.upload .btn .d-icon-plus {
   font-weight: bold;
   font-size: 16px;
   line-height: 1;

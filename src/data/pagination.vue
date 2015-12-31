@@ -124,33 +124,34 @@
     },
 
     components: {
-      DSelectField: require('../form/fields/select.vue'),
 
-      DSelectOption: require('../form/select-option.vue'),
-
-      DTextEditor: require('../form/text-editor.vue'),
 
       Prev: {
-        template: '<span class="d-icon icon-arrow-left" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.prev()"></span>'
+        template: '<span class="d-icon d-icon-arrow-left" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.prev()"></span>'
       },
 
       Next: {
-        template: '<span class="d-icon icon-arrow-right" @click="$parent.next()" :class="{ disabled: $parent.currentPage === $parent.pageCount }"></span>'
+        template: '<span class="d-icon d-icon-arrow-right" @click="$parent.next()" :class="{ disabled: $parent.currentPage === $parent.pageCount }"></span>'
       },
 
       First: {
-        template: '<span class="d-icon icon-first" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.first()"></span>'
+        template: '<span class="d-icon d-icon-first" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.first()"></span>'
       },
 
       Last: {
-        template: '<span class="d-icon icon-last"  :class="{ disabled: $parent.currentPage === $parent.pageCount }" @click="$parent.last()"></span>'
+        template: '<span class="d-icon d-icon-last"  :class="{ disabled: $parent.currentPage === $parent.pageCount }" @click="$parent.last()"></span>'
       },
 
       List: {
+        DSelectField: require('../form/fields/select.vue'),
+
+        DSelectOption: require('../form/select-option.vue'),
+
         template: '<span><d-select-field hide-label hide-hint :mapping="$parent.mapping" :model="$parent.model" property="pageSize"></d-select-field></span>'
       },
 
-      manual: {
+      Manual: {
+        DTextEditor: require('../form/text-editor.vue'),
         template: '<span>第<d-text-editor :value.sync="$parent.currentPage" style="width: 40px;" lazy type="number"></d-text-editor>页</span>'
       },
 
