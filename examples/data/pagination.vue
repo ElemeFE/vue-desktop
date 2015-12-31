@@ -1,6 +1,6 @@
 <template>
   <d-button @click="changePageCount()">Change ItemTotal</d-button>
-  <d-pagination :item-count="itemCount" :current-page="1" layout1="info,->,prev,manual,next,slot">
+  <d-pagination :item-count="itemCount" :current-page="1" layout="info,->,prev,manual,next,list,slot">
     <button>save</button>
     <button>cancel</button>
   </d-pagination>

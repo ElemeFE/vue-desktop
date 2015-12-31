@@ -9,21 +9,34 @@
     background: #fff;
   }
 
-  .d-pagination span {
+  .d-pagination span,
+  .d-pagination button {
     display: inline-block;
     font-size: 14px;
     min-width: 26px;
     height: 28px;
     line-height: 28px;
     vertical-align: top;
+    box-sizing: border-box;
   }
 
-  .d-pagination span.disabled {
+  .d-pagination button {
+    border: none;
+    padding: 0 6px;
+    background: transparent;
+  }
+
+  .d-pagination button:focus {
+    outline: none;
+  }
+
+  .d-pagination button.disabled {
     color: #bbb;
     cursor: default;
   }
 
-  .d-pagination span.d-icon {
+  .d-pagination span.d-icon,
+  .d-pagination button.d-icon {
     text-align: center;
     cursor: pointer;
   }
@@ -66,11 +79,12 @@
     cursor: default;
   }
 
-  .d-pagination .d-selectfield {
-    display: inline-table !important;
+  .d-pagination select {
     min-height: 28px;
     height: 28px;
-    width: 60px;
+    width: 50px;
+    background: transparent;
+    border: 1px solid#ddd;
   }
 
   .d-pagination-info {
@@ -78,6 +92,23 @@
 
   .d-pagination-rightwrapper {
     float: right;
+  }
+
+  .d-pagination-editor {
+    border: 1px solid #e5e6e7;
+    border-radius: 2px;
+    line-height: 18px;
+    padding: 4px 2px;
+    width: 30px;
+    text-align: center;
+    margin: 0 3px;
+    box-sizing: border-box;
+    transition: border 0.3s;
+  }
+
+  .d-pagination-editor:focus {
+    outline: none;
+    border-color: #1ab394;
   }
 </style>
 
@@ -116,6 +147,13 @@
         default: 'first, prev, manual, next, last, slot, ->, info'
       },
 
+      pageSizeList: {
+        type: Array,
+        default() {
+          return [ 10, 20, 30, 40, 50, 100 ]
+        }
+      },
+
       mapping: {
         default() {
           return { 10: 10, 20: 20, 30: 30, 40: 40, 50: 50 };
@@ -124,39 +162,32 @@
     },
 
     components: {
-
-
       Prev: {
-        template: '<span class="d-icon d-icon-arrow-left" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.prev()"></span>'
+        template: '<button class="d-icon d-icon-arrow-left" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.prev()"></button>'
       },
 
       Next: {
-        template: '<span class="d-icon d-icon-arrow-right" @click="$parent.next()" :class="{ disabled: $parent.currentPage === $parent.pageCount }"></span>'
+        template: '<button class="d-icon d-icon-arrow-right" @click="$parent.next()" :class="{ disabled: $parent.currentPage === $parent.pageCount }"></button>'
       },
 
       First: {
-        template: '<span class="d-icon d-icon-first" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.first()"></span>'
+        template: '<button class="d-icon d-icon-first" :class="{ disabled: $parent.currentPage <= 1 }" @click="$parent.first()"></button>'
       },
 
       Last: {
-        template: '<span class="d-icon d-icon-last"  :class="{ disabled: $parent.currentPage === $parent.pageCount }" @click="$parent.last()"></span>'
+        template: '<button class="d-icon d-icon-last"  :class="{ disabled: $parent.currentPage === $parent.pageCount }" @click="$parent.last()"></button>'
       },
 
       List: {
-        DSelectField: require('../form/fields/select.vue'),
-
-        DSelectOption: require('../form/select-option.vue'),
-
-        template: '<span><d-select-field hide-label hide-hint :mapping="$parent.mapping" :model="$parent.model" property="pageSize"></d-select-field></span>'
+        template: '<select v-model="$parent.pageSize"><option v-for="item in $parent.pageSizeList" value="{{item}}">{{item}}</option></select>'
       },
 
       Manual: {
-        DTextEditor: require('../form/text-editor.vue'),
-        template: '<span>第<d-text-editor :value.sync="$parent.currentPage" style="width: 40px;" lazy type="number"></d-text-editor>页</span>'
+        template: '<span>第<input class="d-pagination-editor" v-model="$parent.currentPage" style="width: 30px;" lazy />页, 共 {{$parent.pageCount}} 页</span>'
       },
 
       Info: {
-        template: '<span class="d-pagination-info">第 {{$parent.currentPage}} 页/共 {{$parent.pageCount}} 页, 共 {{$parent.itemCount}} 条数据 </span>'
+        template: '<span class="d-pagination-info">显示第 {{$parent.startRecordIndex}} - {{ $parent.endRecordIndex }} 条数据, 共 {{$parent.itemCount}} 条记录 </span>'
       },
 
       Pager: {
@@ -329,10 +360,26 @@
     computed: {
       pageCount() {
         return Math.ceil(this.itemCount / this.pageSize);
+      },
+      startRecordIndex() {
+        var result = (this.currentPage - 1) * this.pageSize + 1;
+        return result > 0 ? result : 0;
+      },
+      endRecordIndex() {
+        var result = this.currentPage * this.pageSize;
+        return result > this.itemCount ? this.itemCount : result;
       }
     },
 
     watch: {
+      pageCount(newVal) {
+        if (newVal > 0 && this.currentPage === 0) {
+          this.currentPage = 1;
+        } else if (this.currentPage > newVal) {
+          this.currentPage = newVal;
+        }
+      },
+
       currentPage(newVal, oldVal) {
         newVal = parseInt(newVal, 10);
 
@@ -352,12 +399,6 @@
 
     ready() {
       this.currentPage = this.getValidCurrentPage(this.currentPage);
-    },
-
-    data() {
-      return {
-        model: this // TODO FIX IT: select model
-      }
     }
   }
 </script>
