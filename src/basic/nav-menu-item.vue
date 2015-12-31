@@ -1,6 +1,6 @@
 <template>
   <div class="d-navmenu-item" :class="{ expanded: hasChild && expanded, active: !hasChild && active, toplevel: topLevel }">
-    <div class="d-navmenu-item-label" @click="handleHeaderClick"><span v-if="icon"></span><a v-link="{ path: path }">{{text}}</a><span class="d-icon icon-arrow-right" v-if="hasChild"></span></div>
+    <div class="d-navmenu-item-label" @click="handleHeaderClick"><a v-link="{ path: path }"><span v-if="icon" class="d-navmenu-item-icon {{icon}}"></span>{{text}}</a><span class="d-icon icon-arrow-right" v-if="hasChild"></span></div>
     <div class="d-navmenu-item-content" @click="$event.stopPropagation()" transition="collapse" v-show="expanded">
       <slot></slot>
     </div>
@@ -34,10 +34,20 @@
     cursor: pointer;
   }
 
+  .d-navmenu-item-icon {
+    display: inline-block;
+    width: 18px;
+    margin-right: 2px;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: top;
+  }
+
   .d-navmenu-item-label > a {
     display: inline-block;
     text-decoration: none;
-    padding: 10px 15px 10px 20px;
+    padding: 8px 15px 8px 20px;
+    line-height: 20px;
     width: 100%;
     box-sizing: border-box;
     color: #676a6c;
@@ -78,6 +88,7 @@
     props: {
       path: {},
       text: {},
+      icon: {},
       expanded: {
         type: Boolean
       },

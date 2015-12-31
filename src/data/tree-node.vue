@@ -305,7 +305,6 @@
 
       if (!this.$tree) {
         console.warn('Can not find node\'s tree.');
-        return;
       }
     },
 

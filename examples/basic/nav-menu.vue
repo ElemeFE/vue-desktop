@@ -1,8 +1,8 @@
 <template>
   <d-panel style="width: 260px; height: 100%;" class="panel">
     <d-nav-menu>
-      <d-nav-menu-item text="test" expanded exclusive>
-        <d-nav-menu-item text="test"></d-nav-menu-item>
+      <d-nav-menu-item text="test" expanded exclusive icon="folder">
+        <d-nav-menu-item text="test" icon="leaf"></d-nav-menu-item>
         <d-nav-menu-item text="test"></d-nav-menu-item>
         <d-nav-menu-item text="test"></d-nav-menu-item>
         <d-nav-menu-item text="test">
@@ -32,7 +32,7 @@
       <d-nav-menu-item text="test"></d-nav-menu-item>
       <d-nav-menu-item text="test"></d-nav-menu-item>
       <d-nav-menu-item text="test"></d-nav-menu-item>
-      <d-nav-menu-item text="test"></d-nav-menu-item>
+      <d-nav-menu-item text="test" icon="folder"></d-nav-menu-item>
     </d-nav-menu>
   </d-panel>
 </template>
@@ -42,6 +42,16 @@
     padding: 0;
     height: 100%;
     overflow: auto;
+  }
+
+  .leaf {
+    width: 20px;
+    background: #ddd;
+  }
+
+  .folder {
+    width: 20px;
+    background: #888;
   }
 </style>
 
