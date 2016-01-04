@@ -137,7 +137,7 @@
     },
 
     transitions: {
-      collapse: require('../collapse-transition')
+      collapse: require('../collapse-transition').default
     },
 
     ready() {

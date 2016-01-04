@@ -1,7 +1,7 @@
 <template>
   <div class="d-panel" :class="{ noheader: !title, expanded: expanded }">
-    <div class="d-panel-header" v-if="title">{{title}}<slot name="header"></slot></div>
-    <div class="d-panel-content" transition="d-collapse" v-show="expanded">
+    <div class="d-panel-header" v-if="title" @click="expanded = !expanded">{{title}}<slot name="header"></slot></div>
+    <div class="d-panel-content" transition="collapse" v-show="expanded">
       <slot></slot>
     </div>
   </div>
@@ -44,7 +44,7 @@
     },
 
     transitions: {
-      DCollapse: require('../collapse-transition')
+      collapse: require('../collapse-transition').default
     }
   }
 </script>

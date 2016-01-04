@@ -2,10 +2,10 @@
   <div class="tree-node" :class="{ expanded: childrenRendered && expanded }">
     <div class="tree-node-content">
       <span class="expand-icon" :class="{ leafnode: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span>
-      <input type="checkbox" v-model="checked" @change="handleCheckChange()" v-el:input />
+      <input type="checkbox" v-model="isChecked" @change="handleCheckChange()" v-el:input />
       <span class="icon {{icon}}" v-if="icon"></span><span class="text">{{ label + (childrenLoaded === 'loading' ? '(Loading)' : '') }}</span>
     </div>
-    <div class="tree-node-children" v-if="childrenRendered" v-show="expanded" transition="d-collapse">
+    <div class="tree-node-children" v-if="!lazyRenderChildren || (lazyRenderChildren && childrenRendered)" v-show="expanded" transition="collapse">
       <d-tree-node v-for="child in children || childrenData" :data="child"></d-tree-node>
     </div>
   </div>
@@ -97,6 +97,7 @@
 
   export default {
     name: 'd-tree-node',
+
     props: {
       checked: {
         type: Boolean,
@@ -111,6 +112,7 @@
       needLoadData() {
         return this.lazyload === true && !this.childrenLoaded && this.loadFn;
       },
+
       hasChild() {
         var children = this.children || this.childrenData;
         if (!this.lazyload || (this.lazyload === true && this.childrenLoaded === true)) {
@@ -118,6 +120,7 @@
         }
         return true;
       },
+
       label() {
         var data = this.data;
         if (!data) return '';
@@ -131,6 +134,47 @@
         }
         return data[labelProperty];
       },
+
+      isChecked:{
+        get() {
+          var data = this.data;
+          if (!data) return false;
+          var levelConfig = this.levelConfig;
+          var checkedProperty;
+
+          if (levelConfig) {
+            checkedProperty = levelConfig.checkedProperty;
+
+            if (checkedProperty) {
+              return this.checked = data[checkedProperty];
+            }
+          }
+
+          return this.checked;
+        },
+
+        set(value) {
+          console.log('set checked:' + value);
+
+          var data = this.data;
+          if (!data) return false;
+          var levelConfig = this.levelConfig;
+          var checkedProperty;
+
+          if (levelConfig) {
+            checkedProperty = levelConfig.checkedProperty;
+
+            if (checkedProperty) {
+              data[checkedProperty] = value;
+              this.checked = value;
+              return;
+            }
+          }
+
+          this.checked = value;
+        }
+      },
+
       icon() {
         var data = this.data;
         if (!data) return '';
@@ -149,6 +193,7 @@
         }
         return data[iconProperty];
       },
+
       children: {
         get() {
           var data = this.data;
@@ -163,6 +208,7 @@
           }
           return data[childrenProperty];
         },
+
         set(value) {
           var data = this.data;
           if (!data) return;
@@ -210,20 +256,30 @@
       loadIfNeeded(callback) {
         if (this.lazyload === true && !this.childrenLoaded && this.loadFn) {
           this.childrenLoaded = 'loading';
-          this.loadFn(() => {
+
+          // TODO
+          // loadFn(tree, node, () => {   });
+
+          var loadFn = this.loadFn;
+
+          loadFn(this, () => {
             this.childrenLoaded = true;
-            if (!this.childrenRendered) {
-              this.childrenRendered = true;
-            }
-            if (callback) {
-              callback.call(this);
+            if (this.lazyRenderChildren) {
+              if (!this.childrenRendered) {
+                this.childrenRendered = true;
+              }
+              if (callback) {
+                callback.call(this);
+              }
             }
           });
         } else {
-          if (!this.childrenRendered) {
-            this.childrenRendered = true;
-            if (callback) {
-              callback.call(this);
+          if (this.lazyRenderChildren) {
+            if (!this.childrenRendered) {
+              this.childrenRendered = true;
+              if (callback) {
+                callback.call(this);
+              }
             }
           }
         }
@@ -236,7 +292,7 @@
           Vue.nextTick(function() {
             for (var i = 0, j = children.length; i < j; i++) {
               var child = children[i];
-              child.setChecked(value);
+              child.setChecked(value !== false);
             }
           });
         });
@@ -257,7 +313,7 @@
           var children = this.$children;
           for (i = 0, j = children.length; i < j; i++) {
             var child = children[i];
-            child.setChecked(value, deep);
+            child.setChecked(value !== false, deep);
           }
         }
 
@@ -269,6 +325,7 @@
 
         var all = true;
         var none = true;
+
         for (i = 0, j = siblings.length; i < j; i++) {
           var sibling = siblings[i];
           if (sibling.checked !== true) {
@@ -278,6 +335,8 @@
             none = false;
           }
         }
+
+        //console.log(all, none, this.label, this.checked);
 
         if (all) {
           parent.setChecked(true);
@@ -295,12 +354,15 @@
         this.level = 0;
         this.$tree = parent;
         this.levelConfig = parent.levelConfig;
+        if (this.levelConfig.recursive) {
+          this.levelConfig.children = this.levelConfig;
+        }
       } else {
         this.level = parent.level + 1;
         this.$tree = parent.$tree;
         if (parent.levelConfig) {
           this.levelConfig = parent.levelConfig.children;
-          if (this.levelConfig.recursive) {
+          if (this.levelConfig && this.levelConfig.recursive) {
             this.levelConfig.children = this.levelConfig;
           }
         }
@@ -317,6 +379,16 @@
 
       if (!this.$tree) {
         console.warn('Can not find node\'s tree.');
+      } else {
+        this.lazyRenderChildren = this.$tree.lazyRender;
+      }
+    },
+
+    ready() {
+      if (this.isChecked) {
+        Vue.nextTick(() => {
+          this.setChecked(true);
+        });
       }
     },
 
@@ -329,12 +401,13 @@
         levelConfig: null,
         $tree: null,
         $item: null,
+        lazyRenderChildren: true,
         childrenRendered: false
       }
     },
 
     transitions: {
-      DCollapse: require('../collapse-transition')
+      collapse: require('../collapse-transition').default
     }
   }
 </script>

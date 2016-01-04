@@ -1,10 +1,12 @@
 <template>
   <d-panel style="height: 400px;">
-    <d-tree :data="data"></d-tree>
+    <d-tree :data="data" :level-config="defaultLevelConfig" :lazy-render="false"></d-tree>
     <div style="height: 100px;"></div>
     <d-tree :data="regions" :level-config="levelConfig"></d-tree>
     <div style="height: 100px;"></div>
     <d-tree :data="regions" :level-config="levelConfig2"></d-tree>
+    <div style="height: 100px;"></div>
+    <d-tree :level-config="lazyLevelConfig"></d-tree>
   </d-panel>
 </template>
 
@@ -24,14 +26,17 @@
   var data = [{
     label: 'bb',
     children: [{
-      label: 'b1'
+      label: 'b1',
+      checked: true
     }]
   }, {
     label: 'cc',
     children: [{
-      label: 'cc1'
+      label: 'cc1',
+      checked: true
     }, {
-      label: 'cc2'
+      label: 'cc2',
+      checked: false
     }]
   }];
 
@@ -53,10 +58,9 @@
       lazy: true,
       leafIcon: 'leaf',
       icon: 'folder',
-      load: function (callback) {
-        var node = this;
-
+      load: function (node, callback) {
         var hasChild = Math.random() > 0.5;
+
         setTimeout(function () {
           var data;
           if (hasChild) {
@@ -87,9 +91,7 @@
       lazy: true,
       leafIcon: 'leaf',
       icon: 'folder',
-      load: function (callback) {
-        var node = this;
-
+      load: function (node, callback) {
         var hasChild = Math.random() > 0.5;
         setTimeout(function () {
           var data;
@@ -112,11 +114,47 @@
     }
   };
 
+  var defaultLevelConfig = {
+    childrenProperty: 'children',
+    labelProperty: 'label',
+    checkedProperty: 'checked',
+    recursive: true
+  };
+
+  var lazyLevelConfig = {
+    recursive: true,
+    lazy: true,
+    leafIcon: 'leaf',
+    icon: 'folder',
+    load: function (node, callback) {
+      var hasChild = true;
+      setTimeout(function () {
+        var data;
+        if (hasChild) {
+          data = [{
+            name: 'zone' + count++
+          }, {
+            name: 'zone' + count++
+          }];
+        } else {
+          data = [];
+        }
+
+        node.children = data;
+        if (callback) {
+          callback();
+        }
+      }, 500);
+    }
+  };
+
   export default {
     data() {
       return {
+        lazyLevelConfig: lazyLevelConfig,
         children: data,
         data: data,
+        defaultLevelConfig: defaultLevelConfig,
         levelConfig: levelConfig,
         levelConfig2: levelConfig2,
         regions: regions

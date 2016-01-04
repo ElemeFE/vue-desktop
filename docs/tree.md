@@ -55,9 +55,7 @@ var levelConfig = {
 
   children: {
     lazy: true,
-    load: function (callback) {
-      var node = this;
-
+    load: function (node, callback) {
       var hasChild = Math.random() > 0.5;
       setTimeout(function () {
         var data;
@@ -107,10 +105,7 @@ Tree 目前可以使用的属性如下：
 | ---- | ---- |
 | data | 数组类型。 |
 | levelConfig | 树的层级定义，具体使用说明请参考下面的表格。  |
-
-Tree 目前可以使用的方法如下：
-
-- getCheckedNodes(leafNodeOnly): 取得目前所有选中的节点，leafNodeOnly 用来表明是否只获取叶子节点，默认值为 false。
+| lazyRender | 是否懒渲染子节点，默认值为 true。|
 
 levelConfig可以使用的属性如下：
 
@@ -118,6 +113,44 @@ levelConfig可以使用的属性如下：
 | ---- | ---- |
 | labelProperty | label 使用的属性是哪一个，如果需要使用 name 或者 label 作为节点的文本，则无需定义该属性。 |
 | childrenProperty | children 使用的属性是哪一个，如果为 children，则无需定义该属性。 |
-| children | 下级节点的配置。 |
+| checkedProperty | Node 的 checkbox 选中使用的属性是哪一个，没有默认值，如果不定义，则表示不需要同步选中的节点。 |
 | lazy | 节点是否懒加载，默认为 false。 |
-| load | 如果 lazy 属性为 true，在需要展现该节点的时候，会使用 load 方法 来加载数据。 |
+| load | 如果 lazy 属性为 true，在需要展现该节点的时候，会使用 load 方法来加载数据。 |
+| recursive | 是否一个递归 level，默认值为 false。如果是一个递归 level，则 children 的 levelConfig 和自身相同。|
+| children | 下级节点的配置，同样是一个 levelConfig 。 |
+
+Tree 目前可以使用的方法如下：
+
+- getCheckedNodes(leafNodeOnly): 取得目前所有选中的节点，leafNodeOnly 用来表明是否只获取叶子节点，默认值为 false。
+
+## lazy: true 的 levelConfig
+
+对于 lazy: true 的 levelConfig，需要同时提供一个 load 方法，该方法是一个回调，需要这么做：
+
+```JavaScript
+load: function (node, callback) {
+  var hasChild = Math.random() > 0.5;
+  setTimeout(function () {
+    var data;
+    if (hasChild) {
+      data = [{
+        name: 'zone' + count++
+      }, {
+        name: 'zone' + count++
+      }];
+    } else {
+      data = [];
+    }
+
+    node.children = data;
+    if (callback) {
+      callback();
+    }
+  }, 500);
+}
+```
+
+需要注意两点：
+
+1. 需要注意的是 callback 需要检查并执行。
+2. 设置 node.children 用来设置 node 的子节点。

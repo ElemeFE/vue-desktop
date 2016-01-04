@@ -178,7 +178,27 @@
       },
 
       Manual: {
-        template: '<span>第<input class="d-pagination-editor" v-model="$parent.currentPage" style="width: 30px;" lazy />页, 共 {{$parent.pageCount}} 页</span>'
+        data() {
+          return {
+            oldValue: null
+          };
+        },
+
+        methods: {
+          handleFocus(event) {
+            this.oldValue = event.target.value;
+          },
+
+          handleChange(event) {
+            var target = event.target;
+            if (target.value !== this.oldValue && Number(target.value) === this.$parent.currentPage) {
+              this.$parent.$emit('current-change', this.$parent.currentPage);
+            }
+
+            this.oldValue = null;
+          }
+        },
+        template: '<span>第<input class="d-pagination-editor" v-model="$parent.currentPage" @change="handleChange($event)" @focus="handleFocus($event)" style="width: 30px;" lazy />页, 共 {{$parent.pageCount}} 页</span>'
       },
 
       Info: {

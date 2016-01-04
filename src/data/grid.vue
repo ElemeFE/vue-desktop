@@ -221,6 +221,27 @@
   var gridIdSeed = 1;
   var GUTTER_WIDTH;
 
+  var getPath = function(object, sortKey) {
+    if (!object || !sortKey) return null;
+    var path = sortKey.split('.');
+    if (path.length === 1) return object[sortKey];
+
+    var target = object;
+    for (var i = 0, j = path.length; i < j; i++) {
+      var key = path[i];
+      var value = target[key];
+      if (i === j - 1) {
+        return value;
+      }
+      if (value === null || value === undefined) return null;
+      target = value;
+    }
+  };
+
+  var isObject = function(obj) {
+    return obj !== null && typeof obj === 'object'
+  };
+
   export default {
     props: {
       data: {
@@ -266,8 +287,9 @@
     events: {
       onresize() {
         var grid = this;
+
         Vue.nextTick(function() {
-          if (grid.height === undefined) {
+          if (grid.$el.getAttribute('flex') !== null) {
             grid.height = grid.$el.offsetHeight;
           }
           grid.$calcColumns();
@@ -276,6 +298,21 @@
     },
 
     methods: {
+      handleDataChange(data) {
+        data = data || [];
+
+        if (this.selectionMode === 'single') {
+          var selected = this.selected;
+          if (selected === null) {
+            this.selected = data[0];
+            this.$emit('selection-change', this.selected);
+          } else if (data.indexOf(selected) === -1) {
+            this.selected = data[0];
+            this.$emit('selection-change', this.selected);
+          }
+        }
+      },
+
       toggleSelection(event, row) {
         var target = event.target;
         Vue.set(row, '$selected', target.checked);
@@ -526,6 +563,24 @@
           el: bodyTable,
           template: repeatTemplate,
           replace: false,
+          filters: {
+            orderBy(arr, sortKey, reverse) {
+              if (!sortKey) {
+                return arr;
+              }
+              var order = (reverse && reverse < 0) ? -1 : 1;
+              // sort on a copy to avoid mutating original array
+              return arr.slice().sort(function (a, b) {
+                if (sortKey !== '$key') {
+                  if (isObject(a) && '$value' in a) a = a.$value;
+                  if (isObject(b) && '$value' in b) b = b.$value;
+                }
+                a = isObject(a) ? getPath(a, sortKey) : a;
+                b = isObject(b) ? getPath(b, sortKey) : b;
+                return a === b ? 0 : a > b ? order : -order;
+              })
+            }
+          },
           methods: {
             handleClick: function(row) {
               // TODO add selection change.
@@ -601,6 +656,10 @@
     watch: {
       height(value) {
         this.$calcHeight(value);
+      },
+
+      data(newVal) {
+        this.handleDataChange(newVal);
       }
     },
 
@@ -627,6 +686,9 @@
       this.doRender();
 
       this.$ready = true;
+      if (this.data) {
+        this.handleDataChange(this.data);
+      }
     },
 
     data() {

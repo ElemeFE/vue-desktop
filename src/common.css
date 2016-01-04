@@ -223,8 +223,3 @@
 .d-cell-24-24 {
   width: 100%;
 }
-
-/** d-collapse */
-.collapse-transition {
-  transition: 0.3s height ease-in-out;
-}
