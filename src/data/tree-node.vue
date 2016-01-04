@@ -108,6 +108,9 @@
     },
 
     computed: {
+      needLoadData() {
+        return this.lazyload === true && !this.childrenLoaded && this.loadFn;
+      },
       hasChild() {
         var children = this.children || this.childrenData;
         if (!this.lazyload || (this.lazyload === true && this.childrenLoaded === true)) {
@@ -175,14 +178,20 @@
 
     methods: {
       handleExpandIconClick() {
-        if (!this.expanded) {
+        // Only work on lazy load data.
+        if (this.needLoadData) {
           this.loadIfNeeded(() => {
             this.expanded = true;
             this.childrenRendered = true;
           });
         } else {
-          this.expanded = false;
-          this.childrenRendered = true;
+          if (!this.expanded) {
+            this.expanded = true;
+            this.childrenRendered = true;
+          } else {
+            this.expanded = false;
+            this.childrenRendered = true;
+          }
         }
       },
 
@@ -213,12 +222,15 @@
         } else {
           if (!this.childrenRendered) {
             this.childrenRendered = true;
+            if (callback) {
+              callback.call(this);
+            }
           }
-          callback.call(this);
         }
       },
 
       setChecked(value, deep) {
+        // Only work on lazy load data.
         this.loadIfNeeded(() => {
           var children = this.$children || [];
           Vue.nextTick(function() {

@@ -53,7 +53,7 @@ make dev
 
 ## Examples
 
-After npm run dev, visit http://localhost:8080/examples.
+After npm run dev, visit http://localhost:8088/examples.
 
 ## License
 MIT.

@@ -1,6 +1,6 @@
 <template>
   <d-button @click="changePageCount()">Change ItemTotal</d-button>
-  <d-pagination :item-count="itemCount" :current-page="1" layout="info,->,prev,manual,next,list,slot">
+  <d-pagination :item-count="itemCount"  layout="info,->,prev,manual,next,list,slot" @current-change="test">
     <button>save</button>
     <button>cancel</button>
   </d-pagination>
@@ -15,6 +15,9 @@
     },
 
     methods: {
+      test(currentPage) {
+        console.log(currentPage);
+      },
       changePageCount() {
         this.itemCount = 98;
       }

@@ -108,6 +108,9 @@ Tree 目前可以使用的属性如下：
 | data | 数组类型。 |
 | levelConfig | 树的层级定义，具体使用说明请参考下面的表格。  |
 
+Tree 目前可以使用的方法如下：
+
+- getCheckedNodes(leafNodeOnly): 取得目前所有选中的节点，leafNodeOnly 用来表明是否只获取叶子节点，默认值为 false。
 
 levelConfig可以使用的属性如下：
 

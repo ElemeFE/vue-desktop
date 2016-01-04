@@ -140,7 +140,8 @@
       },
 
       currentPage: {
-        type: Number
+        type: Number,
+        default: 1
       },
 
       layout: {
@@ -151,12 +152,6 @@
         type: Array,
         default() {
           return [ 10, 20, 30, 40, 50, 100 ]
-        }
-      },
-
-      mapping: {
-        default() {
-          return { 10: 10, 20: 20, 30: 30, 40: 40, 50: 50 };
         }
       }
     },
@@ -236,7 +231,7 @@
             this.currentPage = newPage;
 
             if (newPage !== currentPage) {
-              this.$emit('change', { currentPage: newPage });
+              this.$parent.$emit('current-change', newPage);
             }
           }
         },
@@ -301,34 +296,60 @@
 
     methods: {
       prev() {
-        if (this.currentPage > 1) {
-          this.currentPage--;
+        var oldPage = this.currentPage;
+        var newVal = this.currentPage - 1;
+        this.currentPage = this.getValidCurrentPage(newVal);
+
+        if (this.currentPage !== oldPage) {
+          this.$emit('current-change', this.currentPage);
         }
       },
 
       next() {
-        this.currentPage++;
+        var oldPage = this.currentPage;
+        var newVal = this.currentPage + 1;
+        this.currentPage = this.getValidCurrentPage(newVal);
+
+        if (this.currentPage !== oldPage) {
+          this.$emit('current-change', this.currentPage);
+        }
       },
 
       first() {
-        this.currentPage = 1;
+        var oldPage = this.currentPage;
+        var newVal = 1;
+        this.currentPage = this.getValidCurrentPage(newVal);
+
+        if (this.currentPage !== oldPage) {
+          this.$emit('current-change', this.currentPage);
+        }
       },
 
       last() {
-        this.currentPage = this.pageCount;
+        var oldPage = this.currentPage;
+        var newVal = this.pageCount;
+        this.currentPage = this.getValidCurrentPage(newVal);
+
+        if (this.currentPage !== oldPage) {
+          this.$emit('current-change', this.currentPage);
+        }
       },
 
       getValidCurrentPage(value) {
         value = parseInt(value, 10);
 
-        var resetVal;
+        var resetValue;
         if (value < 1) {
-          resetVal = this.pageCount > 0 ? 1 : 0;
+          resetValue = this.pageCount > 0 ? 1 : 0;
         } else if (value > this.pageCount) {
-          resetVal = this.pageCount;
+          resetValue = this.pageCount;
         }
 
-        return resetVal === undefined ? value : resetVal;
+        if (resetValue === undefined && isNaN(value)) {
+          value = this.pageCount > 0 ? 1 : 0;
+        }
+
+        return resetValue === undefined ? value : resetValue;
       }
     },
 
@@ -384,7 +405,7 @@
         newVal = parseInt(newVal, 10);
 
         if (isNaN(newVal)) {
-          newVal = oldVal;
+          newVal = oldVal || 1;
         } else {
           newVal = this.getValidCurrentPage(newVal);
         }
