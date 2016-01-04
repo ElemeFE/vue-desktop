@@ -60,7 +60,7 @@
 
     ready() {
       if (this.levelConfig) {
-        if (this.levelConfig.lazy === true) {
+        if (this.levelConfig.lazy !== undefined) {
           var loadFn = this.levelConfig.load;
           if (!loadFn) return;
           loadFn(this, (callback) => {

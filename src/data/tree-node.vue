@@ -3,7 +3,7 @@
     <div class="tree-node-content">
       <span class="expand-icon" :class="{ leafnode: !hasChild, expanded: hasChild && expanded }" @click="handleExpandIconClick"></span>
       <input type="checkbox" v-model="isChecked" @change="handleCheckChange()" v-el:input />
-      <span class="icon {{icon}}" v-if="icon"></span><span class="text">{{ label + (childrenLoaded === 'loading' ? '(Loading)' : '') }}</span>
+      <span class="icon {{icon}}" v-if="icon"></span><span class="text">{{ label }}</span>
     </div>
     <div class="tree-node-children" v-if="!lazyRenderChildren || (lazyRenderChildren && childrenRendered)" v-show="expanded" transition="collapse">
       <d-tree-node v-for="child in children || childrenData" :data="child"></d-tree-node>
@@ -224,6 +224,7 @@
 
     methods: {
       handleExpandIconClick() {
+        // debugger;
         // Only work on lazy load data.
         if (this.needLoadData) {
           this.loadIfNeeded(() => {
@@ -256,9 +257,6 @@
       loadIfNeeded(callback) {
         if (this.lazyload === true && !this.childrenLoaded && this.loadFn) {
           this.childrenLoaded = 'loading';
-
-          // TODO
-          // loadFn(tree, node, () => {   });
 
           var loadFn = this.loadFn;
 
@@ -371,7 +369,7 @@
       var levelConfig = this.levelConfig;
       if (levelConfig) {
         var children = levelConfig.children;
-        if (children && children.lazy) {
+        if (children && children.lazy !== undefined) {
           this.lazyload = true;
           this.loadFn = children.load;
         }
@@ -381,10 +379,20 @@
         console.warn('Can not find node\'s tree.');
       } else {
         this.lazyRenderChildren = this.$tree.lazyRender;
+        if (this.levelConfig && this.levelConfig.lazy === false) {
+          this.lazyRenderChildren = false;
+        }
       }
     },
 
     ready() {
+      if (this.levelConfig) {
+        var lazy = this.levelConfig.lazy;
+        if (lazy === false && this.loadFn) {
+          this.loadIfNeeded();
+        }
+      }
+
       if (this.isChecked) {
         Vue.nextTick(() => {
           this.setChecked(true);

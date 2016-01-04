@@ -1,12 +1,12 @@
 <template>
   <d-panel style="height: 400px;">
+    <d-tree :level-config="lazyLevelConfig"></d-tree>
+    <div style="height: 100px;"></div>
     <d-tree :data="data" :level-config="defaultLevelConfig" :lazy-render="false"></d-tree>
     <div style="height: 100px;"></div>
     <d-tree :data="regions" :level-config="levelConfig"></d-tree>
     <div style="height: 100px;"></div>
     <d-tree :data="regions" :level-config="levelConfig2"></d-tree>
-    <div style="height: 100px;"></div>
-    <d-tree :level-config="lazyLevelConfig"></d-tree>
   </d-panel>
 </template>
 
@@ -123,11 +123,12 @@
 
   var lazyLevelConfig = {
     recursive: true,
-    lazy: true,
+    lazy: false,
     leafIcon: 'leaf',
     icon: 'folder',
     load: function (node, callback) {
-      var hasChild = true;
+      var hasChild = Math.random() > 0.5;
+
       setTimeout(function () {
         var data;
         if (hasChild) {
@@ -144,7 +145,7 @@
         if (callback) {
           callback();
         }
-      }, 500);
+      }, 100);
     }
   };
 
