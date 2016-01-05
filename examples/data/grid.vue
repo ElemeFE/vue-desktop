@@ -11,12 +11,12 @@
       </d-field>
     </d-form>
 
-    <d-grid :data="gridData" :fit="false" :schema="gridSchema" :selection.sync="selection" selection-mode="none" @selection-change="handleSelectionChange" flex>
+    <d-grid :data="gridData" :schema="gridSchema" :selection.sync="selection" selection-mode="none" @selection-change="handleSelectionChange" flex>
       <d-grid-column type="index"></d-grid-column>
       <d-grid-column type="selection"></d-grid-column>
       <d-grid-column property="prop1"></d-grid-column>
       <d-grid-column property="prop2"></d-grid-column>
-      <d-grid-column property="prop3" width="400"></d-grid-column>
+      <d-grid-column property="prop3" min-width="400"></d-grid-column>
       <d-grid-column property="prop4"></d-grid-column>
       <d-grid-column label="5" property="prop5"></d-grid-column>
       <d-grid-column label="操作" width="200" v-if="visible">

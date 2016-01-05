@@ -195,7 +195,7 @@
       </table>
     </div>
     <div class="grid-body-wrapper">
-      <table class="grid-body" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth + 'px' : '' }">
+      <table class="grid-body" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth - gutterWidth + 'px' : '' }">
         <tbody></tbody>
       </table>
     </div>
@@ -266,11 +266,6 @@
         default: true
       },
 
-      fitColumns: {
-        type: Boolean,
-        default: true
-      },
-
       fixedColumnCount: {
         type: Number,
         default: 0
@@ -281,7 +276,11 @@
         default: 'single'
       },
 
-      selection: {}
+      selection: {},
+
+      gutterWidth: {
+        default: 0
+      }
     },
 
     events: {
@@ -338,56 +337,50 @@
 
       $calcColumns() {
         var fit = this.fit;
-        var fitColumns = this.fitColumns;
         var columns = this.columns;
 
         var bodyWidth;
         if (fit) {
           bodyWidth = this.$el.clientWidth;
 
-          if (fitColumns) {
-            var flexColumns = [];
-            var hasWidthColumnWidth = 0;
+          var flexColumns = [];
+          var definedWidthColumnsWidth = 0;
+          var definedMinWidthSum = 0;
+          var bodyMinWidth = 0;
+          columns.forEach((column) => {
+            definedMinWidthSum += column.minWidth || 80;
+            bodyMinWidth += column.width || column.minWidth || 80;
 
-            columns.forEach((column) => {
-              if (typeof column.width === 'number') {
-                hasWidthColumnWidth += column.width;
+            if (typeof column.width === 'number') {
+              definedWidthColumnsWidth += column.width;
+            } else {
+              flexColumns.push(column);
+            }
+          });
+
+          if (bodyMinWidth < bodyWidth - GUTTER_WIDTH) { // do not have scroll bar.
+            var flexWidthTotal = bodyWidth - GUTTER_WIDTH - columns.length - bodyMinWidth;
+            var flexWidthPerColumn = Math.floor(flexWidthTotal / flexColumns.length);
+            var flexWidthFirstColumn = flexWidthTotal - flexWidthPerColumn * flexColumns.length + flexWidthPerColumn;
+
+            flexColumns.forEach(function(column, index) {
+              if (index === 0) {
+                column.realWidth = (column.minWidth || 80) + flexWidthFirstColumn;
               } else {
-                if (column.fitWidthByLabel) {
-                  var testEl = this.$els && this.$els.testEl;
-                  if (testEl) {
-                    testEl.innerHTML = column.label;
-
-                    column.realWidth = testEl.offsetWidth + 10;
-                    hasWidthColumnWidth += column.realWidth;
-                  }
-
-                  return;
-                }
-                flexColumns.push(column);
+                column.realWidth = (column.minWidth || 80) + flexWidthPerColumn;
               }
             });
-
-            if (flexColumns.length) {
-              var flexWidth = (bodyWidth - GUTTER_WIDTH - hasWidthColumnWidth - columns.length) / flexColumns.length;
-              flexColumns.forEach(function(column) {
-                column.realWidth = flexWidth;
-              });
-            }
+          } else { // need horizontal scroll bar.
+            flexColumns.forEach(function(column) {
+              column.realWidth = column.minWidth;
+            });
           }
         } else {
           bodyWidth = 0;
 
           columns.forEach((column) => {
-            if (!column.width) {
+            if (!column.width && !column.minWidth) {
               column.realWidth = 80;
-            } else if (column.fitWidthByLabel) {
-              var testEl = this.$els && this.$els.testEl;
-              if (testEl) {
-                testEl.innerHTML = column.label || '';
-
-                column.realWidth = testEl.offsetWidth + 10;
-              }
             }
 
             bodyWidth += column.realWidth;
@@ -616,6 +609,7 @@
       if (GUTTER_WIDTH === undefined) {
         GUTTER_WIDTH = getScrollbarWidth();
       }
+      this.gutterWidth = GUTTER_WIDTH;
 
       this.debouncedReRender = debounce(() => {
         Vue.nextTick(() => {

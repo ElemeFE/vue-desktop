@@ -17,8 +17,6 @@
       <d-grid-column property="userName"></d-grid-column>
       <d-grid-column property="sex" width="80"></d-grid-column>
       <d-grid-column property="email"></d-grid-column>
-      <d-grid-column property="phone" width="120"></d-grid-column>
-      <d-grid-column property="comment"></d-grid-column>
       <d-grid-column label="Operation" width="120">
         <d-button @click="$dispatch('editUser', row)">Edit</d-button>
         <d-button>Delete</d-button>

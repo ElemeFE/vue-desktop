@@ -99,10 +99,7 @@
     name: 'd-tree-node',
 
     props: {
-      checked: {
-        type: Boolean,
-        default: false
-      },
+      checked: {},
       data: {
         type: Object
       }
@@ -137,6 +134,8 @@
 
       isChecked:{
         get() {
+          if (this.checked !== undefined) return this.checked;
+
           var data = this.data;
           if (!data) return false;
           var levelConfig = this.levelConfig;
@@ -155,7 +154,7 @@
 
         set(value) {
           var data = this.data;
-          if (!data) return false;
+          if (!data) return;
           var levelConfig = this.levelConfig;
           var checkedProperty;
 
@@ -163,8 +162,8 @@
             checkedProperty = levelConfig.checkedProperty;
 
             if (checkedProperty) {
-              data[checkedProperty] = value;
               this.checked = value;
+              data[checkedProperty] = value !== false;
               return;
             }
           }
@@ -302,7 +301,7 @@
           input.checked = !!value;
         }
 
-        this.checked = value;
+        this.isChecked = value;
         var i, j;
 
         if (deep) {
@@ -331,8 +330,6 @@
             none = false;
           }
         }
-
-        //console.log(all, none, this.label, this.checked);
 
         if (all) {
           parent.setChecked(true);

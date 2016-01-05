@@ -11,13 +11,10 @@
       label: {},
       property: {},
       width: {},
+      minWidth: {},
       sortable: {
         type: Boolean,
         default: undefined
-      },
-      fitWidthByLabel: {
-        type: Boolean,
-        default: false
       }
     },
 
@@ -72,11 +69,21 @@
       }
 
       var width = this.width;
-      if (width) {
+      if (width !== undefined) {
         width = parseInt(width, 10);
         if (isNaN(width)) {
           width = null;
         }
+      }
+
+      var minWidth = this.minWidth;
+      if (minWidth !== undefined) {
+        minWidth = parseInt(minWidth, 10);
+        if (isNaN(minWidth)) {
+          minWidth = 80;
+        }
+      } else {
+        minWidth = 80;
       }
 
       var headerTemplate;
@@ -88,12 +95,14 @@
         template = '<input type="checkbox" @change="$parent.$parent.toggleSelection($event, row)" v-model="row.$selected"/>';
         if (!width) {
           width = 30;
+          minWidth = 30;
         }
       } else if (type === 'index') {
         headerTemplate = '';
         template = '{{ $index + 1 }}';
         if (!width) {
           width = 30;
+          minWidth = 30;
         }
       } else {
         if ((!template || /^\s*$/.test(template)) && property) {
@@ -104,21 +113,18 @@
       var columnId = parent.gridId + 'column_' + columnIdSeed++;
       this.columnId = columnId;
 
-      var fitWidthByLabel = this.fitWidthByLabel;
-      if (type === 'selection' || type === 'index') fitWidthByLabel = false;
-
       parent.columns.push({
         id: columnId,
         label: label,
         headerTemplate: headerTemplate,
         property: property,
+        minWidth: minWidth,
         width: width,
         realWidth: width,
         direction: '',
         sortable: this.sortable,
         type: type,
         template: template
-        //,fitWidthByLabel: fitWidthByLabel
       });
 
       if (parent.$ready) {
