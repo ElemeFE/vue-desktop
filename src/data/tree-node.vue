@@ -146,7 +146,7 @@
             checkedProperty = levelConfig.checkedProperty;
 
             if (checkedProperty) {
-              return this.checked = data[checkedProperty];
+              return this.checked = !!data[checkedProperty];
             }
           }
 
@@ -154,8 +154,6 @@
         },
 
         set(value) {
-          console.log('set checked:' + value);
-
           var data = this.data;
           if (!data) return false;
           var levelConfig = this.levelConfig;

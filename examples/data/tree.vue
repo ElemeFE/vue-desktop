@@ -1,6 +1,7 @@
 <template>
   <d-panel style="height: 400px;">
-    <d-tree :level-config="lazyLevelConfig"></d-tree>
+    <d-tree :level-config="lazyLevelConfig" v-ref:tree></d-tree>
+    <button @click="getCheckedNodes">getCheckedNodes</button>
     <div style="height: 100px;"></div>
     <d-tree :data="data" :level-config="defaultLevelConfig" :lazy-render="false"></d-tree>
     <div style="height: 100px;"></div>
@@ -125,6 +126,7 @@
     recursive: true,
     lazy: false,
     leafIcon: 'leaf',
+    checkedProperty: 'checked',
     icon: 'folder',
     load: function (node, callback) {
       var hasChild = Math.random() > 0.5;
@@ -133,9 +135,11 @@
         var data;
         if (hasChild) {
           data = [{
-            name: 'zone' + count++
+            name: 'zone' + count++,
+            checked: Math.random() > 0.5 ? 1 : 0
           }, {
-            name: 'zone' + count++
+            name: 'zone' + count++,
+            checked: Math.random() > 0.5 ? 1 : 0
           }];
         } else {
           data = [];
@@ -150,6 +154,12 @@
   };
 
   export default {
+    methods: {
+      getCheckedNodes() {
+        console.log(this.$refs.tree.getCheckedNodes(true));
+      }
+    },
+
     data() {
       return {
         lazyLevelConfig: lazyLevelConfig,

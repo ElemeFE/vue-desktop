@@ -305,10 +305,14 @@
           var selected = this.selected;
           if (selected === null) {
             this.selected = data[0];
-            this.$emit('selection-change', this.selected);
+            if (this.selected) {
+              this.$emit('selection-change', this.selected);
+            }
           } else if (data.indexOf(selected) === -1) {
             this.selected = data[0];
-            this.$emit('selection-change', this.selected);
+            if (this.selected) {
+              this.$emit('selection-change', this.selected);
+            }
           }
         }
       },
