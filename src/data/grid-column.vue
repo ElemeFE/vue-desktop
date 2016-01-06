@@ -15,6 +15,10 @@
       sortable: {
         type: Boolean,
         default: undefined
+      },
+      resizable: {
+        type: Boolean,
+        default: true
       }
     },
 
@@ -96,6 +100,7 @@
         if (!width) {
           width = 30;
           minWidth = 30;
+          this.resizable = false;
         }
       } else if (type === 'index') {
         headerTemplate = '';
@@ -103,6 +108,7 @@
         if (!width) {
           width = 30;
           minWidth = 30;
+          this.resizable = false;
         }
       } else {
         if ((!template || /^\s*$/.test(template)) && property) {
@@ -125,6 +131,7 @@
         realWidth: width,
         direction: '',
         sortable: this.sortable,
+        resizable: this.resizable,
         type: type,
         template: template
       };

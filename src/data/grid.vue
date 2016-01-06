@@ -181,8 +181,13 @@
     color: #fff;
   }
 
-  .d-grid tr:last-child td {
-    border-bottom: 0;
+  .d-grid-column-resize-proxy {
+    position: absolute;
+    left: 200px;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 1px solid #999;
   }
 </style>
 
@@ -209,6 +214,7 @@
         <tbody></tbody>
       </table>
     </div>
+    <div class="d-grid-column-resize-proxy" v-el:resize-proxy v-show="resizeProxyVisible"></div>
     <slot name="bottom"></slot>
   </div>
 </template>
@@ -217,6 +223,7 @@
   var Vue = require('vue');
   import { throttle, debounce, getScrollbarWidth } from '../util';
   import { default as SchemaStore } from '../schema/store';
+  import { hasClass, addClass, removeClass } from 'wind-dom';
 
   var gridIdSeed = 1;
   var GUTTER_WIDTH;
@@ -435,7 +442,19 @@
         }
       },
 
-      handleHeaderClick(column) {
+      handleHeaderClick(column, event) {
+        var target = event.target;
+        while (target && target.tagName !== 'TH') {
+          target = target.parentNode;
+        }
+
+        if (target && target.tagName === 'TH') {
+          if (hasClass(target, 'noclick')) {
+            removeClass(target, 'noclick');
+            return;
+          }
+        }
+
         if (!column.sortable) return;
 
         if (this.sortingColumn !== column) {
@@ -512,7 +531,7 @@
 
         columns.forEach(function (column, index) {
           var columnTemplate = column.headerTemplate || `{{ columns[${index}].label }}`;
-          rowTemplate += `<th @click="$parent.handleHeaderClick(columns[${index}])" class="{{ columns[${index}].id }} {{ columns[${index}].direction }}" ><div>${ columnTemplate }</div><i class="sort-caret"></i></th>`;
+          rowTemplate += `<th @mousemove="handleMouseMove($event, columns[${index}])" @mousedown="handleMouseDown($event, columns[${index}])" @click="$parent.handleHeaderClick(columns[${index}], $event)" class="{{ columns[${index}].id }} {{ columns[${index}].direction }}" ><div>${ columnTemplate }</div><i class="sort-caret"></i></th>`;
         });
 
         if (!fixed) {
@@ -528,8 +547,99 @@
           el: headerTable,
           template: repeatTemplate,
           replace: false,
-          data: {
-            columns: columns.slice(0)
+          methods: {
+            handleMouseDown(event, column) {
+              if (this.dragReadyColumn) {
+                this.dragging = true;
+
+                this.$parent.resizeProxyVisible = true;
+
+                var gridEl = this.$parent.$el;
+                var gridLeft = gridEl.getBoundingClientRect().left;
+                var columnEl = this.$el.querySelector(`th.${column.id}`);
+                var columnRect = columnEl.getBoundingClientRect();
+                var minLeft = columnRect.left - gridLeft + 30;
+
+                addClass(columnEl, 'noclick');
+
+                this.dragState = {
+                  startMouseLeft: event.clientX,
+                  startLeft: columnRect.right - gridLeft,
+                  startColumnLeft: columnRect.left - gridLeft,
+                  gridLeft: gridLeft
+                };
+
+                var resizeProxy = this.$parent.$els.resizeProxy;
+                resizeProxy.style.left = this.dragState.startLeft + 'px';
+
+                document.onselectstart = function() { return false; };
+                document.ondragstart = function() { return false; };
+
+                var mousemove = (event) => {
+                  var deltaLeft = event.clientX - this.dragState.startMouseLeft;
+                  var proxyLeft = this.dragState.startLeft + deltaLeft;
+
+                  resizeProxy.style.left = Math.max(minLeft, proxyLeft) + 'px';
+                };
+
+                var mouseup = () => {
+                  if (this.dragging) {
+                    var finalLeft = parseInt(resizeProxy.style.left, 10);
+                    var columnWidth = finalLeft - this.dragState.startColumnLeft;
+                    column.width = column.realWidth = columnWidth;
+
+                    Vue.nextTick(() => {
+                      this.$parent.$calcColumns();
+                    });
+
+                    document.body.style.cursor = '';
+                    this.dragging = false;
+                    this.dragReadyColumn = null;
+                    this.dragState = {};
+
+                    this.$parent.resizeProxyVisible = false;
+                  }
+
+                  document.removeEventListener('mousemove', mousemove);
+                  document.removeEventListener('mouseup', mouseup);
+                  document.onselectstart = null;
+                  document.ondragstart = null;
+
+                  setTimeout(function() {
+                    removeClass(columnEl, 'noclick');
+                  }, 0);
+                };
+
+                document.addEventListener('mousemove', mousemove);
+                document.addEventListener('mouseup', mouseup);
+              }
+            },
+
+            handleMouseMove(event, column) {
+              var target = event.target;
+              if (!column || !column.resizable) return;
+
+              if (!this.dragging) {
+                var rect = target.getBoundingClientRect();
+
+                if (rect.right - event.pageX < 8) {
+                  document.body.style.cursor = 'e-resize';
+                  this.dragReadyColumn = column;
+                } else if (!this.dragging) {
+                  document.body.style.cursor = '';
+                  this.dragReadyColumn = null;
+                }
+              }
+            }
+          },
+
+          data(){
+            return {
+              dragReadyColumn: false,
+              dragging: false,
+              dragState: {},
+              columns: columns.slice(0)
+            };
           }
         });
       },
@@ -693,6 +803,7 @@
       return {
         selected: null,
         columns: [],
+        resizeProxyVisible: false,
         bodyWidth: '',
         fixedBodyWidth: '',
         sortingColumn: null,
