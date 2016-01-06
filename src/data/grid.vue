@@ -188,7 +188,7 @@
 
 <template>
   <div class="d-grid" :class="{ 'd-grid-fit': fit }">
-    <div class="hidden-columns"><table><thead><th v-el:test-el></th></thead></table><slot></slot></div>
+    <div class="hidden-columns" v-el:hidden-columns></table><slot></slot></div>
     <div class="grid-header-wrapper">
       <table class="grid-header" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth + 'px' : '' }">
         <thead></thead>

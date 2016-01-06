@@ -113,7 +113,9 @@
       var columnId = parent.gridId + 'column_' + columnIdSeed++;
       this.columnId = columnId;
 
-      parent.columns.push({
+      var columnIndex = [].indexOf.call(parent.$els.hiddenColumns.children, this.$el);
+
+      var columnConfig = {
         id: columnId,
         label: label,
         headerTemplate: headerTemplate,
@@ -125,7 +127,8 @@
         sortable: this.sortable,
         type: type,
         template: template
-      });
+      };
+      parent.columns.splice(columnIndex, 0, columnConfig);
 
       if (parent.$ready) {
         parent.debouncedReRender();
