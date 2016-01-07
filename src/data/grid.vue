@@ -431,13 +431,15 @@
 
         if (!isNaN(height) && this.$el) {
           var headerHeight = this.$el.querySelector('.grid-header-wrapper').offsetHeight;
-          var bodyHeight = (height - headerHeight) + 'px';
+          var bodyHeight = (height - headerHeight);
+          var gridWrapper = this.$el.querySelector('.grid-body-wrapper');
+          gridWrapper.style.height = bodyHeight + 'px';
 
-          this.$el.querySelector('.grid-body-wrapper').style.height = bodyHeight;
+          this.$el.style.height = height + 'px';
 
           var fixedBodyWrapper = this.$el.querySelector('.grid-fixed-body-wrapper');
           if (fixedBodyWrapper) {
-            fixedBodyWrapper.style.height = bodyHeight;
+            fixedBodyWrapper.style.height = bodyHeight + 'px';
           }
         }
       },
@@ -471,6 +473,8 @@
           column.direction = 'descending';
         } else {
           column.direction = '';
+          this.sortingColumn = null;
+          this.sortingProperty = null;
         }
         this.sortingDirection = column.direction === 'descending' ? -1 : 1;
       },
@@ -671,13 +675,13 @@
           template: repeatTemplate,
           replace: false,
           filters: {
-            orderBy(arr, sortKey, reverse) {
+            orderBy(array, sortKey, reverse) {
               if (!sortKey) {
-                return arr;
+                return array;
               }
               var order = (reverse && reverse < 0) ? -1 : 1;
               // sort on a copy to avoid mutating original array
-              return arr.slice().sort(function (a, b) {
+              return array.slice().sort(function (a, b) {
                 if (sortKey !== '$key') {
                   if (isObject(a) && '$value' in a) a = a.$value;
                   if (isObject(b) && '$value' in b) b = b.$value;
