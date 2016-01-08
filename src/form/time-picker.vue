@@ -3,9 +3,9 @@
     <div class="timepicker-header">
       <div class="timepicker-header-close d-icon d-icon-close-circle" @click="handleClose"></div>
       <div class="timepicker-header-confirm d-icon d-icon-confirm-circle" @click="handleConfirm"></div>
-      <div @click="view = 'hours'" class="timepicker-header-label" :class="{ active: view === 'hours' }">{{hours < 10 ? '0' + hours : hours}}</div>
+      <div @click="view = 'hours'" class="timepicker-header-label" :class="{ active: view === 'hours' }">{{formattedHours}}</div>
       <div class="timepicker-header-separator">:</div>
-      <div @click="view = 'minutes'" class="timepicker-header-label" :class="{ active: view === 'minutes' }">{{minutes < 10 ? '0' + minutes : minutes}}</div>
+      <div @click="view = 'minutes'" class="timepicker-header-label" :class="{ active: view === 'minutes' }">{{formattedMinutes}}</div>
     </div>
     <div class="hours-wrap" v-el:hours-wrap @click="handleHoursClick($event)" v-show="view === 'hours'">
       <div class="timepicker-indicator" :class="{ inner: dragging ? dragInside : (hours > 12 || hours < 1) }" :style="{ transform: 'rotateZ(' + (hours * 30) + 'deg)' }">
@@ -219,6 +219,15 @@
       minutes: {
         type: Number,
         default: 0
+      }
+    },
+
+    computed: {
+      formattedHours() {
+        return this.hours < 10 ? '0' + this.hours : this.hours;
+      },
+      formattedMinutes() {
+        return this.minutes < 10 ? '0' + this.minutes : this.minutes;
       }
     },
 
