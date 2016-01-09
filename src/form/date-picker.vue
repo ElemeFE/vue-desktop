@@ -432,23 +432,28 @@
           target = target.parentNode.cells[1];
         }
 
+        var year = this.date.getFullYear();
         var month = this.date.getMonth();
         var text = target.textContent || target.innerText;
         var className = target.className;
 
         if (className.indexOf('prev') !== -1) {
           if (month === 0) {
+            year = year - 1;
             month = 11;
           } else {
             month = month - 1;
           }
+          this.date.setFullYear(year);
           this.date.setMonth(month);
         } else if (className.indexOf('next') !== -1) {
           if (month === 11) {
+            year = year + 1;
             month = 0;
           } else {
             month = month + 1;
           }
+          this.date.setFullYear(year);
           this.date.setMonth(month);
         }
 
