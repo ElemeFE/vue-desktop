@@ -73,8 +73,9 @@ Grid 目前可用的属性如下：
 | schema | Grid 使用的 Schema。 |
 | height | Grid 的高度，默认高度为空，即自动高度。 |
 | fit | Grid 的列的宽度是否自撑开，Boolean 类型，默认为 false。|
-| selectionMode | selectionMode的可选值 single, multiple, none; 默认值 single。|
-| selection | 多选模式下返回数组, 单选模式下返回选中的元素。 |
+| selectionMode | selectionMode的可选值 single，multiple，none; 默认值 single。|
+| selection | 多选模式下返回数组，单选模式下返回选中的元素。 |
+| fixedColumnCount | 锁定列的数量，默认值为0。|
 
 # Grid 的事件
 
@@ -97,6 +98,7 @@ Grid Column 目前可用的属性如下：
 | width | Grid Column 的宽度。 |
 | sortable | Grid Column 是否可以排序，在设置了 property 的情况下，该属性的默认值为 true，反之为 false。 |
 | type | Grid Column 的类型，默认为空，可选值：selection、index。如果设置了 selection 则显示多选按钮，如果设置了 index，则显示该行的索引（从1开始计算）。 |
+| formatter | Grid Column 的 formatter，Function 类型，可以用来格式化内容，在 formatter 执行的时候，会传入 row 和 column。 |
 
 ## Grid Column中的内容
 

@@ -19,6 +19,9 @@
       resizable: {
         type: Boolean,
         default: true
+      },
+      formatter: {
+        type: Function
       }
     },
 
@@ -90,6 +93,9 @@
         minWidth = 80;
       }
 
+      var columnId = parent.gridId + 'column_' + columnIdSeed++;
+      this.columnId = columnId;
+
       var headerTemplate;
       var template = this.template;
       var type = this.type;
@@ -112,12 +118,9 @@
         }
       } else {
         if ((!template || /^\s*$/.test(template)) && property) {
-          template = `{{ $getPropertyText(row, '${property}') }}`;
+          template = `{{ $getPropertyText(row, '${property}', '${columnId}') }}`;
         }
       }
-
-      var columnId = parent.gridId + 'column_' + columnIdSeed++;
-      this.columnId = columnId;
 
       var columnIndex = [].indexOf.call(parent.$els.hiddenColumns.children, this.$el);
 
@@ -133,7 +136,8 @@
         sortable: this.sortable,
         resizable: this.resizable,
         type: type,
-        template: template
+        template: template,
+        formatter: this.formatter
       };
       parent.columns.splice(columnIndex, 0, columnConfig);
 

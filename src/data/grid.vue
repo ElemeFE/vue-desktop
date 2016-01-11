@@ -26,7 +26,6 @@
   .d-grid td {
     height: 20px;
     max-width: 250px;
-    padding: 2px;
     box-sizing: border-box;
     overflow: hidden;
     line-height: 28px;
@@ -47,12 +46,18 @@
 
   .d-grid th > div {
     display: inline-block;
+    padding: 2px;
+  }
+
+  .d-grid td > div {
+    padding: 2px;
   }
 
   .d-grid .grid-fixed-header-wrapper {
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 3;
   }
 
   .d-grid .grid-fixed-body-wrapper {
@@ -60,6 +65,7 @@
     left: 0;
     top: 37px;
     overflow: hidden;
+    z-index: 3;
   }
 
   .d-grid .grid-fixed-body-wrapper tr {
@@ -209,7 +215,7 @@
         <thead></thead>
       </table>
     </div>
-    <div class="grid-fixed-body-wrapper" v-if="fixedColumnCount > 0">
+    <div class="grid-fixed-body-wrapper" v-if="fixedColumnCount > 0" :style="{ top: headerHeight + 'px' }">
       <table class="grid-body" cellspacing="0" cellpadding="0" border="0" :style="{ width: fixedBodyWidth ? fixedBodyWidth + 'px' : '' }">
         <tbody></tbody>
       </table>
@@ -420,6 +426,7 @@
         }
 
         this.bodyWidth = bodyWidth;
+        this.headerHeight = this.$el.querySelector('.grid-header-wrapper').offsetHeight;
       },
 
       $calcHeight(height) {
@@ -637,7 +644,7 @@
             }
           },
 
-          data(){
+          data() {
             return {
               dragReadyColumn: false,
               dragging: false,
@@ -680,6 +687,7 @@
                 return array;
               }
               var order = (reverse && reverse < 0) ? -1 : 1;
+
               // sort on a copy to avoid mutating original array
               return array.slice().sort(function (a, b) {
                 if (sortKey !== '$key') {
@@ -701,7 +709,18 @@
               }
               grid.$emit('row-click', row);
             },
-            $getPropertyText: function(row, property) {
+            $getPropertyText: function(row, property, columnId) {
+              var column = null;
+              grid.columns.forEach(function(item) {
+                if (item.id === columnId) {
+                  column = item;
+                }
+              });
+
+              if (column && column.formatter) {
+                return column.formatter(row, column);
+              }
+
               var schema = grid.gridSchema;
               if (schema) {
                 var mapping = schema.getPropertyMapping(property);
@@ -710,6 +729,7 @@
                 }
                 return schema.getPropertyText(row, property);
               }
+
               return row[property];
             }
           }
@@ -805,6 +825,7 @@
 
     data() {
       return {
+        headerHeight: 35,
         selected: null,
         columns: [],
         resizeProxyVisible: false,
