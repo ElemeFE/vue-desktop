@@ -187,6 +187,11 @@
     color: #fff;
   }
 
+  .d-grid tr.hover,
+  .d-grid tr:hover {
+
+  }
+
   .d-grid-column-resize-proxy {
     position: absolute;
     left: 200px;
@@ -198,7 +203,7 @@
 </style>
 
 <template>
-  <div class="d-grid" :class="{ 'd-grid-fit': fit }">
+  <div class="d-grid" :class="{ 'd-grid-fit': fit }" @mouseleave="hoverRowIndex = null">
     <div class="hidden-columns" v-el:hidden-columns></table><slot></slot></div>
     <div class="grid-header-wrapper">
       <table class="grid-header" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth + 'px' : '' }">
@@ -437,7 +442,7 @@
         }
 
         if (!isNaN(height) && this.$el) {
-          var headerHeight = this.$el.querySelector('.grid-header-wrapper').offsetHeight;
+          var headerHeight = this.headerHeight = this.$el.querySelector('.grid-header-wrapper').offsetHeight;
           var bodyHeight = (height - headerHeight);
           var gridWrapper = this.$el.querySelector('.grid-body-wrapper');
           gridWrapper.style.height = bodyHeight + 'px';
@@ -542,7 +547,7 @@
 
         columns.forEach(function (column, index) {
           var columnTemplate = column.headerTemplate || `{{ columns[${index}].label }}`;
-          rowTemplate += `<th @mousemove="handleMouseMove($event, columns[${index}])" @mousedown="handleMouseDown($event, columns[${index}])" @click="$parent.handleHeaderClick(columns[${index}], $event)" class="{{ columns[${index}].id }} {{ columns[${index}].direction }}" ><div>${ columnTemplate }</div><i class="sort-caret"></i></th>`;
+          rowTemplate += `<th @mousemove="handleMouseMove($event, columns[${index}])" @mouseout="handleMouseOut" @mousedown="handleMouseDown($event, columns[${index}])" @click="$parent.handleHeaderClick(columns[${index}], $event)" class="{{ columns[${index}].id }} {{ columns[${index}].direction }}" ><div>${ columnTemplate }</div><i class="sort-caret"></i></th>`;
         });
 
         if (!fixed) {
@@ -641,6 +646,10 @@
                   this.dragReadyColumn = null;
                 }
               }
+            },
+
+            handleMouseOut() {
+              document.body.style.cursor = '';
             }
           },
 
@@ -669,7 +678,7 @@
           rowTemplate += '<td class="gutter"></td>';
         }
 
-        var repeatTemplate = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection" @click="handleClick(row)" :class="{ \'current-row\': row === $parent.$parent.selected }">' + rowTemplate + '</tr>';
+        var repeatTemplate = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection" @click="handleClick(row)" @mouseenter="$parent.$parent.hoverRowIndex = $index" :class="{ \'current-row\': row === $parent.$parent.selected, hover: $parent.$parent.hoverRowIndex === $index }">' + rowTemplate + '</tr>';
 
         var bodyTable = this.$el.querySelector(fixed ? '.grid-fixed-body-wrapper tbody' : '.grid-body tbody');
 
@@ -825,6 +834,7 @@
 
     data() {
       return {
+        hoverRowIndex: null,
         headerHeight: 35,
         selected: null,
         columns: [],
