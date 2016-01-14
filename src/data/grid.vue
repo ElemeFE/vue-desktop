@@ -357,14 +357,14 @@
         var fit = this.fit;
         var columns = this.columns;
 
-        var bodyWidth;
-        if (fit) {
-          bodyWidth = this.$el.clientWidth;
+        var bodyWidth = this.$el.clientWidth;
+        var bodyMinWidth = 0;
 
+        if (fit) {
           var flexColumns = [];
           var definedWidthColumnsWidth = 0;
           var definedMinWidthSum = 0;
-          var bodyMinWidth = 0;
+
           columns.forEach((column) => {
             definedMinWidthSum += column.minWidth || 80;
             bodyMinWidth += column.width || column.minWidth || 80;
@@ -389,20 +389,20 @@
               }
             });
           } else { // need horizontal scroll bar.
+            this.showHoriScrollbar = true;
             flexColumns.forEach(function(column) {
               column.realWidth = column.minWidth;
             });
           }
         } else {
-          bodyWidth = 0;
-
           columns.forEach((column) => {
             if (!column.width && !column.minWidth) {
               column.realWidth = 80;
             }
 
-            bodyWidth += column.realWidth;
+            bodyMinWidth += column.realWidth;
           });
+          this.showHoriScrollbar = bodyMinWidth > bodyWidth;
         }
 
         if (this.styleNode) {
@@ -451,7 +451,7 @@
 
           var fixedBodyWrapper = this.$el.querySelector('.grid-fixed-body-wrapper');
           if (fixedBodyWrapper) {
-            fixedBodyWrapper.style.height = bodyHeight + 'px';
+            fixedBodyWrapper.style.height = (this.showHoriScrollbar ? gridWrapper.offsetHeight - this.gutterWidth : gridWrapper.offsetHeight) + 'px';
           }
         }
       },
@@ -834,6 +834,7 @@
 
     data() {
       return {
+        showHoriScrollbar: false,
         hoverRowIndex: null,
         headerHeight: 35,
         selected: null,
