@@ -61,9 +61,6 @@
     },
 
     ready() {
-      console.log(this.$children.map((item) => item.title));
-      console.log(this.tabs);
-
       this.$resizeListener = throttle(this.handleResize, 100);
       domUtil.on(window, 'resize', this.$resizeListener);
 

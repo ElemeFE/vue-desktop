@@ -57,6 +57,8 @@
 
     created: common.onCreated,
 
+    destroyed: common.onDestroyed,
+
     compiled: common.onCompiled,
 
     methods: merge({}, common.methods)

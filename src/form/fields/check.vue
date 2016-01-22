@@ -67,6 +67,8 @@
 
     compiled: common.onCompiled,
 
+    destroyed: common.onDestroyed,
+
     methods: merge({}, common.methods)
   };
 </script>

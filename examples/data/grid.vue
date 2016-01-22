@@ -15,7 +15,12 @@
       <d-grid-column type="index"></d-grid-column>
       <d-grid-column type="selection"></d-grid-column>
       <d-grid-column property="prop1" :formatter="formatNumber"></d-grid-column>
-      <d-grid-column property="prop2"></d-grid-column>
+      <d-grid-column property="prop2">
+        <!--<d-grid-column property="prop3">-->
+        <!--</d-grid-column>-->
+        <!--<d-grid-column property="prop4">-->
+        <!--</d-grid-column>-->
+      </d-grid-column>
       <d-grid-column property="prop3" min-width="800"></d-grid-column>
       <d-grid-column property="prop4"></d-grid-column>
       <d-grid-column label="5" property="prop5"></d-grid-column>

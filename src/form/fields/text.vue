@@ -86,6 +86,8 @@
 
     created: common.onCreated,
 
+    destroyed: common.onDestroyed,
+
     beforeCompile() {
       this.editorFocused = false;
     },

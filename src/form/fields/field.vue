@@ -125,6 +125,8 @@
 
     compiled: common.onCompiled,
 
+    destroyed: common.onDestroyed,
+
     computed: merge({}, common.computed)
   };
 </script>

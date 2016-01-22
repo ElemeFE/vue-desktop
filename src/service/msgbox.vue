@@ -93,7 +93,6 @@
 
   .msgbox-cancel {
     min-width: 100px;
-    margin-right: 30px;
   }
 </style>
 

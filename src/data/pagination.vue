@@ -113,6 +113,7 @@
 </style>
 
 <script type="text/ecmascript-6">
+  require('../icon/iconfont.css');
   var Vue = require('vue');
 
   var TEMPLATE_MAP = {

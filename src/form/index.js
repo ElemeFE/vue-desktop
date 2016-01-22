@@ -12,6 +12,7 @@ import Option from './select-option.vue';
 
 import Field from './fields/field.vue';
 import TextField from './fields/text.vue';
+import LabelField from './fields/label.vue';
 import CheckboxField from './fields/check.vue';
 import SelectField from './fields/select.vue';
 import RadiogroupField from './fields/radio.vue';
@@ -34,6 +35,7 @@ export default {
 
   Field,
   TextField,
+  LabelField,
   CheckboxField,
   SelectField,
   RadiogroupField,

@@ -2,6 +2,8 @@ import { default as SchemaStore } from '../../schema/store';
 import { merge } from '../../util';
 var domUtil = require('wind-dom');
 
+import Vue from 'vue';
+
 export default {
   props: {
     form: {},
@@ -103,6 +105,12 @@ export default {
     }
   },
 
+  onDestroyed() {
+    if (this.model && this.modelListener) {
+      this.model.$off('reset', this.modelListener);
+    }
+  },
+
   onCompiled() {
     var form = this.form;
 
@@ -118,6 +126,16 @@ export default {
       if (form && form.model) {
         this.model = form.model;
       }
+    }
+
+    if (this.model) {
+      this.modelListener = () => {
+        Vue.nextTick(() => {
+          this.hintType = '';
+          this.hintMessage = '';
+        });
+      };
+      this.model.$on('reset', this.modelListener);
     }
 
     if (this.property) {

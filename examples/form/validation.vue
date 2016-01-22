@@ -6,6 +6,9 @@
       <d-text-field type='password' property='password'></d-text-field>
       <d-text-field type='password' property='confirmPassword'></d-text-field>
       <d-text-field property='comment' type="textarea" :editor-height="60"></d-text-field>
+      <d-field>
+        <d-button @click="reset()">重置</d-button>
+      </d-field>
     </d-form>
   </d-panel>
 </template>
@@ -55,6 +58,10 @@
     methods: {
       validate() {
         userSchema.validate(this.user);
+      },
+
+      reset() {
+        this.user.reset();
       }
     },
 

@@ -26,7 +26,9 @@
 
       width: {
         default: 600
-      }
+      },
+
+      height: {}
     },
 
     computed: {
@@ -80,6 +82,7 @@
 
   .d-dialog-body {
     padding: 10px;
+    overflow: auto;
   }
 
   .d-dialog-header-buttons {

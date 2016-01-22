@@ -130,6 +130,8 @@
 
     created: common.onCreated,
 
+    destroyed: common.onDestroyed,
+
     compiled: common.onCompiled,
 
     ready() {

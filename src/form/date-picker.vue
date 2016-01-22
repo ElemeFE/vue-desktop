@@ -241,6 +241,9 @@
     return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
   };
 
+  // TODO add a common i18n
+  const i18n = require('../locales/zh').default;
+
   export default {
     props: {
       currentView: {
@@ -275,6 +278,19 @@
     },
 
     methods: {
+      $t(path) {
+        var array = path.split('.');
+        var current = i18n;
+        for (var i = 0, j = array.length; i < j; i++) {
+          var property = array[i];
+          var value = current[property];
+          if (i === j - 1) return value;
+          if (!value) return '';
+          current = value;
+        }
+        return '';
+      },
+
       isMonthActive(month) {
         var date = this.date;
         if (this.selectionMode !== 'month'){

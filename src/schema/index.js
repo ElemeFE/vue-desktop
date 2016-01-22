@@ -72,6 +72,62 @@ var initObject = (object, schema, addMethod) => {
       }
     });
 
+    Object.defineProperty(object, '$on', {
+      configurable: true,
+      enumerable: false,
+      value: function(name, fn) {
+        if (!name || typeof fn !== 'function') throw new Error('$on need name & fn.');
+
+        var listeners = this.$listeners;
+        if (!listeners) {
+          listeners = this.$listeners = {};
+        }
+
+        var array = listeners[name];
+        if (!array) {
+          array = listeners[name] = [];
+        }
+        array.push(fn);
+      }
+    });
+
+    Object.defineProperty(object, '$off', {
+      configurable: true,
+      enumerable: false,
+      value: function(name, fn) {
+        if (!name) throw new Error('$off need name');
+        var listeners = this.$listeners || {};
+        var array = listeners[name];
+        if (!array) return;
+        if (typeof fn === 'function') {
+          for (var i = 0, j = array.length; i < j; i++) {
+            var item = array[i];
+            if (item === fn) {
+              array.splice(i, 1);
+              break;
+            }
+          }
+        } else {
+          array.splice(0, array.length - 1);
+        }
+      }
+    });
+
+    Object.defineProperty(object, '$emit', {
+      configurable: true,
+      enumerable: false,
+      value: function(name, arg0, arg1, arg2, arg3) {
+        var listeners = this.$listeners || {};
+        var array = listeners[name];
+        if (!array) return;
+
+        for (var i = 0, j = array.length; i < j; i++) {
+          var fn = array[i];
+          fn.call(this, arg0, arg1, arg2, arg3);
+        }
+      }
+    });
+
     Object.defineProperty(object, 'save', {
       configurable: true,
       enumerable: false,
@@ -178,12 +234,11 @@ class Schema {
     return result;
   }
 
-  translateProperty(object, property) {
+  translateProperty(property, value) {
     var mapping = this.getPropertyMapping(property);
     var definedMapping = (this.props[property] || {}).mapping;
 
     if (mapping) {
-      var value = object[property];
       var reversedMapping = this.$reversedMappings[property];
 
       if (typeof definedMapping !== 'function' && reversedMapping) {
@@ -357,6 +412,10 @@ class Schema {
           object[prop] = savedState[prop];
         }
       }
+    }
+
+    if (object.$emit) {
+      object.$emit('reset');
     }
 
     object.$hints = {};

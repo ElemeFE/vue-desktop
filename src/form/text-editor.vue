@@ -97,6 +97,7 @@
 </style>
 
 <script type="text/ecmascript-6">
+  require('../icon/iconfont.css');
   var Vue = require('vue');
   var domUtil = require('wind-dom');
   import { merge, formatDate, parseDate } from '../util';
@@ -160,6 +161,7 @@
           }
           return value;
         },
+
         set(value) {
           if (this.type === 'date' && !(value instanceof Date)) return;
           if (this.type === 'number') {

@@ -232,6 +232,7 @@
 
 <script type="text/ecmascript-6">
   var Vue = require('vue');
+
   import { throttle, debounce, getScrollbarWidth } from '../util';
   import { default as SchemaStore } from '../schema/store';
   import { hasClass, addClass, removeClass } from 'wind-dom';
@@ -734,7 +735,7 @@
               if (schema) {
                 var mapping = schema.getPropertyMapping(property);
                 if (mapping) {
-                  return schema.translateProperty(row, property);
+                  return schema.translateProperty(property, row[property]);
                 }
                 return schema.getPropertyText(row, property);
               }
