@@ -106,7 +106,7 @@ export default {
   },
 
   onDestroyed() {
-    if (this.model && this.modelListener) {
+    if (this.model && this.model.$off && this.modelListener) {
       this.model.$off('reset', this.modelListener);
     }
   },
@@ -128,7 +128,7 @@ export default {
       }
     }
 
-    if (this.model) {
+    if (this.model && this.model.$on) {
       this.modelListener = () => {
         Vue.nextTick(() => {
           this.hintType = '';
