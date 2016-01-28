@@ -3,7 +3,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  var columnIdSeed = 1;
+  let columnIdSeed = 1;
 
   export default {
     props: {
@@ -27,26 +27,137 @@
 
     data() {
       return {
-        template: null
+        template: null,
+        isChildColumn: false,
+        columns: []
       }
+    },
+
+    created() {
+      this.columnId = (this.$parent.gridId || (this.$parent.columnId + '_')) + 'column_' + columnIdSeed++;
+
+      let parent = this.$parent;
+      let grid = parent;
+
+      if (!parent.gridId) {
+        this.isChildColumn = true;
+        let current = parent;
+        while (current) {
+          if (current.gridId) {
+            grid = current;
+            break;
+          }
+          current = current.$parent;
+        }
+      }
+
+      let property = this.property;
+
+      if (this.sortable === undefined) {
+        this.sortable = !!property;
+      }
+
+      let label = this.label;
+      let schema = (grid || parent).gridSchema;
+
+      if (property && schema && !label) {
+        this.label = label = schema.getPropertyLabel(property);
+      }
+
+      let width = this.width;
+      if (width !== undefined) {
+        width = parseInt(width, 10);
+        if (isNaN(width)) {
+          width = null;
+        }
+      }
+
+      let minWidth = this.minWidth;
+      if (minWidth !== undefined) {
+        minWidth = parseInt(minWidth, 10);
+        if (isNaN(minWidth)) {
+          minWidth = 80;
+        }
+      } else {
+        minWidth = 80;
+      }
+
+      let columnId = this.columnId;
+      let type = this.type;
+
+      this.columnConfig = {
+        id: columnId,
+        label: label,
+        property: property,
+        minWidth: minWidth,
+        width: width,
+        realWidth: width || minWidth,
+        direction: '',
+        sortable: this.sortable,
+        resizable: this.resizable,
+        type: type,
+        formatter: this.formatter
+      };
     },
 
     beforeCompile() {
-      // console.log(this.$parent, this.$parent.columns);
-      var $options = this.$options;
+      let options = this.$options;
 
-      if ($options._content) {
-        this.template = $options._content.innerHTML;
-        $options._content = null;
+      let tagName = this.$options.el.tagName.toLowerCase();
+      let isColumnGroup = false;
+
+      if (options._content) {
+        let content = options._content.innerHTML;
+        if (content.indexOf(`</${tagName}>`) === -1) {
+          options._content = null;
+          this.template = content;
+        } else {
+          this.template = null;
+          isColumnGroup = true;
+        }
       }
+
+      let width = this.width;
+      let type = this.type;
+      let property = this.property;
+      let columnId = this.columnId;
+      let template = this.template;
+      let headerTemplate;
+      let columnConfig = this.columnConfig;
+
+      if (type === 'selection') {
+        headerTemplate = '<input type="checkbox" @click="$parent.toggleAllSelection($event)" />';
+        template = '<input type="checkbox" @change="$parent.$parent.toggleSelection($event, row)" v-model="row.$selected"/>';
+        if (!width) {
+          columnConfig.minWidth = columnConfig.width = columnConfig.realWidth = 30;
+          columnConfig.resizable = false;
+        }
+      } else if (type === 'index') {
+        headerTemplate = '';
+        template = '{{ $index + 1 }}';
+        if (!width) {
+          columnConfig.minWidth = columnConfig.width = columnConfig.realWidth = 30;
+          columnConfig.resizable = false;
+        }
+      } else {
+        if ((!template || /^\s*$/.test(template)) && property) {
+          template = `{{ $getPropertyText(row, '${property}', '${columnId}') }}`;
+        }
+      }
+
+      columnConfig.template = template;
+      if (headerTemplate !== undefined) {
+        columnConfig.headerTemplate = headerTemplate;
+      }
+      columnConfig.isColumnGroup = isColumnGroup;
     },
 
     detached() {
-      var columns = this.$parent.columns;
+      let columns = this.$parent.columns;
       if (columns) {
-        var columnId = this.columnId;
-        for (var i = 0, j = columns.length; i < j; i++) {
-          var column = columns[i];
+        let columnId = this.columnId;
+        for (let i = 0, j = columns.length; i < j; i++) {
+          let column = columns[i];
 
           if (column.id === columnId) {
             columns.splice(i, 1);
@@ -61,85 +172,20 @@
     },
 
     ready() {
-      var property = this.property;
+      let parent = this.$parent;
+      let columnConfig = this.columnConfig;
+      let columnIndex;
 
-      if (this.sortable === undefined) {
-        this.sortable = !!property;
+      if (!this.isChildColumn) {
+        columnIndex = [].indexOf.call(parent.$els.hiddenColumns.children, this.$el);
       }
 
-      var label = this.label;
-      var parent = this.$parent;
-      var schema = parent.gridSchema;
-
-      if (property && schema && !label) {
-        this.label = label = schema.getPropertyLabel(property);
-      }
-
-      var width = this.width;
-      if (width !== undefined) {
-        width = parseInt(width, 10);
-        if (isNaN(width)) {
-          width = null;
-        }
-      }
-
-      var minWidth = this.minWidth;
-      if (minWidth !== undefined) {
-        minWidth = parseInt(minWidth, 10);
-        if (isNaN(minWidth)) {
-          minWidth = 80;
-        }
+      if (!this.isChildColumn) {
+        parent.columns.splice(columnIndex, 0, columnConfig);
       } else {
-        minWidth = 80;
+        parent.columns.push(columnConfig);
+        parent.columnConfig.columns = parent.columns;
       }
-
-      var columnId = parent.gridId + 'column_' + columnIdSeed++;
-      this.columnId = columnId;
-
-      var headerTemplate;
-      var template = this.template;
-      var type = this.type;
-
-      if (type === 'selection') {
-        headerTemplate = '<input type="checkbox" @click="$parent.toggleAllSelection($event)" />';
-        template = '<input type="checkbox" @change="$parent.$parent.toggleSelection($event, row)" v-model="row.$selected"/>';
-        if (!width) {
-          width = 30;
-          minWidth = 30;
-          this.resizable = false;
-        }
-      } else if (type === 'index') {
-        headerTemplate = '';
-        template = '{{ $index + 1 }}';
-        if (!width) {
-          width = 30;
-          minWidth = 30;
-          this.resizable = false;
-        }
-      } else {
-        if ((!template || /^\s*$/.test(template)) && property) {
-          template = `{{ $getPropertyText(row, '${property}', '${columnId}') }}`;
-        }
-      }
-
-      var columnIndex = [].indexOf.call(parent.$els.hiddenColumns.children, this.$el);
-
-      var columnConfig = {
-        id: columnId,
-        label: label,
-        headerTemplate: headerTemplate,
-        property: property,
-        minWidth: minWidth,
-        width: width,
-        realWidth: width,
-        direction: '',
-        sortable: this.sortable,
-        resizable: this.resizable,
-        type: type,
-        template: template,
-        formatter: this.formatter
-      };
-      parent.columns.splice(columnIndex, 0, columnConfig);
 
       if (parent.$ready) {
         parent.debouncedReRender();
