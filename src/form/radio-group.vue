@@ -44,7 +44,7 @@
       }
     },
 
-    compiled() {
+    created() {
       this.$radioName = prefix + idSeed++;
     },
 

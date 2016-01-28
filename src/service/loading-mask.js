@@ -9,12 +9,16 @@ var service = {
         el: document.createElement('div')
       });
     }
-    instance.open();
+    Vue.nextTick(() => {
+      instance.open();
+    });
   },
 
   close() {
     if (instance) {
-      instance.close();
+      Vue.nextTick(() => {
+        instance.close();
+      });
     }
   }
 };
