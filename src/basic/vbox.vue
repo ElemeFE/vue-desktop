@@ -18,17 +18,16 @@
 </style>
 
 <script type="text/ecmascript-6">
-  var Vue = require('vue');
-  var domUtil = require('wind-dom');
+  let domUtil = require('wind-dom');
   import { throttle } from '../util';
 
   export default {
-    data(){
+    data() {
       return {
         $isBox: true,
         $isTop: false,
         $resizeListener: null
-      }
+      };
     },
 
     methods: {
@@ -72,5 +71,5 @@
         box.handleResize();
       }
     }
-  }
+  };
 </script>

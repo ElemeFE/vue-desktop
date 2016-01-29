@@ -55,7 +55,7 @@
     data() {
       return {
         isLink: false
-      }
+      };
     },
 
     ready() {
@@ -63,5 +63,5 @@
         this.isLink = true;
       }
     }
-  }
+  };
 </script>

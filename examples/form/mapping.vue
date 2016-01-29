@@ -22,7 +22,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { Schema } from '../../src/index.js'
+  import { Schema } from '../../src/index.js';
 
   var schema = new Schema({
     simpleMapping: {
@@ -51,7 +51,6 @@
         });
       }
     },
-
 
     cascadeMapping1: {
       label: 'Parent Mapping',
@@ -90,11 +89,11 @@
     methods: {
     },
 
-    data () {
+    data() {
       return {
         model: schema.newModel(),
         schema: schema
-      }
+      };
     }
-  }
+  };
 </script>

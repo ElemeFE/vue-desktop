@@ -24,7 +24,7 @@
   };
 
   let isObject = function(obj) {
-    return obj !== null && typeof obj === 'object'
+    return obj !== null && typeof obj === 'object';
   };
 
   export default {
@@ -37,7 +37,7 @@
       let columns = this.$options.columns;
       let rowTemplate = '';
 
-      columns.forEach(function (column) {
+      columns.forEach(function(column) {
         let columnTemplate = column.template || '';
         if (column.isColumnGroup) {
           let childColumns = column.columns;
@@ -65,7 +65,7 @@
         var order = (reverse && reverse < 0) ? -1 : 1;
 
         // sort on a copy to avoid mutating original array
-        return array.slice().sort(function (a, b) {
+        return array.slice().sort(function(a, b) {
           if (sortKey !== '$key') {
             if (isObject(a) && '$value' in a) a = a.$value;
             if (isObject(b) && '$value' in b) b = b.$value;
@@ -73,7 +73,7 @@
           a = isObject(a) ? getPath(a, sortKey) : a;
           b = isObject(b) ? getPath(b, sortKey) : b;
           return a === b ? 0 : a > b ? order : -order;
-        })
+        });
       }
     },
 

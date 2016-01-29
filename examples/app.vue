@@ -149,7 +149,7 @@
             path: '/loading-mask'
           }]
         }]
-      }
+      };
     }
-  }
+  };
 </script>

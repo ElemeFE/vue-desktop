@@ -4,7 +4,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { LoadingMask } from '../../src/index.js'
+  import { LoadingMask } from '../../src/index.js';
 
   export default {
     methods: {

@@ -82,8 +82,6 @@
 </style>
 
 <script type="text/ecmascript-6">
-  const domUtil = require('wind-dom');
-
   export default {
     props: {
       path: {},
@@ -133,7 +131,7 @@
       return {
         hasChild: false,
         topLevel: false
-      }
+      };
     },
 
     transitions: {

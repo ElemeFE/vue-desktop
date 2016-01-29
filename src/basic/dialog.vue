@@ -53,7 +53,7 @@
         this.$broadcast('onresize');
       }
     }
-  }
+  };
 </script>
 <style>
   .d-dialog {

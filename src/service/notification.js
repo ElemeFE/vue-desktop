@@ -46,8 +46,8 @@ Notification.close = function(id, userOnClose) {
   }
 
   if (len > 1) {
-    for (i = index; i < len -1 ; i++) {
-      instances[i].dom.style.top = parseInt(instances[i].dom.style.top) - removedHeight - 10 + 'px';
+    for (i = index; i < len - 1 ; i++) {
+      instances[i].dom.style.top = parseInt(instances[i].dom.style.top, 10) - removedHeight - 10 + 'px';
     }
   }
 };

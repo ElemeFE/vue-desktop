@@ -37,7 +37,7 @@
           </tr>
         </tbody>
       </table>
-      <input class="upload-result-clipboard" v-el:clipboard type="text" v-model="copyText" contentEditable>
+      <input class="upload-result-clipboard" v-el:clipboard type="text" v-model="copyText" contenteditable>
     </div>
   </div>
 </template>
@@ -205,7 +205,7 @@
         files: [],
         result: JSON.parse(localStorage.getItem('uploadPicture[]')) || [],
         url: ''
-      }
+      };
     },
     methods: {
       upload() {
@@ -214,16 +214,15 @@
 
         var formData = new FormData();
 
-        this.files.forEach(function(file, index) {
+        this.files.forEach(function(file) {
           formData.append('picture[]', file);
         });
 
-        this.$http.post(url, formData, (data) => {
-          var files = this.files;
+        this.$http.post(this.url, formData, (data) => {
           var result = this.result;
 
           this.uploading = false;
-          
+
           data.forEach(function(item, index) {
             var file = this.files[index];
 
@@ -275,5 +274,5 @@
         localStorage.setItem('uploadPicture[]', JSON.stringify(newValue));
       }
     }
-  }
+  };
 </script>

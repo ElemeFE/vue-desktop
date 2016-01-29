@@ -58,7 +58,7 @@
     data() {
       return {
         selectedArr: []
-      }
+      };
     },
 
     created() {
@@ -90,7 +90,6 @@
       }
     },
 
-
     ready() {
       if (this.selectionMode !== 'none') {
         var buttons = this.$el.querySelectorAll('button.btn');
@@ -106,5 +105,5 @@
         }
       }
     }
-  }
+  };
 </script>

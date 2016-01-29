@@ -6,7 +6,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { Notification } from '../../src/index.js'
   export default {
     methods: {}
   };

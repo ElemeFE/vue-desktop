@@ -100,5 +100,5 @@
         this.$refs.tabs.setActiveTab(1);
       }
     }
-  }
+  };
 </script>

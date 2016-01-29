@@ -46,5 +46,5 @@
     transitions: {
       collapse: require('../collapse-transition').default
     }
-  }
+  };
 </script>

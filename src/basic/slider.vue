@@ -115,7 +115,7 @@
         oldValue: this.defaultValue,
         currentValue: this.defaultValue,
         currentPosition: (this.defaultValue - this.min) / (this.max - this.min) * 100 + '%'
-      }
+      };
     },
 
     methods: {
@@ -154,7 +154,7 @@
 
     computed: {
       $sliderWidth() {
-        return (parseInt(getStyle(this.$els.slider, 'width')));
+        return parseInt(getStyle(this.$els.slider, 'width'), 10);
       }
     },
 
@@ -168,7 +168,7 @@
         self.dragging = true;
         self.showTip = true;
         startX = event.clientX;
-        startPos = parseInt(self.currentPosition);
+        startPos = parseInt(self.currentPosition, 10);
       };
 
       var onDragging = function(event) {
@@ -196,5 +196,5 @@
         window.addEventListener('mouseup', onDragEnd);
       });
     }
-  }
+  };
 </script>

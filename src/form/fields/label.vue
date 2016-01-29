@@ -29,7 +29,6 @@
 </style>
 
 <script type="text/ecmascript-6">
-  var domUtil = require('wind-dom');
   import { merge } from '../../util';
   import { default as common } from './field-common';
 

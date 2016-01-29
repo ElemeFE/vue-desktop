@@ -150,23 +150,23 @@
 
     transitions: {
       section: {
-        beforeEnter: function (el) {
+        beforeEnter(el) {
           el.style.height = '0';
         },
-        enter: function (el) {
+        enter(el) {
           el.style.height = this.getCurrentStyle(this.$els.content, 'height');
         },
-        beforeLeave: function (el) {
+        beforeLeave(el) {
           el.style.height = this.getCurrentStyle(this.$els.content, 'height');
         },
-        leave: function (el) {
+        leave(el) {
           setTimeout(() => el.style.height = '0');
         },
-        afterLeave: function (el) {
+        afterLeave(el) {
           this.$els.content.style.display = 'block';
           el.style.height = '';
         }
       }
     }
-  }
+  };
 </script>

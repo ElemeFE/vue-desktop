@@ -262,14 +262,14 @@
         dragging: false,
         dragInside: false,
         view: 'hours'
-      }
+      };
     },
 
     methods: {
-      initLabels: function (selector, radius) {
+      initLabels: function(selector, radius) {
         var innerHourLabels = this.$el.querySelectorAll(selector);
 
-        [].forEach.call(innerHourLabels, function (element, index) {
+        [].forEach.call(innerHourLabels, function(element, index) {
           var degree = 30 * (index - 3);
 
           var position = getPosition(degree, radius);

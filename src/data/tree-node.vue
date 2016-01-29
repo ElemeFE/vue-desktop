@@ -127,12 +127,12 @@
           labelProperty = levelConfig.labelProperty;
         }
         if (!labelProperty) {
-          return data['label'] || data['name']
+          return data['label'] || data['name'];
         }
         return data[labelProperty];
       },
 
-      isChecked:{
+      isChecked: {
         get() {
           if (this.checked !== undefined) return this.checked;
 
@@ -145,7 +145,7 @@
             checkedProperty = levelConfig.checkedProperty;
 
             if (checkedProperty) {
-              return this.checked = !!data[checkedProperty];
+              this.checked = !!data[checkedProperty];
             }
           }
 
@@ -406,11 +406,11 @@
         $item: null,
         lazyRenderChildren: true,
         childrenRendered: false
-      }
+      };
     },
 
     transitions: {
       collapse: require('../collapse-transition').default
     }
-  }
+  };
 </script>

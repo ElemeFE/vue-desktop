@@ -54,7 +54,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { Schema } from '../../src/index.js'
+  import { Schema } from '../../src/index.js';
 
   var querySchema = new Schema({
     userName: {
@@ -113,7 +113,7 @@
       confirmAddUser() {
         if (this.newUser.validate()) {
           this.addDialogVisible = false;
-          this.users.push(Object.assign({} ,this.newUser));
+          this.users.push(Object.assign({}, this.newUser));
           this.newUser.reset();
         }
       },

@@ -83,5 +83,5 @@
     props: {
       text: {}
     }
-  }
+  };
 </script>

@@ -162,5 +162,5 @@
         return TYPE_CLASSES_MAP[this.type] || 'd-icon-info info';
       }
     }
-  }
+  };
 </script>

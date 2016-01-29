@@ -237,7 +237,7 @@
 
   import { merge, throttle, debounce, getScrollbarWidth } from '../util';
   import { default as SchemaStore } from '../schema/store';
-  import { hasClass, addClass, removeClass } from 'wind-dom';
+  import { hasClass, removeClass } from 'wind-dom';
 
   let gridIdSeed = 1;
   let GUTTER_WIDTH;
@@ -531,7 +531,7 @@
         let fixedBodyWrapper = this.$el.querySelector('.grid-fixed-body-wrapper');
 
         if (!this.$ready) {
-          bodyWrapper.addEventListener('scroll', function () {
+          bodyWrapper.addEventListener('scroll', function() {
             headerWrapper.scrollLeft = this.scrollLeft;
             if (fixedBodyWrapper) {
               fixedBodyWrapper.scrollTop = this.scrollTop;

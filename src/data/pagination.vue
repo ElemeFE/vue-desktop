@@ -152,7 +152,7 @@
       pageSizeList: {
         type: Array,
         default() {
-          return [ 10, 20, 30, 40, 50, 100 ]
+          return [ 10, 20, 30, 40, 50, 100 ];
         }
       }
     },
@@ -442,5 +442,5 @@
     ready() {
       this.currentPage = this.getValidCurrentPage(this.currentPage);
     }
-  }
+  };
 </script>

@@ -22,7 +22,7 @@
     data() {
       return {
         dialogVisible: false
-      }
+      };
     }
   };
 </script>

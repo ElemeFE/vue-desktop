@@ -94,7 +94,7 @@
         closed: false,
         top: null,
         timer: null
-      }
+      };
     },
 
     watch: {
@@ -107,16 +107,13 @@
 
     computed: {
       iconClass() {
-        switch(this.type) {
+        switch (this.type) {
           case 'success':
             return 'd-icon-success success';
-            break;
           case 'warning':
             return 'd-icon-warning warning';
-            break;
           case 'error':
             return 'd-icon-error error';
-            break;
           default:
             return 'd-icon-info info';
         }
@@ -153,5 +150,5 @@
         }
       }, this.duration * 1000);
     }
-  }
+  };
 </script>

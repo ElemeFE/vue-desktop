@@ -190,7 +190,7 @@
         deleteInput: false,
         inputValue: '',
         activeTag: null
-      }
+      };
     },
 
     watch: {
@@ -336,5 +336,5 @@
       this.filteredTags = this.value;
       this.activeTag = this.filteredTags[0];
     }
-  }
+  };
 </script>

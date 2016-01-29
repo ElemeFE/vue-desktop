@@ -11,7 +11,7 @@
     data() {
       return {
         itemCount: 5
-      }
+      };
     },
 
     methods: {

@@ -103,10 +103,10 @@
   export default {
     data() {
       return {
-        selectFunc: function(selected) {
+        selectFunc(selected) {
           console.log('选择了' + selected.join('、'));
         }
-      }
+      };
     }
   };
 </script>

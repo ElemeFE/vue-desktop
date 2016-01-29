@@ -83,7 +83,6 @@
 
     watch: {
       currentPage(newVal) {
-        //console.log(newVal);
       }
     }
   };

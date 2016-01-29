@@ -35,7 +35,7 @@
     data() {
       return {
         fixed: false
-      }
+      };
     },
 
     ready() {
@@ -47,7 +47,7 @@
       phantom.style.margin = getStyle(sticky, 'margin');
 
       var el = sticky.parentNode;
-      while(el && (getStyle(el, 'overflow') === 'visible' || (getStyle(el, 'overflow') === 'hidden'))) {
+      while (el && (getStyle(el, 'overflow') === 'visible' || (getStyle(el, 'overflow') === 'hidden'))) {
         el = el.parentNode;
       }
       if (!el) {
@@ -61,10 +61,10 @@
         if ((!self.fixed) && (sticky.getBoundingClientRect().top <= self.top)) {
           sticky.style.width = originalWidth;
           self.fixed = true;
-        } else if ((self.fixed) && (scrollTop < fixedPointTop)){
+        } else if ((self.fixed) && (scrollTop < fixedPointTop)) {
           self.fixed = false;
         }
       });
     }
-  }
+  };
 </script>

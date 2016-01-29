@@ -48,15 +48,15 @@
       },
       tabs() {
         this.$nextTick(() => {
-          this.showNav = parseInt(getStyle(this.$els.tabsContainer, 'width')) < parseInt(getStyle(this.$els.tabsList, 'width'));
+          this.showNav = parseInt(getStyle(this.$els.tabsContainer, 'width'), 10) < parseInt(getStyle(this.$els.tabsList, 'width'), 10);
           if (!this.showNav) {
             this.listOffset = 0;
           } else {
-            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50;
+            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width'), 10) - parseInt(getStyle(this.$els.tabsList, 'width'), 10) - 50;
             this.prevDisabled = false;
             this.nextDisabled = true;
           }
-        })
+        });
       }
     },
 
@@ -77,12 +77,12 @@
 
     methods: {
       handleResize() {
-        this.showNav = parseInt(getStyle(this.$els.tabsContainer, 'width')) < parseInt(getStyle(this.$els.tabsList, 'width'));
+        this.showNav = parseInt(getStyle(this.$els.tabsContainer, 'width'), 10) < parseInt(getStyle(this.$els.tabsList, 'width'), 10);
         if (!this.showNav) {
           this.listOffset = 0;
         } else {
-          if (this.listOffset < parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50) {
-            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50;
+          if (this.listOffset < parseInt(getStyle(this.$els.tabsContainer, 'width'), 10) - parseInt(getStyle(this.$els.tabsList, 'width'), 10) - 50) {
+            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width'), 10) - parseInt(getStyle(this.$els.tabsList, 'width'), 10) - 50;
             this.nextDisabled = true;
           } else {
             this.nextDisabled = false;
@@ -100,8 +100,8 @@
             this.nextDisabled = false;
           }
         } else {
-          if (this.listOffset - 150 < parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50) {
-            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width')) - parseInt(getStyle(this.$els.tabsList, 'width')) - 50;
+          if (this.listOffset - 150 < parseInt(getStyle(this.$els.tabsContainer, 'width'), 10) - parseInt(getStyle(this.$els.tabsList, 'width'), 10) - 50) {
+            this.listOffset = parseInt(getStyle(this.$els.tabsContainer, 'width'), 10) - parseInt(getStyle(this.$els.tabsList, 'width'), 10) - 50;
             this.nextDisabled = true;
           } else {
             this.listOffset -= 150;
@@ -186,9 +186,9 @@
         listOffset: 0,
         prevDisabled: false,
         nextDisabled: false
-      }
+      };
     }
-  }
+  };
 </script>
 
 <style>

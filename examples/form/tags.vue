@@ -16,7 +16,7 @@
     data() {
       return {
         items: ['the', 'quick', 'brown', 'fox', 'jumps', 'over', 'a', 'lazy', 'dog']
-      }
+      };
     },
 
     methods: {
@@ -24,5 +24,5 @@
         console.log('选中项为: ' + chosenTags.join(', '));
       }
     }
-  }
+  };
 </script>

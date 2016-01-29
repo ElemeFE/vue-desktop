@@ -34,7 +34,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { Schema } from '../../src/index.js'
+  import { Schema } from '../../src/index.js';
 
   var gridSchema = new Schema({
     prop1: {

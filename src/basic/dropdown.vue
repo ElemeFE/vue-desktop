@@ -49,10 +49,8 @@
 <script type="text/ecmascript-6">
   import Popup from 'vue-popup';
   require('vue-popup/lib/popup.css');
-  import { default as Dropdown } from '../service/dropdown'
+  import { default as Dropdown } from '../service/dropdown';
 
-  var getStyle = require('wind-dom').getStyle;
-  
   export default {
     props: {
       title: {
@@ -72,7 +70,7 @@
     data() {
       return {
         showItem: false
-      }
+      };
     },
 
     components: {
@@ -145,5 +143,5 @@
         this.$el.addEventListener('mouseleave', this.onMouseLeave);
       }
     }
-  }
+  };
 </script>

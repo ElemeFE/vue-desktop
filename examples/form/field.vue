@@ -40,11 +40,11 @@
     methods: {
     },
 
-    data () {
+    data() {
       return {
         model: schema.newModel(),
         schema: schema
-      }
+      };
     }
-  }
+  };
 </script>

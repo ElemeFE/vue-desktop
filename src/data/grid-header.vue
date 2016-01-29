@@ -7,7 +7,7 @@
 
 <script type="text/ecmascript-6">
   const Vue = require('vue');
-  import { hasClass, addClass, removeClass } from 'wind-dom';
+  import { addClass, removeClass } from 'wind-dom';
 
   export default {
     props: {

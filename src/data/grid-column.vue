@@ -30,7 +30,7 @@
         template: null,
         isChildColumn: false,
         columns: []
-      }
+      };
     },
 
     created() {
@@ -191,5 +191,5 @@
         parent.debouncedReRender();
       }
     }
-  }
+  };
 </script>

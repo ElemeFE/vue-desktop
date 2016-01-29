@@ -85,5 +85,5 @@
     compiled() {
       this.percent = Math.min(this.percent, 100);
     }
-  }
+  };
 </script>

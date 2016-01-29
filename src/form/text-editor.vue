@@ -99,7 +99,6 @@
 <script type="text/ecmascript-6">
   require('../icon/iconfont.css');
   var Vue = require('vue');
-  var domUtil = require('wind-dom');
   import { merge, formatDate, parseDate } from '../util';
   import { default as Dropdown } from '../service/dropdown';
 
@@ -189,7 +188,7 @@
     data() {
       return {
         pickerVisible: false
-      }
+      };
     },
 
     components: {
@@ -231,7 +230,7 @@
           }
 
           value = Number(value);
-          if (!isNaN(value)){
+          if (!isNaN(value)) {
             this.value = value;
           }
         }
@@ -298,5 +297,5 @@
         }
       }
     }
-  }
+  };
 </script>

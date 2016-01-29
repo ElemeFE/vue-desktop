@@ -16,15 +16,15 @@
     data() {
       return {
         columns: [{
-          property: "职位"
+          property: '职位'
         }, {
-          property: "prop2"
+          property: 'prop2'
         }, {
-          property: "prop3"
+          property: 'prop3'
         }, {
-          property: "prop4"
+          property: 'prop4'
         }, {
-          property: "prop5"
+          property: 'prop5'
         }],
 
         data: [

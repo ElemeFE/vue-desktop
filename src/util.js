@@ -45,7 +45,7 @@ export function debounce(fn, delay) {
 export function throttle(fn, delay) {
   var now, lastExec, timer, context, args;
 
-  var execute = function () {
+  var execute = function() {
     fn.apply(context, args);
     lastExec = now;
   };

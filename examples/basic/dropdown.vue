@@ -25,7 +25,7 @@
         selectFunc: function(name) {
           console.log('选中了第' + name + '项');
         }
-      }
+      };
     }
   };
 </script>

@@ -119,7 +119,6 @@
 <script type="text/ecmascript-6">
   import Popup from 'vue-popup';
   require('vue-popup/lib/popup.css');
-  import Vue from 'vue';
   import Popover from '../popover';
 
   export default {
@@ -161,7 +160,7 @@
         return {
           openDelay: 100,
           placement: 'bottom'
-        }
+        };
       }
     },
 

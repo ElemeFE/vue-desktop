@@ -13,14 +13,18 @@ module.exports = {
     filename: '[name].js'
   },
   devServer: {
-    stats: 'errors-only'
+    stats: {
+      children: false,
+      chunks: false
+    }
   },
   stats: {
-    children: false
+    children: false,
+    chunks: false
   },
   vue: {
     loaders: {
-      js: 'babel',
+      js: 'babel!eslint',
       css: ExtractTextPlugin.extract('style', 'css')
     }
   },

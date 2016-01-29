@@ -20,10 +20,10 @@
   export default {
     data() {
       return {
-        closeFunc: function() {
+        closeFunc() {
           console.log('Closed!');
         }
-      }
+      };
     }
   };
 </script>

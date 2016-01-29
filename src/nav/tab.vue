@@ -33,7 +33,7 @@
     data() {
       return {
         visible: false
-      }
+      };
     },
 
     computed: {
@@ -45,7 +45,7 @@
     created() {
       this.$parent.tabs.push(this);
     }
-  }
+  };
 </script>
 
 <style scoped>

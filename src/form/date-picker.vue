@@ -252,7 +252,7 @@
 
       date: {
         default() {
-          return new Date()
+          return new Date();
         }
       },
 
@@ -293,7 +293,7 @@
 
       isMonthActive(month) {
         var date = this.date;
-        if (this.selectionMode !== 'month'){
+        if (this.selectionMode !== 'month') {
           return month === date.getMonth();
         } else {
           return this.value === date.getFullYear() + '-' + month;
@@ -317,7 +317,7 @@
           newDate.setFullYear(month === 11 ? year + 1 : year);
         }
 
-        newDate.setDate(parseInt(cell.text));
+        newDate.setDate(parseInt(cell.text, 10));
 
         return year + 'w' + getWeekNumber(newDate) === this.value;
       },
@@ -497,7 +497,7 @@
           if (index === 0 || index === 11) return;
 
           var textYear = target.textContent || target.innerText;
-          this.date.setFullYear(parseInt(textYear));
+          this.date.setFullYear(parseInt(textYear, 10));
           this.currentView = 'month';
 
           this.resetDate();
@@ -566,7 +566,7 @@
         return cells;
       },
 
-      monthDate(){
+      monthDate() {
         return this.date.getDate();
       },
 

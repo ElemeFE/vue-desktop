@@ -1,15 +1,15 @@
 require('./collapse-transition.css');
 
 export default {
-  beforeEnter: function (el) {
+  beforeEnter(el) {
     el.dataset.oldPaddingTop = el.style.paddingTop;
     el.dataset.oldPaddingBottom = el.style.paddingBottom;
     el.style.height = '0';
     el.style.paddingTop = 0;
     el.style.paddingBottom = 0;
   },
-  enter: function (el) {
 
+  enter(el) {
     el.dataset.oldOverflow = el.style.overflow;
 
     el.style.display = 'block';
@@ -25,12 +25,14 @@ export default {
 
     el.style.overflow = 'hidden';
   },
-  afterEnter: function(el) {
+
+  afterEnter(el) {
     el.style.display = '';
     el.style.height = '';
     el.style.overflow = el.dataset.oldOverflow;
   },
-  beforeLeave: function (el) {
+
+  beforeLeave(el) {
     el.dataset.oldPaddingTop = el.style.paddingTop;
     el.dataset.oldPaddingBottom = el.style.paddingBottom;
     el.dataset.oldOverflow = el.style.overflow;
@@ -41,7 +43,8 @@ export default {
     }
     el.style.overflow = 'hidden';
   },
-  leave: function (el) {
+
+  leave(el) {
     if (el.scrollHeight !== 0) {
       setTimeout(() => {
         el.style.height = 0;
@@ -50,7 +53,8 @@ export default {
       });
     }
   },
-  afterLeave: function (el) {
+
+  afterLeave(el) {
     el.style.display = el.style.height = '';
     el.style.overflow = el.dataset.oldOverflow;
     el.style.paddingTop = el.dataset.oldPaddingTop;

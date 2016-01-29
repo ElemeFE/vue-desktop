@@ -182,7 +182,7 @@
     data() {
       return {
         selectedClass: 'btn-primary'
-      }
+      };
     },
 
     ready() {
@@ -203,5 +203,5 @@
         });
       }
     }
-  }
+  };
 </script>

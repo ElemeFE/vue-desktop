@@ -8,10 +8,10 @@
   export default {
     data() {
       return {
-        changeFunc: function(value) {
+        changeFunc(value) {
           console.log('目前值为' + value);
         }
-      }
+      };
     }
   };
 </script>

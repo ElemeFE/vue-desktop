@@ -59,10 +59,10 @@
       lazy: true,
       leafIcon: 'leaf',
       icon: 'folder',
-      load: function (node, callback) {
+      load: function(node, callback) {
         var hasChild = Math.random() > 0.5;
 
-        setTimeout(function () {
+        setTimeout(function() {
           var data;
           if (hasChild) {
             data = [{
@@ -92,9 +92,9 @@
       lazy: true,
       leafIcon: 'leaf',
       icon: 'folder',
-      load: function (node, callback) {
+      load: function(node, callback) {
         var hasChild = Math.random() > 0.5;
-        setTimeout(function () {
+        setTimeout(function() {
           var data;
           if (hasChild) {
             data = [{
@@ -128,10 +128,10 @@
     leafIcon: 'leaf',
     checkedProperty: 'checked',
     icon: 'folder',
-    load: function (node, callback) {
+    load: function(node, callback) {
       var hasChild = Math.random() > 0.5;
 
-      setTimeout(function () {
+      setTimeout(function() {
         var data;
         if (hasChild) {
           data = [{
@@ -169,7 +169,7 @@
         levelConfig: levelConfig,
         levelConfig2: levelConfig2,
         regions: regions
-      }
+      };
     }
   };
 </script>

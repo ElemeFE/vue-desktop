@@ -25,5 +25,5 @@
     created() {
       this.id = 'd_checkbox_' + seed;
     }
-  }
+  };
 </script>

@@ -6,14 +6,14 @@ describe('Schema Store', function() {
     SchemaStore.removeSchema('test');
   });
 
-  describe('#defineSchema()', function () {
-    it('should return a Schema Instance', function () {
+  describe('#defineSchema()', function() {
+    it('should return a Schema Instance', function() {
       var schema = SchemaStore.defineSchema('test', {});
 
       schema.validate.should.be.a('function');
     });
 
-    it('should define a Schema with new operator', function () {
+    it('should define a Schema with new operator', function() {
       var schema = new Schema('test2', {});
       schema.validate.should.be.a('function');
 
@@ -138,7 +138,7 @@ describe('Schema Store', function() {
       result.should.be.true;
     });
 
-    it('should validate object property with rules', function () {
+    it('should validate object property with rules', function() {
       var schema = SchemaStore.defineSchema('test', validateConfig);
 
       var object = {

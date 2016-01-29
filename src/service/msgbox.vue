@@ -144,5 +144,5 @@
         callback: null
       };
     }
-  }
+  };
 </script>
