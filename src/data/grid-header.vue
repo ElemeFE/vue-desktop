@@ -106,6 +106,7 @@
 
     methods: {
       updateColGroup() {
+        if (!this.$el) return;
         let columnsMap = this.columnsMap;
         let update = function(groupEl) {
           let name = groupEl.getAttribute('name');

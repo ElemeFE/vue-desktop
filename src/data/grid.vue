@@ -181,7 +181,7 @@
     background-color: #fff;
   }
 
-  .d-grid tbody tr:nth-child(2n) {
+  .grid-body tr:nth-child(2n) {
     background: #f9f9f9;
   }
 

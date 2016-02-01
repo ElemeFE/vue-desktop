@@ -11,6 +11,10 @@
 </template>
 
 <style>
+  .d-checkboxfield {
+    min-height: 44px;
+  }
+
   .d-checkboxfield input[type="checkbox"] {
     line-height: 24px;
     height: 24px;

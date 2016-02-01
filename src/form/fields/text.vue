@@ -12,6 +12,10 @@
 </template>
 
 <style>
+  .d-textfield {
+    min-height: 44px;
+  }
+
   .d-textfield .d-text-editor {
     width: 100%;
   }

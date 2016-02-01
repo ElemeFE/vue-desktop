@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="d-dialog-body"><slot></slot></div>
-    <div class="d-dialog-footer"><slot name="dialog-footer"></slot></div>
+    <slot name="dialog-footer" class="d-dialog-footer"></slot>
   </div>
 </template>
 
@@ -29,6 +29,10 @@
       },
 
       height: {}
+    },
+
+    beforeCompile() {
+      console.log(this.$options);
     },
 
     computed: {
@@ -89,13 +93,13 @@
     float: right;
   }
 
-  .d-dialog-footer {
+  div[slot="dialog-footer"] {
     border-top: 1px solid #e5e5e5;
     padding: 10px;
     text-align: right;
   }
 
-  .d-dialog-footer .btn {
+  div[slot="dialog-footer"] .btn {
     min-width: 40px;
   }
 </style>

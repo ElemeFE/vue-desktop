@@ -14,6 +14,7 @@
 
 <style>
   .d-labelfield {
+    min-height: 44px;
   }
 
   .d-labelfield-content {

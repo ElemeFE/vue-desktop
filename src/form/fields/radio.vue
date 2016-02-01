@@ -11,6 +11,10 @@
 </template>
 
 <style>
+  .d-radiogroupfield {
+    min-height: 44px;
+  }
+
   .d-radiogroupfield .d-radio-group {
     line-height: 30px;
   }

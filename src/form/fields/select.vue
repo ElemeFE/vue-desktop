@@ -16,6 +16,10 @@
 </template>
 
 <style>
+  .d-selectfield {
+    min-height: 44px;
+  }
+
   .d-selectfield .d-select {
     position: absolute;
     top: 32px;
