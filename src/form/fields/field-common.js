@@ -76,7 +76,7 @@ export default {
   computed: {
     realEditorWidth() {
       var editorWidth = this.editorWidth;
-      if (editorWidth !== undefined && /^\d+$/.test(editorWidth)) {
+      if (editorWidth !== undefined && /^\d+$/.test('' + editorWidth)) {
         return editorWidth + 'px';
       }
       return editorWidth;
@@ -145,6 +145,10 @@ export default {
 
       if (!this._props.labelSuffix.raw && form.labelSuffix) {
         this.labelSuffix = form.labelSuffix;
+      }
+
+      if (!this._props.editorWidth.raw && form.editorWidth) {
+        this.editorWidth = form.editorWidth;
       }
 
       if (form && form.model) {

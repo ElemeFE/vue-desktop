@@ -34,7 +34,8 @@
       schema: {},
       model: {},
       labelWidth: {},
-      labelSuffix: {}
+      labelSuffix: {},
+      editorWidth: {}
     },
 
     computed: {
