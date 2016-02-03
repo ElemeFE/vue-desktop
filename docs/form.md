@@ -22,3 +22,4 @@ Form 可以使用的属性如下
 | schema | Form 中的 FormField 使用的 Schema。 |
 | model | Form 中的 FormField 使用的 model。 |
 | labelWidth | Form 中的 FormField 的 labelWidth 的默认值。|
+| labelSuffix | Form 中的 FormField 的 labelSuffix 的默认值。|

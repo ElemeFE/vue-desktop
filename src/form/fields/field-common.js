@@ -12,12 +12,16 @@ export default {
         return {};
       }
     },
-    labelWidth: {},
     property: {},
     schema: {},
     label: {
       type: String
     },
+    labelWidth: {
+      default: 120
+    },
+    labelSuffix: {},
+    editorWidth: {},
     required: {
       type: Boolean,
       default: null
@@ -70,6 +74,20 @@ export default {
   },
 
   computed: {
+    realEditorWidth() {
+      var editorWidth = this.editorWidth;
+      if (editorWidth !== undefined && /^\d+$/.test(editorWidth)) {
+        return editorWidth + 'px';
+      }
+      return editorWidth;
+    },
+
+    labelText() {
+      let label = this.label;
+      let labelSuffix = this.labelSuffix;
+      return (label || '') + (labelSuffix || '');
+    },
+
     isRequired() {
       if (typeof this.required !== 'undefined' && this.required !== null) {
         return this.required;
@@ -120,9 +138,15 @@ export default {
         var fieldClass = form.fieldClass;
         domUtil.addClass(this.$el, fieldClass);
       }
-      if (!this.labelWidth && form.labelWidth) {
+
+      if (!this._props.labelWidth.raw && form.labelWidth) {
         this.labelWidth = form.labelWidth;
       }
+
+      if (!this._props.labelSuffix.raw && form.labelSuffix) {
+        this.labelSuffix = form.labelSuffix;
+      }
+
       if (form && form.model) {
         this.model = form.model;
       }

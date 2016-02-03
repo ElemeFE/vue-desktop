@@ -35,6 +35,15 @@
       maxLength: 20
     },
 
+    test: {
+      type: 'object',
+      fields: {
+        email: {
+
+        }
+      }
+    },
+
     confirmPassword: {
       label: '确认密码',
       required: true,

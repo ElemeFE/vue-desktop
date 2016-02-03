@@ -34,6 +34,7 @@ FormField 通用的属性如下：
 | model | FormField 使用的 model，这个 model 可以是一个普通对象，也可以是 Schema 生成的一个 model。 |
 | property | FormField 中的编辑器绑定的 model 中的 property。 |
 | label | FormField 显示的 label 信息，如果定义了 Schema，没有定义 label 属性，则会从 Schema 中取得。 |
+| labelSuffix | FormField 中的 label 的后缀。如果没有定义该属性，则默认值从 Form 中取得。|
 | labelWidth | FormField 中的 label 显示的宽度，数值类型。如果没有定义该属性，则默认值从 Form 中取得。|
 | required | 是否在 label 的左侧显示一个必填的指示星号，如果定义了 schema 和 property 属性，并且该 property 的 required 属性为 true，则默认会显示必填项的星号。当然，你也可以定义 required 属性为 false 来关闭这个星号的显示。|
 | hideLabel | 是否隐藏 FormField 的 label 信息，Boolean 类型，默认值为 false。|
@@ -43,8 +44,9 @@ TextField 可以使用的输入如下：
 | Property | Description |
 | ---- | ---- |
 | type | TextField 的类型，可选值：text、textarea、password。|
-| editorHeight | 文本框的高度。 |
+| editorHeight | 文本框的高度。|
 | placeholder | 文本框使用的 placeholder。 |
+| editorWidth | 文本框的宽度，可以使用数值和百分比。|
 
 SelectField 可以使用的属性如下：
 
@@ -52,6 +54,7 @@ SelectField 可以使用的属性如下：
 | ---- | ---- |
 | multiSelect | 是否可以多选，Boolean 类型，默认值为 false。 |
 | emptyRecord | 是否显示一个空的记录在最上方，Boolean 类型，默认值为 false。 |
+| editorWidth | Select的宽度，可以使用数值和百分比。|
 
 CheckBoxField 可以使用的属性如下：
 

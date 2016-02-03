@@ -1,7 +1,7 @@
 <template>
   <div class='d-field d-checkboxfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
-    <div>
+    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
+    <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <editor></editor>
       <div class="d-field-hint" v-if="!hideHint">
         <i class='d-icon' :class="{ 'd-icon-error': hintType === 'error', 'd-icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}

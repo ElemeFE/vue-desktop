@@ -1,8 +1,8 @@
 <template>
   <div class='d-field d-selectfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
-    <div>
-      <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }">
+    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
+    <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
+      <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }" :style="{ width: realEditorWidth ? realEditorWidth : '' }">
         {{ textValue }}<span class="d-selectfield-trigger d-icon d-icon-arrow-down"></span>
         <d-select v-ref:select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false" @selection-change="handleSelectionChange" @click="$event.stopPropagation()">
           <d-option v-for="(key, val) in mapping" :value="val" :show-checkbox="multiSelect">{{key}}</d-option>

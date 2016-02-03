@@ -1,7 +1,7 @@
 <template>
   <div class='d-field' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
-    <div>
+    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
+    <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <slot></slot>
       <div class="d-field-hint" v-if="!hideHint">
         <i class='d-icon' :class="{ 'd-icon-error': hintType === 'error', 'd-icon-warning': hintType === 'warning' }"></i>{{ hintMessage || '' }}
@@ -13,7 +13,6 @@
 <style>
   .d-field {
     position: relative;
-    display: table !important;
     width: 300px;
   }
 
@@ -30,23 +29,21 @@
   }
 
   .d-field > label {
-    display: table-cell;
     float: left;
     white-space: nowrap;
+    box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 120px;
     height: 30px;
+    padding-right: 10px;
     font-size: 14px;
-    margin-right: 10px;
     line-height: 30px;
     text-align: right;
     color: #666;
   }
 
-  .d-field > div {
-    display: table-cell;
-    width: 100%;
+  .d-field-content {
     vertical-align: top;
   }
 
@@ -93,37 +90,7 @@
   import { default as common } from './field-common';
 
   export default {
-    props: {
-      label: {
-        type: String
-      },
-
-      hideHint: {
-        type: Boolean,
-        default: false
-      },
-
-      hideLabel: {
-        type: Boolean,
-        default: false
-      },
-
-      labelWidth: {},
-
-      hintType: {
-        type: String,
-        default: ''
-      },
-
-      required: {
-        type: Boolean,
-        default: null
-      },
-
-      hintMessage: {
-        type: String
-      }
-    },
+    props: common.props,
 
     created: common.onCreated,
 

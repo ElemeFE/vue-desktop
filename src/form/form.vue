@@ -33,7 +33,8 @@
       },
       schema: {},
       model: {},
-      labelWidth: {}
+      labelWidth: {},
+      labelSuffix: {}
     },
 
     computed: {

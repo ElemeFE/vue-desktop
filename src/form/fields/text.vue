@@ -1,7 +1,7 @@
 <template>
   <div class='d-field d-textfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
-    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ label || '' }}</label>
-    <div>
+    <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
+    <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <editor></editor>
       <slot></slot>
       <div class="d-field-hint" v-if="!hideHint">
@@ -61,7 +61,7 @@
           DTextEditor: require('../text-editor.vue')
         },
         created() {
-          this.$options.template = `<d-text-editor @focus="$parent.handleFocus" type="${ this.$parent.editorType }" :value.sync="${ '$parent.model.' + this.$parent.property }" :height="$parent.editorHeight" :placeholder="$parent.placeholder || ''"/>`;
+          this.$options.template = `<d-text-editor :style="{ width: $parent.realEditorWidth ? $parent.realEditorWidth : '' }" @focus="$parent.handleFocus" type="${ this.$parent.editorType }" :value.sync="${ '$parent.model.' + this.$parent.property }" :height="$parent.editorHeight" :placeholder="$parent.placeholder || ''"/>`;
         }
       }
     },

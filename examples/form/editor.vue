@@ -5,15 +5,17 @@
   </div>
 
   <d-panel title="Editors">
-    <d-form :model='model' :schema='schema' label-width="140" :cols="1" style="width: 450px;">
-      <d-text-field property='nickname'></d-text-field>
+    <d-form :model='model' :schema='schema' label-width="140" label-suffix=":" :cols="1" style="width: 450px;">
+      <d-text-field property='nickname' editor-width="100"><button>test</button></d-text-field>
       <d-text-field type="password" property="password"></d-text-field>
       <d-select-field property="simpleMapping"></d-select-field>
       <d-text-field property="birthday"></d-text-field>
       <d-text-field property="count"></d-text-field>
       <d-text-field type="textarea" :editor-height="100" property="comment"></d-text-field>
-
       <d-checkbox-field property="sex"></d-checkbox-field>
+      <d-field label="test">
+        <d-checkbox :value.sync="model.sex" true-value="male" false-value="female" label="Test"></d-checkbox>
+      </d-field>
       <d-select-field property="simpleMapping"></d-select-field>
       <d-radiogroup-field property="simpleMapping"></d-radiogroup-field>
     </d-form>
