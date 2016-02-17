@@ -31,10 +31,6 @@
       height: {}
     },
 
-    beforeCompile() {
-      console.log(this.$options);
-    },
-
     computed: {
       popupOptions() {
         return {

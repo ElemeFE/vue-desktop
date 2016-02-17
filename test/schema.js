@@ -138,6 +138,44 @@ describe('Schema Store', function() {
       result.should.be.true;
     });
 
+    it('should validate nested object', function() {
+      var nestedSchema = new Schema({
+        name: {
+          type: 'string',
+          required: true
+        },
+        nested: {
+          type: 'object',
+          fields: {
+            prop1: {
+              required: true
+            },
+            prop2: {}
+          }
+        }
+      });
+
+      var result = nestedSchema.validate({
+        name: '111',
+        nested: {}
+      });
+
+      result.should.be.false;
+
+      var validObject = {
+        name: '111',
+        nested: {
+          prop1: 'test'
+        }
+      };
+
+      result = nestedSchema.validate(validObject);
+
+      console.log(validObject);
+
+      result.should.be.true;
+    });
+
     it('should validate object property with rules', function() {
       var schema = SchemaStore.defineSchema('test', validateConfig);
 

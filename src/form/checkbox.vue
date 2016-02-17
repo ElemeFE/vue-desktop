@@ -11,7 +11,7 @@
   .d-checkbox-label {
     display: inline-block;
     height: 28px;
-    vertical-align: middle;
+    vertical-align: top;
     font-size: 14px;
   }
 </style>

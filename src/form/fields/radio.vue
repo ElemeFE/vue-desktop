@@ -25,7 +25,7 @@
 </style>
 
 <script type="text/ecmascript-6">
-  import { merge } from '../../util';
+  import { merge, getPath, setPath } from '../../util';
   import { default as common } from './field-common';
 
   export default {
@@ -41,12 +41,12 @@
       editorValue: {
         get() {
           if (this.model && this.property) {
-            return this.model[this.property];
+            return getPath(this.model, this.property);
           }
         },
         set(newValue) {
           if (this.model && this.property) {
-            this.model[this.property] = newValue;
+            setPath(this.model, this.property, newValue);
           }
         }
       }

@@ -20,7 +20,6 @@
   .d-labelfield-content {
     font-size: 14px;
     padding-left: 4px;
-    width: 100%;
     padding-right: 24px;
     box-sizing: border-box;
     border-radius: 2px;
@@ -30,7 +29,7 @@
 </style>
 
 <script type="text/ecmascript-6">
-  import { merge } from '../../util';
+  import { merge, getPath } from '../../util';
   import { default as common } from './field-common';
 
   export default {
@@ -39,19 +38,23 @@
     computed: merge({
       textValue() {
         var mapping = this.mapping;
-        var reversedMap = {};
+        if (mapping) {
+          var reversedMap = {};
 
-        for (var label in mapping) {
-          if (mapping.hasOwnProperty(label)) {
-            var value = mapping[label];
-            reversedMap[value] = label;
+          for (var label in mapping) {
+            if (mapping.hasOwnProperty(label)) {
+              var value = mapping[label];
+              reversedMap[value] = label;
+            }
+          }
+
+          var currentValue = getPath(this.model, this.property);
+          if (mapping && currentValue !== null && currentValue !== undefined) {
+            return reversedMap[currentValue];
           }
         }
 
-        var currentValue = this.model[this.property];
-        if (mapping && currentValue !== null && currentValue !== undefined) {
-          return reversedMap[currentValue];
-        }
+        return getPath(this.model, this.property);
       }
     }, common.computed),
 

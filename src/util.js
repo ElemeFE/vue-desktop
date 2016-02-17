@@ -76,6 +76,50 @@ export function throttle(fn, delay) {
   };
 }
 
+export function getPath(object, prop) {
+  prop = prop || '';
+  var paths = prop.split('.');
+  var current = object;
+  var result = null;
+  for (var i = 0, j = paths.length; i < j; i++) {
+    var path = paths[i];
+    if (!current) break;
+
+    if (i === j - 1) {
+      result = current[path];
+      break;
+    }
+    current = current[path];
+  }
+  return result;
+}
+
+export function setPath(object, prop, value) {
+  if (prop === undefined || prop === null) return;
+
+  if (typeof prop === 'object') {
+    var target = prop;
+    for (prop in target) {
+      if (target.hasOwnProperty(prop)) {
+        setPath(object, prop, target[prop]);
+      }
+    }
+  } else {
+    prop = prop || '';
+    var paths = prop.split('.');
+    var current = object;
+    for (var i = 0, j = paths.length; i < j; i++) {
+      var path = paths[i];
+      if (!current) break;
+      if (i === j - 1) {
+        current[path] = value;
+        break;
+      }
+      current = current[path];
+    }
+  }
+}
+
 var scrollbarWidth;
 
 export function getScrollbarWidth() {

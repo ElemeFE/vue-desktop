@@ -37,9 +37,6 @@
   import { default as schema } from './schema';
 
   export default {
-    methods: {
-    },
-
     data() {
       return {
         model: schema.newModel(),

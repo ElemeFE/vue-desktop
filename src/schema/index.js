@@ -1,13 +1,13 @@
 import { default as validatorFnMap } from './validators';
-import { formatDate, merge } from '../util';
+import { formatDate, merge, getPath } from '../util';
 import { default as defaultMessages } from './messages';
 
 var doValidate = function(object, property, descriptor, rule) {
-  var type = rule.type;
-  var validateFn = validatorFnMap[type];
+  const type = rule.type;
+  const validateFn = validatorFnMap[type];
   if (typeof validateFn === 'function') {
-    var messages = rule.messages || {};
-    var message = messages[rule.type] || rule.message || descriptor.message;
+    const messages = rule.messages || {};
+    let message = messages[rule.type] || rule.message || descriptor.message;
 
     if (!message) {
       message = defaultMessages[type];
@@ -17,7 +17,6 @@ var doValidate = function(object, property, descriptor, rule) {
 
     if (!validateFn.call(object, object[property], clonedRule, property, descriptor)) {
       object.$hints[property] = clonedRule.message;
-      object.$hintTypes[property] = 'error';
 
       return false;
     }
@@ -42,13 +41,6 @@ var initObject = (object, schema, addMethod) => {
   });
 
   Object.defineProperty(object, '$hints', {
-    configurable: true,
-    enumerable: false,
-    writable: true,
-    value: {}
-  });
-
-  Object.defineProperty(object, '$hintTypes', {
     configurable: true,
     enumerable: false,
     writable: true,
@@ -83,7 +75,7 @@ var initObject = (object, schema, addMethod) => {
           listeners = this.$listeners = {};
         }
 
-        var array = listeners[name];
+        let array = listeners[name];
         if (!array) {
           array = listeners[name] = [];
         }
@@ -96,12 +88,12 @@ var initObject = (object, schema, addMethod) => {
       enumerable: false,
       value: function(name, fn) {
         if (!name) throw new Error('$off need name');
-        var listeners = this.$listeners || {};
-        var array = listeners[name];
+        const listeners = this.$listeners || {};
+        const array = listeners[name];
         if (!array) return;
         if (typeof fn === 'function') {
-          for (var i = 0, j = array.length; i < j; i++) {
-            var item = array[i];
+          for (let i = 0, j = array.length; i < j; i++) {
+            const item = array[i];
             if (item === fn) {
               array.splice(i, 1);
               break;
@@ -117,8 +109,8 @@ var initObject = (object, schema, addMethod) => {
       configurable: true,
       enumerable: false,
       value: function(name, arg0, arg1, arg2, arg3) {
-        var listeners = this.$listeners || {};
-        var array = listeners[name];
+        const listeners = this.$listeners || {};
+        const array = listeners[name];
         if (!array) return;
 
         for (var i = 0, j = array.length; i < j; i++) {
@@ -155,11 +147,11 @@ var initObject = (object, schema, addMethod) => {
 };
 
 var reverseMapping = mapping => {
-  var result = Object.create(null);
+  const result = Object.create(null);
 
-  for (var key in mapping) {
+  for (let key in mapping) {
     if (mapping.hasOwnProperty(key)) {
-      var value = mapping[key];
+      let value = mapping[key];
       result[value] = key;
     }
   }
@@ -177,10 +169,18 @@ class Schema {
       cache[name] = this;
     }
 
-    var props = this.props = {};
-    for (var option in options) {
+    this.nestedSchema = {};
+
+    const props = this.props = {};
+    for (let option in options) {
       if (options.hasOwnProperty(option)) {
-        props[option] = options[option];
+        var value = options[option];
+
+        if (value && value.type === 'object' && typeof value.fields) {
+          this.nestedSchema[option] = new Schema(value.fields);
+        }
+
+        props[option] = value;
       }
     }
 
@@ -188,13 +188,13 @@ class Schema {
   }
 
   newModel() {
-    var result = {};
-    var props = this.props;
+    const result = {};
+    const props = this.props;
 
-    for (var prop in props) {
+    for (let prop in props) {
       if (props.hasOwnProperty(prop)) {
-        var value = props[prop];
-        var defaultValue = value.default;
+        const value = props[prop];
+        let defaultValue = value.default;
         if (typeof defaultValue === 'function') {
           defaultValue = defaultValue();
         }
@@ -216,9 +216,9 @@ class Schema {
   }
 
   getPropertyMapping(property, object) {
-    var descriptor = this.props[property] || {};
-    var mapping = descriptor.mapping;
-    var result = mapping;
+    const descriptor = this.props[property] || {};
+    const mapping = descriptor.mapping;
+    let result = mapping;
 
     if (mapping instanceof Array) {
       result = {};
@@ -235,11 +235,11 @@ class Schema {
   }
 
   translateProperty(property, value) {
-    var mapping = this.getPropertyMapping(property);
-    var definedMapping = (this.props[property] || {}).mapping;
+    const mapping = this.getPropertyMapping(property);
+    const definedMapping = (this.props[property] || {}).mapping;
 
     if (mapping) {
-      var reversedMapping = this.$reversedMappings[property];
+      let reversedMapping = this.$reversedMappings[property];
 
       if (typeof definedMapping !== 'function' && reversedMapping) {
         return reversedMapping[value];
@@ -254,8 +254,8 @@ class Schema {
   }
 
   getPropertyText(object, property) {
-    var value = object[property];
-    var descriptor = this.props[property];
+    const value = getPath(object, property);
+    const descriptor = this.props[property];
     if (descriptor) {
       if (descriptor.type === 'date' || descriptor.type === 'datetime') {
         return formatDate(value, descriptor.format);
@@ -271,23 +271,22 @@ class Schema {
     initObject(object, this);
 
     object.$hints = {};
-    object.$hintTypes = {};
 
     options = options || {};
 
-    var props;
+    let props;
     if (options.props) {
       props = options.props;
     } else {
       props = Object.keys(this.props);
     }
 
-    var skips = options.skips;
+    let skips = options.skips;
     if (skips) {
       props = props.filter(item => skips.indexOf(item) === -1);
     }
 
-    var passed = true;
+    let passed = true;
 
     for (var i = 0, j = props.length; i < j; i++) {
       var property = props[i];
@@ -304,60 +303,59 @@ class Schema {
 
     initObject(object, this);
 
-    var props = this.props;
-
-    var descriptor = props[property];
+    const props = this.props;
+    const descriptor = props[property];
 
     if (!descriptor) {
       console.warn(`no property ${property} found in object:`, object); // eslint-disable-line no-console
       return true;
     }
 
-    var required = descriptor.required;
+    const required = descriptor.required;
     if (required) {
       if (!doValidate(object, property, descriptor, { type: 'required' })) {
         return false;
       }
     }
 
-    var pattern = descriptor.pattern;
+    const pattern = descriptor.pattern;
     if (pattern) {
       if (!doValidate(object, property, descriptor, { type: 'pattern', pattern: pattern })) {
         return false;
       }
     }
 
-    var min = descriptor.min;
-    var max = descriptor.max;
+    const min = descriptor.min;
+    const max = descriptor.max;
     if (typeof min !== 'undefined' || typeof max !== 'undefined') {
       if (!doValidate(object, property, descriptor, { type: 'range', min: min, max: max })) {
         return false;
       }
     }
 
-    var minLength = descriptor.minLength;
-    var maxLength = descriptor.maxLength;
+    const minLength = descriptor.minLength;
+    const maxLength = descriptor.maxLength;
     if (typeof minLength !== 'undefined' || typeof maxLength !== 'undefined') {
       if (!doValidate(object, property, descriptor, { type: 'length', min: minLength, max: maxLength })) {
         return false;
       }
     }
 
-    var enumArray = descriptor.enum;
+    const enumArray = descriptor.enum;
     if (typeof enumArray !== 'undefined') {
       if (!doValidate(object, property, descriptor, { type: 'enum', enum: enumArray })) {
         return false;
       }
     }
 
-    var whitespace = descriptor.whitespace;
+    const whitespace = descriptor.whitespace;
     if (typeof whitespace !== 'undefined') {
       if (!doValidate(object, property, descriptor, { type: 'whitespace', whitespace: whitespace })) {
         return false;
       }
     }
 
-    var rules = descriptor.rules;
+    const rules = descriptor.rules;
     if (rules instanceof Array) {
       for (var i = 0, j = rules.length; i < j; i++) {
         var rule = rules[i];
@@ -369,8 +367,16 @@ class Schema {
       if (!doValidate(object, property, descriptor, rules)) return false;
     }
 
+    if (typeof this.nestedSchema[property] !== 'undefined') {
+      const value = object[property];
+      const nestSchema = this.nestedSchema[property];
+
+      if (value) {
+        if (!nestSchema.validate(value)) return false;
+      }
+    }
+
     object.$hints[property] = '';
-    object.$hintTypes[property] = '';
 
     return true;
   }
@@ -380,8 +386,8 @@ class Schema {
       throw new Error('object is required when save an object\'s current state.');
     }
 
-    var props = this.props;
-    var savedState = {};
+    const props = this.props;
+    const savedState = {};
 
     for (var prop in props) {
       if (props.hasOwnProperty(prop)) {
@@ -396,14 +402,14 @@ class Schema {
     if (!object) {
       throw new Error('object is required when reset an object\'s saved state.');
     }
-    var savedState = object.$savedState;
-    var props = this.props;
+    const savedState = object.$savedState;
+    const props = this.props;
 
-    for (var prop in props) {
+    for (let prop in props) {
       if (props.hasOwnProperty(prop)) {
         if (!savedState) {
-          var descriptor = props[prop];
-          var defaultValue = descriptor.default;
+          const descriptor = props[prop];
+          let defaultValue = descriptor.default;
           if (typeof defaultValue === 'function') {
             defaultValue = defaultValue();
           }
@@ -419,7 +425,6 @@ class Schema {
     }
 
     object.$hints = {};
-    object.$hintTypes = {};
   }
 
   format(data) {
@@ -429,10 +434,10 @@ class Schema {
     }
     data.forEach((item) => {
       var props = this.props;
-      for (var prop in props) {
+      for (let prop in props) {
         if (props.hasOwnProperty(prop)) {
-          var descriptor = props[prop];
-          var value = item[prop];
+          const descriptor = props[prop];
+          const value = item[prop];
           if (!item.hasOwnProperty(prop)) {
             item[prop] = undefined;
           }
@@ -458,10 +463,10 @@ class Schema {
       return;
     }
 
-    var props = this.props;
+    const props = this.props;
 
-    for (var i = 0, j = sources.length; i < j; i++) {
-      var source = sources[i];
+    for (let i = 0, j = sources.length; i < j; i++) {
+      const source = sources[i];
       for (var prop in props) {
         if (props.hasOwnProperty(prop)) {
           target[prop] = source[prop];
@@ -470,71 +475,13 @@ class Schema {
     }
   }
 
-  // TODO move hint message to form field
-  $getHintMessage(property) {
-    var props = this.props;
-    if (!props[property]) return;
-
-    var hintMessage;
-
-    var rules = props[property].rules;
-    if (rules instanceof Array) {
-      for (var i = 0, j = rules.length; i < j; i++) {
-        var validator = rules[i];
-        if (validator.hintMessage) {
-          hintMessage = validator.hintMessage;
-        }
-      }
-    } else if (rules) {
-      if (rules.hintMessage) {
-        hintMessage = rules.hintMessage;
-      }
-    }
-
-    return hintMessage;
-  }
-
   $resetValidate(object) {
-    var hints = object.$hints;
-    var hintTypes = object.$hintTypes;
+    const hints = object.$hints;
 
     for (var property in hints) {
       if (hints.hasOwnProperty(property)) {
         hints[property] = '';
-        hintTypes[property] = '';
       }
-    }
-  }
-
-  $showErrorMessage(object, property, message) {
-    if (!object || !property) return;
-
-    object.$hints[property] = message;
-    object.$hintTypes[property] = 'error';
-  }
-
-  $hideErrorMessage(object, property) {
-    if (!object || !property) return;
-
-    object.$hints[property] = '';
-    object.$hintTypes[property] = '';
-  }
-
-  $showHintMessage(object, property) {
-    var hintMessage = this.$getHintMessage(property);
-
-    if (hintMessage) {
-      object.$hints[property] = hintMessage;
-      object.$hintTypes[property] = 'warning';
-    }
-  }
-
-  $hideHintMessage(object, property) {
-    var hintMessage = this.$getHintMessage(property);
-
-    if (hintMessage) {
-      object.$hints[property] = '';
-      object.$hintTypes[property] = '';
     }
   }
 }

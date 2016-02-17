@@ -56,7 +56,6 @@ export default {
       if (schema) {
         schema.validateProperty(model, this.property);
 
-        this.hintType = model.$hintTypes[this.property];
         this.hintMessage = model.$hints[this.property];
       }
     }

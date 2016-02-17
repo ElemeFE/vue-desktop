@@ -35,16 +35,22 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 120px;
-    height: 30px;
+    height: 28px;
     padding-right: 10px;
     font-size: 14px;
-    line-height: 30px;
+    line-height: 28px;
     text-align: right;
     color: #666;
   }
 
   .d-field-content {
     vertical-align: top;
+    font-size: 14px;
+    padding-left: 4px;
+    padding-right: 24px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    line-height: 28px;
   }
 
   .d-field.validate-error input {

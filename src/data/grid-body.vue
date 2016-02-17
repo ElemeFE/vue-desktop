@@ -6,22 +6,7 @@
 </style>
 
 <script type="text/ecmascript-6">
-  let getPath = function(object, sortKey) {
-    if (!object || !sortKey) return null;
-    var path = sortKey.split('.');
-    if (path.length === 1) return object[sortKey];
-
-    var target = object;
-    for (var i = 0, j = path.length; i < j; i++) {
-      var key = path[i];
-      var value = target[key];
-      if (i === j - 1) {
-        return value;
-      }
-      if (value === null || value === undefined) return null;
-      target = value;
-    }
-  };
+  import { getPath } from '../util';
 
   let isObject = function(obj) {
     return obj !== null && typeof obj === 'object';
@@ -106,12 +91,12 @@
         if (schema) {
           var mapping = schema.getPropertyMapping(property);
           if (mapping) {
-            return schema.translateProperty(property, row[property]);
+            return schema.translateProperty(property, getPath(row, property));
           }
           return schema.getPropertyText(row, property);
         }
 
-        return row[property];
+        return getPath(row, property);
       }
     }
   };
