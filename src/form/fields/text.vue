@@ -1,5 +1,5 @@
 <template>
-  <div class='d-field d-textfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
+  <div class='d-field d-textfield' :class="{ 'validate-error': hintType === 'error', required: isRequired, 'd-field-hashint': !hideHint }">
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
     <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <editor></editor>
@@ -13,7 +13,6 @@
 
 <style>
   .d-textfield {
-    min-height: 44px;
   }
 
   .d-textfield .d-text-editor {

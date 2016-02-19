@@ -58,6 +58,7 @@
     float: left;
     width: 36px;
     height: 36px;
+    line-height: 36px;
     font-size: 36px !important;
   }
 

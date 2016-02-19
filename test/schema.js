@@ -171,8 +171,6 @@ describe('Schema Store', function() {
 
       result = nestedSchema.validate(validObject);
 
-      console.log(validObject);
-
       result.should.be.true;
     });
 

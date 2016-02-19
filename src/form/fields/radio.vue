@@ -1,5 +1,5 @@
 <template>
-  <div class='d-field d-radiogroupfield' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
+  <div class='d-field d-radiogroupfield' :class="{ 'validate-error': hintType === 'error', required: isRequired, 'd-field-hashint': !hideHint }">
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
     <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <d-radio-group :value.sync="editorValue" v-ref:group><d-radio v-for="(key, val) in mapping" :value="val">{{key}}</d-radio><slot></slot></d-radio-group>
@@ -12,7 +12,6 @@
 
 <style>
   .d-radiogroupfield {
-    min-height: 44px;
   }
 
   .d-radiogroupfield .d-radio-group {

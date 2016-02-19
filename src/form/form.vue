@@ -35,7 +35,11 @@
       model: {},
       labelWidth: {},
       labelSuffix: {},
-      editorWidth: {}
+      editorWidth: {},
+      hideHint: {
+        type: Boolean,
+        default: false
+      }
     },
 
     computed: {

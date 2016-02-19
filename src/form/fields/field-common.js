@@ -1,6 +1,6 @@
 import { default as SchemaStore } from '../../schema/store';
 import { merge } from '../../util';
-var domUtil = require('wind-dom');
+import { addClass } from 'wind-dom';
 
 import Vue from 'vue';
 
@@ -57,6 +57,9 @@ export default {
         schema.validateProperty(model, this.property);
 
         this.hintMessage = model.$hints[this.property];
+        if (this.hintMessage) {
+          this.hintType = 'error';
+        }
       }
     }
   },
@@ -135,7 +138,7 @@ export default {
       var className = this.$el.className;
       if (className.indexOf('d-cell-') === -1) {
         var fieldClass = form.fieldClass;
-        domUtil.addClass(this.$el, fieldClass);
+        addClass(this.$el, fieldClass);
       }
 
       if (!this._props.labelWidth.raw && form.labelWidth) {
@@ -144,6 +147,10 @@ export default {
 
       if (!this._props.labelSuffix.raw && form.labelSuffix) {
         this.labelSuffix = form.labelSuffix;
+      }
+
+      if (!this._props.hideHint.raw && form.hideHint) {
+        this.hideHint = form.hideHint;
       }
 
       if (!this._props.editorWidth.raw && form.editorWidth) {

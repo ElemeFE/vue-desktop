@@ -1,5 +1,5 @@
 <template>
-  <div class='d-field' :class="{ 'validate-error': hintType === 'error', required: isRequired }">
+  <div class='d-field' :class="{ 'validate-error': hintType === 'error', required: isRequired, 'd-field-hashint': !hideHint }">
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
     <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <slot></slot>
@@ -14,6 +14,10 @@
   .d-field {
     position: relative;
     width: 300px;
+  }
+
+  .d-field-hashint {
+    min-height: 44px;
   }
 
   .d-field.required > label::before {

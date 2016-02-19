@@ -10,6 +10,7 @@
     position: relative;
     display: inline-block;
     box-sizing: border-box;
+    height: 28px;
   }
 
   .d-text-editor.have-trigger input {
