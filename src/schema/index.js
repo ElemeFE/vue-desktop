@@ -128,6 +128,14 @@ var initObject = (object, schema, addMethod) => {
       }
     });
 
+    Object.defineProperty(object, 'toObject', {
+      configurable: true,
+      enumerable: false,
+      value: function(options) {
+        this.$schema.toObject(this, options);
+      }
+    });
+
     Object.defineProperty(object, 'reset', {
       configurable: true,
       enumerable: false,
@@ -495,6 +503,28 @@ class Schema {
         }
       }
     }
+  }
+
+  toObject(model, options) {
+    options = options || {};
+    const props = this.props;
+    const ignoreEmpty = !!options.ignoreEmpty;
+    const result = {};
+
+    for (let prop in props) {
+      if (props.hasOwnProperty(prop)) {
+        const value = model[prop];
+        if (ignoreEmpty) {
+          if (value !== null && value !== undefined) {
+            result[prop] = value;
+          }
+        } else {
+          result[prop] = value;
+        }
+      }
+    }
+
+    return result;
   }
 
   $resetValidate(object) {

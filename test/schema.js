@@ -233,6 +233,40 @@ describe('Schema Store', function() {
     });
   });
 
+  describe('#toObject', function() {
+    it('should convert model to object', function() {
+      var schema = SchemaStore.defineSchema('test', {
+        a: {},
+        b: {}
+      });
+
+      var object = schema.toObject({
+        a: 2,
+        b: 3
+      });
+
+      object.a.should.equal(2);
+      object.b.should.equal(3);
+    });
+
+    it('should convert model to object & ignore empty', function() {
+      var schema = SchemaStore.defineSchema('test', {
+        a: {},
+        b: {}
+      });
+
+      var object = schema.toObject({
+        a: 2,
+        b: null
+      }, {
+        ignoreEmpty: true
+      });
+
+      object.a.should.equal(2);
+      object.hasOwnProperty('b').should.be.false;
+    });
+  });
+
   describe('#save & #reset', function() {
     var newConfig = {
       a: {
