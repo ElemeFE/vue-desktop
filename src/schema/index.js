@@ -265,12 +265,17 @@ class Schema {
     return value;
   }
 
-  validate(object, options) {
+  validate(object, options, callback) {
     if (!object) return console.warn('validate require an object.'); // eslint-disable-line no-console
 
     initObject(object, this);
 
     object.$hints = {};
+
+    if (typeof options === 'function') {
+      callback = options;
+      options = null;
+    }
 
     options = options || {};
 
@@ -293,6 +298,23 @@ class Schema {
       if (!this.validateProperty(object, property)) {
         passed = false;
       }
+    }
+
+    if (typeof callback === 'function') {
+      var hasErrors = false;
+      var errors = {};
+      var hints = object.$hints;
+      for (var hint in hints) {
+        if (hints.hasOwnProperty(hint)) {
+          var value = hints[hint];
+          if (value) {
+            hasErrors = true;
+            errors[hint] = value;
+          }
+        }
+      }
+
+      callback(hasErrors ? errors : null);
     }
 
     return passed;

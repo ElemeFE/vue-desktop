@@ -90,7 +90,7 @@ var userSchema = new Schema({
 | 方法 | 说明 |
 | ------ | ------ |
 | create | 创建一个空的对象，该对象有 schema 中定义的所有字段，如果 schema 有默认值定义，则空对象该字段的值为默认值。|
-| validate(object, options) | 校验 object 是否符合 schema 中定义的规则。 |
+| validate(object, options, callback) | 校验 object 是否符合 schema 中定义的规则。 |
 | validateProperty(object, property) | 校验 object 的某个 property 是否符合规则。 |
 | save(object) | 保存 object 当前的值，可以通过 reset 方法来恢复保存的值。 |
 | reset(object) | 恢复保存的 object 的值，如果没有通过 save 方法保存过，则恢复为一个新建的对象。| 

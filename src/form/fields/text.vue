@@ -15,6 +15,10 @@
   .d-textfield {
   }
 
+  .d-text-field.validate-error input {
+    border-color: #ed5565;
+  }
+
   .d-textfield .d-text-editor {
     width: 100%;
   }

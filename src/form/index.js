@@ -16,6 +16,7 @@ import LabelField from './fields/label.vue';
 import CheckboxField from './fields/check.vue';
 import SelectField from './fields/select.vue';
 import RadiogroupField from './fields/radio.vue';
+import CheckgroupField from './fields/check-group.vue';
 
 import Upload from './upload.vue';
 
@@ -39,6 +40,7 @@ export default {
   CheckboxField,
   SelectField,
   RadiogroupField,
+  CheckgroupField,
 
   Upload
 };

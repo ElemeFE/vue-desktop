@@ -1,5 +1,5 @@
 <template>
-  <input class="d-checkbox" :id.once="id" type="checkbox" v-model="value" :true-value="trueValue" :false-value="falseValue"/><label :for.once="id" class="d-checkbox-label">{{ label }}</label>
+  <input v-el:editor class="d-checkbox" @change="onChange" :id.once="id" type="checkbox" v-model="value" :true-value="trueValue" :false-value="falseValue"/><label :for.once="id" class="d-checkbox-label">{{ label }}</label>
 </template>
 
 <style>
@@ -29,6 +29,12 @@
         default: false
       },
       value: {}
+    },
+
+    methods: {
+      onChange() {
+        this.$emit('change', this, this.$els.editor.checked);
+      }
     },
 
     created() {

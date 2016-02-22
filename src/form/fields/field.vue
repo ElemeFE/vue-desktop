@@ -57,10 +57,6 @@
     line-height: 28px;
   }
 
-  .d-field.validate-error input {
-    border-color: #ed5565;
-  }
-
   .d-field.validate-error .d-field-hint {
     color: #ed5565;
   }

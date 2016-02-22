@@ -3,6 +3,7 @@
     <d-form :model='model' :schema='schema' label-width="140" :cols="1" style="width: 450px;">
       <d-select-field :model="team" property="simpleMapping"></d-select-field>
       <d-radiogroup-field property="simpleMapping"></d-radiogroup-field>
+      <d-checkgroup-field property="simpleMapping2" :cols="2"></d-checkgroup-field>
     </d-form>
   </d-panel>
 
@@ -29,6 +30,18 @@
       label: 'Simple Mapping',
       mapping: {
         'Simple-0': 0,
+        'Simple-1': 1,
+        'Simple-2': 2,
+        'Simple-3': 3,
+        'Simple-4': 4,
+        'Simple-5': 5
+      }
+    },
+
+    simpleMapping2: {
+      label: 'Simple Mapping',
+      default: [2, 3],
+      mapping: {
         'Simple-1': 1,
         'Simple-2': 2,
         'Simple-3': 3,

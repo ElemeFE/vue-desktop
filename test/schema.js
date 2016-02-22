@@ -138,6 +138,34 @@ describe('Schema Store', function() {
       result.should.be.true;
     });
 
+    it('should validate object with callback', function() {
+      var schema = SchemaStore.defineSchema('test', validateConfig);
+      var count = 0;
+      var callback = (errors) => {
+        count++;
+        errors.should.not.be.empty;
+      };
+
+      schema.validate({
+        name: '',
+        test: 2
+      }, callback);
+
+      count.should.be.equal(1);
+
+      var should = require('chai').should();
+
+      var callback2 = (errors) => {
+        count++;
+        should.equal(errors, null);
+      };
+
+      schema.validate({
+        name: '123456',
+        test: 2
+      }, callback2);
+    });
+
     it('should validate nested object', function() {
       var nestedSchema = new Schema({
         name: {

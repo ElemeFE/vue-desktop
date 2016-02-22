@@ -1,7 +1,7 @@
 <template>
   <d-panel title="Validation Example">
     <d-form :model='user' :schema='userSchema' label-width="140" :cols="1" style="width: 360px;">
-      <d-text-field property='userName' :hide-hint="true"></d-text-field>
+      <d-text-field property='userName'></d-text-field>
       <d-text-field property='email'></d-text-field>
       <d-text-field type='password' property='password'></d-text-field>
       <d-text-field type='password' property='confirmPassword'></d-text-field>
