@@ -132,7 +132,7 @@ var initObject = (object, schema, addMethod) => {
       configurable: true,
       enumerable: false,
       value: function(options) {
-        this.$schema.toObject(this, options);
+        return this.$schema.toObject(this, options);
       }
     });
 
@@ -515,7 +515,7 @@ class Schema {
       if (props.hasOwnProperty(prop)) {
         const value = model[prop];
         if (ignoreEmpty) {
-          if (value !== null && value !== undefined) {
+          if (value !== null && value !== undefined && value !== '') {
             result[prop] = value;
           }
         } else {
