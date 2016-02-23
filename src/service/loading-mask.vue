@@ -70,7 +70,6 @@
     computed: {
       popupOptions() {
         return {
-          target: 'center',
           animation: false,
           modal: true,
           modalClass: 'loading-mask-modal',
