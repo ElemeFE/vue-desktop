@@ -1,10 +1,10 @@
 {
   "name": "vue-desktop",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "A UI library for building admin panel website.",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "cp -r src/* lib & node_modules/babel-cli/bin/babel.js lib --out-dir lib",
+    "prepublish": "mkdir -p lib & cp -r src/* lib & node_modules/babel-cli/bin/babel.js lib --out-dir lib",
     "dev": "webpack-dev-server --inline --hot --port 8088",
     "watch": "webpack --progress --hide-modules --watch",
     "build": "NODE_ENV=production webpack --progress --hide-modules",

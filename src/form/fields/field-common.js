@@ -41,6 +41,7 @@ export default {
     hintMessage: {
       type: String
     },
+    parentProperty: {},
     mapping: {},
     editorFocused: {
       type: Boolean,
@@ -206,6 +207,31 @@ export default {
           this.mapping = mapping;
         }
       }
+    }
+
+    if (this.parentProperty) {
+      var select = this;
+      this.$watch('model.' + this.parentProperty, () => {
+        var schema = select.fieldSchema;
+        var emptyRecord = this.emptyRecord;
+        if (schema) {
+          var result = schema.getPropertyMapping(select.property, select.model);
+          if (result.then) {
+            result.then(function(value) {
+              select.selectValue = null;
+              select.mapping = value;
+              if (emptyRecord) {
+                select.mapping[''] = null;
+              }
+            });
+          } else {
+            select.mapping = result;
+            if (emptyRecord) {
+              select.mapping[''] = null;
+            }
+          }
+        }
+      });
     }
   }
 };

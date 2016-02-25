@@ -4,6 +4,7 @@
     width: 280px;
     border: 1px solid #ddd;
     background: #fff;
+    line-height: 20px;
   }
 
   .datepicker .hidden {

@@ -65,8 +65,6 @@
 
   export default {
     props: merge({
-      parentProperty: {},
-
       multiSelect: {
         type: Boolean,
         default: false
@@ -135,33 +133,6 @@
     destroyed: common.onDestroyed,
 
     compiled: common.onCompiled,
-
-    ready() {
-      if (this.parentProperty) {
-        var select = this;
-        this.$watch('model.' + this.parentProperty, function() {
-          var schema = select.fieldSchema;
-          var emptyRecord = this.emptyRecord;
-          if (schema) {
-            var result = schema.getPropertyMapping(select.property, select.model);
-            if (result.then) {
-              result.then(function(value) {
-                select.selectValue = null;
-                select.mapping = value;
-                if (emptyRecord) {
-                  select.mapping[''] = null;
-                }
-              });
-            } else {
-              select.mapping = result;
-              if (emptyRecord) {
-                select.mapping[''] = null;
-              }
-            }
-          }
-        });
-      }
-    },
 
     watch: {
       selectVisible(newVal) {
