@@ -26,6 +26,7 @@
 <script type="text/ecmascript-6">
   import { merge, getPath, setPath } from '../../util';
   import { default as common } from './field-common';
+  import Vue from 'vue';
 
   export default {
     props: merge({}, common.props),
@@ -54,6 +55,16 @@
     components: {
       DRadioGroup: require('../radio-group.vue'),
       DRadio: require('../radio.vue')
+    },
+
+    watch: {
+      mapping() {
+        let oldValue = this.$refs.group.value;
+        this.$refs.group.value = null;
+        Vue.nextTick(() => {
+          this.$refs.group.value = oldValue;
+        });
+      }
     },
 
     events: common.events,

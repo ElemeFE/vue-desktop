@@ -6,6 +6,7 @@ export default {
   },
   datepicker: {
     today: 'Today',
+    clear: 'Clear',
     weeks: {
       sun: 'Sun',
       mon: 'Mon',

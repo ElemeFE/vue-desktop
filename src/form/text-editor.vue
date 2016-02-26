@@ -163,8 +163,9 @@
         },
 
         set(value) {
-          if (this.type === 'date' && !(value instanceof Date)) return;
-          if (this.type === 'number') {
+          if (this.type === 'date' && value && !(value instanceof Date)) {
+            return;
+          } else if (this.type === 'number') {
             if (value === null || value === undefined || value === '') {
               this.value = null;
               return;
