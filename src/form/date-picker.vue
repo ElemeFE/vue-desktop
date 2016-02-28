@@ -90,7 +90,8 @@
   }
 
   .datepicker-todaybtn,
-  .datepicker-clearbtn {
+  .datepicker-clearbtn,
+  .datepicker-confirmbtn {
     border: none;
     color: #0089dc;
     background: transparent;
@@ -204,8 +205,9 @@
 
     <div class="datepicker-footer" :class="{ hidden: currentView !== 'date' }">
       <span class="datepicker-timelabel" @click="currentView = 'time'" v-if="showTime">{{ timeText }}</span>
-      <button class="datepicker-clearbtn" @click="clear">{{ $t('datepicker.clear') }}</button>
       <button class="datepicker-todaybtn" @click="changeToToday">{{ $t('datepicker.today') }}</button>
+      <button class="datepicker-clearbtn" @click="clear">{{ $t('datepicker.clear') }}</button>
+      <button class="datepicker-confirmbtn" @click="confirm">{{ $t('datepicker.confirm') }}</button>
     </div>
   </div>
 </template>
@@ -510,6 +512,10 @@
       changeToToday() {
         this.date.setTime(+new Date());
         this.resetDate();
+      },
+
+      confirm() {
+        this.$emit('pick', { date: this.date });
       },
 
       clear() {

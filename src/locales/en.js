@@ -7,6 +7,7 @@ export default {
   datepicker: {
     today: 'Today',
     clear: 'Clear',
+    confirm: 'OK',
     weeks: {
       sun: 'Sun',
       mon: 'Mon',

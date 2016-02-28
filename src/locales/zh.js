@@ -19,6 +19,7 @@ export default {
   datepicker: {
     today: '今天',
     clear: '清空',
+    confirm: '确定',
     weeks: {
       sun: '日',
       mon: '一',
