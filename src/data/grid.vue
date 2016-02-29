@@ -281,6 +281,11 @@
 
       selection: {},
 
+      allowNoSelection: {
+        type: Boolean,
+        default: false
+      },
+
       gutterWidth: {
         default: 0
       }
@@ -304,15 +309,21 @@
         data = data || [];
 
         if (this.selectionMode === 'single') {
-          var selected = this.selected;
-          if (selected === null) {
-            this.selected = data[0];
-            if (this.selected) {
-              this.$emit('selection-change', this.selected);
+          var oldSelection = this.selected;
+          if (oldSelection === null) {
+            if (!this.allowNoSelection) {
+              this.selected = data[0];
+              if (this.selected !== oldSelection) {
+                this.$emit('selection-change', this.selected);
+              }
             }
-          } else if (data.indexOf(selected) === -1) {
-            this.selected = data[0];
-            if (this.selected) {
+          } else if (data.indexOf(oldSelection) === -1) {
+            if (!this.allowNoSelection) {
+              this.selected = data[0];
+            } else {
+              this.selected = null;
+            }
+            if (this.selected !== oldSelection) {
               this.$emit('selection-change', this.selected);
             }
           }

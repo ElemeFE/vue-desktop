@@ -3,7 +3,7 @@
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
     <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <span class="{{ checkboxClass }}" v-for="(key, val) in mapping">
-        <d-checkbox :value="selectedValue.indexOf(val) !== -1 ? val : false"
+        <d-checkbox :value="selectedValue && selectedValue.indexOf(val) !== -1 ? val : false"
           :true-value="val" :label="key" @change="handleValueChange"></d-checkbox>
       </span>
       <div class="d-field-hint" v-if="!hideHint">
@@ -33,7 +33,7 @@
       selectedValue: {
         get() {
           if (this.model && this.property) {
-            return getPath(this.model, this.property) || [];
+            return getPath(this.model, this.property);
           }
           return [];
         },
@@ -67,8 +67,8 @@
 
     methods: merge({
       handleValueChange(checkbox, checked) {
-        let trueValue = checkbox.trueValue;
-        var selectedValue = this.selectedValue;
+        const trueValue = checkbox.trueValue;
+        let selectedValue = this.selectedValue;
         if (!selectedValue) {
           selectedValue = this.selectedValue = [];
         }
