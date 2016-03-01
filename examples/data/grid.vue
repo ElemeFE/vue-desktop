@@ -1,5 +1,5 @@
 <template>
-  <d-vbox style="height: 100%;">
+  <!--<d-vbox style="height: 100%;">-->
     <d-form :cols="2">
       <d-text-field label="Condition1"></d-text-field>
       <d-text-field label="Condition2"></d-text-field>
@@ -10,7 +10,7 @@
       </d-field>
     </d-form>
 
-    <d-grid :data="gridData" :fixed-column-count3="3" :schema="gridSchema" :selection.sync="selection" selection-mode="none" @selection-change="handleSelectionChange" flex>
+    <d-grid :data="gridData" :fixed-column-count3="3" :schema="gridSchema" :selection.sync="selection" selection-mode="none" @selection-change="handleSelectionChange">
       <d-grid-column type="index"></d-grid-column>
       <d-grid-column type="selection"></d-grid-column>
       <d-grid-column property="prop1" :formatter="formatNumber"></d-grid-column>
@@ -30,7 +30,7 @@
       <d-button @click="toggleColumnVisible()">Toggle...</d-button>
     </div>
 
-  </d-vbox>
+  <!--</d-vbox>-->
 </template>
 
 <script type="text/ecmascript-6">

@@ -536,6 +536,17 @@
         this.doRender();
       },
 
+      updateScrollInfo() {
+        Vue.nextTick(() => {
+          if (this.$el) {
+            let gridBodyWrapper = this.$el.querySelector('.grid-body-wrapper');
+            let gridBody = this.$el.querySelector('.grid-body-wrapper .grid-body');
+
+            this.showVertScrollbar = gridBody.offsetHeight > gridBodyWrapper.offsetHeight;
+          }
+        });
+      },
+
       doRender() {
         let bodyWrapper = this.$el.querySelector('.grid-body-wrapper');
         let headerWrapper = this.$el.querySelector('.grid-header-wrapper');
@@ -669,13 +680,7 @@
 
       data(newVal) {
         this.handleDataChange(newVal);
-
-        if (this.$el) {
-          let gridBodyWrapper = this.$el.querySelector('.grid-body-wrapper');
-          let gridBody = this.$el.querySelector('.grid-body-wrapper .grid-body');
-
-          this.showVertScrollbar = gridBody.offsetHeight > gridBodyWrapper.offsetHeight;
-        }
+        this.updateScrollInfo();
       }
     },
 
@@ -705,6 +710,7 @@
       if (this.data) {
         this.handleDataChange(this.data);
       }
+      this.updateScrollInfo();
     },
 
     data() {

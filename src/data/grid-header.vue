@@ -74,7 +74,7 @@
           });
 
           if (rowIndex === 0 && !this.$options.fixed) {
-            rowTemplate += `<th class="gutter" rowspan="2" style="width: ${this.$parent.gutterWidth}px">&nbsp;</th>`;
+            rowTemplate += `<th class="gutter" rowspan="2" :style="{ width: (this.$parent.showVertScrollbar ? this.$parent.gutterWidth : 0) + 'px' }">&nbsp;</th>`;
           }
 
           rowTemplate += '</tr>';
