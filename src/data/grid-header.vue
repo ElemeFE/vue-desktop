@@ -65,7 +65,7 @@
             if (column.isColumnGroup) {
               let childColumns = column.columns;
 
-              rowTemplate += `<th class="${columnId} d-grid-columngroup" colspan="${childColumns.length}"><div>${column.label}</div></th>`;
+              rowTemplate += `<th class="${columnId} d-grid-columngroup" colspan="${childColumns.length}"><div>{{ columnsMap['${columnId}'].label }}</div></th>`;
             } else {
               rowTemplate += `<th ${rowIndex === 0 ? 'rowspan="2"' : ''} @mousemove="handleMouseMove($event, columnsMap['${columnId}'])" @mouseout="handleMouseOut"
                 @mousedown="handleMouseDown($event, columnsMap['${columnId}'])" @click="$parent.handleHeaderClick(columnsMap['${columnId}'], $event)"
@@ -94,7 +94,7 @@
         });
 
         if (!this.$options.fixed) {
-          rowTemplate += `<th class="gutter" style="width: ${this.$parent.gutterWidth}px">&nbsp;</th>`;
+          rowTemplate += `<th class="gutter" :style="{ width: (this.$parent.showVertScrollbar ? this.$parent.gutterWidth : 0) + 'px' }">&nbsp;</th>`;
         }
 
         this.$options.template = colgroupsTemplate + '<thead><tr>' + rowTemplate + '</tr></thead>';

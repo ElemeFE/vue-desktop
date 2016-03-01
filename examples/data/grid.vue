@@ -16,18 +16,18 @@
       <d-grid-column property="prop1" :formatter="formatNumber"></d-grid-column>
       <d-grid-column property="prop2">
         <d-grid-column property="prop3"></d-grid-column>
-        <d-grid-column property="prop4"></d-grid-column>
+        <d-grid-column property="prop4" v-if="visible"></d-grid-column>
       </d-grid-column>
       <d-grid-column property="prop3" min-width="600"></d-grid-column>
       <d-grid-column property="prop4"></d-grid-column>
       <d-grid-column label="5" property="prop5"></d-grid-column>
-      <d-grid-column label="操作" width="200" v-if="visible">
+      <d-grid-column label="操作" width="200">
         <d-button>测试1</d-button>
       </d-grid-column>
     </d-grid>
 
     <div>
-      <d-button @click="toggleColumnVisible()">Toggle...</d-button>{{visible}}
+      <d-button @click="toggleColumnVisible()">Toggle...</d-button>
     </div>
 
   </d-vbox>
@@ -63,6 +63,10 @@
 
   export default {
     methods: {
+      changeTitle() {
+        this.title = this.title + 'a';
+      },
+
       toggleColumnVisible() {
         this.visible = !this.visible;
       },
@@ -77,7 +81,8 @@
     },
     data() {
       return {
-        visible: false,
+        title: 'b',
+        visible: true,
         selection: [],
         gridSchema: gridSchema,
         gridData: gridSchema.format([

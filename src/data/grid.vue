@@ -214,7 +214,7 @@
       </table>
     </div>
     <div class="grid-body-wrapper">
-      <table class="grid-body" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth - gutterWidth + 'px' : '' }">
+      <table class="grid-body" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth - (showVertScrollbar ? gutterWidth : 0 ) + 'px' : '' }">
         <tbody></tbody>
       </table>
     </div>
@@ -669,6 +669,13 @@
 
       data(newVal) {
         this.handleDataChange(newVal);
+
+        if (this.$el) {
+          let gridBodyWrapper = this.$el.querySelector('.grid-body-wrapper');
+          let gridBody = this.$el.querySelector('.grid-body-wrapper .grid-body');
+
+          this.showVertScrollbar = gridBody.offsetHeight > gridBodyWrapper.offsetHeight;
+        }
       }
     },
 
@@ -703,6 +710,7 @@
     data() {
       return {
         showHoriScrollbar: false,
+        showVertScrollbar: false,
         hoverRowIndex: null,
         headerHeight: 35,
         selected: null,
