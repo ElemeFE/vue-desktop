@@ -35,5 +35,7 @@ NavMenuItem 的属性如下：
 | ---- | ---- |
 | text | 显示的文本。 |
 | path | Item 对应的路径，类似使用 v-link 中的 path。 |
+| exact | 是否路径完全匹配的时候才高亮 NavMenuItem，Boolean 类型，默认值为 false。 |
 | expanded | 是否展开，Boolean 类型，默认值为 false。 |
-| exclusive | 是否排他展开，Boolean 类型，默认值为 fasle。 |
+| exclusive | 是否排他展开，Boolean 类型，默认值为 false。 |
+
