@@ -3,7 +3,7 @@
     <label :style="{ width: labelWidth != null ? labelWidth + 'px' : '' }" v-show="!hideLabel">{{ labelText }}</label>
     <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }" :style="{ width: realEditorWidth ? realEditorWidth : '' }">
-        {{ textValue }}<span class="d-selectfield-trigger d-icon d-icon-arrow-down"></span>
+        <span class="d-selectfield-box-text">{{ textValue }}</span><span class="d-selectfield-trigger d-icon d-icon-arrow-down"></span>
         <d-select v-ref:select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false" @selection-change="handleSelectionChange" @click="$event.stopPropagation()">
           <d-option v-for="(key, val) in mapping" :value="val" :show-checkbox="multiSelect">{{key}}</d-option>
         </d-select>
@@ -55,6 +55,12 @@
     top: 0;
     right: 0;
     margin-right: 4px;
+  }
+
+  .d-selectfield-box-text {
+    overflow: hidden;
+    height: 26px;
+    display: inline-block;
   }
 </style>
 
