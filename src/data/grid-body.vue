@@ -8,8 +8,39 @@
 <script type="text/ecmascript-6">
   import { getPath } from '../util';
 
-  let isObject = function(obj) {
+  const isObject = function(obj) {
     return obj !== null && typeof obj === 'object';
+  };
+
+  const getCell = function(event) {
+    let cell = event.target;
+
+    while (cell && cell.tagName.toUpperCase() !== 'HTML') {
+      if (cell.tagName.toUpperCase() === 'TD') {
+        return cell;
+      }
+      cell = cell.parentNode;
+    }
+
+    return null;
+  };
+
+  const getColumnById = function(grid, columnId) {
+    let column = null;
+    grid.columns.forEach(function(item) {
+      if (item.id === columnId) {
+        column = item;
+      }
+    });
+    return column;
+  };
+
+  const getColumnByCell = function(grid, cell) {
+    const matches = (cell.className || '').match(/grid_[^\s]+/gm);
+    if (matches) {
+      return getColumnById(grid, matches[0]);
+    }
+    return null;
   };
 
   export default {
@@ -28,10 +59,10 @@
           let childColumns = column.columns;
           childColumns.forEach(function(childColumn) {
             columnTemplate = childColumn.template || '';
-            rowTemplate += `<td class="${childColumn.id}"><div class="cell">${columnTemplate}</div></td>`;
+            rowTemplate += `<td class="${childColumn.id}" @mouseenter="handleCellMouseEnter($event, row)" @mouseleave="handleCellMouseLeave($event)"><div class="cell">${columnTemplate}</div></td>`;
           });
         } else {
-          rowTemplate += `<td class="${column.id}"><div class="cell">${columnTemplate}</div></td>`;
+          rowTemplate += `<td class="${column.id}" @mouseenter="handleCellMouseEnter($event, row)" @mouseleave="handleCellMouseLeave($event)"><div class="cell">${columnTemplate}</div></td>`;
         }
       });
 
@@ -39,7 +70,10 @@
         rowTemplate += '<td class="gutter"></td>';
       }
 
-      this.$options.template = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection" @click="handleClick(row)" @mouseenter="$parent.$parent.hoverRowIndex = $index" :class="{ \'current-row\': row === $parent.$parent.selected, hover: $parent.$parent.hoverRowIndex === $index }">' + rowTemplate + '</tr>';
+      this.$options.template = '<tr v-for="row in $parent.data | orderBy $parent.sortingProperty $parent.sortingDirection" ' +
+        '@click="handleClick($event, row)" @mouseenter="handleMouseEnter($index)" ' +
+        ':class="{ \'current-row\': row === $parent.$parent.selected, hover: $parent.$parent.hoverRowIndex === $index }">' +
+        rowTemplate + '</tr>';
     },
 
     filters: {
@@ -63,25 +97,55 @@
     },
 
     methods: {
-      handleClick: function(row) {
+      handleCellMouseEnter(event, row) {
         let grid = this.$parent;
+        const cell = getCell(event);
+
+        if (cell) {
+          const column = getColumnByCell(grid, cell);
+          const hoverState = grid.hoverState = { cell: cell, column: column, row: row };
+          grid.$emit('cell-mouse-enter', hoverState.row, hoverState.column, hoverState.cell, event);
+        }
+      },
+
+      handleCellMouseLeave(event) {
+        let grid = this.$parent;
+        const cell = getCell(event);
+
+        if (cell) {
+          const oldHoverState = grid.hoverState;
+          grid.$emit('cell-mouse-leave', oldHoverState.row, oldHoverState.column, oldHoverState.cell, event);
+        }
+      },
+
+      handleMouseEnter(index) {
+        let grid = this.$parent;
+        grid.hoverRowIndex = index;
+      },
+
+      handleClick(event, row) {
+        let grid = this.$parent;
+        const cell = getCell(event);
+
+        if (cell) {
+          const column = getColumnByCell(grid, cell);
+          if (column) {
+            grid.$emit('cell-click', row, column, cell, event);
+          }
+        }
 
         if (grid.selectionMode === 'single') {
           grid.selected = row;
           grid.$emit('selection-change', row);
         }
-        grid.$emit('row-click', row);
+
+        grid.$emit('row-click', row, event);
       },
 
-      $getPropertyText: function(row, property, columnId) {
+      $getPropertyText(row, property, columnId) {
         let grid = this.$parent;
 
-        var column = null;
-        grid.columns.forEach(function(item) {
-          if (item.id === columnId) {
-            column = item;
-          }
-        });
+        const column = getColumnById(grid, columnId);
 
         if (column && column.formatter) {
           return column.formatter(row, column);

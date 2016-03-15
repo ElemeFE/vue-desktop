@@ -10,7 +10,11 @@
       </d-field>
     </d-form>
 
-    <d-grid :data="gridData" :fixed-column-count3="3" :schema="gridSchema" :selection.sync="selection" selection-mode="none" @selection-change="handleSelectionChange">
+    <d-grid :data="gridData" :fixed-column-count3="3" :schema="gridSchema"
+        :selection.sync="selection"
+        selection-mode="none"
+        @selection-change="handleSelectionChange"
+        @cell-click="handleCellClick">
       <d-grid-column type="index"></d-grid-column>
       <d-grid-column type="selection"></d-grid-column>
       <d-grid-column property="prop1" :formatter="formatNumber"></d-grid-column>
@@ -76,7 +80,11 @@
       },
 
       handleSelectionChange(selection) {
-        console.log('test', this, selection);
+        // console.log('test', this, selection);
+      },
+
+      handleCellClick(row, column) {
+        // console.log(row, column);
       }
     },
     data() {

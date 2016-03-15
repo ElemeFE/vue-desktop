@@ -79,13 +79,13 @@ Grid 目前可用的属性如下：
 
 # Grid 的事件
 
-目前仅支持 selection-change 事件, 例子:
-
-```HTML
-<d-grid :data="gridData" :selection-change="handleSelectionChange">
-...
-</d-grid>
-```
+Grid 目前支持的事件如下：
+| Property | Description |
+| ---- | ---- |
+| selection-change | 当 Grid 的选择修改的时候会触发该事件。 |
+| cell-mouse-enter | 当 Grid 的单元格 hover 进入的时候会触发该事件。 |
+| cell-mouse-leave | 当 Grid 的单元格 hover 退出的时候会触发该事件。 |
+| cell-click | 当 Grid 的某个单元格被点击的时候会触发该事件。|
 
 # Grid Column Properties
 

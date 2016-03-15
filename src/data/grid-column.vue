@@ -12,6 +12,7 @@
       property: {},
       width: {},
       minWidth: {},
+      htmlTemplate: {},
       sortable: {
         type: Boolean,
         default: undefined
@@ -115,6 +116,11 @@
           this.template = null;
           isColumnGroup = true;
         }
+      }
+
+      var htmlTemplate = this.htmlTemplate;
+      if (htmlTemplate) {
+        this.template = htmlTemplate;
       }
 
       let width = this.width;

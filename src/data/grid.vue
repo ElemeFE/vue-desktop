@@ -192,7 +192,6 @@
 
   .d-grid tr.hover,
   .d-grid tr:hover {
-
   }
 
   .d-grid-column-resize-proxy {
@@ -207,7 +206,7 @@
 </style>
 
 <template>
-  <div class="d-grid" :class="{ 'd-grid-fit': fit }" @mouseleave="hoverRowIndex = null">
+  <div class="d-grid" :class="{ 'd-grid-fit': fit }" @mouseleave="handleMouseLeave($event)">
     <div class="hidden-columns" v-el:hidden-columns></table><slot></slot></div>
     <div class="grid-header-wrapper">
       <table class="grid-header" cellspacing="0" cellpadding="0" border="0" :style="{ width: bodyWidth ? bodyWidth + 'px' : '' }">
@@ -305,6 +304,14 @@
     },
 
     methods: {
+      handleMouseLeave(event) {
+        this.hoverRowIndex = null;
+        const hoverState = this.hoverState;
+        if (hoverState) {
+          this.hoverState = null;
+        }
+      },
+
       handleDataChange(data) {
         data = data || [];
 
@@ -523,14 +530,22 @@
       reRender() {
         if (this.$body) {
           this.$body.$destroy();
+          this.$body = null;
         }
 
         if (this.$header) {
           this.$header.$destroy();
+          this.$header = null;
+        }
+
+        if (this.$fixedBody) {
+          this.$fixedBody.$destroy();
+          this.$fixedBody = null;
         }
 
         if (this.$fixedHeader) {
           this.$fixedHeader.$destroy();
+          this.$fixedHeader = null;
         }
 
         this.doRender();
@@ -614,7 +629,7 @@
 
         var bodyTable = this.$el.querySelector(fixed ? '.grid-fixed-body-wrapper tbody' : '.grid-body tbody');
 
-        this.$body = new Vue(merge({
+        var body = new Vue(merge({
           parent: this,
           inherit: true,
           el: bodyTable,
@@ -622,6 +637,12 @@
           columns: columns,
           fixed: fixed
         }, GridBody));
+
+        if (fixed) {
+          this.$fixedBody = body;
+        } else {
+          this.$body = body;
+        }
       }
     },
 
@@ -674,6 +695,10 @@
     },
 
     watch: {
+      fixedColumnCount() {
+        this.debouncedReRender();
+      },
+
       height(value) {
         this.$calcHeight(value);
       },
