@@ -22,6 +22,7 @@
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: opacity 0.2s, top 0.2s;
     overflow: hidden;
+    z-index: 100;
   }
 
   .notification .group {

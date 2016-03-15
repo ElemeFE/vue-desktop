@@ -221,10 +221,6 @@
       }
     },
 
-    components: {
-
-    },
-
     methods: {
       windowClick(event) {
         if (event.target !== this.$el && (event.target !== this.$els.input) && (event.target !== this.$els.chosen)) {
