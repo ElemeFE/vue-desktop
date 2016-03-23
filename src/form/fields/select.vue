@@ -4,7 +4,7 @@
     <div class="d-field-content" :style="{ marginLeft: labelWidth != null ? labelWidth + 'px' : '' }">
       <div @click="toggleSelect($event)" class="d-selectfield-box" :class="{ active: selectVisible }" :style="{ width: realEditorWidth ? realEditorWidth : '' }">
         <span class="d-selectfield-box-text">{{ textValue }}</span><span class="d-selectfield-trigger d-icon d-icon-arrow-down"></span>
-        <d-select v-ref:select v-if="selectActive" v-show="selectVisible" :value.sync="selectValue" @select="selectVisible = false" @selection-change="handleSelectionChange" @click="$event.stopPropagation()">
+        <d-select v-ref:select v-if="selectActive" v-show="selectVisible" :multi-select="multiSelect" :value.sync="selectValue" @select="selectVisible = false" @selection-change="handleSelectionChange" @click="$event.stopPropagation()">
           <d-option v-for="(key, val) in mapping" :value="val" :show-checkbox="multiSelect">{{key}}</d-option>
         </d-select>
       </div>
@@ -156,8 +156,8 @@
       },
 
       handleSelectionChange() {
-        var children = this.$refs.select.$children;
-        var value = [];
+        const children = this.$refs.select.$children;
+        const value = [];
 
         children.forEach(function(child) {
           if (child.selected) {

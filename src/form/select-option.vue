@@ -37,6 +37,10 @@
     ready() {
       if (this.$parent.multiSelect) {
         this.showCheckbox = true;
+        const parentValue = this.$parent.value;
+        if (parentValue instanceof Array) {
+          this.selected = parentValue.indexOf(this.value) !== -1;
+        }
       }
     },
 

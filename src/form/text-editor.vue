@@ -195,14 +195,14 @@
 
     components: {
       editor: {
-        inherit: true,
+        inherit: true,Fix
         template: '',
         created() {
           var parent = this.$parent;
           var type = parent.type;
           var lazy = parent.lazy;
           if (type === 'date' || type === 'number') {
-            this.$options.template = `<input @focus="$parent.handleFocus" @blur="$parent.handleBlur" lazy @change="$parent.handleChange($event)" @focus="$parent.handleFocus()" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"/>`;
+            this.$options.template = `<input @focus="$parent.handleFocus" @blur="$parent.handleBlur" lazy @change="$parent.handleChange($event)" type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" readonly="{{$parent.readonly}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }"/>`;
           } else if (type !== 'textarea') {
             this.$options.template = `<input @focus="$parent.handleFocus" @blur="$parent.handleBlur" ${lazy ? 'lazy' : ''} type="${parent.editorType}" v-model="$parent.visualValue" placeholder="{{$parent.placeholder}}" :style="{ height: $parent.height ? $parent.height + 'px' : '' }" readonly="{{$parent.readonly}}" />`;
           } else {
