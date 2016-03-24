@@ -195,7 +195,7 @@
 
     components: {
       editor: {
-        inherit: true,Fix
+        inherit: true,
         template: '',
         created() {
           var parent = this.$parent;
