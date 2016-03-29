@@ -53,12 +53,23 @@
     remoteMapping: {
       label: 'Remote Mapping',
       default: 2,
-      mapping: function() {
+      mapping: function(model, searchText) {
         return new Promise(function(resolve) {
           var xhr = new XMLHttpRequest();
           xhr.open('GET', '/examples/json/mapping.json', true);
           xhr.onload = function(response) {
-            resolve(JSON.parse(response.target.responseText));
+            const result = JSON.parse(response.target.responseText);
+
+            if (searchText) {
+              for (var prop in result) {
+                result[prop + searchText] = result[prop];
+                delete result[prop];
+              }
+
+              console.log('result:', result);
+            }
+
+            resolve(result);
           };
           xhr.send();
         });

@@ -1,6 +1,6 @@
 {
   "name": "vue-desktop",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "description": "A UI library for building admin panel website.",
   "main": "lib/index.js",
   "scripts": {

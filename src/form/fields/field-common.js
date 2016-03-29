@@ -50,6 +50,28 @@ export default {
   },
 
   methods: {
+    fetchMapping(...args) {
+      var schema = this.fieldSchema;
+      var emptyRecord = this.emptyRecord;
+      if (schema) {
+        var result = schema.getPropertyMapping(this.property, this.model, ...args);
+        if (result.then) {
+          result.then((value) => {
+            this.selectValue = null;
+            this.mapping = value;
+            if (emptyRecord) {
+              this.mapping[''] = null;
+            }
+          });
+        } else {
+          this.mapping = result;
+          if (emptyRecord) {
+            this.mapping[''] = null;
+          }
+        }
+      }
+    },
+
     validate() {
       var model = this.model;
       var schema = this.fieldSchema;
@@ -210,27 +232,8 @@ export default {
     }
 
     if (this.parentProperty) {
-      var select = this;
       this.$watch('model.' + this.parentProperty, () => {
-        var schema = select.fieldSchema;
-        var emptyRecord = this.emptyRecord;
-        if (schema) {
-          var result = schema.getPropertyMapping(select.property, select.model);
-          if (result.then) {
-            result.then(function(value) {
-              select.selectValue = null;
-              select.mapping = value;
-              if (emptyRecord) {
-                select.mapping[''] = null;
-              }
-            });
-          } else {
-            select.mapping = result;
-            if (emptyRecord) {
-              select.mapping[''] = null;
-            }
-          }
-        }
+        this.fetchMapping();
       });
     }
   }

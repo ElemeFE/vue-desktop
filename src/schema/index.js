@@ -223,7 +223,7 @@ class Schema {
     return (this.props[property] || {}).label || '';
   }
 
-  getPropertyMapping(property, object) {
+  getPropertyMapping(property, object, ...args) {
     const descriptor = this.props[property] || {};
     const mapping = descriptor.mapping;
     let result = mapping;
@@ -236,7 +236,7 @@ class Schema {
         result[config.name || config.label] = config.value;
       }
     } else if (typeof mapping === 'function') {
-      result = mapping(object);
+      result = mapping(object, ...args);
     }
 
     return result;
