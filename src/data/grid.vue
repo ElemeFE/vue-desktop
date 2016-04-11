@@ -565,11 +565,11 @@
       doRender() {
         let bodyWrapper = this.$el.querySelector('.grid-body-wrapper');
         let headerWrapper = this.$el.querySelector('.grid-header-wrapper');
-        let fixedBodyWrapper = this.$el.querySelector('.grid-fixed-body-wrapper');
-
+        const el = this.$el;
         if (!this.$ready) {
           bodyWrapper.addEventListener('scroll', function() {
             headerWrapper.scrollLeft = this.scrollLeft;
+            let fixedBodyWrapper = el.querySelector('.grid-fixed-body-wrapper');
             if (fixedBodyWrapper) {
               fixedBodyWrapper.scrollTop = this.scrollTop;
             }

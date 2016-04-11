@@ -348,28 +348,39 @@
       },
 
       prevMonth() {
-        var date = this.date;
-        var year = date.getFullYear();
-        var month = date.getMonth();
+        var currentDate = this.date;
+        var year = currentDate.getFullYear();
+        var month = currentDate.getMonth();
 
         var newYear = month === 0 ? year - 1 : year;
         var newMonth = month === 0 ? 11 : month - 1;
 
-        date.setMonth(newMonth);
-        date.setFullYear(newYear);
+        var date = currentDate.getDate();
+        var newDayCount = getDayCountOfMonth(newYear, newMonth);
+        if (date > newDayCount) {
+          currentDate.setDate(newDayCount);
+        }
+
+        currentDate.setMonth(newMonth);
+        currentDate.setFullYear(newYear);
         this.resetDate();
       },
 
       nextMonth() {
-        var date = this.date;
-        var year = date.getFullYear();
-        var month = date.getMonth();
-
+        var currentDate = this.date;
+        var year = currentDate.getFullYear();
+        var month = currentDate.getMonth();
         var newYear = month === 11 ? year + 1 : year;
         var newMonth = month === 11 ? 0 : month + 1;
 
-        date.setMonth(newMonth);
-        date.setFullYear(newYear);
+        var date = currentDate.getDate();
+        var newDayCount = getDayCountOfMonth(newYear, newMonth);
+        if (date > newDayCount) {
+          currentDate.setDate(newDayCount);
+        }
+
+        currentDate.setMonth(newMonth);
+        currentDate.setFullYear(newYear);
         this.resetDate();
       },
 
