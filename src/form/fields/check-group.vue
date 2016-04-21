@@ -47,7 +47,7 @@
       checkboxClass() {
         let cols = this.cols;
         if (cols >= 1 && cols <= 6) {
-          return `d-cell-1-${ cols }`;
+          return `d-cell-1-${cols}`;
         }
         return '';
       }

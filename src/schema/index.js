@@ -154,7 +154,7 @@ var initObject = (object, schema, addMethod) => {
   }
 };
 
-var reverseMapping = mapping => {
+var reverseMapping = (mapping) => {
   const result = Object.create(null);
 
   for (let key in mapping) {
@@ -296,7 +296,7 @@ class Schema {
 
     let skips = options.skips;
     if (skips) {
-      props = props.filter(item => skips.indexOf(item) === -1);
+      props = props.filter((item) => skips.indexOf(item) === -1);
     }
 
     let passed = true;

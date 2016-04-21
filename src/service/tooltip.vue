@@ -122,7 +122,7 @@
   import Popover from '../popover';
 
   export default {
-    mixins: [ Popup, Popover ],
+    mixins: [Popup, Popover],
 
     props: {
       title: {

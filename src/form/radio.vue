@@ -6,7 +6,7 @@
   var seed = 1;
 
   export default {
-    props: [ 'value' ],
+    props: ['value'],
 
     created() {
       this.id = 'd_radio_' + seed++;

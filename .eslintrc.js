@@ -3,15 +3,16 @@ var production = process.env.NODE_ENV === 'production';
 module.exports = {
   'root': true,
 
-  //'plugins': [ 'html' ],
-  //'settings': {
-  //  'html/indent': '+2'
-  //},
-
   'env': {
+    'es6': true,
     'browser': true,
     'node': true,
     'mocha': true
+  },
+
+  "parserOptions": {
+    ecmaVersion: 6,
+    sourceType: "module"
   },
 
   'ecmaFeatures': {
@@ -84,7 +85,6 @@ module.exports = {
     'no-else-return': 0,
     'no-empty': 0,
     'no-empty-character-class': 2,
-    'no-empty-label': 2,
     'no-eq-null': 0,
     'no-eval': 2,
     'no-ex-assign': 2,
@@ -171,12 +171,11 @@ module.exports = {
     'semi': [2, 'always'],
     'semi-spacing': 0,
     'sort-vars': 0,
-    'space-after-keywords': [2, 'always'],
+    'keyword-spacing': 2,
     'space-before-blocks': [2, 'always'],
     'space-before-function-paren': [2, 'never'],
     'space-in-parens': [2, 'never'],
     'space-infix-ops': 2,
-    'space-return-throw-case': 2,
     'space-unary-ops': [2, { 'words': true, 'nonwords': false }],
     'spaced-comment': [2, 'always', { 'markers': ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!'] }],
     'strict': 0,

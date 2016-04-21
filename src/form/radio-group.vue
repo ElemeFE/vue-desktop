@@ -30,7 +30,7 @@
   };
 
   export default {
-    props: [ 'value' ],
+    props: ['value'],
 
     watch: {
       value(val) {

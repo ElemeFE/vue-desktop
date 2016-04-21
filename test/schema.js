@@ -119,7 +119,7 @@ describe('Schema Store', function() {
         name: '',
         test: 2
       }, {
-        props: [ 'test' ]
+        props: ['test']
       });
 
       result.should.be.true;
@@ -338,9 +338,12 @@ describe('Schema Store', function() {
   describe('#getPropertyText', function() {
     it('should get type=date prop\'s formatted text', function() {
       var schema = new Schema({
-        a: { type: 'date', default: function() {
-          return new Date(2015, 0, 1);
-        }}
+        a: {
+          type: 'date',
+          default() {
+            return new Date(2015, 0, 1);
+          }
+        }
       });
 
       var object = schema.newModel();

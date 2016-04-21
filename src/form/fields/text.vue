@@ -64,7 +64,7 @@
           DTextEditor: require('../text-editor.vue')
         },
         created() {
-          this.$options.template = `<d-text-editor :style="{ width: $parent.realEditorWidth ? $parent.realEditorWidth : '' }" @focus="$parent.handleFocus" type="${ this.$parent.editorType }" :value.sync="${ '$parent.model.' + this.$parent.property }" :height="$parent.editorHeight" :placeholder="$parent.placeholder || ''"/>`;
+          this.$options.template = `<d-text-editor :style="{ width: $parent.realEditorWidth ? $parent.realEditorWidth : '' }" @focus="$parent.handleFocus" type="${this.$parent.editorType}" :value.sync="${'$parent.model.' + this.$parent.property}" :height="$parent.editorHeight" :placeholder="$parent.placeholder || ''"/>`;
         }
       }
     },

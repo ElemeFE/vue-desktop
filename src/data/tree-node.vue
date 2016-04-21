@@ -127,7 +127,7 @@
           labelProperty = levelConfig.labelProperty;
         }
         if (!labelProperty) {
-          return data['label'] || data['name'];
+          return data.label || data.name;
         }
         return data[labelProperty];
       },

@@ -38,7 +38,7 @@
       let colgroupsTemplate = '';
 
       if (hasColumnGroup) {
-        let rows = [ columns, [] ];
+        let rows = [columns, []];
         columns.forEach(function(column) {
           if (column.isColumnGroup) {
             rows[1].push.apply(rows[1], column.columns);
@@ -69,12 +69,12 @@
             } else {
               rowTemplate += `<th ${rowIndex === 0 ? 'rowspan="2"' : ''} @mousemove="handleMouseMove($event, columnsMap['${columnId}'])" @mouseout="handleMouseOut"
                 @mousedown="handleMouseDown($event, columnsMap['${columnId}'])" @click="$parent.handleHeaderClick(columnsMap['${columnId}'], $event)"
-                class="${columnId} {{ columnsMap['${columnId}'].direction }}" ><div>${ columnTemplate }</div><i class="sort-caret"></i></th>`;
+                class="${columnId} {{ columnsMap['${columnId}'].direction }}" ><div>${columnTemplate}</div><i class="sort-caret"></i></th>`;
             }
           });
 
           if (rowIndex === 0 && !this.$options.fixed) {
-            rowTemplate += `<th class="gutter" rowspan="2" :style="{ width: (this.$parent.showVertScrollbar ? this.$parent.gutterWidth : 0) + 'px' }">&nbsp;</th>`;
+            rowTemplate += '<th class="gutter" rowspan="2" :style="{ width: (this.$parent.showVertScrollbar ? this.$parent.gutterWidth : 0) + \'px\' }">&nbsp;</th>';
           }
 
           rowTemplate += '</tr>';
@@ -90,11 +90,11 @@
 
           rowTemplate += `<th @mousemove="handleMouseMove($event, columnsMap['${columnId}'])" @mouseout="handleMouseOut"
             @mousedown="handleMouseDown($event, columnsMap['${columnId}'])" @click="$parent.handleHeaderClick(columnsMap['${columnId}'], $event)"
-            class="${columnId} {{ columnsMap['${columnId}'].direction }}" ><div>${ columnTemplate }</div><i class="sort-caret"></i></th>`;
+            class="${columnId} {{ columnsMap['${columnId}'].direction }}" ><div>${columnTemplate}</div><i class="sort-caret"></i></th>`;
         });
 
         if (!this.$options.fixed) {
-          rowTemplate += `<th class="gutter" :style="{ width: (this.$parent.showVertScrollbar ? this.$parent.gutterWidth : 0) + 'px' }">&nbsp;</th>`;
+          rowTemplate += '<th class="gutter" :style="{ width: (this.$parent.showVertScrollbar ? this.$parent.gutterWidth : 0) + \'px\' }">&nbsp;</th>';
         }
 
         this.$options.template = colgroupsTemplate + '<thead><tr>' + rowTemplate + '</tr></thead>';

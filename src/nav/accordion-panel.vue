@@ -160,7 +160,7 @@
           el.style.height = this.getCurrentStyle(this.$els.content, 'height');
         },
         leave(el) {
-          setTimeout(() => el.style.height = '0');
+          setTimeout(() => { el.style.height = '0'; });
         },
         afterLeave(el) {
           this.$els.content.style.display = 'block';

@@ -39,7 +39,7 @@
         inherit: true,
         template: '',
         created() {
-          this.$options.template = `<input type="checkbox" v-model="${ '$parent.model.' + this.$parent.property }" :true-value.once="$parent.trueValue" :false-value.once="$parent.falseValue"/>`;
+          this.$options.template = `<input type="checkbox" v-model="${'$parent.model.' + this.$parent.property}" :true-value.once="$parent.trueValue" :false-value.once="$parent.falseValue"/>`;
         }
       }
     },

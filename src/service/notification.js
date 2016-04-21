@@ -6,7 +6,6 @@ var instances = [];
 var seed = 1;
 
 var Notification = function(options) {
-
   options = options || {};
   var userOnClose = options.callback;
   var id = 'notification_' + seed++;

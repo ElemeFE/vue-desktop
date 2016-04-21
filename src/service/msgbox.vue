@@ -105,7 +105,7 @@
   require('vue-popup/lib/popup.css');
 
   export default {
-    mixins: [ Popup ],
+    mixins: [Popup],
 
     computed: {
       popupOptions() {

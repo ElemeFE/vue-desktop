@@ -159,7 +159,7 @@
 
     computed: {
       btnClasses() {
-        var classes = [ this.selected ? this.selectedClass : 'btn-default' ];
+        var classes = [this.selected ? this.selectedClass : 'btn-default'];
 
         if (this.type) {
           classes.push('btn-' + this.type);
