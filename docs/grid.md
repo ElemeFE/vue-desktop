@@ -80,12 +80,13 @@ Grid 目前可用的属性如下：
 # Grid 的事件
 
 Grid 目前支持的事件如下：
-| Property | Description |
+
+| Property | Description | params |
 | ---- | ---- |
-| selection-change | 当 Grid 的选择修改的时候会触发该事件。 |
-| cell-mouse-enter | 当 Grid 的单元格 hover 进入的时候会触发该事件。 |
-| cell-mouse-leave | 当 Grid 的单元格 hover 退出的时候会触发该事件。 |
-| cell-click | 当 Grid 的某个单元格被点击的时候会触发该事件。|
+| selection-change | 当 Grid 的选择修改的时候会触发该事件。 | selected |
+| cell-mouse-enter | 当 Grid 的单元格 hover 进入的时候会触发该事件。 | row, column, cell, event |
+| cell-mouse-leave | 当 Grid 的单元格 hover 退出的时候会触发该事件。 | row, column, cell, event |
+| cell-click | 当 Grid 的某个单元格被点击的时候会触发该事件。| row, column, cell, event |
 
 # Grid Column Properties
 
