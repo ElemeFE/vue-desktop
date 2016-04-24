@@ -10,7 +10,7 @@
     </ul>
     <form class="upload-operate" enctype="multipart/form-data">
       <button class="btn btn-default btn-file"><input type="file" name="picture[]" @change="onChange($event)" multiple><span class="d-icon-plus">+</span>添加图片</button>
-      <button class="btn btn-primary" @click="upload()" v-disabled="uploading">{{uploading ? '正在上传...' : '上传'}}</button>
+      <button class="btn btn-primary" @click="upload()" :disabled="uploading">{{uploading ? '正在上传...' : '上传'}}</button>
     </form>
     <!-- 上传结果 -->
     <div class="upload-result">
