@@ -5,8 +5,13 @@ var instance;
 var service = {
   open() {
     if (!instance) {
+      const text = this.text;
+
       instance = new LoadingMask({
-        el: document.createElement('div')
+        el: document.createElement('div'),
+        data() {
+          return { text };
+        }
       });
     }
     Vue.nextTick(() => {

@@ -47,3 +47,6 @@ var doAction = function() {
   });
 }
 ```
+
+## 修改显示文案
+LoadingMask.text = '加载中';
