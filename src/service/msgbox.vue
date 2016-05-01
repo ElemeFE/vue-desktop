@@ -103,6 +103,7 @@
 
   import Popup from 'vue-popup';
   require('vue-popup/lib/popup.css');
+  require('../icon/iconfont.css');
 
   export default {
     mixins: [Popup],
