@@ -138,21 +138,25 @@
 
       startTimer() {
         var self = this;
+        if (this.duration > 0) {
+          this.timer = setTimeout(function() {
+            if (!self.closed) {
+              self.handleClose();
+            }
+          }, this.duration * 1000);
+        }
+      }
+    },
+
+    ready() {
+      var self = this;
+      if (this.duration > 0) {
         this.timer = setTimeout(function() {
           if (!self.closed) {
             self.handleClose();
           }
         }, this.duration * 1000);
       }
-    },
-
-    ready() {
-      var self = this;
-      this.timer = setTimeout(function() {
-        if (!self.closed) {
-          self.handleClose();
-        }
-      }, this.duration * 1000);
     }
   }
 </script>

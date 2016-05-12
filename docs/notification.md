@@ -28,6 +28,6 @@ import { Notification } from 'vue-desktop'
 
 - title: Notification 显示的标题。
 - message: Notification 显示的内容。
-- type: Notification 显示的图标的类型，可选值：success、info、warning、error，默认值为info。
-- duration: Notification 显示的时长，单位为秒，默认值为5。
+- type: Notification 显示的图标的类型，可选值：success、info、warning、error，默认值为 info。
+- duration: Notification 显示的时长，单位为秒，默认值为 5。设置为 0 则会一直显示，直到用户手动关闭。
 - callback: Notification 关闭后的回调函数，参数 instance 为对应于该 Notification 的 Vue 实例对象，它具有上述四个属性，instance.id 为唯一性标识。
