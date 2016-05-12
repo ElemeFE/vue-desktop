@@ -28,7 +28,7 @@
           title: '通知',
           message: '通知信息',
           type: 'warning',
-          duration: 2
+          duration: 0
         });
       },
       notification4() {
