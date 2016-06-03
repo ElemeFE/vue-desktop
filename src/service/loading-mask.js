@@ -3,17 +3,13 @@ var LoadingMask = Vue.extend(require('./loading-mask.vue'));
 
 var instance;
 var service = {
-  open() {
+  open(text) {
     if (!instance) {
-      const text = this.text;
-
       instance = new LoadingMask({
-        el: document.createElement('div'),
-        data() {
-          return { text };
-        }
+        el: document.createElement('div')
       });
     }
+    instance.text = text;
     Vue.nextTick(() => {
       instance.open();
     });
