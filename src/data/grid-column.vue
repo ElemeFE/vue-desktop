@@ -159,6 +159,7 @@
     },
 
     detached() {
+      if (!this.$parent) return;
       let columns = this.$parent.columns;
       if (columns) {
         let columnId = this.columnId;
