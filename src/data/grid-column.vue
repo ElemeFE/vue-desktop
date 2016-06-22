@@ -189,6 +189,11 @@
         if (this.columnConfig) {
           this.columnConfig.label = newVal;
         }
+      },
+      property(newVal) {
+        if (this.columnConfig) {
+          this.columnConfig.property = newVal;
+        }
       }
     },
 
