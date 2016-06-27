@@ -14,7 +14,6 @@
       minWidth: {},
       htmlTemplate: {},
       sortable: {
-        type: Boolean,
         default: undefined
       },
       resizable: {

@@ -525,6 +525,11 @@
           this.sortingProperty = null;
         }
         this.sortingDirection = column.direction === 'descending' ? -1 : 1;
+
+        this.sortingCustom = column.sortable === 'custom';
+
+        // custom sorting event
+        this.sortingCustom && this.$emit('sort', column);
       },
 
       reRender() {
@@ -751,7 +756,8 @@
         fixedBodyWidth: '',
         sortingColumn: null,
         sortingProperty: null,
-        sortingDirection: 1
+        sortingDirection: 1,
+        sortingCustom: false
       };
     }
   };
