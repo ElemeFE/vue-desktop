@@ -461,6 +461,11 @@
           column.direction = '';
         }
         this.sortingDirection = column.direction === 'descending' ? -1 : 1;
+
+        this.sortingCustom = column.sortable === 'custom';
+
+        // custom sorting event
+        this.sortingCustom && this.$emit('sort', column);
       },
 
       reRender() {
@@ -569,7 +574,7 @@
           replace: false,
           filters: {
             orderBy(arr, sortKey, reverse) {
-              if (!sortKey) {
+              if (!sortKey || this.$parent.sortingCustom) {
                 return arr;
               }
               var order = (reverse && reverse < 0) ? -1 : 1;
@@ -703,7 +708,8 @@
         fixedBodyWidth: '',
         sortingColumn: null,
         sortingProperty: null,
-        sortingDirection: 1
+        sortingDirection: 1,
+        sortingCustom: false
       };
     }
   };

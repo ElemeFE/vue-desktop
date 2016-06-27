@@ -12,7 +12,6 @@
       property: {},
       width: {},
       sortable: {
-        type: Boolean,
         default: undefined
       },
       fitWidthByLabel: {
