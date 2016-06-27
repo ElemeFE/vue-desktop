@@ -199,7 +199,7 @@
             this.oldValue = null;
           }
         },
-        template: '<span>第<input class="d-pagination-editor" v-model="$parent.currentPage" @change="handleChange($event)" @focus="handleFocus($event)" style="width: 30px;" lazy />页, 共 {{$parent.pageCount}} 页</span>'
+        template: '<span>第<input class="d-pagination-editor" number v-model="$parent.currentPage" @change="handleChange($event)" @focus="handleFocus($event)" style="width: 30px;" lazy />页, 共 {{$parent.pageCount}} 页</span>'
       },
 
       Info: {
