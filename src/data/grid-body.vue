@@ -78,7 +78,7 @@
 
     filters: {
       orderBy(array, sortKey, reverse) {
-        if (!sortKey) {
+        if (!sortKey || this.$parent.sortingCustom) {
           return array;
         }
         var order = (reverse && reverse < 0) ? -1 : 1;
