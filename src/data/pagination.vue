@@ -440,7 +440,7 @@
     },
 
     ready() {
-      this.currentPage = this.getValidCurrentPage(this.currentPage);
+      // this.currentPage = this.getValidCurrentPage(this.currentPage);
     }
   };
 </script>
