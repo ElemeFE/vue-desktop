@@ -33,17 +33,18 @@
     },
 
     methods: {
-      getCheckedNodes(leafNodeOnly) {
+      getCheckedNodes(leafNodeOnly, exceptIndeterminate) {
         var checkedNodes = [];
+        var acceptable = exceptIndeterminate ? [true] : [true, 'half'];
         var walk = function(node) {
           var children = node.$children;
           children.forEach(function(child) {
             if (leafNodeOnly) {
-              if (child.isChecked && !child.hasChild) {
+              if (~acceptable.indexOf(child.isChecked) && !child.hasChild) {
                 checkedNodes.push(child.data);
               }
             } else {
-              if (child.isChecked) {
+              if (~acceptable.indexOf(child.isChecked)) {
                 checkedNodes.push(child.data);
               }
             }
