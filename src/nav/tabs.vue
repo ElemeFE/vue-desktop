@@ -24,6 +24,7 @@
   var getStyle = require('wind-dom').getStyle;
   var domUtil = require('wind-dom');
   import { throttle } from '../util';
+  var Vue = require('vue');
 
   export default {
     props: {
@@ -44,7 +45,10 @@
     },
 
     watch: {
-      activeTabIndex(newVal) {
+      activeTab(newVal) {
+        Vue.nextTick(() => {
+          this.$broadcast('onresize');
+        });
       },
       tabs() {
         this.$nextTick(() => {

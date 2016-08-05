@@ -667,6 +667,14 @@
     },
 
     computed: {
+      isAllSelected() {
+        var data = this.data || [];
+        if (data.length === 0) return false;
+        return data.filter(function(item) {
+          return item.$selected !== true;
+        }).length === 0;
+      },
+
       selection() {
         if (this.selectionMode === 'multiple') {
           var data = this.data || [];

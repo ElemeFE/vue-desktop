@@ -131,7 +131,7 @@
       let columnConfig = this.columnConfig;
 
       if (type === 'selection') {
-        headerTemplate = '<input type="checkbox" @click="$parent.toggleAllSelection($event)" />';
+        headerTemplate = '<input type="checkbox" v-model="$parent.isAllSelected" :false-value="false" @click="$parent.toggleAllSelection($event)" />';
         template = '<input type="checkbox" @change="$parent.$parent.toggleSelection($event, row)" v-model="row.$selected"/>';
         if (!width) {
           columnConfig.minWidth = columnConfig.width = columnConfig.realWidth = 30;
