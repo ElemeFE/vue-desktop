@@ -1,5 +1,5 @@
 import { default as validatorFnMap } from './validators';
-import { formatDate, merge, getPath } from '../util';
+import { formatDate, merge, getPath, getNestedPath } from '../util';
 import { default as defaultMessages } from './messages';
 
 var doValidate = function(object, property, descriptor, rule) {
@@ -14,8 +14,9 @@ var doValidate = function(object, property, descriptor, rule) {
     }
 
     var clonedRule = merge({ message: message || '' }, rule);
+    let target = getPath(object, property);
 
-    if (!validateFn.call(object, object[property], clonedRule, property, descriptor)) {
+    if (!validateFn.call(object, target, clonedRule, property, descriptor)) {
       object.$hints[property] = clonedRule.message;
 
       return false;
@@ -210,6 +211,12 @@ class Schema {
       }
     }
 
+    for (let nestedSchema in this.nestedSchema) {
+      if (this.nestedSchema.hasOwnProperty(nestedSchema)) {
+        result[nestedSchema] = this.nestedSchema[nestedSchema].newModel();
+      }
+    }
+
     initObject(result, this, true);
 
     return result;
@@ -220,7 +227,13 @@ class Schema {
   }
 
   getPropertyLabel(property) {
-    return (this.props[property] || {}).label || '';
+    let target;
+    if (property.indexOf('.') > -1) {
+      target = getNestedPath(this.props, property);
+    } else {
+      target = this.props[property];
+    }
+    return (target || {}).label || '';
   }
 
   getPropertyMapping(property, object, ...args) {
@@ -334,7 +347,12 @@ class Schema {
     initObject(object, this);
 
     const props = this.props;
-    const descriptor = props[property];
+    let descriptor;
+    if (property.indexOf('.') > -1) {
+      descriptor = getNestedPath(props, property);
+    } else {
+      descriptor = props[property];
+    }
 
     if (!descriptor) {
       console.warn(`no property ${property} found in object:`, object); // eslint-disable-line no-console

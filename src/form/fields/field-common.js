@@ -143,6 +143,9 @@ export default {
   onCreated() {
     if (this.$parent.$isForm) {
       this.form = this.$parent;
+      if (this.form && this.form.model) {
+        this.model = this.form.model;
+      }
     }
   },
 
@@ -176,10 +179,6 @@ export default {
 
       if (!this._props.editorWidth.raw && form.editorWidth) {
         this.editorWidth = form.editorWidth;
-      }
-
-      if (form && form.model) {
-        this.model = form.model;
       }
     }
 
