@@ -76,6 +76,12 @@ export function throttle(fn, delay) {
   };
 }
 
+export function getNestedPath(object, nestedProp) {
+  let propertyArr = nestedProp.split('.');
+  let property = propertyArr.pop();
+  return getPath(object, propertyArr.join('.')).fields[property];
+}
+
 export function getPath(object, prop) {
   prop = prop || '';
   var paths = prop.split('.');
