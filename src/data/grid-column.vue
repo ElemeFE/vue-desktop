@@ -207,7 +207,7 @@
         columnIndex = [].indexOf.call(parent.$el.children, this.$el);
       }
 
-      parent.columns.splice(columnIndex, 0, columnConfig);
+      parent.columns[columnIndex] = columnConfig;
 
       if (this.isChildColumn) {
         parent.columnConfig.columns = parent.columns;
