@@ -221,7 +221,7 @@
       <table class="grid-header" cellspacing="0" cellpadding="0" border="0" :style="{ width: fixedBodyWidth ? fixedBodyWidth + 'px' : '' }">
       </table>
     </div>
-    <div class="grid-fixed-body-wrapper" v-if="fixedColumnCount > 0" :style="{ top: headerHeight + 'px' }">
+    <div class="grid-fixed-body-wrapper" v-if="fixedColumnCount > 0" :style="{ top: headerHeight - 1 + 'px' }">
       <table class="grid-body" cellspacing="0" cellpadding="0" border="0" :style="{ width: fixedBodyWidth ? fixedBodyWidth + 'px' : '' }">
         <tbody></tbody>
       </table>
