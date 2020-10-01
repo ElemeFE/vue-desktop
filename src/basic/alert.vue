@@ -1,4 +1,4 @@
-<template>
+<template> TEMPLATE
   <div class="alert {{type}}" transition="alert">
     <i class="icon d-icon {{iconClass}}"></i>
     <div class="alert-content">
