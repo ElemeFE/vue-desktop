@@ -1,6 +1,6 @@
 install:
-	@if [ ! -f "$$(which istanbul)" ]; then npm install --registry=https://registry.npm.taobao.org -g browserify watchify mocha istanbul; fi
-	@npm install --registry=https://registry.npm.taobao.org
+	@if [ ! -f "$$(which istanbul)" ]; then npm install --registry=https://registry.npmmirror.com -g browserify watchify mocha istanbul; fi
+	@npm install --registry=https://registry.npmmirror.com
 
 dev: install
 	@npm run dev
